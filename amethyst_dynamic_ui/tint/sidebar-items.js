@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["UiButtonTintSystem",""],["UiButtonTintSystemDesc","Builds a `UiButtonTintSystem`."]]});

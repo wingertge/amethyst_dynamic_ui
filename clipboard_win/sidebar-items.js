@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["get_clipboard_string","Shortcut to retrieve string from clipboard."],["set_clipboard_string","Shortcut to set string onto clipboard."]],"mod":[["formats","Standard clipboard formats."],["image","Image module"],["raw","Raw bindings to Windows clipboard."]],"struct":[["Clipboard","Clipboard accessor."]]});

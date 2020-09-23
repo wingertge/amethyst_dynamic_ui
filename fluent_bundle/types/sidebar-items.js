@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["DisplayableNodeType",""],["FluentNumberCurrencyDisplayStyle",""],["FluentNumberStyle",""],["FluentValue","The `FluentValue` enum represents values which can be formatted to a String."]],"struct":[["DisplayableNode",""],["FluentNumber",""],["FluentNumberOptions",""]],"trait":[["AnyEq",""],["FluentType",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["directwrite","A loader that uses the Windows DirectWrite API to load and rasterize fonts."]]});

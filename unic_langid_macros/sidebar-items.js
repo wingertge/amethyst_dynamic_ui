@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["langid","Add one to an expression."]],"struct":[["LanguageIdentifier","`LanguageIdentifier` is a core struct representing a Unicode Language Identifier."],["TinyStr4","A tiny string that is from 1 to 4 non-NUL ASCII characters."],["TinyStr8","A tiny string that is from 1 to 8 non-NUL ASCII characters."]]});
