@@ -4,7 +4,7 @@ use crate::{
     layout::{
         centered::CenteredLayout,
         linear::{ItemAlignment, LinearLayout, LinearLayoutData, Spacing},
-        Frame, Layout, VarType
+        ExactFrame, Layout, VarType
     },
     prefab::{CalculatedDimensions, DynamicLayout, DynamicLayoutData, ExtraButtonData, Tinted},
     solver::LimnSolver,
@@ -280,7 +280,9 @@ fn walk_layout_tree<C: ToLayoutElement>(
             ..
         } => {
             let padding = padding.as_ref().copied().unwrap_or_else(Default::default);
-            layout.set_container(Frame { padding: padding * dpi });
+            layout.set_container(ExactFrame {
+                padding: padding * dpi
+            });
 
             if let Some(constraints) = constraints.as_ref() {
                 apply_constraints(&mut layout, constraints, dpi);
@@ -308,7 +310,7 @@ fn walk_layout_tree<C: ToLayoutElement>(
             todo!("Implement grid");
         }
         LayoutElement::Padded { padding, inner } => {
-            layout.set_container(Frame {
+            layout.set_container(ExactFrame {
                 padding: *padding * dpi
             });
             *index += 1;
@@ -354,6 +356,19 @@ fn walk_layout_tree<C: ToLayoutElement>(
             children_to_update.push(container_layout);
             children_to_update.push(header);
             children_to_update.push(content);
+        }
+        LayoutElement::Label {
+            constraints, text, ..
+        } => {
+            if let Some(constraints) = constraints {
+                constraints.min_height = Some(
+                    constraints
+                        .min_height
+                        .unwrap_or(0.0)
+                        .max(text.font_size * dpi + 2.0)
+                );
+                apply_constraints(&mut layout, constraints, dpi);
+            }
         }
         _ => {
             let constraints = element.constraints();

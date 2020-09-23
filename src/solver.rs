@@ -77,7 +77,9 @@ impl LimnSolver {
             self.solver.add_edit_variable(var, strength).unwrap();
         }
         if val.is_finite() {
-            self.solver.suggest_value(var, val).unwrap();
+            while let Err(err) = self.solver.suggest_value(var, val) {
+                log::warn!("Error occurred trying to suggest value: {:?}", err);
+            }
             debug!(
                 "suggest edit_var {} {}",
                 self.layouts.fmt_variable(var),

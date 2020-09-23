@@ -1,12 +1,10 @@
-use crate::{
-    prefab::DynamicUiLoaderSystemDesc,
-    resize_system::ResizeSystemDesc,
-    retrigger::UiButtonTintRetriggerSystemDesc,
-    tint::UiButtonTintSystemDesc,
-    NoCustomElements, ToLayoutElement
-};
 #[cfg(feature = "fmod")]
 use crate::sound::{UiFmodRetriggerSystemDesc, UiFmodSystemDesc};
+use crate::{
+    prefab::DynamicUiLoaderSystemDesc, resize_system::ResizeSystemDesc,
+    retrigger::UiButtonTintRetriggerSystemDesc, tint::UiButtonTintSystemDesc, NoCustomElements,
+    ToLayoutElement
+};
 use amethyst::{
     core::{
         shred::{DispatcherBuilder, World},

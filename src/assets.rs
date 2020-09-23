@@ -1,12 +1,26 @@
-use amethyst::assets::Handle;
-use amethyst::ui::FontAsset;
-use derive_deref::Deref;
-use amethyst::renderer::Texture;
-use parking_lot::RwLock;
 use crate::HashMap;
+use amethyst::{assets::Handle, renderer::Texture, ui::FontAsset};
+use parking_lot::RwLock;
+use std::ops::Deref;
 
-#[derive(Deref, Default)]
+#[derive(Default)]
 pub struct Fonts(RwLock<HashMap<String, Handle<FontAsset>>>);
 
-#[derive(Deref, Default)]
+impl Deref for Fonts {
+    type Target = RwLock<HashMap<String, Handle<FontAsset>>>;
+
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
+
+#[derive(Default)]
 pub struct Textures(RwLock<HashMap<String, Handle<Texture>>>);
+
+impl Deref for Textures {
+    type Target = RwLock<HashMap<String, Handle<Texture>>>;
+
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}

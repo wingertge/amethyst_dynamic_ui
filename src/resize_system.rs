@@ -1,7 +1,6 @@
 use crate::{
     prefab::{CalculatedDimensions, DynamicLayout, LayoutIdentifier},
-    solve_layout,
-    HashMap
+    solve_layout, HashMap
 };
 use amethyst::{
     core::{

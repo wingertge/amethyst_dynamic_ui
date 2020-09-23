@@ -143,12 +143,14 @@ impl LayoutContainer for Frame {
 }
 
 #[derive(Debug, Copy, Clone)]
-pub struct ExactFrame;
+pub struct ExactFrame {
+    pub padding: Padding
+}
 
 impl LayoutContainer for ExactFrame {
     fn add_child(&mut self, parent: &mut Layout, child: &mut Layout) {
         log::debug!("Constraining {} to frame of {}", child.id, parent.id);
-        child.add(match_layout(&parent));
+        child.add(match_layout(&parent).padding(self.padding));
     }
 }
 

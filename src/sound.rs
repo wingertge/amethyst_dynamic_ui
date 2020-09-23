@@ -1,4 +1,3 @@
-use amethyst_fmod::{AudioSystem};
 use amethyst::{
     core::ecs::{Component, DenseVecStorage, ReadExpect, System, SystemData, Write},
     derive::SystemDesc,
@@ -8,8 +7,8 @@ use amethyst::{
         UiEventType::*
     }
 };
-use serde::{Serialize, Deserialize};
-
+use amethyst_fmod::AudioSystem;
+use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub enum SoundEvent {

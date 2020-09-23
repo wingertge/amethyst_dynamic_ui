@@ -1,6 +1,7 @@
 use amethyst::core::math::{Point2, Vector2};
 use std::fmt;
 
+pub mod assets;
 mod bundle;
 #[allow(clippy::precedence)]
 pub mod constraint;
@@ -14,11 +15,11 @@ pub mod solver;
 pub mod sound;
 pub mod tint;
 mod widget;
-pub mod assets;
 
 pub use bundle::*;
-pub use widget::*;
 use fnv::FnvBuildHasher;
+pub use prefab::*;
+pub use widget::*;
 
 pub(crate) type HashMap<K, V> = std::collections::HashMap<K, V, FnvBuildHasher>;
 

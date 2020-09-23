@@ -1,7 +1,7 @@
 use crate::{
-    constraints,
     constraint,
     constraint::ConstraintBuilder,
+    constraints,
     layout::{Layout, LayoutContainer}
 };
 use cassowary::{strength::REQUIRED, WeightedRelation::EQ};

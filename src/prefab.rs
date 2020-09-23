@@ -1,23 +1,25 @@
+#[cfg(feature = "fmod")]
+use crate::sound::{SoundEvent, UiFmodRetrigger};
 use crate::{
+    assets::{Fonts, Textures},
     image_button_to_ui_button,
     layout::{Layout, LayoutId},
     retrigger::{UiButtonTintAction, UiButtonTintActionType, UiButtonTintRetrigger},
     solver::LimnSolver,
-    LayoutElement, ModalData, NoCustomElements, ToLayoutElement,
-    HashMap
+    HashMap, LayoutElement, ModalData, NoCustomElements, ToLayoutElement
 };
 use amethyst::{
     assets::{
-        AssetStorage, Format, Handle, Loader, PrefabData, PrefabLoaderSystem,
-        PrefabLoaderSystemDesc, Progress
+        AssetPrefab, AssetStorage, Format, Handle, Loader, Prefab, PrefabData, PrefabLoaderSystem,
+        PrefabLoaderSystemDesc, Progress, ProgressCounter
     },
     core::ecs::{shred::ResourceId, Component, DenseVecStorage, Entity, Read, WriteStorage},
     ecs::{ReadExpect, SystemData, World},
     error::{format_err, ResultExt},
-    renderer::{resources::Tint, Transparent},
+    renderer::{resources::Tint, TexturePrefab, Transparent},
     ui::{
-        Anchor, NoCustomUi, Stretch, ToNativeWidget, UiButtonData, UiImagePrefab, UiPrefab,
-        UiTextData, UiTransformData
+        Anchor, Stretch, UiButtonData, UiImageLoadPrefab, UiImagePrefab, UiTextData,
+        UiTransformData
     },
     window::ScreenDimensions,
     Error
@@ -28,8 +30,6 @@ use std::{
     ops::{Deref, Sub},
     sync::{Arc, Mutex}
 };
-#[cfg(feature = "fmod")]
-use crate::sound::{SoundEvent, UiFmodRetrigger};
 
 #[derive(Serialize, Deserialize, Clone, Default, Debug)]
 pub struct ExtraButtonData {
@@ -129,6 +129,124 @@ impl<'a> PrefabData<'a> for ExtraButtonData {
     }
 }
 
+pub struct UiCachedImage(pub UiImagePrefab);
+
+impl<'a> PrefabData<'a> for UiCachedImage {
+    type SystemData = (
+        Read<'a, Textures>,
+        <UiImagePrefab as PrefabData<'a>>::SystemData
+    );
+    type Result = ();
+
+    fn add_to_entity(
+        &self,
+        entity: Entity,
+        (_, inner_data): &mut Self::SystemData,
+        entities: &[Entity],
+        children: &[Entity]
+    ) -> Result<Self::Result, Error> {
+        self.0.add_to_entity(entity, inner_data, entities, children)
+    }
+
+    fn load_sub_assets(
+        &mut self,
+        progress: &mut ProgressCounter,
+        (cache, inner_data): &mut Self::SystemData
+    ) -> Result<bool, Error> {
+        match &mut (&mut self.0).0 {
+            UiImageLoadPrefab::Texture(tex)
+            | UiImageLoadPrefab::PartialTexture { tex, .. }
+            | UiImageLoadPrefab::NineSlice { tex, .. } => {
+                let res;
+                let name = match tex {
+                    TexturePrefab::File(name, _) => {
+                        let handle = {
+                            let cache = cache.read();
+                            cache.get(name).cloned()
+                        };
+                        if let Some(handle) = handle {
+                            *tex = TexturePrefab::Handle(handle);
+                            None
+                        } else {
+                            Some(name.clone())
+                        }
+                    }
+                    _ => None
+                };
+                if let Some(name) = name {
+                    let mut cache = cache.write();
+                    res = tex.load_sub_assets(progress, &mut inner_data.0)?;
+                    let new_handle = match tex {
+                        TexturePrefab::Handle(handle) => handle.clone(),
+                        _ => unreachable!()
+                    };
+                    cache.insert(name, new_handle);
+                } else {
+                    res = tex.load_sub_assets(progress, &mut inner_data.0)?;
+                }
+                Ok(res)
+            }
+            UiImageLoadPrefab::SolidColor(..) => Ok(false)
+        }
+    }
+}
+
+pub struct UiCachedText(pub UiTextData);
+
+impl<'a> PrefabData<'a> for UiCachedText {
+    type SystemData = (Read<'a, Fonts>, <UiTextData as PrefabData<'a>>::SystemData);
+    type Result = ();
+
+    fn add_to_entity(
+        &self,
+        entity: Entity,
+        (_, inner_data): &mut Self::SystemData,
+        entities: &[Entity],
+        children: &[Entity]
+    ) -> Result<Self::Result, Error> {
+        self.0.add_to_entity(entity, inner_data, entities, children)
+    }
+
+    fn load_sub_assets(
+        &mut self,
+        progress: &mut ProgressCounter,
+        (cache, ref mut inner): &mut Self::SystemData
+    ) -> Result<bool, Error> {
+        if let Some(font) = &mut self.0.font {
+            let res;
+            let name = match font {
+                AssetPrefab::File(name, _) => {
+                    let handle = {
+                        let cache = cache.read();
+                        cache.get(name).cloned()
+                    };
+                    if let Some(handle) = handle {
+                        *font = AssetPrefab::Handle(handle);
+                        None
+                    } else {
+                        Some(name.clone())
+                    }
+                }
+                _ => None
+            };
+            if let Some(name) = name {
+                let mut cache = cache.write();
+                res = font.load_sub_assets(progress, &mut inner.2)?;
+                let new_handle = match font {
+                    AssetPrefab::Handle(handle) => handle.clone(),
+                    _ => unreachable!()
+                };
+                cache.insert(name, new_handle);
+            } else {
+                res = font.load_sub_assets(progress, &mut inner.2)?;
+            }
+            Ok(res)
+        } else {
+            self.0.load_sub_assets(progress, inner)
+        }
+    }
+}
+
 #[derive(Debug, Clone, Default)]
 pub struct CalculatedDimensions {
     pub left: f32,
@@ -181,13 +299,29 @@ impl<'a> PrefabData<'a> for LayoutIdentifier {
     }
 }
 
-pub type CustomData<C = <NoCustomElements as ToLayoutElement>::PrefabData> = (
-    Option<DynamicLayout>,
-    Option<LayoutIdentifier>,
-    Option<ExtraButtonData>,
-    Option<Tinted>,
-    C
-);
+fn data<C: for<'a> PrefabData<'a> + Default + Send + Sync + 'static>(
+    transform: UiTransformData<()>,
+    button: Option<UiButtonData>,
+    layout: Option<DynamicLayout>,
+    ident: Option<LayoutIdentifier>,
+    extra_button: Option<ExtraButtonData>,
+    tint: Option<Tinted>,
+    image: Option<UiCachedImage>,
+    text: Option<UiCachedText>,
+    custom_data: C
+) -> UiPrefabData<C> {
+    (
+        Some(transform),
+        button,
+        layout,
+        ident,
+        extra_button,
+        tint,
+        image,
+        text,
+        custom_data
+    )
+}
 
 #[derive(Serialize, Deserialize, Clone, Copy, Default, Debug)]
 #[serde(transparent)]
@@ -246,7 +380,9 @@ pub struct DynamicUiFormat<C> {
 unsafe impl<C> Send for DynamicUiFormat<C> {}
 unsafe impl<C> Sync for DynamicUiFormat<C> {}
 
-impl<C> Format<UiPrefab<CustomData<C::PrefabData>, u32>> for DynamicUiFormat<C>
+type UiPrefab<C> = Prefab<UiPrefabData<C>>;
+
+impl<C> Format<UiPrefab<C::PrefabData>> for DynamicUiFormat<C>
 where
     C: ToLayoutElement + for<'de> Deserialize<'de>
 {
@@ -254,10 +390,7 @@ where
         "Dynamic Ui"
     }
 
-    fn import_simple(
-        &self,
-        bytes: Vec<u8>
-    ) -> Result<UiPrefab<CustomData<C::PrefabData>, u32>, amethyst::Error> {
+    fn import_simple(&self, bytes: Vec<u8>) -> Result<UiPrefab<C::PrefabData>, amethyst::Error> {
         use ron::de::Deserializer;
         let mut d = Deserializer::from_bytes(&bytes)
             .with_context(|_| format_err!("Failed deserializing Ron file"))?;
@@ -293,7 +426,7 @@ fn walk_ui_tree<C: ToLayoutElement>(
     widget: LayoutElement<C>,
     entity_index: usize,
     solution_index: &mut usize,
-    prefab: &mut UiPrefab<CustomData<C::PrefabData>>,
+    prefab: &mut UiPrefab<C::PrefabData>,
     layout: Option<DynamicLayout>,
     solution: &HashMap<usize, CalculatedDimensions>,
     dpi: f32,
@@ -307,18 +440,16 @@ fn walk_ui_tree<C: ToLayoutElement>(
             prefab
                 .entity(entity_index)
                 .expect("Unreachable: `Prefab` entity should always be set when walking ui tree")
-                .set_data((
-                    Some(transform),
-                    Some(image),
+                .set_data(data(
+                    transform,
+                    None,
+                    layout,
+                    Some(LayoutIdentifier(*solution_index)),
                     None,
                     None,
-                    (
-                        layout,
-                        Some(LayoutIdentifier(*solution_index)),
-                        None,
-                        None,
-                        custom_data
-                    )
+                    Some(UiCachedImage(image)),
+                    None,
+                    custom_data
                 ));
         }
         LayoutElement::Label { id, mut text, .. } => {
@@ -327,18 +458,16 @@ fn walk_ui_tree<C: ToLayoutElement>(
             prefab
                 .entity(entity_index)
                 .expect("Unreachable: `Prefab` entity should always be set when walking ui tree")
-                .set_data((
-                    Some(transform),
+                .set_data(data(
+                    transform,
                     None,
-                    Some(text),
+                    layout,
+                    Some(LayoutIdentifier(*solution_index)),
                     None,
-                    (
-                        layout,
-                        Some(LayoutIdentifier(*solution_index)),
-                        None,
-                        None,
-                        custom_data
-                    )
+                    None,
+                    None,
+                    Some(UiCachedText(text)),
+                    custom_data
                 ));
         }
         LayoutElement::Linear {
@@ -361,18 +490,16 @@ fn walk_ui_tree<C: ToLayoutElement>(
             prefab
                 .entity(entity_index)
                 .expect("Unreachable: `Prefab` entity should always be set when walking ui tree")
-                .set_data((
-                    Some(transform),
-                    background,
+                .set_data(data(
+                    transform,
                     None,
+                    layout,
+                    Some(LayoutIdentifier(*solution_index)),
                     None,
-                    (
-                        layout,
-                        Some(LayoutIdentifier(*solution_index)),
-                        None,
-                        tint,
-                        custom_data
-                    )
+                    tint,
+                    background.map(UiCachedImage),
+                    None,
+                    custom_data
                 ));
 
             *solution_index += 1; // padding placeholder
@@ -405,18 +532,16 @@ fn walk_ui_tree<C: ToLayoutElement>(
             prefab
                 .entity(entity_index)
                 .expect("Unreachable: `Prefab` entity should always be set when walking ui tree")
-                .set_data((
-                    Some(transform),
-                    background,
+                .set_data(data(
+                    transform,
                     None,
+                    layout,
+                    Some(LayoutIdentifier(*solution_index)),
                     None,
-                    (
-                        layout,
-                        Some(LayoutIdentifier(*solution_index)),
-                        None,
-                        tint,
-                        custom_data
-                    )
+                    tint,
+                    background.map(UiCachedImage),
+                    None,
+                    custom_data
                 ));
         }
         LayoutElement::Button {
@@ -444,33 +569,40 @@ fn walk_ui_tree<C: ToLayoutElement>(
                 .and_then(|button| button.normal_tint.as_ref())
                 .copied()
                 .unwrap_or_else(Default::default);
+            let image = button
+                .normal_image
+                .take()
+                .map(UiImagePrefab)
+                .map(UiCachedImage);
 
             prefab
                 .entity(entity_index)
                 .expect("Unreachable: `Prefab` entity should always be set when walking ui tree")
-                .set_data((
-                    Some(transform),
-                    button.normal_image.take().map(UiImagePrefab),
-                    None,
+                .set_data(data(
+                    transform,
                     Some(button),
-                    (
-                        layout,
-                        Some(LayoutIdentifier(*solution_index)),
-                        extra_button,
-                        Some(tint),
-                        custom_data
-                    )
+                    layout,
+                    Some(LayoutIdentifier(*solution_index)),
+                    extra_button,
+                    Some(tint),
+                    image,
+                    None,
+                    custom_data
                 ));
 
             // Text isn't in the layout solver, don't pass a layout ID
             prefab.add(
                 Some(entity_index),
-                Some((
-                    Some(button_text_transform(id)),
+                Some(data(
+                    button_text_transform(id),
                     None,
-                    Some(text),
                     None,
-                    (None, None, None, None, Default::default())
+                    None,
+                    None,
+                    None,
+                    None,
+                    Some(UiCachedText(text)),
+                    Default::default()
                 ))
             );
         }
@@ -494,31 +626,38 @@ fn walk_ui_tree<C: ToLayoutElement>(
             prefab
                 .entity(entity_index)
                 .expect("Unreachable: `Prefab` entity should always be set when walking ui tree")
-                .set_data((
-                    Some(transform),
-                    button.normal_image.take().map(UiImagePrefab),
+                .set_data(data(
+                    transform,
                     None,
+                    layout,
+                    Some(LayoutIdentifier(*solution_index)),
+                    extra_button,
+                    Some(tint),
+                    button
+                        .normal_image
+                        .take()
+                        .map(UiImagePrefab)
+                        .map(UiCachedImage),
                     None,
-                    (
-                        layout,
-                        Some(LayoutIdentifier(*solution_index)),
-                        extra_button,
-                        Some(tint),
-                        custom_data
-                    )
+                    custom_data
                 ));
 
             prefab.add(
                 Some(entity_index),
-                Some((
-                    Some(button_icon_transform(
-                        id,
-                        image_button.margin.take().unwrap_or(8.0)
-                    )),
-                    image_button.icon.take().map(UiImagePrefab),
+                Some(data(
+                    button_icon_transform(id, image_button.margin.take().unwrap_or(8.0)),
                     None,
                     None,
-                    (None, None, None, None, Default::default())
+                    None,
+                    None,
+                    None,
+                    image_button
+                        .icon
+                        .take()
+                        .map(UiImagePrefab)
+                        .map(UiCachedImage),
+                    None,
+                    Default::default()
                 ))
             );
         }
@@ -554,12 +693,16 @@ fn walk_ui_tree<C: ToLayoutElement>(
             prefab
                 .entity(entity_index)
                 .expect("Unreachable: `Prefab` entity should always be set when walking ui tree")
-                .set_data((
-                    Some(background_transform),
-                    Some(options.background),
+                .set_data(data(
+                    background_transform,
+                    None,
+                    layout,
                     None,
                     None,
-                    (layout, None, None, None, custom_data)
+                    None,
+                    Some(UiCachedImage(options.background)),
+                    None,
+                    custom_data
                 ));
 
             *solution_index += 1;
@@ -568,18 +711,16 @@ fn walk_ui_tree<C: ToLayoutElement>(
             let container_transform = transform(id, container_solution, background_solution);
             let container = prefab.add(
                 Some(entity_index),
-                Some((
-                    Some(container_transform),
+                Some(data(
+                    container_transform,
+                    None,
+                    None,
+                    Some(LayoutIdentifier(*solution_index)),
                     None,
                     None,
                     None,
-                    (
-                        None,
-                        Some(LayoutIdentifier(*solution_index)),
-                        None,
-                        None,
-                        Default::default()
-                    )
+                    None,
+                    Default::default()
                 ))
             );
 
@@ -694,7 +835,7 @@ impl<'a> PrefabData<'a> for DynamicLayout {
 #[derive(SystemData)]
 pub struct DynamicUiLoader<'a, C: ToLayoutElement = NoCustomElements> {
     loader: ReadExpect<'a, Loader>,
-    storage: Read<'a, AssetStorage<UiPrefab<CustomData<C::PrefabData>, u32>>>,
+    storage: Read<'a, AssetStorage<UiPrefab<C::PrefabData>>>,
     screen_dimensions: ReadExpect<'a, ScreenDimensions>
 }
 
@@ -706,7 +847,7 @@ where
         &self,
         name: N,
         progress: P
-    ) -> Handle<UiPrefab<CustomData<C::PrefabData>, u32>> {
+    ) -> Handle<UiPrefab<C::PrefabData>> {
         let format = DynamicUiFormat::<C> {
             width: self.screen_dimensions.width(),
             height: self.screen_dimensions.height(),
@@ -718,15 +859,19 @@ where
 }
 
 pub type DynamicUiLoaderSystemDesc<C = <NoCustomElements as ToLayoutElement>::PrefabData> =
-    PrefabLoaderSystemDesc<UiPrefabData<CustomData<C>>>;
+    PrefabLoaderSystemDesc<UiPrefabData<C>>;
 
 pub type DynamicUiLoaderSystem<C = <NoCustomElements as ToLayoutElement>::PrefabData> =
-    PrefabLoaderSystem<UiPrefabData<CustomData<C>>>;
+    PrefabLoaderSystem<UiPrefabData<C>>;
 
-type UiPrefabData<D = <NoCustomUi as ToNativeWidget>::PrefabData, W = u32, G = ()> = (
-    Option<UiTransformData<G>>,
-    Option<UiImagePrefab>,
-    Option<UiTextData>,
-    Option<UiButtonData<W>>,
-    D
+type UiPrefabData<C = <NoCustomElements as ToLayoutElement>::PrefabData> = (
+    Option<UiTransformData<()>>,
+    Option<UiButtonData<u32>>,
+    Option<DynamicLayout>,
+    Option<LayoutIdentifier>,
+    Option<ExtraButtonData>,
+    Option<Tinted>,
+    Option<UiCachedImage>,
+    Option<UiCachedText>,
+    C
 );
