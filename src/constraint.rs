@@ -2,7 +2,7 @@ use cassowary::{strength::*, Constraint, Expression, Term, Variable, WeightedRel
 use serde::{Deserialize, Serialize};
 
 use super::{layout::LAYOUT, Point, Size};
-use crate::gui::layout::{LayoutRef, LayoutVars};
+use crate::layout::{LayoutRef, LayoutVars};
 use std::ops::Mul;
 
 pub fn width(width: f32) -> WidgetConstraintBuilder {

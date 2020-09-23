@@ -1,11 +1,10 @@
-use crate::{
-    constraints,
-};
+use crate::constraints;
 use cassowary::{strength::*, Constraint, Variable, WeightedRelation::*};
 use derivative::Derivative;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use crate::layout::{LayoutId, Layout, LayoutContainer, LayoutVars};
+use crate::constraint::*;
 
 #[derive(Serialize, Deserialize, Clone, Debug, Derivative)]
 #[derivative(Default)]

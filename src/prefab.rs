@@ -3,7 +3,6 @@ use crate::{
     layout::{Layout, LayoutId},
     retrigger::{UiButtonTintAction, UiButtonTintActionType, UiButtonTintRetrigger},
     solver::LimnSolver,
-    sound::UiFmodRetrigger,
     LayoutElement, ModalData, NoCustomElements, ToLayoutElement,
     HashMap
 };
@@ -29,31 +28,47 @@ use std::{
     ops::{Deref, Sub},
     sync::{Arc, Mutex}
 };
+#[cfg(feature = "fmod")]
+use crate::sound::{SoundEvent, UiFmodRetrigger};
 
 #[derive(Serialize, Deserialize, Clone, Default, Debug)]
 pub struct ExtraButtonData {
     normal_tint: Option<Tinted>,
     hover_tint: Option<Tint>,
     click_tint: Option<Tint>,
+    #[cfg(feature = "fmod")]
     click_sound: Option<SoundEvent>,
+    #[cfg(feature = "fmod")]
     hover_sound: Option<SoundEvent>,
+    #[cfg(feature = "fmod")]
     release_sound: Option<SoundEvent>
 }
 
+#[cfg(not(feature = "fmod"))]
+type ButtonSystemData<'a> = WriteStorage<'a, UiButtonTintRetrigger>;
+
+#[cfg(feature = "fmod")]
+type ButtonSystemData<'a> = (
+    WriteStorage<'a, UiButtonTintRetrigger>,
+    WriteStorage<'a, UiFmodRetrigger>
+);
+
 impl<'a> PrefabData<'a> for ExtraButtonData {
-    type SystemData = (
-        WriteStorage<'a, UiButtonTintRetrigger>,
-        WriteStorage<'a, UiFmodRetrigger>
-    );
+    type SystemData = ButtonSystemData<'a>;
     type Result = ();
 
     fn add_to_entity(
         &self,
         entity: Entity,
-        (ref mut tint_retriggers, ref mut sound_retriggers): &mut Self::SystemData,
+        data: &mut Self::SystemData,
         _: &[Entity],
         _: &[Entity]
     ) -> Result<Self::Result, Error> {
+        #[cfg(not(feature = "fmod"))]
+        let tint_retriggers = data;
+        #[cfg(feature = "fmod")]
+        let (ref mut tint_retriggers, ref mut sound_retriggers) = data;
+
         let mut on_click_start = None;
         let mut on_click_stop = None;
         let mut on_hover_start = None;
@@ -97,6 +112,7 @@ impl<'a> PrefabData<'a> for ExtraButtonData {
             tint_retriggers.insert(entity, retrigger)?;
         }
 
+        #[cfg(feature = "fmod")]
         if self.hover_sound.is_some() || self.click_sound.is_some() || self.release_sound.is_some()
         {
             let retrigger = UiFmodRetrigger {

@@ -8,6 +8,7 @@ use amethyst::{
         UiEventType::*
     }
 };
+use serde::{Serialize, Deserialize};
 
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
