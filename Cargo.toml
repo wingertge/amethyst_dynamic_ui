@@ -1,0 +1,17 @@
+[package]
+name = "amethyst_dynamic_ui"
+version = "0.1.0"
+authors = ["Genna Wingert <wingertge@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[features]
+fmod = ["amethyst_fmod"]
+
+[dependencies]
+amethyst_fmod = { git = "https://github.com/wingertge/amethyst_fmod.git", optional = true }
+amethyst = "0.15"
+cassowary = "0.3"
+fnv = "1"
+parking_lot = "0.11"
+serde = "1"
