@@ -21,3 +21,7 @@ derive_deref = "1"
 derive-new = "0.5"
 log = "0.4"
 lazy_static = "1"
+
+[dev-dependencies.amethyst]
+version = "0.15"
+features = ["vulkan"]
