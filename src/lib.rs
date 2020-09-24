@@ -14,6 +14,7 @@ pub mod resize_system;
 pub mod retrigger;
 pub mod solver;
 #[cfg_attr(feature = "document", doc(cfg(feature = "fmod")))]
+#[cfg(feature = "fmod")]
 pub mod sound;
 pub mod tint;
 mod widget;
