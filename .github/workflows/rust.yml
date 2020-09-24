@@ -28,7 +28,7 @@ jobs:
     - name: Build
       run: cargo build --verbose --features fmod
     - name: Document
-      run: cargo +nightly doc --features "fmod document"
+      run: RUSTDOCFLAGS="--enable-index-page -Zunstable-options" cargo +nightly doc --features "fmod document"
     - name: Deploy docs 🚀
       uses: JamesIves/github-pages-deploy-action@3.6.1
       with:
