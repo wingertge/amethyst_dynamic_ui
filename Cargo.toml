@@ -10,7 +10,8 @@ fmod = ["amethyst_fmod"]
 document = []
 
 [dependencies]
-amethyst_fmod = { git = "https://github.com/wingertge/amethyst_fmod.git", optional = true }
+# amethyst_fmod = { git = "https://github.com/wingertge/amethyst_fmod.git", optional = true }
+amethyst_fmod = { path = "../amethyst_fmod", optional = true }
 amethyst = "0.15"
 cassowary = "0.3"
 fnv = "1"
