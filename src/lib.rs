@@ -1,3 +1,5 @@
+#![cfg_attr(feature = "document", feature(doc_cfg))]
+
 use amethyst::core::math::{Point2, Vector2};
 use std::fmt;
 
@@ -11,7 +13,7 @@ pub mod prefab;
 pub mod resize_system;
 pub mod retrigger;
 pub mod solver;
-#[cfg(feature = "fmod")]
+#[cfg_attr(feature = "document", doc(cfg(feature = "fmod")))]
 pub mod sound;
 pub mod tint;
 mod widget;

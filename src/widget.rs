@@ -49,12 +49,12 @@ fn default_modal_background() -> UiImagePrefab {
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct SizeConstraints {
-    min_width: Option<f32>,
-    min_height: Option<f32>,
-    max_width: Option<f32>,
-    max_height: Option<f32>,
-    preferred_width: Option<f32>,
-    preferred_height: Option<f32>
+    pub min_width: Option<f32>,
+    pub min_height: Option<f32>,
+    pub max_width: Option<f32>,
+    pub max_height: Option<f32>,
+    pub preferred_width: Option<f32>,
+    pub preferred_height: Option<f32>
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug, Derivative)]

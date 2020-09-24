@@ -33,15 +33,18 @@ use std::{
 
 #[derive(Serialize, Deserialize, Clone, Default, Debug)]
 pub struct ExtraButtonData {
-    normal_tint: Option<Tinted>,
-    hover_tint: Option<Tint>,
-    click_tint: Option<Tint>,
+    pub normal_tint: Option<Tinted>,
+    pub hover_tint: Option<Tint>,
+    pub click_tint: Option<Tint>,
+    #[cfg_attr(feature = "document", doc(cfg(feature = "fmod")))]
     #[cfg(feature = "fmod")]
-    click_sound: Option<SoundEvent>,
+    pub click_sound: Option<SoundEvent>,
+    #[cfg_attr(feature = "document", doc(cfg(feature = "fmod")))]
     #[cfg(feature = "fmod")]
-    hover_sound: Option<SoundEvent>,
+    pub hover_sound: Option<SoundEvent>,
+    #[cfg_attr(feature = "document", doc(cfg(feature = "fmod")))]
     #[cfg(feature = "fmod")]
-    release_sound: Option<SoundEvent>
+    pub release_sound: Option<SoundEvent>
 }
 
 #[cfg(not(feature = "fmod"))]

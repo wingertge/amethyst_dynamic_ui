@@ -7,6 +7,7 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [features]
 fmod = ["amethyst_fmod"]
+document = []
 
 [dependencies]
 amethyst_fmod = { git = "https://github.com/wingertge/amethyst_fmod.git", optional = true }
@@ -25,3 +26,6 @@ lazy_static = "1"
 [dev-dependencies.amethyst]
 version = "0.15"
 features = ["vulkan"]
+
+[package.metadata.docs.rs]
+all-features = true
