@@ -25,7 +25,7 @@ lazy_static = "1"
 
 [dev-dependencies.amethyst]
 version = "0.15"
-features = ["vulkan"]
+features = ["empty"]
 
 [package.metadata.docs.rs]
 all-features = true
