@@ -1,1 +1,0 @@
-initSidebarItems({"enum":[["Backend",""]],"struct":[["CommandQueue",""],["Device",""],["Instance",""],["PhysicalDevice",""],["QueueFamily",""],["RawInstance",""],["Unsupported",""],["VK_ENTRY",""]],"type":[["RawCommandQueue",""]]});

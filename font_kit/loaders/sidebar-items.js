@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["directwrite","A loader that uses the Windows DirectWrite API to load and rasterize fonts."]]});
+initSidebarItems({"mod":[["freetype","A cross-platform loader that uses the FreeType library to load and rasterize fonts."]]});

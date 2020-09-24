@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["DirectWriteSource","A source that contains the installed fonts on Windows."]]});

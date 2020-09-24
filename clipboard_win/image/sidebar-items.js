@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["Bitmap","Bitmap image from clipboard"]]});

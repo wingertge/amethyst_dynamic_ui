@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["Font","A loader that uses the Windows DirectWrite API to load and rasterize fonts."],["NativeFont","DirectWrite's representation of a font."]]});
