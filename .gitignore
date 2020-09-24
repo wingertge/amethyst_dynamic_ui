@@ -1,4 +1,2 @@
 /target
 Cargo.lock
-/lib
-build.rs
