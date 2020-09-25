@@ -452,6 +452,15 @@
 <span id="451">451</span>
 <span id="452">452</span>
 <span id="453">453</span>
+<span id="454">454</span>
+<span id="455">455</span>
+<span id="456">456</span>
+<span id="457">457</span>
+<span id="458">458</span>
+<span id="459">459</span>
+<span id="460">460</span>
+<span id="461">461</span>
+<span id="462">462</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">constraint</span>,
@@ -577,6 +586,11 @@
     }
 }
 
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">I18nData</span> {
+    <span class="kw">pub</span> <span class="ident">context</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>
+}
+
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">large_enum_variant</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">LayoutElement</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">ToLayoutElement</span> <span class="op">=</span> <span class="ident">NoCustomElements</span><span class="op">&gt;</span> {
@@ -590,6 +604,8 @@
     <span class="ident">Button</span> {
         <span class="ident">id</span>: <span class="ident">String</span>,
         <span class="ident">button</span>: <span class="ident">UiButtonData</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
+        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>)]</span>
+        <span class="ident">i18n</span>: <span class="ident">I18nData</span>,
         <span class="ident">extra_button</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ExtraButtonData</span><span class="op">&gt;</span>,
         <span class="ident">constraints</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SizeConstraints</span><span class="op">&gt;</span>
     },
@@ -602,6 +618,8 @@
     <span class="ident">Label</span> {
         <span class="ident">id</span>: <span class="ident">String</span>,
         <span class="ident">text</span>: <span class="ident">UiTextData</span>,
+        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>)]</span>
+        <span class="ident">i18n</span>: <span class="ident">I18nData</span>,
         <span class="ident">constraints</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SizeConstraints</span><span class="op">&gt;</span>
     },
     <span class="ident">Linear</span> {
