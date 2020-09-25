@@ -122,6 +122,11 @@ pub(crate) fn image_button_to_ui_button(button: &mut ImageButtonData) -> UiButto
     }
 }
 
+#[derive(Serialize, Deserialize, Clone, Debug, Default)]
+pub struct I18nData {
+    pub context: Option<String>
+}
+
 #[derive(Serialize, Deserialize, Clone, Debug)]
 #[allow(clippy::large_enum_variant)]
 pub enum LayoutElement<C: ToLayoutElement = NoCustomElements> {
@@ -135,6 +140,8 @@ pub enum LayoutElement<C: ToLayoutElement = NoCustomElements> {
     Button {
         id: String,
         button: UiButtonData<u32>,
+        #[serde(default)]
+        i18n: I18nData,
         extra_button: Option<ExtraButtonData>,
         constraints: Option<SizeConstraints>
     },
@@ -147,6 +154,8 @@ pub enum LayoutElement<C: ToLayoutElement = NoCustomElements> {
     Label {
         id: String,
         text: UiTextData,
+        #[serde(default)]
+        i18n: I18nData,
         constraints: Option<SizeConstraints>
     },
     Linear {

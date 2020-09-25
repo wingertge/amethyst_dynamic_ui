@@ -28,11 +28,11 @@ jobs:
     - name: Build
       run: cargo build --verbose --features fmod
     - name: Document
-      run: RUSTDOCFLAGS="--enable-index-page -Zunstable-options" cargo +nightly doc --features "fmod document"
+      run: RUSTDOCFLAGS="--enable-index-page -Z unstable-options" cargo +nightly doc --features "fmod document"
     - name: Deploy docs 🚀
       uses: JamesIves/github-pages-deploy-action@3.6.1
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH: gh-pages
         FOLDER: target/doc
-        CLEAN: true
+        CLEAN: false

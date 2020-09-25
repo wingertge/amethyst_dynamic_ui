@@ -58,7 +58,8 @@ impl<'s> System<'s> for ResizeSystem {
                     layout_ids,
                     hierarchy,
                     dimensions,
-                    self.screen_size
+                    self.screen_size,
+                    None
                 );
             }
             self.screen_size = dimensions;
@@ -67,18 +68,26 @@ impl<'s> System<'s> for ResizeSystem {
 }
 
 fn update_tree(
-    solution: &mut HashMap<usize, CalculatedDimensions>,
+    solutions: &HashMap<usize, CalculatedDimensions>,
     item: Entity,
     children: &[Entity],
     transforms: &mut WriteStorage<'_, UiTransform>,
     layout_ids: &ReadStorage<'_, LayoutIdentifier>,
     hierarchy: &ParentHierarchy,
     (width, height): (f32, f32),
-    (last_width, last_height): (f32, f32)
+    (last_width, last_height): (f32, f32),
+    parent: Option<&CalculatedDimensions>
 ) {
+    let mut solution = None;
     if let Some((transform, id)) = transforms.get_mut(item).zip(layout_ids.get(item)) {
         log::debug!("Updating transform for {}", transform.id);
-        if let Some(dims) = solution.get(id) {
+        solution = solutions.get(id);
+        if let Some(dims) = solution {
+            let dims = if let Some(parent) = parent {
+                dims - parent
+            } else {
+                dims.clone()
+            };
             transform.local_x = dims.left;
             transform.local_y = -dims.top;
             transform.width = dims.width;
@@ -89,14 +98,15 @@ fn update_tree(
 
     for child in children {
         update_tree(
-            solution,
+            solutions,
             *child,
             hierarchy.children(*child),
             transforms,
             layout_ids,
             hierarchy,
             (width, height),
-            (last_width, last_height)
+            (last_width, last_height),
+            solution
         );
     }
 }
