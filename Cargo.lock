@@ -264,7 +264,7 @@ dependencies = [
 [[package]]
 name = "amethyst_fmod"
 version = "0.1.0"
-source = "git+https://github.com/wingertge/amethyst_fmod.git#ea213f72331d2bdd34643480f9f2eec0ea4f89fc"
+source = "git+https://github.com/wingertge/amethyst_fmod.git#b83fdba140133023197b33ff5f4145aa1fb9d061"
 dependencies = [
  "amethyst",
  "fmod-sys",
