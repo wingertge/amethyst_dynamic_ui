@@ -13,7 +13,7 @@ use crate::{
 use amethyst::{
     assets::{AssetPrefab, PrefabData},
     audio::Source,
-    ui::{Anchor, UiButtonData, UiImageLoadPrefab, UiImagePrefab, UiTextData}
+    ui::{Anchor, FontAsset, UiButtonData, UiImageLoadPrefab, UiImagePrefab, UiTextData}
 };
 use cassowary::strength::*;
 use derivative::Derivative;
@@ -81,6 +81,19 @@ impl ToLayoutElement for NoCustomElements {
     fn visit_layout(&mut self, _: &mut Layout, _: &mut Vec<Layout>, _: f32, _: &mut usize) {
         unreachable!()
     }
+}
+
+#[derive(Serialize, Deserialize, Clone, Derivative, Default)]
+#[derivative(Debug)]
+pub struct UiExtraTextData {
+    #[serde(default)]
+    pub is_html: bool,
+    #[derivative(Debug = "ignore")]
+    pub font_bold: Option<AssetPrefab<FontAsset>>,
+    #[derivative(Debug = "ignore")]
+    pub font_italic: Option<AssetPrefab<FontAsset>>,
+    #[derivative(Debug = "ignore")]
+    pub font_bold_italic: Option<AssetPrefab<FontAsset>>
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug, Default)]
@@ -156,6 +169,7 @@ pub enum LayoutElement<C: ToLayoutElement = NoCustomElements> {
         text: UiTextData,
         #[serde(default)]
         i18n: I18nData,
+        extra_text: Option<UiExtraTextData>,
         constraints: Option<SizeConstraints>
     },
     Linear {

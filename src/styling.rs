@@ -1,15 +1,16 @@
 use crate::HashMap;
 use amethyst::{
+    assets::AssetStorage,
     core::ecs::{Component, DenseVecStorage},
     renderer::palette::Srgba,
-    ui::{Anchor, FontHandle, LineMode}
+    ui::{FontAsset, FontHandle, TextSection}
 };
 use derivative::Derivative;
+use glyph_brush::rusttype::Scale;
 use itertools::Itertools;
 use regex::{Captures, Regex};
 use serde::{Deserialize, Serialize};
 use std::{collections::VecDeque, num::ParseIntError, str::FromStr};
-use amethyst::ui::{TextSection, UiMultipartText};
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Style {
@@ -33,23 +34,38 @@ pub struct FontFamily {
     pub bold_italic: Option<FontHandle>
 }
 
-pub struct HtmlText;
+pub struct HtmlText {
+    font: FontFamily,
+    default_color: [f32; 4],
+    default_font_size: f32
+}
+
+impl Component for HtmlText {
+    type Storage = DenseVecStorage<Self>;
+}
 
 impl HtmlText {
-    pub fn new(
-        font: FontFamily,
+    pub fn new(font: FontFamily, color: [f32; 4], font_size: f32) -> Self {
+        Self {
+            font,
+            default_color: color,
+            default_font_size: font_size
+        }
+    }
+
+    pub fn parse(
+        &self,
         text: &str,
-        color: [f32; 4],
-        font_size: f32,
-        line_mode: LineMode,
-        align: Anchor,
-        styles: &Styles
-    ) -> UiMultipartText {
-        let parsed = parse_html(text, color, font_size, font, &styles.0);
-        UiMultipartText::new(
-            parsed,
-            line_mode,
-            align
+        styles: &Styles,
+        fonts: &AssetStorage<FontAsset>
+    ) -> Vec<TextSection> {
+        parse_html(
+            text,
+            self.default_color,
+            self.default_font_size,
+            &self.font,
+            &styles.0,
+            fonts
         )
     }
 }
@@ -86,7 +102,14 @@ impl StyleStack<'_> {
     }
 }
 
-fn parse_html(text: &str, default_color: [f32; 4], default_font_size: f32, font: FontFamily, styles: &HashMap<String, Style>) -> Vec<TextSection> {
+fn parse_html(
+    text: &str,
+    default_color: [f32; 4],
+    default_font_size: f32,
+    font: &FontFamily,
+    styles: &HashMap<String, Style>,
+    fonts: &AssetStorage<FontAsset>
+) -> Vec<TextSection> {
     let styles_regex = Regex::new(r#"(<style="(?P<key>.*)">)(?P<content>.*)(</style>)"#).unwrap();
     let expanded = styles_regex.replace_all(text, |caps: &Captures| {
         let key = &caps["key"];
@@ -102,11 +125,7 @@ fn parse_html(text: &str, default_color: [f32; 4], default_font_size: f32, font:
             content.to_string()
         }
     });
-    let mut style = StyleStack::new(
-        default_color,
-        default_font_size,
-        font.regular.clone()
-    );
+    let mut style = StyleStack::new(default_color, default_font_size, font.regular.clone());
     let mut sections = Vec::new();
     let tag_split_regex =
         Regex::new(r#"(<(?P<closing>/)?(?P<tag>.*?)(=(?P<tag_value>[^>]*))?>)|(?P<text>[^<]*)"#)
@@ -117,7 +136,7 @@ fn parse_html(text: &str, default_color: [f32; 4], default_font_size: f32, font:
         let tag_value = part.name("tag_value");
         let content = part.name("text");
         if let Some(tag) = tag {
-            apply_style(&mut style, &mut sections);
+            apply_style(&mut style, &mut sections, fonts);
 
             let tag_type = TagType::from_tag(tag.as_str());
             match tag_type {
@@ -157,7 +176,7 @@ fn parse_html(text: &str, default_color: [f32; 4], default_font_size: f32, font:
                             FontStyle::Italic | FontStyle::BoldItalic => FontStyle::BoldItalic,
                             _ => FontStyle::Bold
                         };
-                        let handle = font_from_style(style.font_style, &text.font);
+                        let handle = font_from_style(style.font_style, &font);
                         style.font.push_front(handle);
                     }
                 }
@@ -173,7 +192,7 @@ fn parse_html(text: &str, default_color: [f32; 4], default_font_size: f32, font:
                             FontStyle::Bold | FontStyle::BoldItalic => FontStyle::BoldItalic,
                             _ => FontStyle::Italic
                         };
-                        let handle = font_from_style(style.font_style, &text.font);
+                        let handle = font_from_style(style.font_style, &font);
                         style.font.push_front(handle);
                     }
                 }
@@ -185,13 +204,13 @@ fn parse_html(text: &str, default_color: [f32; 4], default_font_size: f32, font:
                 }
             }
         } else if let Some(text) = content {
-            apply_style(&mut style, &mut sections);
+            apply_style(&mut style, &mut sections, fonts);
             style.text = Some(text.as_str());
         }
     }
 
     // Apply style to remaining text
-    apply_style(&mut style, &mut sections);
+    apply_style(&mut style, &mut sections, fonts);
 
     if style.color.len() > 1
         || style.font.len() > 1
@@ -209,7 +228,11 @@ fn parse_html(text: &str, default_color: [f32; 4], default_font_size: f32, font:
     sections
 }
 
-fn apply_style(style: &mut StyleStack, sections: &mut Vec<TextSection>) {
+fn apply_style(
+    style: &mut StyleStack,
+    sections: &mut Vec<TextSection>,
+    fonts: &AssetStorage<FontAsset>
+) {
     fn section(text: String, style: &StyleStack) -> TextSection {
         TextSection {
             text,
@@ -221,6 +244,13 @@ fn apply_style(style: &mut StyleStack, sections: &mut Vec<TextSection>) {
 
     if let Some(text) = style.text.take() {
         if style.small_caps {
+            let x_height = fonts
+                .get(&style.font[0])
+                .map(|font| font.0.glyph('x').scaled(Scale::uniform(style.font_size[0])))
+                .and_then(|x| x.exact_bounding_box())
+                .map(|bbox| bbox.height() * 2.0)
+                .unwrap_or_else(|| style.font_size[0] / 2.0);
+            log::debug!("X height: {}", x_height);
             // group consecutive lowercase chars separately from uppercase and uncased.
             // lowercase will be upper-cased and rendered at 0.5em, the rest at 1em
             let groups = text.chars().group_by(|c| !c.is_uppercase());
@@ -228,7 +258,7 @@ fn apply_style(style: &mut StyleStack, sections: &mut Vec<TextSection>) {
                 let text = chars.collect::<String>();
                 let mut section = section(text, style);
                 if is_lower {
-                    section.font_size *= 0.5;
+                    section.font_size = x_height;
                     section.text = section.text.to_uppercase();
                 }
                 sections.push(section);

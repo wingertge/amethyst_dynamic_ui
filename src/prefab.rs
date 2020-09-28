@@ -6,20 +6,21 @@ use crate::{
     layout::{Layout, LayoutId},
     retrigger::{UiButtonTintAction, UiButtonTintActionType, UiButtonTintRetrigger},
     solver::LimnSolver,
+    styling::{FontFamily, HtmlText, Styles},
     HashMap, LayoutElement, ModalData, NoCustomElements, ToLayoutElement
 };
 use amethyst::{
     assets::{
-        AssetPrefab, AssetStorage, Format, Handle, Loader, Prefab, PrefabData, PrefabLoaderSystem,
-        PrefabLoaderSystemDesc, Progress, ProgressCounter
+        Asset, AssetPrefab, AssetStorage, Format, Handle, Loader, Prefab, PrefabData,
+        PrefabLoaderSystem, PrefabLoaderSystemDesc, Progress, ProgressCounter
     },
     core::ecs::{shred::ResourceId, Component, DenseVecStorage, Entity, Read, WriteStorage},
     ecs::{ReadExpect, SystemData, World},
     error::{format_err, ResultExt},
     renderer::{resources::Tint, TexturePrefab, Transparent},
     ui::{
-        Anchor, Stretch, UiButtonData, UiImageLoadPrefab, UiImagePrefab, UiTextData,
-        UiTransformData
+        get_default_font, Anchor, FontAsset, LineMode, Stretch, UiButtonData, UiImageLoadPrefab,
+        UiImagePrefab, UiMultipartText, UiTextData, UiTransformData
     },
     window::ScreenDimensions,
     Error
@@ -194,6 +195,41 @@ impl<'a> PrefabData<'a> for UiCachedImage {
     }
 }
 
+impl<'a> PrefabData<'a> for UiTextPrefab {
+    type SystemData = (
+        (
+            Read<'a, Fonts>,
+            <UiTextData as PrefabData<'a>>::SystemData,
+        ),
+        WriteStorage<'a, UiMultipartText>,
+        WriteStorage<'a, HtmlText>,
+        Read<'a, Styles>
+    );
+    type Result = ();
+
+    fn add_to_entity(&self, entity: Entity, system_data: &mut Self::SystemData, entities: &[Entity], children: &[Entity]) -> Result<Self::Result, Error> {
+        match self {
+            UiTextPrefab::Regular(cached_text) => {
+                cached_text.add_to_entity(entity, &mut system_data.0, entities, children)
+            }
+            UiTextPrefab::Html(html_text) => {
+                html_text.add_to_entity(entity, system_data, entities, children)
+            }
+        }
+    }
+
+    fn load_sub_assets(&mut self, progress: &mut ProgressCounter, system_data: &mut Self::SystemData) -> Result<bool, Error> {
+        match self {
+            UiTextPrefab::Regular(cached_text) => {
+                cached_text.load_sub_assets(progress, &mut system_data.0)
+            }
+            UiTextPrefab::Html(html_text) => {
+                html_text.load_sub_assets(progress, system_data)
+            }
+        }
+    }
+}
+
 pub struct UiCachedText(pub UiTextData);
 
 impl<'a> PrefabData<'a> for UiCachedText {
@@ -213,40 +249,166 @@ impl<'a> PrefabData<'a> for UiCachedText {
     fn load_sub_assets(
         &mut self,
         progress: &mut ProgressCounter,
-        (cache, ref mut inner): &mut Self::SystemData
+        (ref cache, ref mut inner): &mut Self::SystemData
     ) -> Result<bool, Error> {
         if let Some(font) = &mut self.0.font {
-            let res;
-            let name = match font {
-                AssetPrefab::File(name, _) => {
-                    let handle = {
-                        let cache = cache.read();
-                        cache.get(name).cloned()
-                    };
-                    if let Some(handle) = handle {
-                        *font = AssetPrefab::Handle(handle);
-                        None
-                    } else {
-                        Some(name.clone())
-                    }
-                }
-                _ => None
-            };
-            if let Some(name) = name {
-                let mut cache = cache.write();
-                res = font.load_sub_assets(progress, &mut inner.2)?;
-                let new_handle = match font {
-                    AssetPrefab::Handle(handle) => handle.clone(),
-                    _ => unreachable!()
-                };
-                cache.insert(name, new_handle);
-            } else {
-                res = font.load_sub_assets(progress, &mut inner.2)?;
-            }
-            Ok(res)
+            get_or_load_font(font, progress, cache, &mut inner.2)
         } else {
             self.0.load_sub_assets(progress, inner)
         }
+    }
+}
+
+pub struct FontFamilyPrefab {
+    pub regular: Option<AssetPrefab<FontAsset>>,
+    pub bold: Option<AssetPrefab<FontAsset>>,
+    pub italic: Option<AssetPrefab<FontAsset>>,
+    pub bold_italic: Option<AssetPrefab<FontAsset>>
+}
+
+type FontSystemData<'a> = <AssetPrefab<FontAsset> as PrefabData<'a>>::SystemData;
+
+fn get_or_load_font(
+    font: &mut AssetPrefab<FontAsset>,
+    progress: &mut ProgressCounter,
+    cache: &Fonts,
+    inner: &mut FontSystemData<'_>
+) -> Result<bool, Error> {
+    let res;
+    let name = match font {
+        AssetPrefab::File(name, _) => {
+            let handle = {
+                let cache = cache.read();
+                cache.get(name).cloned()
+            };
+            if let Some(handle) = handle {
+                *font = AssetPrefab::Handle(handle);
+                None
+            } else {
+                Some(name.clone())
+            }
+        }
+        _ => None
+    };
+    if let Some(name) = name {
+        let mut cache = cache.write();
+        res = font.load_sub_assets(progress, inner)?;
+        let new_handle = match font {
+            AssetPrefab::Handle(handle) => handle.clone(),
+            _ => unreachable!()
+        };
+        cache.insert(name, new_handle);
+    } else {
+        res = font.load_sub_assets(progress, inner)?;
+    }
+    Ok(res)
+}
+
+fn handle<A: Asset>(prefab: &AssetPrefab<A>) -> &Handle<A> {
+    match prefab {
+        AssetPrefab::Handle(handle) => handle,
+        _ => panic!("Asset prefab should be a handle")
+    }
+}
+
+impl<'a> PrefabData<'a> for FontFamilyPrefab {
+    type SystemData = (
+        Read<'a, Fonts>,
+        <UiTextData as PrefabData<'a>>::SystemData,
+    );
+    type Result = FontFamily;
+
+    fn add_to_entity(
+        &self,
+        _: Entity,
+        (_, inner): &mut Self::SystemData,
+        _: &[Entity],
+        _: &[Entity]
+    ) -> Result<Self::Result, Error> {
+        let regular = if let Some(AssetPrefab::Handle(handle)) = &self.regular {
+            handle.clone()
+        } else {
+            get_default_font(&(inner.2).0, &(inner.2).2)
+        };
+        let bold = self.bold.as_ref().map(handle).cloned();
+        let italic = self.italic.as_ref().map(handle).cloned();
+        let bold_italic = self.bold_italic.as_ref().map(handle).cloned();
+        Ok(FontFamily {
+            regular,
+            bold,
+            italic,
+            bold_italic
+        })
+    }
+
+    fn load_sub_assets(
+        &mut self,
+        progress: &mut ProgressCounter,
+        (ref cache, ref mut inner): &mut Self::SystemData
+    ) -> Result<bool, Error> {
+        let inner = &mut inner.2;
+        let mut needs_loading = false;
+        if let Some(font) = &mut self.regular {
+            needs_loading = get_or_load_font(font, progress, cache, inner)?;
+        }
+        if let Some(font) = &mut self.bold {
+            needs_loading = get_or_load_font(font, progress, cache, inner)?;
+        }
+        if let Some(font) = &mut self.italic {
+            needs_loading = get_or_load_font(font, progress, cache, inner)?;
+        }
+        if let Some(font) = &mut self.bold_italic {
+            needs_loading = get_or_load_font(font, progress, cache, inner)?;
+        }
+        Ok(needs_loading)
+    }
+}
+
+pub struct HtmlTextData {
+    pub text: UiTextData,
+    pub fonts: FontFamilyPrefab
+}
+
+impl<'a> PrefabData<'a> for HtmlTextData {
+    type SystemData = (
+        (
+            Read<'a, Fonts>,
+            <UiTextData as PrefabData<'a>>::SystemData,
+        ),
+        WriteStorage<'a, UiMultipartText>,
+        WriteStorage<'a, HtmlText>,
+        Read<'a, Styles>
+    );
+    type Result = ();
+
+    fn add_to_entity(
+        &self,
+        entity: Entity,
+        (ref mut text_data, text_storage, html_storage, ref styles): &mut Self::SystemData,
+        entities: &[Entity],
+        children: &[Entity]
+    ) -> Result<Self::Result, Error> {
+        let font = self
+            .fonts
+            .add_to_entity(entity, text_data, entities, children)?;
+        let html = HtmlText::new(font, self.text.color, self.text.font_size);
+        let text = html.parse(&self.text.text, &styles, &((text_data.1).2).2);
+        let text = UiMultipartText::new(
+            text,
+            self.text.line_mode.unwrap_or(LineMode::Single),
+            self.text.align.unwrap_or(Anchor::Middle)
+        );
+        text_storage.insert(entity, text)?;
+        html_storage.insert(entity, html)?;
+        Ok(())
+    }
+
+    fn load_sub_assets(
+        &mut self,
+        progress: &mut ProgressCounter,
+        (ref mut family_data, ..): &mut Self::SystemData
+    ) -> Result<bool, Error> {
+        self.fonts.load_sub_assets(progress, family_data)
     }
 }
 
@@ -302,7 +464,7 @@ impl<'a> PrefabData<'a> for LayoutIdentifier {
     }
 }
 
-fn data<C: for<'a> PrefabData<'a> + Default + Send + Sync + 'static>(
+struct DataBuilder<C: Default> {
     transform: UiTransformData<()>,
     button: Option<UiButtonData>,
     layout: Option<DynamicLayout>,
@@ -310,20 +472,84 @@ fn data<C: for<'a> PrefabData<'a> + Default + Send + Sync + 'static>(
     extra_button: Option<ExtraButtonData>,
     tint: Option<Tinted>,
     image: Option<UiCachedImage>,
-    text: Option<UiCachedText>,
-    custom_data: C
-) -> UiPrefabData<C> {
-    (
-        Some(transform),
-        button,
-        layout,
-        ident,
-        extra_button,
-        tint,
-        image,
-        text,
-        custom_data
-    )
+    text: Option<UiTextPrefab>,
+    custom_data: Option<C>
+}
+
+impl<C: Default> DataBuilder<C> {
+    pub fn new(transform: UiTransformData<()>) -> Self {
+        Self {
+            transform,
+            button: None,
+            layout: None,
+            ident: None,
+            extra_button: None,
+            tint: None,
+            image: None,
+            text: None,
+            custom_data: None
+        }
+    }
+
+    pub fn with_button(mut self, button: UiButtonData) -> Self {
+        self.button = Some(button);
+        self
+    }
+
+    pub fn with_layout(mut self, layout: Option<DynamicLayout>) -> Self {
+        self.layout = layout;
+        self
+    }
+
+    pub fn with_ident(mut self, ident: LayoutIdentifier) -> Self {
+        self.ident = Some(ident);
+        self
+    }
+
+    pub fn with_extra_button(mut self, extra_button: Option<ExtraButtonData>) -> Self {
+        self.extra_button = extra_button;
+        self
+    }
+
+    pub fn with_tint(mut self, tint: Option<Tinted>) -> Self {
+        self.tint = tint;
+        self
+    }
+
+    pub fn with_image(mut self, image: Option<UiCachedImage>) -> Self {
+        self.image = image;
+        self
+    }
+
+    pub fn with_text(mut self, text: UiCachedText) -> Self {
+        self.text = Some(UiTextPrefab::Regular(text));
+        self
+    }
+
+    pub fn with_html_text(mut self, html_text: HtmlTextData) -> Self {
+        self.text = Some(UiTextPrefab::Html(html_text));
+        self
+    }
+
+    pub fn with_custom_data(mut self, custom_data: C) -> Self {
+        self.custom_data = Some(custom_data);
+        self
+    }
+
+    pub fn build(self) -> UiPrefabData<C> {
+        let custom_data = self.custom_data.unwrap_or_else(Default::default);
+        (
+            Some(self.transform),
+            self.button,
+            self.layout,
+            self.ident,
+            self.extra_button,
+            self.tint,
+            self.image,
+            self.text,
+            custom_data
+        )
+    }
 }
 
 #[derive(Serialize, Deserialize, Clone, Copy, Default, Debug)]
@@ -440,38 +666,49 @@ fn walk_ui_tree<C: ToLayoutElement>(
     match widget {
         LayoutElement::Image { id, image, .. } => {
             let transform = transform(id, solution.get(solution_index), parent);
+            let data = DataBuilder::new(transform)
+                .with_layout(layout)
+                .with_ident(LayoutIdentifier(*solution_index))
+                .with_image(Some(UiCachedImage(image)))
+                .with_custom_data(custom_data)
+                .build();
             prefab
                 .entity(entity_index)
                 .expect("Unreachable: `Prefab` entity should always be set when walking ui tree")
-                .set_data(data(
-                    transform,
-                    None,
-                    layout,
-                    Some(LayoutIdentifier(*solution_index)),
-                    None,
-                    None,
-                    Some(UiCachedImage(image)),
-                    None,
-                    custom_data
-                ));
+                .set_data(data);
         }
-        LayoutElement::Label { id, mut text, .. } => {
+        LayoutElement::Label {
+            id,
+            mut text,
+            extra_text,
+            ..
+        } => {
             let transform = transform(id, solution.get(solution_index), parent);
             text.font_size *= dpi;
+            let data = DataBuilder::new(transform)
+                .with_layout(layout)
+                .with_ident(LayoutIdentifier(*solution_index))
+                .with_custom_data(custom_data);
+            let is_html = extra_text
+                .as_ref()
+                .map(|extra| extra.is_html)
+                .unwrap_or(false);
+            let data = if is_html {
+                let extra_text = extra_text.unwrap_or_else(Default::default);
+                let fonts = FontFamilyPrefab {
+                    regular: text.font.take(),
+                    bold: extra_text.font_bold,
+                    italic: extra_text.font_italic,
+                    bold_italic: extra_text.font_bold_italic
+                };
+                data.with_html_text(HtmlTextData { fonts, text })
+            } else {
+                data.with_text(UiCachedText(text))
+            };
             prefab
                 .entity(entity_index)
                 .expect("Unreachable: `Prefab` entity should always be set when walking ui tree")
-                .set_data(data(
-                    transform,
-                    None,
-                    layout,
-                    Some(LayoutIdentifier(*solution_index)),
-                    None,
-                    None,
-                    None,
-                    Some(UiCachedText(text)),
-                    custom_data
-                ));
+                .set_data(data.build());
         }
         LayoutElement::Linear {
             id,
@@ -490,20 +727,17 @@ fn walk_ui_tree<C: ToLayoutElement>(
             let container_solution = solution.get(solution_index);
             let transform = transform(id, container_solution, parent);
 
+            let data = DataBuilder::new(transform)
+                .with_layout(layout)
+                .with_ident(LayoutIdentifier(*solution_index))
+                .with_tint(tint)
+                .with_image(background.map(UiCachedImage))
+                .with_custom_data(custom_data)
+                .build();
             prefab
                 .entity(entity_index)
                 .expect("Unreachable: `Prefab` entity should always be set when walking ui tree")
-                .set_data(data(
-                    transform,
-                    None,
-                    layout,
-                    Some(LayoutIdentifier(*solution_index)),
-                    None,
-                    tint,
-                    background.map(UiCachedImage),
-                    None,
-                    custom_data
-                ));
+                .set_data(data);
 
             *solution_index += 1; // padding placeholder
 
@@ -532,20 +766,17 @@ fn walk_ui_tree<C: ToLayoutElement>(
         } => {
             let transform = transform(id, solution.get(solution_index), parent);
 
+            let data = DataBuilder::new(transform)
+                .with_layout(layout)
+                .with_ident(LayoutIdentifier(*solution_index))
+                .with_image(background.map(UiCachedImage))
+                .with_tint(tint)
+                .with_custom_data(custom_data)
+                .build();
             prefab
                 .entity(entity_index)
                 .expect("Unreachable: `Prefab` entity should always be set when walking ui tree")
-                .set_data(data(
-                    transform,
-                    None,
-                    layout,
-                    Some(LayoutIdentifier(*solution_index)),
-                    None,
-                    tint,
-                    background.map(UiCachedImage),
-                    None,
-                    custom_data
-                ));
+                .set_data(data);
         }
         LayoutElement::Button {
             id,
@@ -578,36 +809,25 @@ fn walk_ui_tree<C: ToLayoutElement>(
                 .map(UiImagePrefab)
                 .map(UiCachedImage);
 
+            let data = DataBuilder::new(transform)
+                .with_button(button)
+                .with_extra_button(extra_button)
+                .with_layout(layout)
+                .with_ident(LayoutIdentifier(*solution_index))
+                .with_tint(Some(tint))
+                .with_image(image)
+                .with_custom_data(custom_data)
+                .build();
             prefab
                 .entity(entity_index)
                 .expect("Unreachable: `Prefab` entity should always be set when walking ui tree")
-                .set_data(data(
-                    transform,
-                    Some(button),
-                    layout,
-                    Some(LayoutIdentifier(*solution_index)),
-                    extra_button,
-                    Some(tint),
-                    image,
-                    None,
-                    custom_data
-                ));
+                .set_data(data);
 
             // Text isn't in the layout solver, don't pass a layout ID
-            prefab.add(
-                Some(entity_index),
-                Some(data(
-                    button_text_transform(id),
-                    None,
-                    None,
-                    None,
-                    None,
-                    None,
-                    None,
-                    Some(UiCachedText(text)),
-                    Default::default()
-                ))
-            );
+            let data = DataBuilder::new(button_text_transform(id))
+                .with_text(UiCachedText(text))
+                .build();
+            prefab.add(Some(entity_index), Some(data));
         }
         LayoutElement::ImageButton {
             id,
@@ -626,43 +846,38 @@ fn walk_ui_tree<C: ToLayoutElement>(
 
             let mut button = image_button_to_ui_button(&mut image_button);
 
-            prefab
-                .entity(entity_index)
-                .expect("Unreachable: `Prefab` entity should always be set when walking ui tree")
-                .set_data(data(
-                    transform,
-                    None,
-                    layout,
-                    Some(LayoutIdentifier(*solution_index)),
-                    extra_button,
-                    Some(tint),
+            let data = DataBuilder::new(transform)
+                .with_layout(layout)
+                .with_ident(LayoutIdentifier(*solution_index))
+                .with_extra_button(extra_button)
+                .with_tint(Some(tint))
+                .with_image(
                     button
                         .normal_image
                         .take()
                         .map(UiImagePrefab)
-                        .map(UiCachedImage),
-                    None,
-                    custom_data
-                ));
+                        .map(UiCachedImage)
+                )
+                .with_custom_data(custom_data)
+                .build();
+            prefab
+                .entity(entity_index)
+                .expect("Unreachable: `Prefab` entity should always be set when walking ui tree")
+                .set_data(data);
 
-            prefab.add(
-                Some(entity_index),
-                Some(data(
-                    button_icon_transform(id, image_button.margin.take().unwrap_or(8.0)),
-                    None,
-                    None,
-                    None,
-                    None,
-                    None,
-                    image_button
-                        .icon
-                        .take()
-                        .map(UiImagePrefab)
-                        .map(UiCachedImage),
-                    None,
-                    Default::default()
-                ))
-            );
+            let data = DataBuilder::new(button_icon_transform(
+                id,
+                image_button.margin.take().unwrap_or(8.0)
+            ))
+            .with_image(
+                image_button
+                    .icon
+                    .take()
+                    .map(UiImagePrefab)
+                    .map(UiCachedImage)
+            )
+            .build();
+            prefab.add(Some(entity_index), Some(data));
         }
         LayoutElement::Padded { inner, .. } => {
             *solution_index += 1;
@@ -693,39 +908,25 @@ fn walk_ui_tree<C: ToLayoutElement>(
                 transform(format!("{}_background", id), background_solution, parent);
             background_transform.z = 100.0;
 
+            let data = DataBuilder::new(background_transform)
+                .with_layout(layout)
+                .with_ident(LayoutIdentifier(*solution_index))
+                .with_image(Some(UiCachedImage(options.background)))
+                .with_custom_data(custom_data)
+                .build();
             prefab
                 .entity(entity_index)
                 .expect("Unreachable: `Prefab` entity should always be set when walking ui tree")
-                .set_data(data(
-                    background_transform,
-                    None,
-                    layout,
-                    None,
-                    None,
-                    None,
-                    Some(UiCachedImage(options.background)),
-                    None,
-                    custom_data
-                ));
+                .set_data(data);
 
             *solution_index += 1;
 
             let container_solution = solution.get(solution_index);
             let container_transform = transform(id, container_solution, background_solution);
-            let container = prefab.add(
-                Some(entity_index),
-                Some(data(
-                    container_transform,
-                    None,
-                    None,
-                    Some(LayoutIdentifier(*solution_index)),
-                    None,
-                    None,
-                    None,
-                    None,
-                    Default::default()
-                ))
-            );
+            let data = DataBuilder::new(container_transform)
+                .with_ident(LayoutIdentifier(*solution_index))
+                .build();
+            let container = prefab.add(Some(entity_index), Some(data));
 
             *solution_index += 1;
             let header_index = prefab.add(Some(container), None);
@@ -875,6 +1076,11 @@ type UiPrefabData<C = <NoCustomElements as ToLayoutElement>::PrefabData> = (
     Option<ExtraButtonData>,
     Option<Tinted>,
     Option<UiCachedImage>,
-    Option<UiCachedText>,
+    Option<UiTextPrefab>,
     C
 );
+
+pub enum UiTextPrefab {
+    Regular(UiCachedText),
+    Html(HtmlTextData)
+}
