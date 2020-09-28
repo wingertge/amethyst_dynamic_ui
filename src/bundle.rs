@@ -2,8 +2,8 @@
 use crate::sound::{UiFmodRetriggerSystemDesc, UiFmodSystemDesc};
 use crate::{
     prefab::DynamicUiLoaderSystemDesc, resize_system::ResizeSystemDesc,
-    retrigger::UiButtonTintRetriggerSystemDesc, tint::UiButtonTintSystemDesc, NoCustomElements,
-    ToLayoutElement
+    retrigger::UiButtonTintRetriggerSystemDesc, styling::Styles, tint::UiButtonTintSystemDesc,
+    NoCustomElements, ToLayoutElement
 };
 use amethyst::{
     core::{
@@ -28,6 +28,7 @@ impl<'a, 'b, C: ToLayoutElement> SystemBundle<'a, 'b> for DynamicUiBundle<C> {
         world: &mut World,
         builder: &mut DispatcherBuilder<'a, 'b>
     ) -> Result<(), Error> {
+        world.insert(Styles::default());
         builder.add(
             DynamicUiLoaderSystemDesc::<C::PrefabData>::default().build(world),
             "dynamic_ui_loader",

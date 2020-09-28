@@ -16,6 +16,7 @@ pub mod solver;
 #[cfg_attr(feature = "document", doc(cfg(feature = "fmod")))]
 #[cfg(feature = "fmod")]
 pub mod sound;
+pub mod styling;
 pub mod tint;
 mod widget;
 

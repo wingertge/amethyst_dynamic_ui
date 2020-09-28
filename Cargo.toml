@@ -12,7 +12,7 @@ document = []
 [dependencies]
 amethyst_fmod = { git = "https://github.com/wingertge/amethyst_fmod.git", optional = true }
 # amethyst_fmod = { path = "../amethyst_fmod", optional = true }
-amethyst = "0.15"
+amethyst = { git = "https://github.com/wingertge/amethyst.git" }
 cassowary = "0.3"
 fnv = "1"
 parking_lot = "0.11"
@@ -23,9 +23,13 @@ derive_deref = "1"
 derive-new = "0.5"
 log = "0.4"
 lazy_static = "1"
+glyph_brush = "0.6"
+regex = "1"
+itertools = "0.9"
+glsl-layout = "0.3"
 
 [dev-dependencies.amethyst]
-version = "0.15"
+git = "https://github.com/wingertge/amethyst.git"
 features = ["empty"]
 
 [package.metadata.docs.rs]
