@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["amethyst_core"] = [{"text":"impl Component for Parent","synthetic":false,"types":[]},{"text":"impl Component for Transform","synthetic":false,"types":[]},{"text":"impl Component for Hidden","synthetic":false,"types":[]},{"text":"impl Component for HiddenPropagate","synthetic":false,"types":[]},{"text":"impl Component for Named","synthetic":false,"types":[]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

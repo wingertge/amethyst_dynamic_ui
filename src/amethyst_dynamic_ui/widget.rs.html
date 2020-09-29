@@ -463,6 +463,20 @@
 <span id="460">460</span>
 <span id="461">461</span>
 <span id="462">462</span>
+<span id="463">463</span>
+<span id="464">464</span>
+<span id="465">465</span>
+<span id="466">466</span>
+<span id="467">467</span>
+<span id="468">468</span>
+<span id="469">469</span>
+<span id="470">470</span>
+<span id="471">471</span>
+<span id="472">472</span>
+<span id="473">473</span>
+<span id="474">474</span>
+<span id="475">475</span>
+<span id="476">476</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">constraint</span>,
@@ -479,7 +493,7 @@
 <span class="kw">use</span> <span class="ident">amethyst</span>::{
     <span class="ident">assets</span>::{<span class="ident">AssetPrefab</span>, <span class="ident">PrefabData</span>},
     <span class="ident">audio</span>::<span class="ident">Source</span>,
-    <span class="ident">ui</span>::{<span class="ident">Anchor</span>, <span class="ident">UiButtonData</span>, <span class="ident">UiImageLoadPrefab</span>, <span class="ident">UiImagePrefab</span>, <span class="ident">UiTextData</span>}
+    <span class="ident">ui</span>::{<span class="ident">Anchor</span>, <span class="ident">FontAsset</span>, <span class="ident">UiButtonData</span>, <span class="ident">UiImageLoadPrefab</span>, <span class="ident">UiImagePrefab</span>, <span class="ident">UiTextData</span>}
 };
 <span class="kw">use</span> <span class="ident">cassowary</span>::<span class="ident">strength</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">derivative</span>::<span class="ident">Derivative</span>;
@@ -547,6 +561,19 @@
     <span class="kw">fn</span> <span class="ident">visit_layout</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Layout</span>, <span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Layout</span><span class="op">&gt;</span>, <span class="kw">_</span>: <span class="ident">f32</span>, <span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">usize</span>) {
         <span class="macro">unreachable</span><span class="macro">!</span>()
     }
+}
+
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Derivative</span>, <span class="ident">Default</span>)]</span>
+<span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">UiExtraTextData</span> {
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">is_html</span>: <span class="ident">bool</span>,
+    <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span> <span class="op">=</span> <span class="string">&quot;ignore&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">font_bold</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AssetPrefab</span><span class="op">&lt;</span><span class="ident">FontAsset</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span> <span class="op">=</span> <span class="string">&quot;ignore&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">font_italic</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AssetPrefab</span><span class="op">&lt;</span><span class="ident">FontAsset</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span> <span class="op">=</span> <span class="string">&quot;ignore&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">font_bold_italic</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AssetPrefab</span><span class="op">&lt;</span><span class="ident">FontAsset</span><span class="op">&gt;</span><span class="op">&gt;</span>
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>)]</span>
@@ -622,6 +649,7 @@
         <span class="ident">text</span>: <span class="ident">UiTextData</span>,
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>)]</span>
         <span class="ident">i18n</span>: <span class="ident">I18nData</span>,
+        <span class="ident">extra_text</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">UiExtraTextData</span><span class="op">&gt;</span>,
         <span class="ident">constraints</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SizeConstraints</span><span class="op">&gt;</span>
     },
     <span class="ident">Linear</span> {

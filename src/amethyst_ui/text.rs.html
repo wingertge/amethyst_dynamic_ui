@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/amethyst_ui-0.15.3/src/text.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>text.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/git/checkouts/amethyst-73c87be7163fa182/9009d46/amethyst_ui/src/text.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>text.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 <link rel="alternate icon" type="image/png" href="../../favicon-16x16.png">
 <link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../amethyst_ui/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><span class="help-button">?</span>
                 <a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
@@ -318,6 +318,59 @@
 <span id="315">315</span>
 <span id="316">316</span>
 <span id="317">317</span>
+<span id="318">318</span>
+<span id="319">319</span>
+<span id="320">320</span>
+<span id="321">321</span>
+<span id="322">322</span>
+<span id="323">323</span>
+<span id="324">324</span>
+<span id="325">325</span>
+<span id="326">326</span>
+<span id="327">327</span>
+<span id="328">328</span>
+<span id="329">329</span>
+<span id="330">330</span>
+<span id="331">331</span>
+<span id="332">332</span>
+<span id="333">333</span>
+<span id="334">334</span>
+<span id="335">335</span>
+<span id="336">336</span>
+<span id="337">337</span>
+<span id="338">338</span>
+<span id="339">339</span>
+<span id="340">340</span>
+<span id="341">341</span>
+<span id="342">342</span>
+<span id="343">343</span>
+<span id="344">344</span>
+<span id="345">345</span>
+<span id="346">346</span>
+<span id="347">347</span>
+<span id="348">348</span>
+<span id="349">349</span>
+<span id="350">350</span>
+<span id="351">351</span>
+<span id="352">352</span>
+<span id="353">353</span>
+<span id="354">354</span>
+<span id="355">355</span>
+<span id="356">356</span>
+<span id="357">357</span>
+<span id="358">358</span>
+<span id="359">359</span>
+<span id="360">360</span>
+<span id="361">361</span>
+<span id="362">362</span>
+<span id="363">363</span>
+<span id="364">364</span>
+<span id="365">365</span>
+<span id="366">366</span>
+<span id="367">367</span>
+<span id="368">368</span>
+<span id="369">369</span>
+<span id="370">370</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Module holding the components related to text and text editing.</span>
 
@@ -372,6 +425,59 @@
     <span class="doccomment">/// Cached glyph positions including invisible characters, used to process mouse highlighting.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip</span>)]</span>
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">cached_glyphs</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">CachedGlyph</span><span class="op">&gt;</span>,
+}
+
+<span class="doccomment">/// A section of text to be rendered in a specific style</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Derivative</span>, <span class="ident">Clone</span>, <span class="ident">Serialize</span>)]</span>
+<span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TextSection</span> {
+    <span class="doccomment">/// The text to render</span>
+    <span class="kw">pub</span> <span class="ident">text</span>: <span class="ident">String</span>,
+    <span class="doccomment">/// The font color for this section</span>
+    <span class="kw">pub</span> <span class="ident">color</span>: [<span class="ident">f32</span>; <span class="number">4</span>],
+    <span class="doccomment">/// The font for this section</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">font</span>: <span class="ident">FontHandle</span>,
+    <span class="doccomment">/// The font size for this section</span>
+    <span class="kw">pub</span> <span class="ident">font_size</span>: <span class="ident">f32</span>,
+}
+
+<span class="doccomment">/// A text with multiple, individually styled sections. Allows for inline color, font or</span>
+<span class="doccomment">/// font size changes.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Derivative</span>, <span class="ident">Serialize</span>)]</span>
+<span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">UiMultipartText</span> {
+    <span class="doccomment">/// How the text should handle new lines.</span>
+    <span class="kw">pub</span> <span class="ident">line_mode</span>: <span class="ident">LineMode</span>,
+    <span class="doccomment">/// How to align the text within its `UiTransform`.</span>
+    <span class="kw">pub</span> <span class="ident">align</span>: <span class="ident">Anchor</span>,
+    <span class="doccomment">/// Cached glyph positions including invisible characters, used to process mouse highlighting.</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip</span>)]</span>
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">cached_glyphs</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">CachedGlyph</span><span class="op">&gt;</span>,
+    <span class="doccomment">/// Cached glyph positions including invisible characters, used to process mouse highlighting.</span>
+    <span class="kw">pub</span> <span class="ident">sections</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">TextSection</span><span class="op">&gt;</span>,
+}
+
+<span class="kw">impl</span> <span class="ident">UiMultipartText</span> {
+    <span class="doccomment">/// Initializes a new UiMultipartText</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Parameters</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// * `sections`: A set of styled text sections</span>
+    <span class="doccomment">/// * `line_mode`: Text mode allowing single line or multiple lines</span>
+    <span class="doccomment">/// * `align`: Text alignment within its `UiTransform`</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">text</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">TextSection</span><span class="op">&gt;</span>, <span class="ident">line_mode</span>: <span class="ident">LineMode</span>, <span class="ident">align</span>: <span class="ident">Anchor</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">Self</span> {
+            <span class="ident">line_mode</span>,
+            <span class="ident">align</span>,
+            <span class="ident">cached_glyphs</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
+            <span class="ident">sections</span>: <span class="ident">text</span>,
+        }
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">Component</span> <span class="kw">for</span> <span class="ident">UiMultipartText</span> {
+    <span class="kw">type</span> <span class="ident">Storage</span> <span class="op">=</span> <span class="ident">DenseVecStorage</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>)]</span>

@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["amethyst_core"] = [{"text":"impl&lt;'a&gt; System&lt;'a&gt; for TransformSystem","synthetic":false,"types":[]},{"text":"impl&lt;'a&gt; System&lt;'a&gt; for HideHierarchySystem","synthetic":false,"types":[]},{"text":"impl&lt;'s, S, V:&nbsp;'static&gt; System&lt;'s&gt; for Pausable&lt;S, V&gt; <span class=\"where fmt-newline\">where<br>&nbsp;&nbsp;&nbsp;&nbsp;S::SystemData: SystemData&lt;'s&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;S: System&lt;'s&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;V: Send + Sync + Default + PartialEq,&nbsp;</span>","synthetic":false,"types":[]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()
