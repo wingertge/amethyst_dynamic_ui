@@ -27,6 +27,7 @@ glyph_brush = "0.6"
 regex = "1"
 itertools = "0.9"
 glsl-layout = "0.3"
+xi-unicode = "0.2"
 
 [dev-dependencies.amethyst]
 git = "https://github.com/wingertge/amethyst.git"

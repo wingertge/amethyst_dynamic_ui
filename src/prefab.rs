@@ -7,7 +7,7 @@ use crate::{
     retrigger::{UiButtonTintAction, UiButtonTintActionType, UiButtonTintRetrigger},
     solver::LimnSolver,
     styling::{FontFamily, HtmlText, Styles},
-    HashMap, LayoutElement, ModalData, NoCustomElements, ToLayoutElement
+    HashMap, LayoutElement, ModalData, NoCustomElements, Properties, ToLayoutElement
 };
 use amethyst::{
     assets::{
@@ -31,6 +31,106 @@ use std::{
     ops::{Deref, Sub},
     sync::{Arc, Mutex}
 };
+
+/*impl<'a> PrefabData<'a> for LayoutElement {
+    type SystemData = (
+        (Read<'a, Textures>, <UiImagePrefab as PrefabData<'a>>::SystemData),
+        (Read<'a, Fonts>, <UiTextData as PrefabData<'a>>::SystemData)
+    );
+    type Result = ();
+
+    fn add_to_entity(&self, entity: Entity, system_data: &mut Self::SystemData, entities: &[Entity], children: &[Entity]) -> Result<Self::Result, Error> {
+        unimplemented!()
+    }
+
+    fn load_sub_assets(&mut self, progress: &mut ProgressCounter, system_data: &mut Self::SystemData) -> Result<bool, Error> {
+        let (image_data, text_data) = system_data;
+        match self {
+            LayoutElement::Image { image, .. } => {
+                image.load_sub_assets(progress, image_data)
+            }
+            LayoutElement::Button { button, .. } => {
+                let UiButtonData {
+                    font, normal_image, hover_image, press_image, ..
+                } = button;
+                let mut text = UiCachedText(UiTextData {
+                    color: [0.0, 0.0, 0.0, 0.0],
+                    editable: None,
+                    font: font.take(),
+                    password: false,
+                    align: None,
+                    line_mode: None,
+                    text: String::new(),
+                    font_size: 0.0
+                });
+                let mut needs_loading = text.load_sub_assets(progress, text_data)?;
+                *font = text.0.font;
+                if let Some(image) = normal_image.take() {
+                    let mut cached = UiCachedImage(UiImagePrefab(image));
+                    needs_loading = cached.load_sub_assets(progress, image_data)? || needs_loading;
+                    *normal_image = Some((cached.0).0);
+                }
+                if let Some(image) = hover_image.take() {
+                    let mut cached = UiCachedImage(UiImagePrefab(image));
+                    needs_loading = cached.load_sub_assets(progress, image_data)? || needs_loading;
+                    *hover_image = Some((cached.0).0);
+                }
+                if let Some(image) = press_image.take() {
+                    let mut cached = UiCachedImage(UiImagePrefab(image));
+                    needs_loading = cached.load_sub_assets(progress, image_data)? || needs_loading;
+                    *press_image = Some((cached.0).0);
+                }
+                Ok(needs_loading)
+            }
+            LayoutElement::ImageButton { image_button, .. } => {
+                let ImageButtonData {
+                    icon, normal_image, hover_image, press_image, ..
+                } = image_button;
+                let mut needs_loading = icon.load_sub_assets(progress, image_data)?;
+                if let Some(normal_image) = normal_image {
+                    needs_loading = normal_image.load_sub_assets(progress, image_data)? || needs_loading;
+                }
+                if let Some(hover_image) = hover_image {
+                    needs_loading = hover_image.load_sub_assets(progress, image_data)? || needs_loading;
+                }
+                if let Some(press_image) = press_image {
+                    needs_loading = press_image.load_sub_assets(progress, image_data)? || needs_loading;
+                }
+                Ok(needs_loading)
+            }
+            LayoutElement::Label { text, .. } => {
+                text.load_sub_assets(progress, text_data)
+            }
+            LayoutElement::Linear { background, children, .. } |
+            LayoutElement::Grid { background, children, .. } => {
+                let mut res = background.load_sub_assets(progress, image_data)?;
+                for child in children {
+                    res = child.load_sub_assets(progress, system_data)? || res;
+                }
+                Ok(res)
+            }
+            LayoutElement::Padded { inner, .. } => {
+                inner.load_sub_assets(progress, image_data)
+            }
+            LayoutElement::Modal { header, content, options, .. } => {
+                let mut res = header.load_sub_assets(progress, system_data)?;
+                res = content.load_sub_assets(progress, system_data)? || res;
+                if let Some(options) = options {
+                    res = options.background.load_sub_assets(progress, image_data)? || res;
+                }
+                Ok(res)
+            }
+            LayoutElement::Canvas { background, .. } => {
+                if let Some(background) = background {
+                    background.load_sub_assets(progress, image_data)
+                } else {
+                    Ok(false)
+                }
+            }
+            LayoutElement::Custom(_) => Ok(false)
+        }
+    }
+}*/
 
 #[derive(Serialize, Deserialize, Clone, Default, Debug)]
 pub struct ExtraButtonData {
@@ -133,7 +233,17 @@ impl<'a> PrefabData<'a> for ExtraButtonData {
     }
 }
 
+#[derive(Clone, Debug, Deserialize, Serialize)]
+#[serde(transparent)]
 pub struct UiCachedImage(pub UiImagePrefab);
+
+impl Deref for UiCachedImage {
+    type Target = UiImagePrefab;
+
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
 
 impl<'a> PrefabData<'a> for UiCachedImage {
     type SystemData = (
@@ -197,17 +307,20 @@ impl<'a> PrefabData<'a> for UiCachedImage {
 
 impl<'a> PrefabData<'a> for UiTextPrefab {
     type SystemData = (
-        (
-            Read<'a, Fonts>,
-            <UiTextData as PrefabData<'a>>::SystemData,
-        ),
+        (Read<'a, Fonts>, <UiTextData as PrefabData<'a>>::SystemData),
         WriteStorage<'a, UiMultipartText>,
         WriteStorage<'a, HtmlText>,
         Read<'a, Styles>
     );
     type Result = ();
 
-    fn add_to_entity(&self, entity: Entity, system_data: &mut Self::SystemData, entities: &[Entity], children: &[Entity]) -> Result<Self::Result, Error> {
+    fn add_to_entity(
+        &self,
+        entity: Entity,
+        system_data: &mut Self::SystemData,
+        entities: &[Entity],
+        children: &[Entity]
+    ) -> Result<Self::Result, Error> {
         match self {
             UiTextPrefab::Regular(cached_text) => {
                 cached_text.add_to_entity(entity, &mut system_data.0, entities, children)
@@ -218,18 +331,22 @@ impl<'a> PrefabData<'a> for UiTextPrefab {
         }
     }
 
-    fn load_sub_assets(&mut self, progress: &mut ProgressCounter, system_data: &mut Self::SystemData) -> Result<bool, Error> {
+    fn load_sub_assets(
+        &mut self,
+        progress: &mut ProgressCounter,
+        system_data: &mut Self::SystemData
+    ) -> Result<bool, Error> {
         match self {
             UiTextPrefab::Regular(cached_text) => {
                 cached_text.load_sub_assets(progress, &mut system_data.0)
             }
-            UiTextPrefab::Html(html_text) => {
-                html_text.load_sub_assets(progress, system_data)
-            }
+            UiTextPrefab::Html(html_text) => html_text.load_sub_assets(progress, system_data)
         }
     }
 }
 
+#[derive(Deserialize, Serialize, Clone, Debug)]
+#[serde(transparent)]
 pub struct UiCachedText(pub UiTextData);
 
 impl<'a> PrefabData<'a> for UiCachedText {
@@ -312,10 +429,7 @@ fn handle<A: Asset>(prefab: &AssetPrefab<A>) -> &Handle<A> {
 }
 
 impl<'a> PrefabData<'a> for FontFamilyPrefab {
-    type SystemData = (
-        Read<'a, Fonts>,
-        <UiTextData as PrefabData<'a>>::SystemData,
-    );
+    type SystemData = (Read<'a, Fonts>, <UiTextData as PrefabData<'a>>::SystemData);
     type Result = FontFamily;
 
     fn add_to_entity(
@@ -371,10 +485,7 @@ pub struct HtmlTextData {
 
 impl<'a> PrefabData<'a> for HtmlTextData {
     type SystemData = (
-        (
-            Read<'a, Fonts>,
-            <UiTextData as PrefabData<'a>>::SystemData,
-        ),
+        (Read<'a, Fonts>, <UiTextData as PrefabData<'a>>::SystemData),
         WriteStorage<'a, UiMultipartText>,
         WriteStorage<'a, HtmlText>,
         Read<'a, Styles>
@@ -576,9 +687,28 @@ impl<'a> PrefabData<'a> for Tinted {
 fn transform(
     id: String,
     dims: Option<&CalculatedDimensions>,
-    parent: Option<&CalculatedDimensions>
+    parent: Option<&CalculatedDimensions>,
+    properties: Properties
 ) -> UiTransformData<()> {
-    let mut transform = UiTransformData::default();
+    let Properties {
+        opaque,
+        transparent_target,
+        mouse_reactive,
+        hidden,
+        selectable
+    } = properties;
+    let mut transform: UiTransformData<()> = UiTransformData::default();
+
+    transform.id = id;
+    transform.anchor = Anchor::TopLeft;
+    transform.pivot = Anchor::TopLeft;
+
+    transform.opaque = opaque;
+    transform.transparent_target = transparent_target;
+    transform.mouse_reactive = mouse_reactive;
+    transform.hidden = hidden;
+    transform.selectable = selectable;
+
     if let Some(dims) = dims {
         let dims = if let Some(parent) = parent {
             dims - parent
@@ -586,13 +716,10 @@ fn transform(
             dims.clone()
         };
 
-        transform.id = id;
         transform.x = dims.left;
         transform.y = -dims.top;
         transform.width = dims.width;
         transform.height = dims.height;
-        transform.anchor = Anchor::TopLeft;
-        transform.pivot = Anchor::TopLeft;
     }
     transform
 }
@@ -623,7 +750,7 @@ where
         use ron::de::Deserializer;
         let mut d = Deserializer::from_bytes(&bytes)
             .with_context(|_| format_err!("Failed deserializing Ron file"))?;
-        let mut root: LayoutElement<C> = LayoutElement::deserialize(&mut d)
+        let root: LayoutElement<C> = LayoutElement::deserialize(&mut d)
             .with_context(|_| format_err!("Failed parsing Ron file"))?;
         d.end()
             .with_context(|_| format_err!("Failed parsing Ron file"))?;
@@ -664,12 +791,17 @@ fn walk_ui_tree<C: ToLayoutElement>(
     custom_data: C::PrefabData
 ) {
     match widget {
-        LayoutElement::Image { id, image, .. } => {
-            let transform = transform(id, solution.get(solution_index), parent);
+        LayoutElement::Image {
+            id,
+            image,
+            properties,
+            ..
+        } => {
+            let transform = transform(id, solution.get(solution_index), parent, properties);
             let data = DataBuilder::new(transform)
                 .with_layout(layout)
                 .with_ident(LayoutIdentifier(*solution_index))
-                .with_image(Some(UiCachedImage(image)))
+                .with_image(Some(image))
                 .with_custom_data(custom_data)
                 .build();
             prefab
@@ -681,10 +813,11 @@ fn walk_ui_tree<C: ToLayoutElement>(
             id,
             mut text,
             extra_text,
+            properties,
             ..
         } => {
-            let transform = transform(id, solution.get(solution_index), parent);
-            text.font_size *= dpi;
+            let transform = transform(id, solution.get(solution_index), parent, properties);
+            text.0.font_size *= dpi;
             let data = DataBuilder::new(transform)
                 .with_layout(layout)
                 .with_ident(LayoutIdentifier(*solution_index))
@@ -696,14 +829,17 @@ fn walk_ui_tree<C: ToLayoutElement>(
             let data = if is_html {
                 let extra_text = extra_text.unwrap_or_else(Default::default);
                 let fonts = FontFamilyPrefab {
-                    regular: text.font.take(),
+                    regular: text.0.font.take(),
                     bold: extra_text.font_bold,
                     italic: extra_text.font_italic,
                     bold_italic: extra_text.font_bold_italic
                 };
-                data.with_html_text(HtmlTextData { fonts, text })
+                data.with_html_text(HtmlTextData {
+                    fonts,
+                    text: text.0
+                })
             } else {
-                data.with_text(UiCachedText(text))
+                data.with_text(text)
             };
             prefab
                 .entity(entity_index)
@@ -715,6 +851,7 @@ fn walk_ui_tree<C: ToLayoutElement>(
             background,
             children,
             tint,
+            properties,
             ..
         }
         | LayoutElement::Grid {
@@ -722,16 +859,17 @@ fn walk_ui_tree<C: ToLayoutElement>(
             background,
             children,
             tint,
+            properties,
             ..
         } => {
             let container_solution = solution.get(solution_index);
-            let transform = transform(id, container_solution, parent);
+            let transform = transform(id, container_solution, parent, properties);
 
             let data = DataBuilder::new(transform)
                 .with_layout(layout)
                 .with_ident(LayoutIdentifier(*solution_index))
                 .with_tint(tint)
-                .with_image(background.map(UiCachedImage))
+                .with_image(background)
                 .with_custom_data(custom_data)
                 .build();
             prefab
@@ -762,14 +900,15 @@ fn walk_ui_tree<C: ToLayoutElement>(
             id,
             background,
             tint,
+            properties,
             ..
         } => {
-            let transform = transform(id, solution.get(solution_index), parent);
+            let transform = transform(id, solution.get(solution_index), parent, properties);
 
             let data = DataBuilder::new(transform)
                 .with_layout(layout)
                 .with_ident(LayoutIdentifier(*solution_index))
-                .with_image(background.map(UiCachedImage))
+                .with_image(background)
                 .with_tint(tint)
                 .with_custom_data(custom_data)
                 .build();
@@ -782,16 +921,18 @@ fn walk_ui_tree<C: ToLayoutElement>(
             id,
             mut button,
             extra_button,
+            mut properties,
             ..
         } => {
-            let transform = transform(id, solution.get(solution_index), parent);
+            properties.mouse_reactive = true;
+            let transform = transform(id, solution.get(solution_index), parent, properties);
             button.font_size *= dpi;
 
             let id = transform.id.clone();
             let text = UiTextData {
                 color: button.normal_text_color,
                 editable: None,
-                font: button.font.clone(),
+                font: button.font.take(),
                 password: false,
                 align: None,
                 line_mode: None,
@@ -833,9 +974,10 @@ fn walk_ui_tree<C: ToLayoutElement>(
             id,
             mut image_button,
             extra_button,
+            properties,
             ..
         } => {
-            let transform = transform(id, solution.get(solution_index), parent);
+            let transform = transform(id, solution.get(solution_index), parent, properties);
             let id = transform.id.clone();
 
             let tint = extra_button
@@ -869,13 +1011,7 @@ fn walk_ui_tree<C: ToLayoutElement>(
                 id,
                 image_button.margin.take().unwrap_or(8.0)
             ))
-            .with_image(
-                image_button
-                    .icon
-                    .take()
-                    .map(UiImagePrefab)
-                    .map(UiCachedImage)
-            )
+            .with_image(image_button.icon.take())
             .build();
             prefab.add(Some(entity_index), Some(data));
         }
@@ -904,14 +1040,18 @@ fn walk_ui_tree<C: ToLayoutElement>(
             let options = options.unwrap_or_else(ModalData::default);
             let background_solution = solution.get(solution_index);
 
-            let mut background_transform =
-                transform(format!("{}_background", id), background_solution, parent);
+            let mut background_transform = transform(
+                format!("{}_background", id),
+                background_solution,
+                parent,
+                Default::default()
+            );
             background_transform.z = 100.0;
 
             let data = DataBuilder::new(background_transform)
                 .with_layout(layout)
                 .with_ident(LayoutIdentifier(*solution_index))
-                .with_image(Some(UiCachedImage(options.background)))
+                .with_image(Some(options.background))
                 .with_custom_data(custom_data)
                 .build();
             prefab
@@ -922,7 +1062,12 @@ fn walk_ui_tree<C: ToLayoutElement>(
             *solution_index += 1;
 
             let container_solution = solution.get(solution_index);
-            let container_transform = transform(id, container_solution, background_solution);
+            let container_transform = transform(
+                id,
+                container_solution,
+                background_solution,
+                Default::default()
+            );
             let data = DataBuilder::new(container_transform)
                 .with_ident(LayoutIdentifier(*solution_index))
                 .build();

@@ -8,12 +8,12 @@ use crate::{
     },
     prefab::{CalculatedDimensions, DynamicLayout, DynamicLayoutData, ExtraButtonData, Tinted},
     solver::LimnSolver,
-    HashMap
+    HashMap, UiCachedImage, UiCachedText
 };
 use amethyst::{
     assets::{AssetPrefab, PrefabData},
     audio::Source,
-    ui::{Anchor, FontAsset, UiButtonData, UiImageLoadPrefab, UiImagePrefab, UiTextData}
+    ui::{Anchor, FontAsset, UiButtonData, UiImageLoadPrefab, UiImagePrefab}
 };
 use cassowary::strength::*;
 use derivative::Derivative;
@@ -28,7 +28,7 @@ where
 
     fn into_native_widget(self, data: Self::PrefabData) -> (LayoutElement<Self>, Self::PrefabData);
     fn visit_layout(
-        &mut self,
+        &self,
         layout: &mut Layout,
         children: &mut Vec<Layout>,
         dpi: f32,
@@ -43,11 +43,13 @@ fn default_modal_anchor() -> Anchor {
     Anchor::Middle
 }
 
-fn default_modal_background() -> UiImagePrefab {
-    UiImagePrefab(UiImageLoadPrefab::SolidColor(0.0, 0.0, 0.0, 0.627))
+fn default_modal_background() -> UiCachedImage {
+    UiCachedImage(UiImagePrefab(UiImageLoadPrefab::SolidColor(
+        0.0, 0.0, 0.0, 0.627
+    )))
 }
 
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, Default)]
 pub struct SizeConstraints {
     pub min_width: Option<f32>,
     pub min_height: Option<f32>,
@@ -58,6 +60,19 @@ pub struct SizeConstraints {
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug, Derivative)]
+#[serde(default)]
+#[derivative(Default)]
+pub struct Properties {
+    #[derivative(Default(value = "true"))]
+    pub opaque: bool,
+    #[derivative(Default(value = "false"))]
+    pub transparent_target: bool,
+    pub mouse_reactive: bool,
+    pub hidden: bool,
+    pub selectable: Option<u32>
+}
+
+#[derive(Serialize, Deserialize, Clone, Debug, Derivative)]
 #[derivative(Default)]
 pub struct ModalData {
     #[serde(default = "default_modal_anchor")]
@@ -65,7 +80,7 @@ pub struct ModalData {
     pub align: Anchor,
     #[serde(default = "default_modal_background")]
     #[derivative(Default(value = "default_modal_background()"))]
-    pub background: UiImagePrefab
+    pub background: UiCachedImage
 }
 
 #[derive(Serialize, Deserialize, Clone, Copy)]
@@ -78,7 +93,7 @@ impl ToLayoutElement for NoCustomElements {
         unreachable!()
     }
 
-    fn visit_layout(&mut self, _: &mut Layout, _: &mut Vec<Layout>, _: f32, _: &mut usize) {
+    fn visit_layout(&self, _: &mut Layout, _: &mut Vec<Layout>, _: f32, _: &mut usize) {
         unreachable!()
     }
 }
@@ -98,17 +113,17 @@ pub struct UiExtraTextData {
 
 #[derive(Serialize, Deserialize, Clone, Debug, Default)]
 pub struct ImageButtonData {
-    pub icon: Option<UiImageLoadPrefab>,
+    pub icon: Option<UiCachedImage>,
     pub margin: Option<f32>,
     // this `normal_image` is "transplanted" into UiImagePrefab at the top level
     // of ui widget. This happens inside `walk_ui_tree` function. It means that
     // it will always be `None` during `add_to_entity`.
     /// Default image
-    pub normal_image: Option<UiImageLoadPrefab>,
+    pub normal_image: Option<UiCachedImage>,
     /// Image used when the mouse hovers over this element
-    pub hover_image: Option<UiImageLoadPrefab>,
+    pub hover_image: Option<UiCachedImage>,
     /// Image used when button is pressed
-    pub press_image: Option<UiImageLoadPrefab>,
+    pub press_image: Option<UiCachedImage>,
     /// Sound made when this button is hovered over
     pub hover_sound: Option<AssetPrefab<Source>>,
     /// Sound made when this button is pressed.
@@ -124,10 +139,10 @@ pub(crate) fn image_button_to_ui_button(button: &mut ImageButtonData) -> UiButto
         font_size: 0.0,
         font: None,
         normal_text_color: [0.0, 0.0, 0.0, 0.0],
-        normal_image: button.normal_image.take(),
-        hover_image: button.hover_image.take(),
+        normal_image: button.normal_image.take().map(|a| (a.0).0),
+        hover_image: button.hover_image.take().map(|a| (a.0).0),
         hover_text_color: None,
-        press_image: button.press_image.take(),
+        press_image: button.press_image.take().map(|a| (a.0).0),
         press_text_color: None,
         hover_sound: button.hover_sound.take(),
         press_sound: button.press_sound.take(),
@@ -145,10 +160,12 @@ pub struct I18nData {
 pub enum LayoutElement<C: ToLayoutElement = NoCustomElements> {
     Image {
         id: String,
-        image: UiImagePrefab,
+        image: UiCachedImage,
         constraints: Option<SizeConstraints>,
         #[serde(default = "true_")]
-        keep_aspect_ratio: bool
+        keep_aspect_ratio: bool,
+        #[serde(default)]
+        properties: Properties
     },
     Button {
         id: String,
@@ -156,39 +173,49 @@ pub enum LayoutElement<C: ToLayoutElement = NoCustomElements> {
         #[serde(default)]
         i18n: I18nData,
         extra_button: Option<ExtraButtonData>,
-        constraints: Option<SizeConstraints>
+        constraints: Option<SizeConstraints>,
+        #[serde(default)]
+        properties: Properties
     },
     ImageButton {
         id: String,
         image_button: ImageButtonData,
         extra_button: Option<ExtraButtonData>,
-        constraints: Option<SizeConstraints>
+        constraints: Option<SizeConstraints>,
+        #[serde(default)]
+        properties: Properties
     },
     Label {
         id: String,
-        text: UiTextData,
+        text: UiCachedText,
         #[serde(default)]
         i18n: I18nData,
         extra_text: Option<UiExtraTextData>,
-        constraints: Option<SizeConstraints>
+        constraints: Option<SizeConstraints>,
+        #[serde(default)]
+        properties: Properties
     },
     Linear {
         id: String,
-        background: Option<UiImagePrefab>,
+        background: Option<UiCachedImage>,
         tint: Option<Tinted>,
         constraints: Option<SizeConstraints>,
         options: Option<LinearLayoutData>,
         children: Vec<LayoutElement<C>>,
-        padding: Option<Padding>
+        padding: Option<Padding>,
+        #[serde(default)]
+        properties: Properties
     },
     Grid {
         id: String,
         columns: usize,
-        background: Option<UiImagePrefab>,
+        background: Option<UiCachedImage>,
         tint: Option<Tinted>,
         constraints: Option<SizeConstraints>,
         children: Vec<LayoutElement<C>>,
-        padding: Option<Padding>
+        padding: Option<Padding>,
+        #[serde(default)]
+        properties: Properties
     },
     Padded {
         padding: Padding,
@@ -205,8 +232,10 @@ pub enum LayoutElement<C: ToLayoutElement = NoCustomElements> {
     Canvas {
         id: String,
         constraints: Option<SizeConstraints>,
-        background: Option<UiImagePrefab>,
-        tint: Option<Tinted>
+        background: Option<UiCachedImage>,
+        tint: Option<Tinted>,
+        #[serde(default)]
+        properties: Properties
     },
     Custom(Box<C>)
 }
@@ -214,7 +243,7 @@ pub enum LayoutElement<C: ToLayoutElement = NoCustomElements> {
 impl<C: ToLayoutElement> LayoutElement<C> {
     /// Solve layout and transform into widget tree with absolute
     pub fn create_solver(
-        &mut self,
+        &self,
         (screen_width, screen_height): (f32, f32),
         dpi: f32
     ) -> DynamicLayout {
@@ -278,7 +307,7 @@ impl<C: ToLayoutElement> LayoutElement<C> {
 }
 
 fn walk_layout_tree<C: ToLayoutElement>(
-    element: &mut LayoutElement<C>,
+    element: &LayoutElement<C>,
     solver: &mut LimnSolver,
     dpi: f32,
     index: &mut usize
@@ -380,18 +409,56 @@ fn walk_layout_tree<C: ToLayoutElement>(
             children_to_update.push(header);
             children_to_update.push(content);
         }
-        LayoutElement::Label {
-            constraints, text, ..
-        } => {
-            if let Some(constraints) = constraints {
-                constraints.min_height = Some(
-                    constraints
-                        .min_height
-                        .unwrap_or(0.0)
-                        .max(text.font_size * dpi + 2.0)
-                );
-                apply_constraints(&mut layout, constraints, dpi);
-            }
+        LayoutElement::Label { constraints, .. } => {
+            let constraints = constraints.clone().unwrap_or_default();
+            // This doesn't work the way things are set up now, skip it for now
+            // todo: Implement this
+            /*            let font = get_font(text.0.font.as_ref(), fonts);
+            let scale = Scale::uniform(text.0.font_size);
+            let v_metrics = font.0.v_metrics(scale);
+
+            if constraints.min_height.is_none() {
+                match text.0.line_mode.unwrap_or(LineMode::Single) {
+                    LineMode::Single => {
+                        constraints.min_height = Some(v_metrics.ascent + v_metrics.descent);
+                    }
+                    LineMode::Wrap => {
+                        if constraints.preferred_width.is_none() && constraints.min_width.is_none() {}
+                        else {
+                            let line_breaks = xi_unicode::LineBreakIterator::new(&text.0.text);
+
+                            let width = constraints.preferred_width.or(constraints.min_width).unwrap();
+                            let mut words = Vec::new();
+                            let mut last_index = 0;
+                            for (index, hard) in line_breaks {
+                                words.push((&text.0.text[last_index..index], hard));
+                                last_index = index;
+                            }
+                            let mut lines = 1;
+                            let mut current_length = 0.0;
+                            for (word, hard) in words {
+                                if hard {
+                                    lines += 1;
+                                    current_length = 0.0;
+                                } else {
+                                    let word_len = calculate_word_length(word, font, scale);
+                                    if current_length + word_len > width {
+                                        lines += 1;
+                                        current_length = word_len;
+                                    } else {
+                                        current_length += word_len;
+                                    }
+                                }
+                            }
+                            let height = lines * v_metrics.descent + v_metrics.ascent + (lines - 1) * v_metrics.line_gap;
+                            constraints.preferred_height = height;
+                            log::debug!("Calculated Lines: {}, Calculated height: {}", lines, height);
+                        }
+                    }
+                }
+            }*/
+
+            apply_constraints(&mut layout, &constraints, dpi);
         }
         _ => {
             let constraints = element.constraints();
@@ -407,6 +474,21 @@ fn walk_layout_tree<C: ToLayoutElement>(
     }
     layout
 }
+
+/*fn calculate_word_length(word: &str, font: &FontAsset, scale: Scale) -> f32 {
+    word.chars()
+        .map(|char| font.0.glyph(char).scaled(scale))
+        .map(|glyph| glyph.h_metrics().advance_width)
+        .sum()
+}
+
+fn get_font<'a>(font: Option<&AssetPrefab<FontAsset>>, fonts: &'a AssetStorage<FontAsset>) -> &'a FontAsset {
+    let font_handle = match font {
+        Some(AssetPrefab::Handle(handle)) => handle,
+        _ => panic!("Font should be present and loaded at this point")
+    };
+    fonts.get(font_handle).expect("Font should have finished loading by now")
+}*/
 
 pub fn apply_constraints(layout: &mut Layout, constraints: &SizeConstraints, dpi: f32) {
     if let Some(min_width) = constraints.min_width {
