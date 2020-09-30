@@ -1,5 +1,5 @@
 (function() {var implementors = {};
-implementors["amethyst_dynamic_ui"] = [{"text":"impl Deref for Fonts","synthetic":false,"types":[]},{"text":"impl Deref for Textures","synthetic":false,"types":[]},{"text":"impl Deref for LAYOUT","synthetic":false,"types":[]},{"text":"impl Deref for LayoutIdentifier","synthetic":false,"types":[]}];
+implementors["amethyst_dynamic_ui"] = [{"text":"impl Deref for Fonts","synthetic":false,"types":[]},{"text":"impl Deref for Textures","synthetic":false,"types":[]},{"text":"impl Deref for LAYOUT","synthetic":false,"types":[]},{"text":"impl Deref for UiCachedImage","synthetic":false,"types":[]},{"text":"impl Deref for LayoutIdentifier","synthetic":false,"types":[]}];
 implementors["amethyst_fmod"] = [{"text":"impl Deref for AudioSystem","synthetic":false,"types":[]}];
 implementors["arrayvec"] = [{"text":"impl&lt;A:&nbsp;Array&lt;Item = u8&gt;&gt; Deref for ArrayString&lt;A&gt;","synthetic":false,"types":[]},{"text":"impl&lt;A:&nbsp;Array&gt; Deref for ArrayVec&lt;A&gt;","synthetic":false,"types":[]}];
 implementors["bytes"] = [{"text":"impl Deref for Bytes","synthetic":false,"types":[]},{"text":"impl Deref for BytesMut","synthetic":false,"types":[]}];
