@@ -2,13 +2,13 @@
 <link rel="alternate icon" type="image/png" href="../../../../favicon-16x16.png">
 <link rel="alternate icon" type="image/png" href="../../../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../../../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../../nom/index.html'><div class='logo-container rust-logo'><img src='../../../../rust-logo.png' alt='logo'></div></a><p class='location'>Module fmt</p><div class="sidebar-elems"><div class="block items"><ul><li><a href="#macros">Macros</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class='location'><a href='../../../index.html'>nom</a>::<wbr><a href='../../index.html'>lib</a>::<wbr><a href='../index.html'>std</a></p><script>window.sidebarCurrent = {name: 'fmt', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><span class="help-button">?</span>
                 <a id="settings-menu" href="../../../../settings.html"><img src="../../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='out-of-band'><span class='since' title='Stable since Rust version 1.0.0'>1.0.0</span><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='https://doc.rust-lang.org/nightly/src/alloc/lib.rs.html#168' title='goto source code'>[src]</a></span><span class='in-band'>Module <a href='../../../index.html'>nom</a>::<wbr><a href='../../index.html'>lib</a>::<wbr><a href='../index.html'>std</a>::<wbr><a class="mod" href=''>fmt</a></span></h1><div class='docblock'><p>Utilities for formatting and printing <code>String</code>s.</p>
-<p>This module contains the runtime support for the <a href="crate::format"><code>format!</code></a> syntax extension.
+<p>This module contains the runtime support for the <a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html"><code>format!</code></a> syntax extension.
 This macro is implemented in the compiler to emit calls to this module in
 order to format arguments at runtime into strings.</p>
 <h1 id="usage" class="section-header"><a href="#usage">Usage</a></h1>
-<p>The <a href="crate::format"><code>format!</code></a> macro is intended to be familiar to those coming from C's
+<p>The <a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html"><code>format!</code></a> macro is intended to be familiar to those coming from C's
 <code>printf</code>/<code>fprintf</code> functions or Python's <code>str.format</code> function.</p>
-<p>Some examples of the <a href="crate::format"><code>format!</code></a> extension are:</p>
+<p>Some examples of the <a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html"><code>format!</code></a> extension are:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Hello&quot;</span>);                 <span class="comment">// =&gt; &quot;Hello&quot;</span>
@@ -23,7 +23,7 @@ required by the compiler for this to be a string literal; it cannot be a
 variable passed in (in order to perform validity checking). The compiler
 will then parse the format string and determine if the list of arguments
 provided is suitable to pass to this format string.</p>
-<p>To convert a single value to a string, use the <a href="crate::string::ToString"><code>to_string</code></a> method. This
+<p>To convert a single value to a string, use the <a href="../../../../nom/lib/std/prelude/v1/v1/trait.ToString.html"><code>to_string</code></a> method. This
 will use the <a href="../../../../nom/lib/std/fmt/trait.Display.html" title="Display"><code>Display</code></a> formatting trait.</p>
 <h2 id="positional-parameters" class="section-header"><a href="#positional-parameters">Positional parameters</a></h2>
 <p>Each formatting argument is allowed to specify which value argument it's
@@ -48,12 +48,12 @@ compile-time error. You may refer to the same argument more than once in the
 format string.</p>
 <h2 id="named-parameters" class="section-header"><a href="#named-parameters">Named parameters</a></h2>
 <p>Rust itself does not have a Python-like equivalent of named parameters to a
-function, but the <a href="crate::format"><code>format!</code></a> macro is a syntax extension that allows it to
+function, but the <a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html"><code>format!</code></a> macro is a syntax extension that allows it to
 leverage named parameters. Named parameters are listed at the end of the
 argument list and have the syntax:</p>
 <pre><code class="language-text">identifier '=' expression
 </code></pre>
-<p>For example, the following <a href="crate::format"><code>format!</code></a> expressions all use named argument:</p>
+<p>For example, the following <a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html"><code>format!</code></a> expressions all use named argument:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{argument}&quot;</span>, <span class="ident">argument</span> <span class="op">=</span> <span class="string">&quot;test&quot;</span>);   <span class="comment">// =&gt; &quot;test&quot;</span>
@@ -352,7 +352,7 @@ most cases, using <code>#[derive(Debug)]</code> is sufficient and recommended.</
 <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{} {:?}&quot;</span>, <span class="string">&#39;a&#39;</span>, <span class="string">&#39;b&#39;</span>), <span class="string">&quot;a &#39;b&#39;&quot;</span>);
 <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{} {:?}&quot;</span>, <span class="string">&quot;foo\n&quot;</span>, <span class="string">&quot;bar\n&quot;</span>), <span class="string">&quot;foo\n \&quot;bar\\n\&quot;&quot;</span>);</pre></div>
 <h1 id="related-macros" class="section-header"><a href="#related-macros">Related macros</a></h1>
-<p>There are a number of related macros in the <a href="crate::format"><code>format!</code></a> family. The ones that
+<p>There are a number of related macros in the <a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html"><code>format!</code></a> family. The ones that
 are currently implemented are:</p>
 
 <div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
@@ -407,7 +407,7 @@ off, some example usage is:</p>
 }
 <span class="ident">my_fmt_fn</span>(<span class="macro">format_args</span><span class="macro">!</span>(<span class="string">&quot;, or a {} too&quot;</span>, <span class="string">&quot;function&quot;</span>));</pre></div>
 <p>The result of the <a href="../../../../nom/lib/std/prelude/v1/v1/macro.format_args.html"><code>format_args!</code></a> macro is a value of type <a href="../../../../nom/lib/std/fmt/struct.Arguments.html"><code>fmt::Arguments</code></a>.
-This structure can then be passed to the <a href="https://doc.rust-lang.org/nightly/core/macro.write.html"><code>write</code></a> and <a href="crate::format"><code>format</code></a> functions
+This structure can then be passed to the <a href="https://doc.rust-lang.org/nightly/core/macro.write.html"><code>write</code></a> and <a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html"><code>format</code></a> functions
 inside this module in order to process the format string.
 The goal of this macro is to even further prevent intermediate allocations
 when dealing with formatting strings.</p>

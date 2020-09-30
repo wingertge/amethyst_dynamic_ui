@@ -47,7 +47,7 @@ you will get a panic).</p>
 </div><h4 id='method.has_value_raw' class="method"><code>pub fn <a href='#method.has_value_raw' class='fnname'>has_value_raw</a>(&amp;self, id: <a class="struct" href="../../amethyst_core/ecs/shred/struct.ResourceId.html" title="struct amethyst_core::ecs::shred::ResourceId">ResourceId</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class='srclink' href='../../src/shred/world/mod.rs.html#270-272' title='goto source code'>[src]</a></h4><div class='docblock'><p>Returns true if the specified resource type exists in <code>self</code>.</p>
 </div><h4 id='method.entry' class="method"><code>pub fn <a href='#method.entry' class='fnname'>entry</a>&lt;R&gt;(&amp;mut self) -&gt; <a class="struct" href="../../amethyst_core/ecs/shred/struct.Entry.html" title="struct amethyst_core::ecs::shred::Entry">Entry</a>&lt;'_, R&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;R: <a class="trait" href="../../amethyst_core/ecs/shred/trait.Resource.html" title="trait amethyst_core::ecs::shred::Resource">Resource</a>,&nbsp;</span></code><a class='srclink' href='../../src/shred/world/mod.rs.html#275-280' title='goto source code'>[src]</a></h4><div class='docblock'><p>Returns an entry for the resource with type <code>R</code>.</p>
 </div><h4 id='method.system_data' class="method"><code>pub fn <a href='#method.system_data' class='fnname'>system_data</a>&lt;'a, T&gt;(&amp;'a self) -&gt; T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="../../amethyst_core/ecs/trait.SystemData.html" title="trait amethyst_core::ecs::SystemData">SystemData</a>&lt;'a&gt;,&nbsp;</span></code><a class='srclink' href='../../src/shred/world/mod.rs.html#304-309' title='goto source code'>[src]</a></h4><div class='docblock'><p>Gets <code>SystemData</code> <code>T</code> from the <code>World</code>. This can be used to retrieve
-data just like in <a href="crate::System">System</a>s.</p>
+data just like in <a href="../../amethyst_core/ecs/trait.System.html">System</a>s.</p>
 <p>This will not setup the system data, i.e. resources fetched here must
 exist already.</p>
 <h1 id="examples-1" class="section-header"><a href="#examples-1">Examples</a></h1>
@@ -96,7 +96,7 @@ initialized:</p>
 </div><h4 id='method.exec' class="method"><code>pub fn <a href='#method.exec' class='fnname'>exec</a>&lt;'a, F, R, T&gt;(&amp;'a mut self, f: F) -&gt; R <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnOnce.html" title="trait core::ops::function::FnOnce">FnOnce</a>(T) -&gt; R,<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="../../amethyst_core/ecs/trait.SystemData.html" title="trait amethyst_core::ecs::SystemData">SystemData</a>&lt;'a&gt;,&nbsp;</span></code><a class='srclink' href='../../src/shred/world/mod.rs.html#402-409' title='goto source code'>[src]</a></h4><div class='docblock'><p>Executes <code>f</code> once, right now and with the specified system data.</p>
 <p>This sets up the system data <code>f</code> expects, fetches it and then
 executes <code>f</code>. This is essentially like a one-time
-<a href="crate::System">System</a>.</p>
+<a href="../../amethyst_core/ecs/trait.System.html">System</a>.</p>
 <p>This is especially useful if you either need a lot of system data or,
 with Specs, if you want to build an entity and for that you need to
 access resources first - just fetching the resources and building

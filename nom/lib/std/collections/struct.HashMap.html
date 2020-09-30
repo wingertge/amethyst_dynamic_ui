@@ -29,7 +29,7 @@ property holds:</p>
 <p>It is a logic error for a key to be modified in such a way that the key's
 hash, as determined by the <a href="../../../../nom/lib/std/hash/trait.Hash.html" title="Hash"><code>Hash</code></a> trait, or its equality, as determined by
 the <a href="../../../../nom/lib/std/prelude/v1/v1/trait.Eq.html" title="Eq"><code>Eq</code></a> trait, changes while it is in the map. This is normally only
-possible through <a href="crate::cell::Cell"><code>Cell</code></a>, <a href="crate::cell::RefCell"><code>RefCell</code></a>, global state, I/O, or unsafe code.</p>
+possible through <a href="https://doc.rust-lang.org/nightly/core/cell/struct.Cell.html"><code>Cell</code></a>, <a href="https://doc.rust-lang.org/nightly/core/cell/struct.RefCell.html"><code>RefCell</code></a>, global state, I/O, or unsafe code.</p>
 <p>The hash table implementation is a Rust port of Google's <a href="https://abseil.io/blog/20180927-swisstables">SwissTable</a>.
 The original C++ version of SwissTable can be found <a href="https://github.com/abseil/abseil-cpp/blob/master/absl/container/internal/raw_hash_set.h">here</a>, and this
 <a href="https://www.youtube.com/watch?v=ncHmEUmJZf4">CppCon talk</a> gives an overview of how the algorithm works.</p>
@@ -495,7 +495,7 @@ the key type.</p>
 <p>If the map did not have this key present, <a href="../../../../nom/lib/std/prelude/v1/v1/enum.Option.html#variant.None" title="None"><code>None</code></a> is returned.</p>
 <p>If the map did have this key present, the value is updated, and the old
 value is returned. The key is not updated, though; this matters for
-types that can be <code>==</code> without being identical. See the <a href="crate::collections#insert-and-complex-keys">module-level
+types that can be <code>==</code> without being identical. See the <a href="../../../../nom/lib/std/collections/index.html#insert-and-complex-keys">module-level
 documentation</a> for more.</p>
 <h1 id="examples-26" class="section-header"><a href="#examples-26">Examples</a></h1>
 <div class="example-wrap"><pre class="rust rust-example-rendered">

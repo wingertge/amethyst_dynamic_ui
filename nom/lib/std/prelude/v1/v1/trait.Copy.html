@@ -102,7 +102,7 @@ type <code>PointList</code> from above:</p>
 mutable reference. Copying <a href="../../std/string/struct.String.html"><code>String</code></a> would duplicate responsibility for managing the
 <a href="../../std/string/struct.String.html"><code>String</code></a>'s buffer, leading to a double free.</p>
 <p>Generalizing the latter case, any type implementing <a href="../../../../../../nom/lib/std/prelude/v1/v1/trait.Drop.html" title="Drop"><code>Drop</code></a> can't be <code>Copy</code>, because it's
-managing some resource besides its own <a href="crate::mem::size_of"><code>size_of::&lt;T&gt;</code></a> bytes.</p>
+managing some resource besides its own <a href="../../../../../../nom/lib/std/mem/fn.size_of.html"><code>size_of::&lt;T&gt;</code></a> bytes.</p>
 <p>If you try to implement <code>Copy</code> on a struct or enum containing non-<code>Copy</code> data, you will get
 the error <a href="../../error-index.html#E0204">E0204</a>.</p>
 <h2 id="when-should-my-type-be-copy" class="section-header"><a href="#when-should-my-type-be-copy">When <em>should</em> my type be <code>Copy</code>?</a></h2>

@@ -3,7 +3,7 @@
 <p>Unless you are implementing <a href="../../rand_distr/uniform/trait.UniformSampler.html" title="UniformSampler"><code>UniformSampler</code></a> for your own type, this type
 should not be used directly, use <a href="../../rand_distr/uniform/struct.Uniform.html" title="Uniform"><code>Uniform</code></a> instead.</p>
 <h1 id="implementation-notes" class="section-header"><a href="#implementation-notes">Implementation notes</a></h1>
-<p>Instead of generating a float in the <code>[0, 1)</code> range using <a href="crate::distributions::Standard"><code>Standard</code></a>, the
+<p>Instead of generating a float in the <code>[0, 1)</code> range using <a href="../../rand_distr/struct.Standard.html"><code>Standard</code></a>, the
 <code>UniformFloat</code> implementation converts the output of an PRNG itself. This
 way one or two steps can be optimized out.</p>
 <p>The floats are first converted to a value in the <code>[1, 2)</code> interval using a

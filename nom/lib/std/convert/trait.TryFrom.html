@@ -12,8 +12,8 @@ For example, there is no way to convert an [<code>i64</code>] into an [<code>i32
 using the <a href="../../../../nom/lib/std/prelude/v1/v1/trait.From.html" title="From"><code>From</code></a> trait, because an [<code>i64</code>] may contain a value
 that an [<code>i32</code>] cannot represent and so the conversion would lose data.
 This might be handled by truncating the [<code>i64</code>] to an [<code>i32</code>] (essentially
-giving the [<code>i64</code>]'s value modulo <a href="crate::i32::MAX"><code>i32::MAX</code></a>) or by simply returning
-<a href="crate::i32::MAX"><code>i32::MAX</code></a>, or by some other method.  The <a href="../../../../nom/lib/std/prelude/v1/v1/trait.From.html" title="From"><code>From</code></a> trait is intended
+giving the [<code>i64</code>]'s value modulo <a href="https://doc.rust-lang.org/nightly/core/i32/constant.MAX.html"><code>i32::MAX</code></a>) or by simply returning
+<a href="https://doc.rust-lang.org/nightly/core/i32/constant.MAX.html"><code>i32::MAX</code></a>, or by some other method.  The <a href="../../../../nom/lib/std/prelude/v1/v1/trait.From.html" title="From"><code>From</code></a> trait is intended
 for perfect conversions, so the <code>TryFrom</code> trait informs the
 programmer when a type conversion could go bad and lets them
 decide how to handle it.</p>

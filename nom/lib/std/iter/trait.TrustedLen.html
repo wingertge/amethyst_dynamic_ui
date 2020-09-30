@@ -5,8 +5,8 @@
 <p>The iterator reports a size hint where it is either exact
 (lower bound is equal to upper bound), or the upper bound is <a href="../../../../nom/lib/std/prelude/v1/v1/enum.Option.html#variant.None" title="None"><code>None</code></a>.
 The upper bound must only be <a href="../../../../nom/lib/std/prelude/v1/v1/enum.Option.html#variant.None" title="None"><code>None</code></a> if the actual iterator length is
-larger than <a href="crate::usize::MAX"><code>usize::MAX</code></a>. In that case, the lower bound must be
-<a href="crate::usize::MAX"><code>usize::MAX</code></a>, resulting in a <a href="../../../../nom/lib/std/prelude/v1/v1/trait.Iterator.html#method.size_hint" title="Iterator::size_hint()"><code>Iterator::size_hint()</code></a> of
+larger than <a href="https://doc.rust-lang.org/nightly/core/usize/constant.MAX.html"><code>usize::MAX</code></a>. In that case, the lower bound must be
+<a href="https://doc.rust-lang.org/nightly/core/usize/constant.MAX.html"><code>usize::MAX</code></a>, resulting in a <a href="../../../../nom/lib/std/prelude/v1/v1/trait.Iterator.html#method.size_hint" title="Iterator::size_hint()"><code>Iterator::size_hint()</code></a> of
 <code>(usize::MAX, None)</code>.</p>
 <p>The iterator must produce exactly the number of elements it reported
 or diverge before reaching the end.</p>

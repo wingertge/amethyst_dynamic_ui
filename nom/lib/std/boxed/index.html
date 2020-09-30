@@ -39,14 +39,14 @@ elements are in the list, and so we don't know how much memory to allocate
 for a <code>Cons</code>. By introducing a <a href="../../../../nom/lib/std/prelude/v1/v1/struct.Box.html"><code>Box&lt;T&gt;</code></a>, which has a defined size, we know how
 big <code>Cons</code> needs to be.</p>
 <h1 id="memory-layout" class="section-header"><a href="#memory-layout">Memory layout</a></h1>
-<p>For non-zero-sized values, a <a href="../../../../nom/lib/std/prelude/v1/v1/struct.Box.html" title="Box"><code>Box</code></a> will use the <a href="crate::alloc::Global"><code>Global</code></a> allocator for
+<p>For non-zero-sized values, a <a href="../../../../nom/lib/std/prelude/v1/v1/struct.Box.html" title="Box"><code>Box</code></a> will use the <a href="../../../../nom/lib/std/alloc/struct.Global.html"><code>Global</code></a> allocator for
 its allocation. It is valid to convert both ways between a <a href="../../../../nom/lib/std/prelude/v1/v1/struct.Box.html" title="Box"><code>Box</code></a> and a
-raw pointer allocated with the <a href="crate::alloc::Global"><code>Global</code></a> allocator, given that the
-<a href="crate::alloc::Layout"><code>Layout</code></a> used with the allocator is correct for the type. More precisely,
-a <code>value: *mut T</code> that has been allocated with the <a href="crate::alloc::Global"><code>Global</code></a> allocator
+raw pointer allocated with the <a href="../../../../nom/lib/std/alloc/struct.Global.html"><code>Global</code></a> allocator, given that the
+<a href="../../../../nom/lib/std/alloc/struct.Layout.html"><code>Layout</code></a> used with the allocator is correct for the type. More precisely,
+a <code>value: *mut T</code> that has been allocated with the <a href="../../../../nom/lib/std/alloc/struct.Global.html"><code>Global</code></a> allocator
 with <code>Layout::for_value(&amp;*value)</code> may be converted into a box using
 <a href="../../../../nom/lib/std/prelude/v1/v1/struct.Box.html#method.from_raw"><code>Box::&lt;T&gt;::from_raw(value)</code></a>. Conversely, the memory backing a <code>value: *mut T</code> obtained from <a href="../../../../nom/lib/std/prelude/v1/v1/struct.Box.html#method.into_raw"><code>Box::&lt;T&gt;::into_raw</code></a> may be deallocated using the
-<a href="crate::alloc::Global"><code>Global</code></a> allocator with <a href="crate::alloc::Layout::for_value"><code>Layout::for_value(&amp;*value)</code></a>.</p>
+<a href="../../../../nom/lib/std/alloc/struct.Global.html"><code>Global</code></a> allocator with <a href="../../../../nom/lib/std/alloc/struct.Layout.html#method.for_value"><code>Layout::for_value(&amp;*value)</code></a>.</p>
 <p>So long as <code>T: Sized</code>, a <code>Box&lt;T&gt;</code> is guaranteed to be represented
 as a single pointer and is also ABI-compatible with C pointers
 (i.e. the C type <code>T*</code>). This means that if you have extern &quot;C&quot;

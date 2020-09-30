@@ -129,8 +129,8 @@
     { ... }
 }</pre></div><div class='docblock'><p>An interface for dealing with iterators.</p>
 <p>This is the main iterator trait. For more about the concept of iterators
-generally, please see the <a href="crate::iter">module-level documentation</a>. In particular, you
-may want to know how to <a href="crate::iter#implementing-iterator">implement <code>Iterator</code></a>.</p>
+generally, please see the <a href="../../../../nom/lib/std/iter/index.html">module-level documentation</a>. In particular, you
+may want to know how to <a href="../../../../nom/lib/std/iter/index.html#implementing-iterator">implement <code>Iterator</code></a>.</p>
 </div><h2 id='associated-types' class='small-section-header'>Associated Types<a href='#associated-types' class='anchor'></a></h2><div class='methods'><h3 id='associatedtype.Item' class='method'><code>type <a href='#associatedtype.Item' class="type">Item</a></code></h3><div class='docblock'><p>The type of the elements being iterated over.</p>
 </div></div><span class='loading-content'>Loading content...</span><h2 id='required-methods' class='small-section-header'>Required methods<a href='#required-methods' class='anchor'></a></h2><div class='methods'><h3 id='tymethod.next' class='method'><code><span class="docblock attributes">#[lang = "next"]</span>fn <a href='#tymethod.next' class='fnname'>next</a>(&amp;mut self) -&gt; <a class="enum" href="../../../../nom/lib/std/prelude/v1/v1/enum.Option.html" title="enum nom::lib::std::prelude::v1::v1::Option">Option</a>&lt;Self::<a class="type" href="../../../../nom/lib/std/prelude/v1/v1/trait.Iterator.html#associatedtype.Item" title="type nom::lib::std::prelude::v1::v1::Iterator::Item">Item</a>&gt;</code></h3><div class='docblock'><p>Advances the iterator and returns the next value.</p>
 <p>Returns <a href="../../../../nom/lib/std/prelude/v1/v1/enum.Option.html#variant.None" title="None"><code>None</code></a> when iteration is finished. Individual iterator
@@ -212,11 +212,11 @@ returning the number of times it saw <a href="../../../../nom/lib/std/prelude/v1
 called at least once even if the iterator does not have any elements.</p>
 <h1 id="overflow-behavior" class="section-header"><a href="#overflow-behavior">Overflow Behavior</a></h1>
 <p>The method does no guarding against overflows, so counting elements of
-an iterator with more than <a href="crate::usize::MAX"><code>usize::MAX</code></a> elements either produces the
+an iterator with more than <a href="https://doc.rust-lang.org/nightly/core/usize/constant.MAX.html"><code>usize::MAX</code></a> elements either produces the
 wrong result or panics. If debug assertions are enabled, a panic is
 guaranteed.</p>
 <h1 id="panics" class="section-header"><a href="#panics">Panics</a></h1>
-<p>This function might panic if the iterator has more than <a href="crate::usize::MAX"><code>usize::MAX</code></a>
+<p>This function might panic if the iterator has more than <a href="https://doc.rust-lang.org/nightly/core/usize/constant.MAX.html"><code>usize::MAX</code></a>
 elements.</p>
 <h1 id="examples-2" class="section-header"><a href="#examples-2">Examples</a></h1>
 <p>Basic usage:</p>
@@ -310,7 +310,7 @@ The second way will advance the iterator earlier and may consume more items.</p>
 values from the first iterator and then over values from the second
 iterator.</p>
 <p>In other words, it links two iterators together, in a chain. 🔗</p>
-<p><a href="crate::iter::once"><code>once</code></a> is commonly used to adapt a single value into a chain of
+<p><a href="../../../../nom/lib/std/iter/fn.once.html"><code>once</code></a> is commonly used to adapt a single value into a chain of
 other kinds of iteration.</p>
 <h1 id="examples-6" class="section-header"><a href="#examples-6">Examples</a></h1>
 <p>Basic usage:</p>
@@ -410,7 +410,7 @@ ending the zipper. Zipping with <code>(0..)</code> can look a lot like <a href="
 </div><h3 id='method.map' class='method'><code>fn <a href='#method.map' class='fnname'>map</a>&lt;B, F&gt;(self, f: F) -&gt; <a class="struct" href="../../../../nom/lib/std/iter/struct.Map.html" title="struct nom::lib::std::iter::Map">Map</a>&lt;Self, F&gt;<span class="notable-traits"><span class="notable-traits-tooltip">ⓘ<div class='notable-traits-tooltiptext'><span class="docblock"><h3 class="notable">Notable traits for <a class="struct" href="../../../../nom/lib/std/iter/struct.Map.html" title="struct nom::lib::std::iter::Map">Map</a>&lt;I, F&gt;</h3><code class="content"><span class="where fmt-newline">impl&lt;B, I, F&gt; <a class="trait" href="../../../../nom/lib/std/prelude/v1/v1/trait.Iterator.html" title="trait nom::lib::std::prelude::v1::v1::Iterator">Iterator</a> for <a class="struct" href="../../../../nom/lib/std/iter/struct.Map.html" title="struct nom::lib::std::iter::Map">Map</a>&lt;I, F&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;F: <a class="trait" href="../../../../nom/lib/std/prelude/v1/v1/trait.FnMut.html" title="trait nom::lib::std::prelude::v1::v1::FnMut">FnMut</a>(&lt;I as <a class="trait" href="../../../../nom/lib/std/prelude/v1/v1/trait.Iterator.html" title="trait nom::lib::std::prelude::v1::v1::Iterator">Iterator</a>&gt;::<a class="type" href="../../../../nom/lib/std/prelude/v1/v1/trait.Iterator.html#associatedtype.Item" title="type nom::lib::std::prelude::v1::v1::Iterator::Item">Item</a>) -&gt; B,<br>&nbsp;&nbsp;&nbsp;&nbsp;I: <a class="trait" href="../../../../nom/lib/std/prelude/v1/v1/trait.Iterator.html" title="trait nom::lib::std::prelude::v1::v1::Iterator">Iterator</a>,&nbsp;</span></span><span class="where fmt-newline">    type <a href='../../../../nom/lib/std/prelude/v1/v1/trait.Iterator.html#associatedtype.Item' class="type">Item</a> = B;</span></code></span></div></span></span> <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;F: <a class="trait" href="../../../../nom/lib/std/prelude/v1/v1/trait.FnMut.html" title="trait nom::lib::std::prelude::v1::v1::FnMut">FnMut</a>(Self::<a class="type" href="../../../../nom/lib/std/prelude/v1/v1/trait.Iterator.html#associatedtype.Item" title="type nom::lib::std::prelude::v1::v1::Iterator::Item">Item</a>) -&gt; B,&nbsp;</span></code></h3><div class='docblock'><p>Takes a closure and creates an iterator which calls that closure on each
 element.</p>
 <p><code>map()</code> transforms one iterator into another, by means of its argument:
-something that implements <a href="crate::ops::FnMut"><code>FnMut</code></a>. It produces a new iterator which
+something that implements <a href="../../../../nom/lib/std/prelude/v1/v1/trait.FnMut.html"><code>FnMut</code></a>. It produces a new iterator which
 calls this closure on each element of the original iterator.</p>
 <p>If you are good at thinking in types, you can think of <code>map()</code> like this:
 If you have an iterator that gives you elements of some type <code>A</code>, and
@@ -554,7 +554,7 @@ different sized integer, the <a href="../../../../nom/lib/std/prelude/v1/v1/trai
 functionality.</p>
 <h1 id="overflow-behavior-1" class="section-header"><a href="#overflow-behavior-1">Overflow Behavior</a></h1>
 <p>The method does no guarding against overflows, so enumerating more than
-<a href="crate::usize::MAX"><code>usize::MAX</code></a> elements either produces the wrong result or panics. If
+<a href="https://doc.rust-lang.org/nightly/core/usize/constant.MAX.html"><code>usize::MAX</code></a> elements either produces the wrong result or panics. If
 debug assertions are enabled, a panic is guaranteed.</p>
 <h1 id="panics-2" class="section-header"><a href="#panics-2">Panics</a></h1>
 <p>The returned iterator might panic if the to-be-returned index would
@@ -1458,7 +1458,7 @@ them return <code>false</code>, it returns <a href="../../../../nom/lib/std/prel
 processing as soon as it finds a <code>true</code>.</p>
 <h1 id="overflow-behavior-2" class="section-header"><a href="#overflow-behavior-2">Overflow Behavior</a></h1>
 <p>The method does no guarding against overflows, so if there are more
-than <a href="crate::usize::MAX"><code>usize::MAX</code></a> non-matching elements, it either produces the wrong
+than <a href="https://doc.rust-lang.org/nightly/core/usize/constant.MAX.html"><code>usize::MAX</code></a> non-matching elements, it either produces the wrong
 result or panics. If debug assertions are enabled, a panic is
 guaranteed.</p>
 <h1 id="panics-3" class="section-header"><a href="#panics-3">Panics</a></h1>

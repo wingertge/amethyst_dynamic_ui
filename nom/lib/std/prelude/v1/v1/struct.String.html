@@ -199,7 +199,7 @@ is identical to the <a href="../../../../../../nom/lib/std/prelude/v1/v1/struct.
 <span class="ident">s</span>.<span class="ident">push</span>(<span class="string">&#39;a&#39;</span>);</pre></div>
 </div><h4 id='method.from_utf8' class="method"><code>pub fn <a href='#method.from_utf8' class='fnname'>from_utf8</a>(vec: <a class="struct" href="../../../../../../nom/lib/std/prelude/v1/v1/struct.Vec.html" title="struct nom::lib::std::prelude::v1::v1::Vec">Vec</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>&gt;) -&gt; <a class="enum" href="../../../../../../nom/lib/std/prelude/v1/v1/enum.Result.html" title="enum nom::lib::std::prelude::v1::v1::Result">Result</a>&lt;<a class="struct" href="../../../../../../nom/lib/std/prelude/v1/v1/struct.String.html" title="struct nom::lib::std::prelude::v1::v1::String">String</a>, <a class="struct" href="../../../../../../nom/lib/std/string/struct.FromUtf8Error.html" title="struct nom::lib::std::string::FromUtf8Error">FromUtf8Error</a>&gt;</code><a class='srclink' href='https://doc.rust-lang.org/nightly/src/alloc/string.rs.html#480-485' title='goto source code'>[src]</a></h4><div class='docblock'><p>Converts a vector of bytes to a <code>String</code>.</p>
 <p>A string (<a href="../../../../../../nom/lib/std/prelude/v1/v1/struct.String.html" title="String"><code>String</code></a>) is made of bytes (<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html" title="u8"><code>u8</code></a>), and a vector of bytes
-(<a href="crate::vec::Vec"><code>Vec&lt;u8&gt;</code></a>) is made of bytes, so this function converts between the
+(<a href="../../../../../../nom/lib/std/prelude/v1/v1/struct.Vec.html"><code>Vec&lt;u8&gt;</code></a>) is made of bytes, so this function converts between the
 two. Not all byte slices are valid <code>String</code>s, however: <code>String</code>
 requires that it is valid UTF-8. <code>from_utf8()</code> checks to ensure that
 the bytes are valid UTF-8, and then does the conversion.</p>
@@ -246,7 +246,7 @@ are required to be valid UTF-8. During this conversion,
 to incur the overhead of the conversion, there is an unsafe version
 of this function, <a href="../../../../../../nom/lib/std/prelude/v1/v1/struct.String.html#method.from_utf8_unchecked"><code>from_utf8_unchecked</code></a>, which has the same behavior
 but skips the checks.</p>
-<p>This function returns a <a href="crate::borrow::Cow"><code>Cow&lt;'a, str&gt;</code></a>. If our byte slice is invalid
+<p>This function returns a <a href="../../../../../../nom/lib/std/borrow/enum.Cow.html"><code>Cow&lt;'a, str&gt;</code></a>. If our byte slice is invalid
 UTF-8, then we need to insert the replacement characters, which will
 change the size of the string, and hence, require a <code>String</code>. But if
 it's already valid UTF-8, we don't need a new allocation. This return
@@ -287,7 +287,7 @@ if <code>v</code> contains any invalid data.</p>
 <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">String</span>::<span class="ident">from_utf16</span>(<span class="ident">v</span>).<span class="ident">is_err</span>());</pre></div>
 </div><h4 id='method.from_utf16_lossy' class="method"><code>pub fn <a href='#method.from_utf16_lossy' class='fnname'>from_utf16_lossy</a>(v: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>) -&gt; <a class="struct" href="../../../../../../nom/lib/std/prelude/v1/v1/struct.String.html" title="struct nom::lib::std::prelude::v1::v1::String">String</a></code><a class='srclink' href='https://doc.rust-lang.org/nightly/src/alloc/string.rs.html#629-631' title='goto source code'>[src]</a></h4><div class='docblock'><p>Decode a UTF-16 encoded slice <code>v</code> into a <code>String</code>, replacing
 invalid data with <a href="https://doc.rust-lang.org/nightly/core/char/constant.REPLACEMENT_CHARACTER.html">the replacement character (<code>U+FFFD</code>)</a>.</p>
-<p>Unlike <a href="../../../../../../nom/lib/std/prelude/v1/v1/struct.String.html#method.from_utf8_lossy"><code>from_utf8_lossy</code></a> which returns a <a href="crate::borrow::Cow"><code>Cow&lt;'a, str&gt;</code></a>,
+<p>Unlike <a href="../../../../../../nom/lib/std/prelude/v1/v1/struct.String.html#method.from_utf8_lossy"><code>from_utf8_lossy</code></a> which returns a <a href="../../../../../../nom/lib/std/borrow/enum.Cow.html"><code>Cow&lt;'a, str&gt;</code></a>,
 <code>from_utf16_lossy</code> returns a <code>String</code> since the UTF-16 to UTF-8
 conversion requires a memory allocation.</p>
 <h1 id="examples-6" class="section-header"><a href="#examples-6">Examples</a></h1>
@@ -980,7 +980,7 @@ violate the invariants communicated by the <code>str</code> type.</p>
 </div></div><div class='docblock'><p>Creates a string slice from another string slice, bypassing safety
 checks.</p>
 <p>This is generally not recommended, use with caution! For a safe
-alternative see <a href="https://doc.rust-lang.org/nightly/std/primitive.str.html" title="str"><code>str</code></a> and <a href="crate::ops::Index"><code>Index</code></a>.</p>
+alternative see <a href="https://doc.rust-lang.org/nightly/std/primitive.str.html" title="str"><code>str</code></a> and <a href="../../../../../../nom/lib/std/ops/trait.Index.html"><code>Index</code></a>.</p>
 <p>This new slice goes from <code>begin</code> to <code>end</code>, including <code>begin</code> but
 excluding <code>end</code>.</p>
 <p>To get a mutable string slice instead, see the
@@ -1012,7 +1012,7 @@ satisfied:</p>
 </div></div><div class='docblock'><p>Creates a string slice from another string slice, bypassing safety
 checks.
 This is generally not recommended, use with caution! For a safe
-alternative see <a href="https://doc.rust-lang.org/nightly/std/primitive.str.html" title="str"><code>str</code></a> and <a href="crate::ops::IndexMut"><code>IndexMut</code></a>.</p>
+alternative see <a href="https://doc.rust-lang.org/nightly/std/primitive.str.html" title="str"><code>str</code></a> and <a href="../../../../../../nom/lib/std/ops/trait.IndexMut.html"><code>IndexMut</code></a>.</p>
 <p>This new slice goes from <code>begin</code> to <code>end</code>, including <code>begin</code> but
 excluding <code>end</code>.</p>
 <p>To get an immutable string slice instead, see the

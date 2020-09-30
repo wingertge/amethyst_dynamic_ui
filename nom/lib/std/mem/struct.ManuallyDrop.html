@@ -7,8 +7,8 @@ This wrapper is 0-cost.</p>
 <p><code>ManuallyDrop&lt;T&gt;</code> is subject to the same layout optimizations as <code>T</code>.
 As a consequence, it has <em>no effect</em> on the assumptions that the compiler makes
 about its contents. For example, initializing a <code>ManuallyDrop&lt;&amp;mut T&gt;</code>
-with <a href="crate::mem::zeroed"><code>mem::zeroed</code></a> is undefined behavior.
-If you need to handle uninitialized data, use <a href="crate::mem::MaybeUninit"><code>MaybeUninit&lt;T&gt;</code></a> instead.</p>
+with <a href="../../../../nom/lib/std/mem/fn.zeroed.html"><code>mem::zeroed</code></a> is undefined behavior.
+If you need to handle uninitialized data, use <a href="../../../../nom/lib/std/mem/union.MaybeUninit.html"><code>MaybeUninit&lt;T&gt;</code></a> instead.</p>
 <p>Note that accessing the value inside a <code>ManuallyDrop&lt;T&gt;</code> is safe.
 This means that a <code>ManuallyDrop&lt;T&gt;</code> whose content has been dropped must not
 be exposed through a public safe API.
@@ -62,7 +62,7 @@ It is your responsibility to ensure that this <code>ManuallyDrop</code> is not u
 </div></div><h3 id='impl-1' class='impl'><code class='in-band'>impl&lt;T&gt; <a class="struct" href="../../../../nom/lib/std/mem/struct.ManuallyDrop.html" title="struct nom::lib::std::mem::ManuallyDrop">ManuallyDrop</a>&lt;T&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: ?<a class="trait" href="../../../../nom/lib/std/prelude/v1/v1/trait.Sized.html" title="trait nom::lib::std::prelude::v1::v1::Sized">Sized</a>,&nbsp;</span></code><a href='#impl-1' class='anchor'></a><a class='srclink' href='https://doc.rust-lang.org/nightly/src/core/mem/manually_drop.rs.html#116-145' title='goto source code'>[src]</a></h3><div class='impl-items'><h4 id='method.drop' class="method"><code>pub unsafe fn <a href='#method.drop' class='fnname'>drop</a>(slot: &amp;mut <a class="struct" href="../../../../nom/lib/std/mem/struct.ManuallyDrop.html" title="struct nom::lib::std::mem::ManuallyDrop">ManuallyDrop</a>&lt;T&gt;)</code><a class='srclink' href='https://doc.rust-lang.org/nightly/src/core/mem/manually_drop.rs.html#139-144' title='goto source code'>[src]</a></h4><div class='docblock'><p>Manually drops the contained value. This is exactly equivalent to calling
 <a href="https://doc.rust-lang.org/nightly/core/ptr/fn.drop_in_place.html" title="ptr::drop_in_place"><code>ptr::drop_in_place</code></a> with a pointer to the contained value. As such, unless
 the contained value is a packed struct, the destructor will be called in-place
-without moving the value, and thus can be used to safely drop <a href="crate::pin">pinned</a> data.</p>
+without moving the value, and thus can be used to safely drop <a href="https://doc.rust-lang.org/nightly/core/pin/index.html">pinned</a> data.</p>
 <p>If you have ownership of the value, you can use <a href="../../../../nom/lib/std/mem/struct.ManuallyDrop.html#method.into_inner" title="ManuallyDrop::into_inner"><code>ManuallyDrop::into_inner</code></a> instead.</p>
 <h1 id="safety-1" class="section-header"><a href="#safety-1">Safety</a></h1>
 <p>This function runs the destructor of the contained value. Other than changes made by
