@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["load_from_linear_rgba","Function to load texture from `palette` pixels."],["load_from_srgb","Function to load texture from `palette` pixels."],["load_from_srgba","Function to load texture from `palette` pixels."]]});
+initSidebarItems({"fn":[["load_from_linear_rgba",""],["load_from_srgb",""],["load_from_srgba",""]]});

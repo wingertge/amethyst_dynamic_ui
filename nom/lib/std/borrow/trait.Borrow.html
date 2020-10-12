@@ -33,7 +33,7 @@ borrowed and owned values: <code>x.borrow() == y.borrow()</code> should give the
 same result as <code>x == y</code>.</p>
 <p>If generic code merely needs to work for all types that can
 provide a reference to related type <code>T</code>, it is often better to use
-[<code>AsRef&lt;T&gt;</code>] as more types can safely implement it.</p>
+<a href="../../../../nom/lib/std/prelude/v1/v1/trait.AsRef.html" title="AsRef&lt;T&gt;"><code>AsRef&lt;T&gt;</code></a> as more types can safely implement it.</p>
 <h1 id="examples" class="section-header"><a href="#examples">Examples</a></h1>
 <p>As a data collection, <a href="../../std/collections/struct.HashMap.html"><code>HashMap&lt;K, V&gt;</code></a> owns both keys and values. If
 the key’s actual data is wrapped in a managing type of some kind, it

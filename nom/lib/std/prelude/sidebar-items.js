@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["v1","The Rust Prelude."]]});
+initSidebarItems({"mod":[["v1",""]]});
