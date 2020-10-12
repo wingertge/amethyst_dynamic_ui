@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/git/checkouts/amethyst-73c87be7163fa182/ba20928/amethyst_ui/src/pass.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>pass.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/git/checkouts/amethyst-73c87be7163fa182/79914ec/amethyst_ui/src/pass.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>pass.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 <link rel="alternate icon" type="image/png" href="../../favicon-16x16.png">
 <link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../amethyst_ui/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><span class="help-button">?</span>
                 <a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
@@ -768,6 +768,10 @@
 <span id="765">765</span>
 <span id="766">766</span>
 <span id="767">767</span>
+<span id="768">768</span>
+<span id="769">769</span>
+<span id="770">770</span>
+<span id="771">771</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">glyphs</span>::{<span class="ident">UiGlyphs</span>, <span class="ident">UiGlyphsResource</span>},
@@ -870,7 +874,7 @@
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">color</span>: <span class="ident">vec4</span>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">color_bias</span>: <span class="ident">vec4</span>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">bounds_min</span>: <span class="ident">vec2</span>,
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">bounds_max</span>: <span class="ident">vec2</span>
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">bounds_max</span>: <span class="ident">vec2</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">AsVertex</span> <span class="kw">for</span> <span class="ident">UiArgs</span> {
@@ -882,7 +886,7 @@
             (<span class="ident">Format</span>::<span class="ident">Rgba32Sfloat</span>, <span class="string">&quot;color&quot;</span>),
             (<span class="ident">Format</span>::<span class="ident">Rgba32Sfloat</span>, <span class="string">&quot;color_bias&quot;</span>),
             (<span class="ident">Format</span>::<span class="ident">Rg32Sfloat</span>, <span class="string">&quot;bounds_min&quot;</span>),
-            (<span class="ident">Format</span>::<span class="ident">Rg32Sfloat</span>, <span class="string">&quot;bounds_max&quot;</span>)
+            (<span class="ident">Format</span>::<span class="ident">Rg32Sfloat</span>, <span class="string">&quot;bounds_max&quot;</span>),
         ))
     }
 }
@@ -1130,7 +1134,9 @@
                 [<span class="ident">r</span>, <span class="ident">g</span>, <span class="ident">b</span>, <span class="ident">a</span>]
             });
 
-            <span class="kw">let</span> (<span class="ident">bounds_min</span>, <span class="ident">bounds_max</span>) <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">transform</span>) <span class="op">=</span> <span class="ident">masks</span>.<span class="ident">get</span>(<span class="ident">entity</span>).<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">mask</span><span class="op">|</span> <span class="ident">transforms</span>.<span class="ident">get</span>(<span class="ident">mask</span>.<span class="ident">to</span>)) {
+            <span class="kw">let</span> (<span class="ident">bounds_min</span>, <span class="ident">bounds_max</span>) <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">transform</span>) <span class="op">=</span>
+                <span class="ident">masks</span>.<span class="ident">get</span>(<span class="ident">entity</span>).<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">mask</span><span class="op">|</span> <span class="ident">transforms</span>.<span class="ident">get</span>(<span class="ident">mask</span>.<span class="ident">to</span>))
+            {
                 <span class="kw">let</span> <span class="ident">pixel_x</span> <span class="op">=</span> <span class="ident">transform</span>.<span class="ident">pixel_x</span> <span class="op">-</span> <span class="ident">transform</span>.<span class="ident">pixel_width</span> <span class="op">/</span> <span class="number">2.0</span>;
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">pixel_y</span> <span class="op">=</span> <span class="ident">transform</span>.<span class="ident">pixel_y</span> <span class="op">+</span> <span class="ident">transform</span>.<span class="ident">pixel_height</span> <span class="op">/</span> <span class="number">2.0</span>;
                 <span class="ident">pixel_y</span> <span class="op">=</span> <span class="ident">screen_dimesnions</span>.<span class="ident">height</span>() <span class="op">-</span> <span class="ident">pixel_y</span>;
@@ -1141,7 +1147,10 @@
                 ];
                 (<span class="ident">bounds_min</span>.<span class="ident">into</span>(), <span class="ident">bounds_max</span>.<span class="ident">into</span>())
             } <span class="kw">else</span> {
-                ([<span class="number">0.0</span>, <span class="number">0.0</span>].<span class="ident">into</span>(), [<span class="ident">screen_dimesnions</span>.<span class="ident">width</span>(), <span class="ident">screen_dimesnions</span>.<span class="ident">height</span>()].<span class="ident">into</span>())
+                (
+                    [<span class="number">0.0</span>, <span class="number">0.0</span>].<span class="ident">into</span>(),
+                    [<span class="ident">screen_dimesnions</span>.<span class="ident">width</span>(), <span class="ident">screen_dimesnions</span>.<span class="ident">height</span>()].<span class="ident">into</span>(),
+                )
             };
 
             <span class="kw">let</span> <span class="ident">image</span> <span class="op">=</span> <span class="ident">images</span>.<span class="ident">get</span>(<span class="ident">entity</span>);
@@ -1162,19 +1171,18 @@
 
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">glyph_data</span>) <span class="op">=</span> <span class="ident">glyphs</span>.<span class="ident">get</span>(<span class="ident">entity</span>) {
                 <span class="kw">if</span> <span class="op">!</span><span class="ident">glyph_data</span>.<span class="ident">sel_vertices</span>.<span class="ident">is_empty</span>() {
-                    <span class="self">self</span>.<span class="ident">batches</span>
-                        .<span class="ident">insert</span>(<span class="ident">white_tex_id</span>, <span class="ident">glyph_data</span>.<span class="ident">sel_vertices</span>.<span class="ident">iter</span>()
-                            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">ui_args</span><span class="op">|</span> {
-                                <span class="ident">UiArgs</span> {
-                                    <span class="ident">coords</span>: <span class="ident">ui_args</span>.<span class="ident">coords</span>,
-                                    <span class="ident">dimensions</span>: <span class="ident">ui_args</span>.<span class="ident">dimensions</span>,
-                                    <span class="ident">tex_coord_bounds</span>: <span class="ident">ui_args</span>.<span class="ident">tex_coord_bounds</span>,
-                                    <span class="ident">color</span>: <span class="ident">ui_args</span>.<span class="ident">color</span>,
-                                    <span class="ident">color_bias</span>: <span class="ident">ui_args</span>.<span class="ident">color_bias</span>,
-                                    <span class="ident">bounds_min</span>,
-                                    <span class="ident">bounds_max</span>,
-                                }
-                            }));
+                    <span class="self">self</span>.<span class="ident">batches</span>.<span class="ident">insert</span>(
+                        <span class="ident">white_tex_id</span>,
+                        <span class="ident">glyph_data</span>.<span class="ident">sel_vertices</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">ui_args</span><span class="op">|</span> <span class="ident">UiArgs</span> {
+                            <span class="ident">coords</span>: <span class="ident">ui_args</span>.<span class="ident">coords</span>,
+                            <span class="ident">dimensions</span>: <span class="ident">ui_args</span>.<span class="ident">dimensions</span>,
+                            <span class="ident">tex_coord_bounds</span>: <span class="ident">ui_args</span>.<span class="ident">tex_coord_bounds</span>,
+                            <span class="ident">color</span>: <span class="ident">ui_args</span>.<span class="ident">color</span>,
+                            <span class="ident">color_bias</span>: <span class="ident">ui_args</span>.<span class="ident">color_bias</span>,
+                            <span class="ident">bounds_min</span>,
+                            <span class="ident">bounds_max</span>,
+                        }),
+                    );
                 }
 
                 <span class="comment">// blinking cursor</span>
@@ -1218,25 +1226,25 @@
                                 <span class="ident">color</span>: <span class="ident">editing</span>.<span class="ident">cursor_color</span>.<span class="ident">into</span>(),
                                 <span class="ident">color_bias</span>: [<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>].<span class="ident">into</span>(),
                                 <span class="ident">bounds_min</span>,
-                                <span class="ident">bounds_max</span>
+                                <span class="ident">bounds_max</span>,
                             }),
                         )
                     }
                 }
 
                 <span class="kw">if</span> <span class="op">!</span><span class="ident">glyph_data</span>.<span class="ident">vertices</span>.<span class="ident">is_empty</span>() {
-                    <span class="self">self</span>.<span class="ident">batches</span>
-                        .<span class="ident">insert</span>(<span class="ident">glyph_tex_id</span>, <span class="ident">glyph_data</span>.<span class="ident">vertices</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">ui_args</span><span class="op">|</span> {
-                            <span class="ident">UiArgs</span> {
-                                <span class="ident">coords</span>: <span class="ident">ui_args</span>.<span class="ident">coords</span>,
-                                <span class="ident">dimensions</span>: <span class="ident">ui_args</span>.<span class="ident">dimensions</span>,
-                                <span class="ident">tex_coord_bounds</span>: <span class="ident">ui_args</span>.<span class="ident">tex_coord_bounds</span>,
-                                <span class="ident">color</span>: <span class="ident">ui_args</span>.<span class="ident">color</span>,
-                                <span class="ident">color_bias</span>: <span class="ident">ui_args</span>.<span class="ident">color_bias</span>,
-                                <span class="ident">bounds_min</span>,
-                                <span class="ident">bounds_max</span>,
-                            }
-                        }));
+                    <span class="self">self</span>.<span class="ident">batches</span>.<span class="ident">insert</span>(
+                        <span class="ident">glyph_tex_id</span>,
+                        <span class="ident">glyph_data</span>.<span class="ident">vertices</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">ui_args</span><span class="op">|</span> <span class="ident">UiArgs</span> {
+                            <span class="ident">coords</span>: <span class="ident">ui_args</span>.<span class="ident">coords</span>,
+                            <span class="ident">dimensions</span>: <span class="ident">ui_args</span>.<span class="ident">dimensions</span>,
+                            <span class="ident">tex_coord_bounds</span>: <span class="ident">ui_args</span>.<span class="ident">tex_coord_bounds</span>,
+                            <span class="ident">color</span>: <span class="ident">ui_args</span>.<span class="ident">color</span>,
+                            <span class="ident">color_bias</span>: <span class="ident">ui_args</span>.<span class="ident">color_bias</span>,
+                            <span class="ident">bounds_min</span>,
+                            <span class="ident">bounds_max</span>,
+                        }),
+                    );
                 }
             }
         }
@@ -1404,7 +1412,7 @@
         <span class="ident">color</span>: <span class="ident">color</span>.<span class="ident">into</span>(),
         <span class="ident">color_bias</span>: [<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>].<span class="ident">into</span>(),
         <span class="ident">bounds_min</span>,
-        <span class="ident">bounds_max</span>
+        <span class="ident">bounds_max</span>,
     };
 
     <span class="kw">match</span> <span class="ident">raw_image</span> {
