@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["FluentResource",""],["Locale","A loaded locale."],["LocaleFormat","Loads the strings from localisation files."]],"type":[["FluentBundle",""],["LocaleHandle","A handle to a locale."]]});
+initSidebarItems({"struct":[["FluentResource","A resource containing a list of localization messages."],["Locale","A loaded locale."],["LocaleFormat","Loads the strings from localisation files."]],"type":[["FluentBundle",""],["LocaleHandle","A handle to a locale."]]});

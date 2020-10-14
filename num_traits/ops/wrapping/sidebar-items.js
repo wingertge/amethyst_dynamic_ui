@@ -1,1 +1,1 @@
-initSidebarItems({"trait":[["WrappingAdd",""],["WrappingMul",""],["WrappingSub",""]]});
+initSidebarItems({"trait":[["WrappingAdd","Performs addition that wraps around on overflow."],["WrappingMul","Performs multiplication that wraps around on overflow."],["WrappingSub","Performs subtraction that wraps around on overflow."]]});
