@@ -50,27 +50,27 @@ to route all default allocation requests to a custom object.</p>
 <p>The <code>#[global_allocator]</code> can only be used once in a crate
 or its recursive dependencies.</p>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
-<table><tr class='module-item'><td><a class="struct" href="struct.Layout.html" title='nom::lib::std::alloc::Layout struct'>Layout</a></td><td class='docblock-short'><p>Layout of a block of memory.</p>
-</td></tr><tr class='module-item'><td><a class="struct" href="struct.LayoutErr.html" title='nom::lib::std::alloc::LayoutErr struct'>LayoutErr</a></td><td class='docblock-short'><p>The parameters given to <code>Layout::from_size_align</code>
-or some other <code>Layout</code> constructor
-do not satisfy its documented constraints.</p>
-</td></tr><tr class='module-item'><td><a class="struct" href="struct.System.html" title='nom::lib::std::alloc::System struct'>System</a></td><td class='docblock-short'><p>The default memory allocator provided by the operating system.</p>
-</td></tr><tr class='unstable module-item'><td><a class="struct" href="struct.AllocError.html" title='nom::lib::std::alloc::AllocError struct'>AllocError</a></td><td class='docblock-short'><span class="stab unstable" title="">Experimental</span><p>The <code>AllocError</code> error indicates an allocation failure
+<table><tr class='unstable module-item'><td><a class="struct" href="struct.AllocError.html" title='nom::lib::std::alloc::AllocError struct'>AllocError</a></td><td class='docblock-short'><span class="stab unstable" title="">Experimental</span><p>The <code>AllocError</code> error indicates an allocation failure
 that may be due to resource exhaustion or to
 something wrong when combining the given input arguments with this
 allocator.</p>
 </td></tr><tr class='unstable module-item'><td><a class="struct" href="struct.Global.html" title='nom::lib::std::alloc::Global struct'>Global</a></td><td class='docblock-short'><span class="stab unstable" title="">Experimental</span><p>The global memory allocator.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.Layout.html" title='nom::lib::std::alloc::Layout struct'>Layout</a></td><td class='docblock-short'><p>Layout of a block of memory.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.LayoutErr.html" title='nom::lib::std::alloc::LayoutErr struct'>LayoutErr</a></td><td class='docblock-short'><p>The parameters given to <code>Layout::from_size_align</code>
+or some other <code>Layout</code> constructor
+do not satisfy its documented constraints.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.System.html" title='nom::lib::std::alloc::System struct'>System</a></td><td class='docblock-short'><p>The default memory allocator provided by the operating system.</p>
 </td></tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
-<table><tr class='module-item'><td><a class="trait" href="trait.GlobalAlloc.html" title='nom::lib::std::alloc::GlobalAlloc trait'>GlobalAlloc</a></td><td class='docblock-short'><p>A memory allocator that can be registered as the standard library’s default
-through the <code>#[global_allocator]</code> attribute.</p>
-</td></tr><tr class='unstable module-item'><td><a class="trait" href="trait.AllocRef.html" title='nom::lib::std::alloc::AllocRef trait'>AllocRef</a></td><td class='docblock-short'><span class="stab unstable" title="">Experimental</span><p>An implementation of <code>AllocRef</code> can allocate, grow, shrink, and deallocate arbitrary blocks of
+<table><tr class='unstable module-item'><td><a class="trait" href="trait.AllocRef.html" title='nom::lib::std::alloc::AllocRef trait'>AllocRef</a></td><td class='docblock-short'><span class="stab unstable" title="">Experimental</span><p>An implementation of <code>AllocRef</code> can allocate, grow, shrink, and deallocate arbitrary blocks of
 data described via <a href="../../../../nom/lib/std/alloc/struct.Layout.html" title="Layout"><code>Layout</code></a>.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.GlobalAlloc.html" title='nom::lib::std::alloc::GlobalAlloc trait'>GlobalAlloc</a></td><td class='docblock-short'><p>A memory allocator that can be registered as the standard library’s default
+through the <code>#[global_allocator]</code> attribute.</p>
 </td></tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
-<table><tr class='module-item'><td><a class="fn" href="fn.alloc.html" title='nom::lib::std::alloc::alloc fn'>alloc</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td><td class='docblock-short'><p>Allocate memory with the global allocator.</p>
+<table><tr class='unstable module-item'><td><a class="fn" href="fn.set_alloc_error_hook.html" title='nom::lib::std::alloc::set_alloc_error_hook fn'>set_alloc_error_hook</a></td><td class='docblock-short'><span class="stab unstable" title="">Experimental</span><p>Registers a custom allocation error hook, replacing any that was previously registered.</p>
+</td></tr><tr class='unstable module-item'><td><a class="fn" href="fn.take_alloc_error_hook.html" title='nom::lib::std::alloc::take_alloc_error_hook fn'>take_alloc_error_hook</a></td><td class='docblock-short'><span class="stab unstable" title="">Experimental</span><p>Unregisters the current allocation error hook, returning it.</p>
+</td></tr><tr class='module-item'><td><a class="fn" href="fn.alloc.html" title='nom::lib::std::alloc::alloc fn'>alloc</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td><td class='docblock-short'><p>Allocate memory with the global allocator.</p>
 </td></tr><tr class='module-item'><td><a class="fn" href="fn.alloc_zeroed.html" title='nom::lib::std::alloc::alloc_zeroed fn'>alloc_zeroed</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td><td class='docblock-short'><p>Allocate zero-initialized memory with the global allocator.</p>
 </td></tr><tr class='module-item'><td><a class="fn" href="fn.dealloc.html" title='nom::lib::std::alloc::dealloc fn'>dealloc</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td><td class='docblock-short'><p>Deallocate memory with the global allocator.</p>
 </td></tr><tr class='module-item'><td><a class="fn" href="fn.handle_alloc_error.html" title='nom::lib::std::alloc::handle_alloc_error fn'>handle_alloc_error</a></td><td class='docblock-short'><p>Abort on memory allocation error or failure.</p>
 </td></tr><tr class='module-item'><td><a class="fn" href="fn.realloc.html" title='nom::lib::std::alloc::realloc fn'>realloc</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td><td class='docblock-short'><p>Reallocate memory with the global allocator.</p>
-</td></tr><tr class='unstable module-item'><td><a class="fn" href="fn.set_alloc_error_hook.html" title='nom::lib::std::alloc::set_alloc_error_hook fn'>set_alloc_error_hook</a></td><td class='docblock-short'><span class="stab unstable" title="">Experimental</span><p>Registers a custom allocation error hook, replacing any that was previously registered.</p>
-</td></tr><tr class='unstable module-item'><td><a class="fn" href="fn.take_alloc_error_hook.html" title='nom::lib::std::alloc::take_alloc_error_hook fn'>take_alloc_error_hook</a></td><td class='docblock-short'><span class="stab unstable" title="">Experimental</span><p>Unregisters the current allocation error hook, returning it.</p>
 </td></tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../../../";window.currentCrate = "nom";</script><script src="../../../../main.js"></script><script defer src="../../../../search-index.js"></script></body></html>

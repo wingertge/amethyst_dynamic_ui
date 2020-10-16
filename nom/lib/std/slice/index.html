@@ -59,7 +59,13 @@ iterators.</li>
 <a href="../../std/primitive.slice.html#method.chunks"><code>.chunks</code></a>, <a href="../../std/primitive.slice.html#method.windows"><code>.windows</code></a> and more.</li>
 </ul>
 </div><h2 id='structs-1' class='section-header'><a href="#structs-1">Structs</a></h2>
-<table><tr class='module-item'><td><a class="struct" href="struct.Chunks.html" title='nom::lib::std::slice::Chunks struct'>Chunks</a></td><td class='docblock-short'><p>An iterator over a slice in (non-overlapping) chunks (<code>chunk_size</code> elements at a
+<table><tr class='unstable module-item'><td><a class="struct" href="struct.ArrayChunks.html" title='nom::lib::std::slice::ArrayChunks struct'>ArrayChunks</a></td><td class='docblock-short'><span class="stab unstable" title="">Experimental</span><p>An iterator over a slice in (non-overlapping) chunks (<code>N</code> elements at a
+time), starting at the beginning of the slice.</p>
+</td></tr><tr class='unstable module-item'><td><a class="struct" href="struct.ArrayChunksMut.html" title='nom::lib::std::slice::ArrayChunksMut struct'>ArrayChunksMut</a></td><td class='docblock-short'><span class="stab unstable" title="">Experimental</span><p>An iterator over a slice in (non-overlapping) mutable chunks (<code>N</code> elements
+at a time), starting at the beginning of the slice.</p>
+</td></tr><tr class='unstable module-item'><td><a class="struct" href="struct.ArrayWindows.html" title='nom::lib::std::slice::ArrayWindows struct'>ArrayWindows</a></td><td class='docblock-short'><span class="stab unstable" title="">Experimental</span><p>A windowed iterator over a slice in overlapping chunks (<code>N</code> elements at a
+time), starting at the beginning of the slice</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.Chunks.html" title='nom::lib::std::slice::Chunks struct'>Chunks</a></td><td class='docblock-short'><p>An iterator over a slice in (non-overlapping) chunks (<code>chunk_size</code> elements at a
 time), starting at the beginning of the slice.</p>
 </td></tr><tr class='module-item'><td><a class="struct" href="struct.ChunksExact.html" title='nom::lib::std::slice::ChunksExact struct'>ChunksExact</a></td><td class='docblock-short'><p>An iterator over a slice in (non-overlapping) chunks (<code>chunk_size</code> elements at a
 time), starting at the beginning of the slice.</p>
@@ -96,23 +102,17 @@ function, limited to a given number of splits.</p>
 </td></tr><tr class='module-item'><td><a class="struct" href="struct.SplitNMut.html" title='nom::lib::std::slice::SplitNMut struct'>SplitNMut</a></td><td class='docblock-short'><p>An iterator over subslices separated by elements that match a predicate
 function, limited to a given number of splits.</p>
 </td></tr><tr class='module-item'><td><a class="struct" href="struct.Windows.html" title='nom::lib::std::slice::Windows struct'>Windows</a></td><td class='docblock-short'><p>An iterator over overlapping subslices of length <code>size</code>.</p>
-</td></tr><tr class='unstable module-item'><td><a class="struct" href="struct.ArrayChunks.html" title='nom::lib::std::slice::ArrayChunks struct'>ArrayChunks</a></td><td class='docblock-short'><span class="stab unstable" title="">Experimental</span><p>An iterator over a slice in (non-overlapping) chunks (<code>N</code> elements at a
-time), starting at the beginning of the slice.</p>
-</td></tr><tr class='unstable module-item'><td><a class="struct" href="struct.ArrayChunksMut.html" title='nom::lib::std::slice::ArrayChunksMut struct'>ArrayChunksMut</a></td><td class='docblock-short'><span class="stab unstable" title="">Experimental</span><p>An iterator over a slice in (non-overlapping) mutable chunks (<code>N</code> elements
-at a time), starting at the beginning of the slice.</p>
-</td></tr><tr class='unstable module-item'><td><a class="struct" href="struct.ArrayWindows.html" title='nom::lib::std::slice::ArrayWindows struct'>ArrayWindows</a></td><td class='docblock-short'><span class="stab unstable" title="">Experimental</span><p>A windowed iterator over a slice in overlapping chunks (<code>N</code> elements at a
-time), starting at the beginning of the slice</p>
 </td></tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
-<table><tr class='module-item'><td><a class="trait" href="trait.SliceIndex.html" title='nom::lib::std::slice::SliceIndex trait'>SliceIndex</a></td><td class='docblock-short'><p>A helper trait used for indexing operations.</p>
-</td></tr><tr class='unstable module-item'><td><a class="trait" href="trait.Concat.html" title='nom::lib::std::slice::Concat trait'>Concat</a></td><td class='docblock-short'><span class="stab unstable" title="">Experimental</span><p>Helper trait for <a href="../../std/primitive.slice.html#method.concat"><code>[T]::concat</code></a>.</p>
+<table><tr class='unstable module-item'><td><a class="trait" href="trait.Concat.html" title='nom::lib::std::slice::Concat trait'>Concat</a></td><td class='docblock-short'><span class="stab unstable" title="">Experimental</span><p>Helper trait for <a href="../../std/primitive.slice.html#method.concat"><code>[T]::concat</code></a>.</p>
 </td></tr><tr class='unstable module-item'><td><a class="trait" href="trait.Join.html" title='nom::lib::std::slice::Join trait'>Join</a></td><td class='docblock-short'><span class="stab unstable" title="">Experimental</span><p>Helper trait for <a href="../../std/primitive.slice.html#method.join"><code>[T]::join</code></a></p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.SliceIndex.html" title='nom::lib::std::slice::SliceIndex trait'>SliceIndex</a></td><td class='docblock-short'><p>A helper trait used for indexing operations.</p>
 </td></tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
-<table><tr class='module-item'><td><a class="fn" href="fn.from_mut.html" title='nom::lib::std::slice::from_mut fn'>from_mut</a></td><td class='docblock-short'><p>Converts a reference to T into a slice of length 1 (without copying).</p>
+<table><tr class='unstable module-item'><td><a class="fn" href="fn.check_range.html" title='nom::lib::std::slice::check_range fn'>check_range</a></td><td class='docblock-short'><span class="stab unstable" title="">Experimental</span><p>Performs bounds-checking of the given range.
+The returned <a href="../../../../nom/lib/std/ops/struct.Range.html" title="Range"><code>Range</code></a> is safe to pass to <a href="../../std/primitive.slice.html#method.get_unchecked"><code>get_unchecked</code></a> and <a href="../../std/primitive.slice.html#method.get_unchecked_mut"><code>get_unchecked_mut</code></a>
+for slices of the given length.</p>
+</td></tr><tr class='module-item'><td><a class="fn" href="fn.from_mut.html" title='nom::lib::std::slice::from_mut fn'>from_mut</a></td><td class='docblock-short'><p>Converts a reference to T into a slice of length 1 (without copying).</p>
 </td></tr><tr class='module-item'><td><a class="fn" href="fn.from_raw_parts.html" title='nom::lib::std::slice::from_raw_parts fn'>from_raw_parts</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td><td class='docblock-short'><p>Forms a slice from a pointer and a length.</p>
 </td></tr><tr class='module-item'><td><a class="fn" href="fn.from_raw_parts_mut.html" title='nom::lib::std::slice::from_raw_parts_mut fn'>from_raw_parts_mut</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td><td class='docblock-short'><p>Performs the same functionality as <a href="../../../../nom/lib/std/slice/fn.from_raw_parts.html" title="from_raw_parts"><code>from_raw_parts</code></a>, except that a
 mutable slice is returned.</p>
 </td></tr><tr class='module-item'><td><a class="fn" href="fn.from_ref.html" title='nom::lib::std::slice::from_ref fn'>from_ref</a></td><td class='docblock-short'><p>Converts a reference to T into a slice of length 1 (without copying).</p>
-</td></tr><tr class='unstable module-item'><td><a class="fn" href="fn.check_range.html" title='nom::lib::std::slice::check_range fn'>check_range</a></td><td class='docblock-short'><span class="stab unstable" title="">Experimental</span><p>Performs bounds-checking of the given range.
-The returned <a href="../../../../nom/lib/std/ops/struct.Range.html" title="Range"><code>Range</code></a> is safe to pass to <a href="../../std/primitive.slice.html#method.get_unchecked"><code>get_unchecked</code></a> and <a href="../../std/primitive.slice.html#method.get_unchecked_mut"><code>get_unchecked_mut</code></a>
-for slices of the given length.</p>
 </td></tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../../../";window.currentCrate = "nom";</script><script src="../../../../main.js"></script><script defer src="../../../../search-index.js"></script></body></html>
