@@ -246,7 +246,7 @@ dependencies = [
  "regex",
  "ron 0.6.2",
  "serde",
- "xi-unicode",
+ "xi-unicode 0.3.0",
 ]
 
 [[package]]
@@ -1513,7 +1513,7 @@ checksum = "8b70adc570f1dc71b6b32e241cbcc2b42175f5aea71951fbf41e68b04aec24c7"
 dependencies = [
  "approx 0.3.2",
  "rusttype 0.8.3",
- "xi-unicode",
+ "xi-unicode 0.2.1",
 ]
 
 [[package]]
@@ -4030,6 +4030,12 @@ name = "xi-unicode"
 version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e71b85d8b1b8bfaf4b5c834187554d201a8cd621c2bbfa33efd41a3ecabd48b2"
+
+[[package]]
+name = "xi-unicode"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a67300977d3dc3f8034dae89778f502b6ba20b269527b3223ba59c0cf393bb8a"
 
 [[package]]
 name = "xml-rs"
