@@ -78,7 +78,7 @@
 
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">time</span>::<span class="ident">Instant</span>;
 
-<span class="doccomment">/// Type that is responsible for keeping track of congestion information.</span>
+<span class="doccomment">/// Type that is responsible for keeping track of congestion information.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CongestionHandler</span> {
     <span class="ident">rtt_measurer</span>: <span class="ident">RttMeasurer</span>,
     <span class="ident">congestion_data</span>: <span class="ident">SequenceBuffer</span><span class="op">&lt;</span><span class="ident">CongestionData</span><span class="op">&gt;</span>,
@@ -86,7 +86,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">CongestionHandler</span> {
-    <span class="doccomment">/// Constructs a new `CongestionHandler` which you can use for keeping track of congestion information.</span>
+    <span class="doccomment">/// Constructs a new `CongestionHandler` which you can use for keeping track of congestion information.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">config</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">CongestionHandler</span> {
         <span class="ident">CongestionHandler</span> {
             <span class="ident">rtt_measurer</span>: <span class="ident">RttMeasurer</span>::<span class="ident">new</span>(<span class="ident">config</span>),
@@ -95,18 +95,18 @@
         }
     }
 
-    <span class="doccomment">/// Process incoming sequence number.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This will calculate the RTT-time and smooth down the RTT-value to prevent uge RTT-spikes.</span>
+    <span class="doccomment">/// Process incoming sequence number.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This will calculate the RTT-time and smooth down the RTT-value to prevent uge RTT-spikes.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">process_incoming</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">incoming_seq</span>: <span class="ident">u16</span>) {
         <span class="kw">let</span> <span class="ident">congestion_data</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">congestion_data</span>.<span class="ident">get_mut</span>(<span class="ident">incoming_seq</span>);
         <span class="self">self</span>.<span class="ident">rtt_measurer</span>.<span class="ident">calculate_rrt</span>(<span class="ident">congestion_data</span>);
     }
 
-    <span class="doccomment">/// Process outgoing sequence number.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This will insert an entry which is used for keeping track of the sending time.</span>
-    <span class="doccomment">/// Once we process incoming sequence numbers we can calculate the `RTT` time.</span>
+    <span class="doccomment">/// Process outgoing sequence number.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This will insert an entry which is used for keeping track of the sending time.</span>
+    <span class="doccomment">/// Once we process incoming sequence numbers we can calculate the `RTT` time.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">process_outgoing</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">seq</span>: <span class="ident">u16</span>, <span class="ident">time</span>: <span class="ident">Instant</span>) {
         <span class="self">self</span>.<span class="ident">congestion_data</span>
             .<span class="ident">insert</span>(<span class="ident">seq</span>, <span class="ident">CongestionData</span>::<span class="ident">new</span>(<span class="ident">seq</span>, <span class="ident">time</span>));

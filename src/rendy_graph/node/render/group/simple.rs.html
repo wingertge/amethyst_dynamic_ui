@@ -438,35 +438,35 @@
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">util</span>::<span class="ident">types</span>::{<span class="ident">Layout</span>, <span class="ident">SetLayout</span>};
 
-<span class="doccomment">/// Pipeline info</span>
+<span class="doccomment">/// Pipeline info</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Pipeline</span> {
-    <span class="doccomment">/// Layout for pipeline.</span>
+    <span class="doccomment">/// Layout for pipeline.</span>
     <span class="kw">pub</span> <span class="ident">layout</span>: <span class="ident">Layout</span>,
 
-    <span class="doccomment">/// Vertex input for pipeline.</span>
+    <span class="doccomment">/// Vertex input for pipeline.</span>
     <span class="kw">pub</span> <span class="ident">vertices</span>: <span class="ident">Vec</span><span class="op">&lt;</span>(
         <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">gfx_hal</span>::<span class="ident">pso</span>::<span class="ident">Element</span><span class="op">&lt;</span><span class="ident">gfx_hal</span>::<span class="ident">format</span>::<span class="ident">Format</span><span class="op">&gt;</span><span class="op">&gt;</span>,
         <span class="ident">gfx_hal</span>::<span class="ident">pso</span>::<span class="ident">ElemStride</span>,
         <span class="ident">gfx_hal</span>::<span class="ident">pso</span>::<span class="ident">VertexInputRate</span>,
     )<span class="op">&gt;</span>,
 
-    <span class="doccomment">/// Colors for pipeline.</span>
+    <span class="doccomment">/// Colors for pipeline.</span>
     <span class="kw">pub</span> <span class="ident">colors</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">gfx_hal</span>::<span class="ident">pso</span>::<span class="ident">ColorBlendDesc</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// Depth stencil for pipeline.</span>
+    <span class="doccomment">/// Depth stencil for pipeline.</span>
     <span class="kw">pub</span> <span class="ident">depth_stencil</span>: <span class="ident">gfx_hal</span>::<span class="ident">pso</span>::<span class="ident">DepthStencilDesc</span>,
 
-    <span class="doccomment">/// Primitive to use in the input assembler.</span>
+    <span class="doccomment">/// Primitive to use in the input assembler.</span>
     <span class="kw">pub</span> <span class="ident">input_assembler_desc</span>: <span class="ident">gfx_hal</span>::<span class="ident">pso</span>::<span class="ident">InputAssemblerDesc</span>,
 }
 
-<span class="doccomment">/// Descriptor for simple graphics pipeline implementation.</span>
+<span class="doccomment">/// Descriptor for simple graphics pipeline implementation.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">SimpleGraphicsPipelineDesc</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">Backend</span>, <span class="ident">T</span>: <span class="question-mark">?</span><span class="ident">Sized</span><span class="op">&gt;</span>: <span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span> {
-    <span class="doccomment">/// Simple graphics pipeline implementation</span>
+    <span class="doccomment">/// Simple graphics pipeline implementation</span>
     <span class="kw">type</span> <span class="ident">Pipeline</span>: <span class="ident">SimpleGraphicsPipeline</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">T</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Make simple render group builder.</span>
+    <span class="doccomment">/// Make simple render group builder.</span>
     <span class="kw">fn</span> <span class="ident">builder</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DescBuilder</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">T</span>, <span class="ident">SimpleRenderGroupDesc</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="self">Self</span>: <span class="ident">Sized</span>,
@@ -474,17 +474,17 @@
         <span class="ident">SimpleRenderGroupDesc</span> { <span class="ident">inner</span>: <span class="self">self</span> }.<span class="ident">builder</span>()
     }
 
-    <span class="doccomment">/// Get set or buffer resources the node uses.</span>
+    <span class="doccomment">/// Get set or buffer resources the node uses.</span>
     <span class="kw">fn</span> <span class="ident">buffers</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">BufferAccess</span><span class="op">&gt;</span> {
         <span class="ident">Vec</span>::<span class="ident">new</span>()
     }
 
-    <span class="doccomment">/// Get set or image resources the node uses.</span>
+    <span class="doccomment">/// Get set or image resources the node uses.</span>
     <span class="kw">fn</span> <span class="ident">images</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ImageAccess</span><span class="op">&gt;</span> {
         <span class="ident">Vec</span>::<span class="ident">new</span>()
     }
 
-    <span class="doccomment">/// Color blend descs.</span>
+    <span class="doccomment">/// Color blend descs.</span>
     <span class="kw">fn</span> <span class="ident">colors</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">gfx_hal</span>::<span class="ident">pso</span>::<span class="ident">ColorBlendDesc</span><span class="op">&gt;</span> {
         <span class="macro">vec</span><span class="macro">!</span>[<span class="ident">gfx_hal</span>::<span class="ident">pso</span>::<span class="ident">ColorBlendDesc</span> {
             <span class="ident">mask</span>: <span class="ident">gfx_hal</span>::<span class="ident">pso</span>::<span class="ident">ColorMask</span>::<span class="ident">ALL</span>,
@@ -492,7 +492,7 @@
         }]
     }
 
-    <span class="doccomment">/// Depth stencil desc.</span>
+    <span class="doccomment">/// Depth stencil desc.</span>
     <span class="kw">fn</span> <span class="ident">depth_stencil</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">gfx_hal</span>::<span class="ident">pso</span>::<span class="ident">DepthStencilDesc</span><span class="op">&gt;</span> {
         <span class="prelude-val">Some</span>(<span class="ident">gfx_hal</span>::<span class="ident">pso</span>::<span class="ident">DepthStencilDesc</span> {
             <span class="ident">depth</span>: <span class="prelude-val">Some</span>(<span class="ident">gfx_hal</span>::<span class="ident">pso</span>::<span class="ident">DepthTest</span> {
@@ -504,7 +504,7 @@
         })
     }
 
-    <span class="doccomment">/// Get vertex input.</span>
+    <span class="doccomment">/// Get vertex input.</span>
     <span class="kw">fn</span> <span class="ident">vertices</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span>(
@@ -515,8 +515,8 @@
         <span class="ident">Vec</span>::<span class="ident">new</span>()
     }
 
-    <span class="doccomment">/// Layout for graphics pipeline</span>
-    <span class="doccomment">/// Default implementation for `pipeline` will use this.</span>
+    <span class="doccomment">/// Layout for graphics pipeline</span>
+    <span class="doccomment">/// Default implementation for `pipeline` will use this.</span>
     <span class="kw">fn</span> <span class="ident">layout</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Layout</span> {
         <span class="ident">Layout</span> {
             <span class="ident">sets</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
@@ -524,7 +524,7 @@
         }
     }
 
-    <span class="doccomment">/// Returns the InputAssemblerDesc. Defaults to a TriangleList with Restart disabled, can be overriden.</span>
+    <span class="doccomment">/// Returns the InputAssemblerDesc. Defaults to a TriangleList with Restart disabled, can be overriden.</span>
     <span class="kw">fn</span> <span class="ident">input_assembler</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">gfx_hal</span>::<span class="ident">pso</span>::<span class="ident">InputAssemblerDesc</span> {
         <span class="ident">gfx_hal</span>::<span class="ident">pso</span>::<span class="ident">InputAssemblerDesc</span> {
             <span class="ident">primitive</span>: <span class="ident">gfx_hal</span>::<span class="ident">Primitive</span>::<span class="ident">TriangleList</span>,
@@ -532,7 +532,7 @@
         }
     }
 
-    <span class="doccomment">/// Graphics pipelines</span>
+    <span class="doccomment">/// Graphics pipelines</span>
     <span class="kw">fn</span> <span class="ident">pipeline</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pipeline</span> {
         <span class="ident">Pipeline</span> {
             <span class="ident">layout</span>: <span class="self">self</span>.<span class="ident">layout</span>(),
@@ -545,18 +545,18 @@
         }
     }
 
-    <span class="doccomment">/// Load shader set.</span>
-    <span class="doccomment">/// This function should utilize the provided `ShaderSetBuilder` reflection class and return the compiled `ShaderSet`.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Parameters</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// `factory`   - factory to create shader modules.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// `aux`       - auxiliary data container. May be anything the implementation desires.</span>
-    <span class="doccomment">///</span>
+    <span class="doccomment">/// Load shader set.</span>
+    <span class="doccomment">/// This function should utilize the provided `ShaderSetBuilder` reflection class and return the compiled `ShaderSet`.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Parameters</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// `factory`   - factory to create shader modules.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// `aux`       - auxiliary data container. May be anything the implementation desires.</span>
+    <span class="doccomment">///</span>
     <span class="kw">fn</span> <span class="ident">load_shader_set</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">factory</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Factory</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>, <span class="ident">aux</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">rendy_shader</span>::<span class="ident">ShaderSet</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Build pass instance.</span>
+    <span class="doccomment">/// Build pass instance.</span>
     <span class="kw">fn</span> <span class="ident">build</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
         <span class="self">self</span>,
         <span class="ident">ctx</span>: <span class="kw-2">&amp;</span><span class="ident">GraphContext</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>,
@@ -569,14 +569,14 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Pipeline</span>, <span class="ident">failure</span>::<span class="ident">Error</span><span class="op">&gt;</span>;
 }
 
-<span class="doccomment">/// Simple render pipeline.</span>
+<span class="doccomment">/// Simple render pipeline.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">SimpleGraphicsPipeline</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">Backend</span>, <span class="ident">T</span>: <span class="question-mark">?</span><span class="ident">Sized</span><span class="op">&gt;</span>:
     <span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="op">+</span> <span class="ident">Sized</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>
 {
-    <span class="doccomment">/// This pipeline descriptor.</span>
+    <span class="doccomment">/// This pipeline descriptor.</span>
     <span class="kw">type</span> <span class="ident">Desc</span>: <span class="ident">SimpleGraphicsPipelineDesc</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">T</span>, <span class="ident">Pipeline</span> <span class="op">=</span> <span class="self">Self</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Make simple render group builder.</span>
+    <span class="doccomment">/// Make simple render group builder.</span>
     <span class="kw">fn</span> <span class="ident">builder</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DescBuilder</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">T</span>, <span class="ident">SimpleRenderGroupDesc</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Desc</span><span class="op">&gt;</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="self">Self</span>::<span class="ident">Desc</span>: <span class="ident">Default</span>,
@@ -584,9 +584,9 @@
         <span class="self">Self</span>::<span class="ident">Desc</span>::<span class="ident">default</span>().<span class="ident">builder</span>()
     }
 
-    <span class="doccomment">/// Prepare to record drawing commands.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Should return true if commands must be re-recorded.</span>
+    <span class="doccomment">/// Prepare to record drawing commands.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Should return true if commands must be re-recorded.</span>
     <span class="kw">fn</span> <span class="ident">prepare</span>(
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
         <span class="ident">_factory</span>: <span class="kw-2">&amp;</span><span class="ident">Factory</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>,
@@ -598,7 +598,7 @@
         <span class="ident">PrepareResult</span>::<span class="ident">DrawRecord</span>
     }
 
-    <span class="doccomment">/// Record drawing commands to the command buffer provided.</span>
+    <span class="doccomment">/// Record drawing commands to the command buffer provided.</span>
     <span class="kw">fn</span> <span class="ident">draw</span>(
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
         <span class="ident">layout</span>: <span class="kw-2">&amp;</span><span class="ident">B</span>::<span class="ident">PipelineLayout</span>,
@@ -607,11 +607,11 @@
         <span class="ident">aux</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>,
     );
 
-    <span class="doccomment">/// Free all resources and destroy pipeline instance.</span>
+    <span class="doccomment">/// Free all resources and destroy pipeline instance.</span>
     <span class="kw">fn</span> <span class="ident">dispose</span>(<span class="self">self</span>, <span class="ident">factory</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Factory</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>, <span class="ident">aux</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>);
 }
 
-<span class="doccomment">/// Render group that consist of simple graphics pipeline.</span>
+<span class="doccomment">/// Render group that consist of simple graphics pipeline.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SimpleRenderGroup</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">Backend</span>, <span class="ident">P</span><span class="op">&gt;</span> {
     <span class="ident">set_layouts</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Handle</span><span class="op">&lt;</span><span class="ident">DescriptorSetLayout</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
@@ -620,7 +620,7 @@
     <span class="ident">pipeline</span>: <span class="ident">P</span>,
 }
 
-<span class="doccomment">/// Descriptor for simple render group.</span>
+<span class="doccomment">/// Descriptor for simple render group.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SimpleRenderGroupDesc</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span><span class="op">&gt;</span> {
     <span class="ident">inner</span>: <span class="ident">P</span>,

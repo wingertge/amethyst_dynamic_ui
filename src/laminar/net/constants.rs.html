@@ -32,35 +32,35 @@
 <span id="29">29</span>
 <span id="30">30</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="doccomment">/// The size of the fragment header.</span>
+<span class="doccomment">/// The size of the fragment header.</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">FRAGMENT_HEADER_SIZE</span>: <span class="ident">u8</span> <span class="op">=</span> <span class="number">4</span>;
-<span class="doccomment">/// The size of the acknowledgment header.</span>
+<span class="doccomment">/// The size of the acknowledgment header.</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ACKED_PACKET_HEADER</span>: <span class="ident">u8</span> <span class="op">=</span> <span class="number">8</span>;
-<span class="doccomment">/// The size of the arranging header.</span>
+<span class="doccomment">/// The size of the arranging header.</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ARRANGING_PACKET_HEADER</span>: <span class="ident">u8</span> <span class="op">=</span> <span class="number">3</span>;
-<span class="doccomment">/// The size of the standard header.</span>
+<span class="doccomment">/// The size of the standard header.</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">STANDARD_HEADER_SIZE</span>: <span class="ident">u8</span> <span class="op">=</span> <span class="number">5</span>;
-<span class="doccomment">/// The ordering stream that will be used to order on if there is not ordering stream specified.</span>
+<span class="doccomment">/// The ordering stream that will be used to order on if there is not ordering stream specified.</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">DEFAULT_ORDERING_STREAM</span>: <span class="ident">u8</span> <span class="op">=</span> <span class="number">255</span>;
-<span class="doccomment">/// The sequencing stream that will be used to sequence packets on if there is not sequencing stream specified.</span>
+<span class="doccomment">/// The sequencing stream that will be used to sequence packets on if there is not sequencing stream specified.</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">DEFAULT_SEQUENCING_STREAM</span>: <span class="ident">u8</span> <span class="op">=</span> <span class="number">255</span>;
-<span class="doccomment">/// Default maximal number of fragments to size.</span>
+<span class="doccomment">/// Default maximal number of fragments to size.</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">MAX_FRAGMENTS_DEFAULT</span>: <span class="ident">u16</span> <span class="op">=</span> <span class="number">16</span>;
-<span class="doccomment">/// Default maximal size of each fragment.</span>
+<span class="doccomment">/// Default maximal size of each fragment.</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">FRAGMENT_SIZE_DEFAULT</span>: <span class="ident">u16</span> <span class="op">=</span> <span class="number">1024</span>;
-<span class="doccomment">/// Maximum transmission unit of the payload.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// Derived from ethernet_mtu - ipv6_header_size - udp_header_size - packet header size</span>
-<span class="doccomment">///       1452 = 1500         - 40               - 8               - 8</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// This is not strictly guaranteed -- there may be less room in an ethernet frame than this due to</span>
-<span class="doccomment">/// variability in ipv6 header size.</span>
+<span class="doccomment">/// Maximum transmission unit of the payload.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Derived from ethernet_mtu - ipv6_header_size - udp_header_size - packet header size</span>
+<span class="doccomment">///       1452 = 1500         - 40               - 8               - 8</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// This is not strictly guaranteed -- there may be less room in an ethernet frame than this due to</span>
+<span class="doccomment">/// variability in ipv6 header size.</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">DEFAULT_MTU</span>: <span class="ident">u16</span> <span class="op">=</span> <span class="number">1452</span>;
-<span class="doccomment">/// This is the current protocol version.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// It is used for:</span>
-<span class="doccomment">/// - Generating crc16 for the packet header.</span>
-<span class="doccomment">/// - Validating if arriving packets have the same protocol version.</span>
+<span class="doccomment">/// This is the current protocol version.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// It is used for:</span>
+<span class="doccomment">/// - Generating crc16 for the packet header.</span>
+<span class="doccomment">/// - Validating if arriving packets have the same protocol version.</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">PROTOCOL_VERSION</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;laminar-0.1.0&quot;</span>;
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../../";window.currentCrate = "laminar";</script><script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script><script defer src="../../../search-index.js"></script></body></html>

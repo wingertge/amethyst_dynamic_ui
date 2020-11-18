@@ -622,7 +622,7 @@
 <span id="619">619</span>
 <span id="620">620</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="doccomment">//! Module for creating a `Texture` from an image</span>
+<span class="doccomment">//! Module for creating a `Texture` from an image</span>
 <span class="kw">use</span> {
     <span class="kw">crate</span>::{
         <span class="ident">factory</span>::{<span class="ident">Factory</span>, <span class="ident">ImageState</span>},
@@ -640,8 +640,8 @@
     <span class="ident">thread_profiler</span>::<span class="ident">profile_scope</span>,
 };
 
-<span class="doccomment">/// Static image.</span>
-<span class="doccomment">/// Can be loaded from various of formats.</span>
+<span class="doccomment">/// Static image.</span>
+<span class="doccomment">/// Can be loaded from various of formats.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Texture</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">Backend</span><span class="op">&gt;</span> {
     <span class="ident">image</span>: <span class="ident">Handle</span><span class="op">&lt;</span><span class="ident">Image</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span><span class="op">&gt;</span>,
@@ -654,57 +654,57 @@
 <span class="kw">where</span>
     <span class="ident">B</span>: <span class="ident">Backend</span>,
 {
-    <span class="doccomment">/// Get image handle.</span>
+    <span class="doccomment">/// Get image handle.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">image</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">Handle</span><span class="op">&lt;</span><span class="ident">Image</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">image</span>
     }
 
-    <span class="doccomment">/// Get sampler handle.</span>
+    <span class="doccomment">/// Get sampler handle.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sampler</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">Handle</span><span class="op">&lt;</span><span class="ident">Sampler</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">sampler</span>
     }
 
-    <span class="doccomment">/// Get reference to image view.</span>
+    <span class="doccomment">/// Get reference to image view.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">view</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">ImageView</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">view</span>
     }
 
-    <span class="doccomment">/// Get mutable reference to image view.</span>
+    <span class="doccomment">/// Get mutable reference to image view.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">view_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">ImageView</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> {
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">view</span>
     }
 
-    <span class="doccomment">/// Get whether texture has premultiplied alpha</span>
+    <span class="doccomment">/// Get whether texture has premultiplied alpha</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">premultiplied_alpha</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">premultiplied</span>
     }
 }
 
-<span class="doccomment">/// Number of mip levels</span>
+<span class="doccomment">/// Number of mip levels</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;serde&quot;</span>, <span class="ident">derive</span>(<span class="ident">serde</span>::<span class="ident">Serialize</span>, <span class="ident">serde</span>::<span class="ident">Deserialize</span>))]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">MipLevels</span> {
-    <span class="doccomment">/// Generate mip levels automaticaly from image size, each mip level</span>
-    <span class="doccomment">/// decreasing in resolution by half until 1x1</span>
+    <span class="doccomment">/// Generate mip levels automaticaly from image size, each mip level</span>
+    <span class="doccomment">/// decreasing in resolution by half until 1x1</span>
     <span class="ident">GenerateAuto</span>,
-    <span class="doccomment">/// Generate mip levels up to a certain level, each mip level</span>
-    <span class="doccomment">/// decreasing in resolution by half</span>
+    <span class="doccomment">/// Generate mip levels up to a certain level, each mip level</span>
+    <span class="doccomment">/// decreasing in resolution by half</span>
     <span class="ident">GenerateLevels</span>(<span class="ident">NonZeroU8</span>),
-    <span class="doccomment">/// Create the image with raw mip levels but without blitting the main</span>
-    <span class="doccomment">/// texture data into them</span>
+    <span class="doccomment">/// Create the image with raw mip levels but without blitting the main</span>
+    <span class="doccomment">/// texture data into them</span>
     <span class="ident">RawLevels</span>(<span class="ident">NonZeroU8</span>),
 }
 
-<span class="doccomment">/// Calculate the number of mip levels for a 2D image with given dimensions</span>
+<span class="doccomment">/// Calculate the number of mip levels for a 2D image with given dimensions</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">mip_levels_from_dims</span>(<span class="ident">width</span>: <span class="ident">u32</span>, <span class="ident">height</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u8</span> {
     ((<span class="number">32</span> <span class="op">-</span> <span class="ident">width</span>.<span class="ident">max</span>(<span class="ident">height</span>).<span class="ident">leading_zeros</span>()).<span class="ident">max</span>(<span class="number">1</span>) <span class="kw">as</span> <span class="ident">u8</span>).<span class="ident">min</span>(<span class="ident">gfx_hal</span>::<span class="ident">image</span>::<span class="ident">MAX_LEVEL</span>)
 }
 
-<span class="doccomment">/// Generics-free texture builder.</span>
+<span class="doccomment">/// Generics-free texture builder.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Derivative</span>)]</span>
 <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;serde&quot;</span>, <span class="ident">derive</span>(<span class="ident">serde</span>::<span class="ident">Serialize</span>, <span class="ident">serde</span>::<span class="ident">Deserialize</span>))]</span>
-<span class="doccomment">/// Struct for staging data in preparation of building a `Texture`</span>
+<span class="doccomment">/// Struct for staging data in preparation of building a `Texture`</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TextureBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="ident">kind</span>: <span class="ident">image</span>::<span class="ident">Kind</span>,
     <span class="ident">view_kind</span>: <span class="ident">image</span>::<span class="ident">ViewKind</span>,
@@ -720,7 +720,7 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">TextureBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="doccomment">/// New empty `TextureBuilder`</span>
+    <span class="doccomment">/// New empty `TextureBuilder`</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">TextureBuilder</span> {
             <span class="ident">kind</span>: <span class="ident">image</span>::<span class="ident">Kind</span>::<span class="ident">D1</span>(<span class="number">0</span>, <span class="number">0</span>),
@@ -739,25 +739,25 @@
         }
     }
 
-    <span class="doccomment">/// Set whether the image has premultiplied alpha</span>
+    <span class="doccomment">/// Set whether the image has premultiplied alpha</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_premultiplied_alpha</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">premultiplied</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">premultiplied</span> <span class="op">=</span> <span class="ident">premultiplied</span>;
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Set whether the image has premultiplied alpha</span>
+    <span class="doccomment">/// Set whether the image has premultiplied alpha</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_premultiplied_alpha</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">premultiplied</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">set_premultiplied_alpha</span>(<span class="ident">premultiplied</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Set pixel data.</span>
+    <span class="doccomment">/// Set pixel data.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_data</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsPixel</span><span class="op">&gt;</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">data</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">std</span>::<span class="ident">borrow</span>::<span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, [<span class="ident">P</span>]<span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">set_data</span>(<span class="ident">data</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Set pixel data.</span>
+    <span class="doccomment">/// Set pixel data.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_data</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsPixel</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
         <span class="ident">data</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">std</span>::<span class="ident">borrow</span>::<span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, [<span class="ident">P</span>]<span class="op">&gt;</span><span class="op">&gt;</span>,
@@ -767,7 +767,7 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Set pixel data with manual format definition.</span>
+    <span class="doccomment">/// Set pixel data with manual format definition.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_raw_data</span>(
         <span class="kw-2">mut</span> <span class="self">self</span>,
         <span class="ident">data</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">std</span>::<span class="ident">borrow</span>::<span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, [<span class="ident">u8</span>]<span class="op">&gt;</span><span class="op">&gt;</span>,
@@ -777,7 +777,7 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Set pixel data with manual format definition.</span>
+    <span class="doccomment">/// Set pixel data with manual format definition.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_raw_data</span>(
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
         <span class="ident">data</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">std</span>::<span class="ident">borrow</span>::<span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, [<span class="ident">u8</span>]<span class="op">&gt;</span><span class="op">&gt;</span>,
@@ -788,96 +788,96 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Set pixel data width.</span>
+    <span class="doccomment">/// Set pixel data width.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_data_width</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">data_width</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">set_data_width</span>(<span class="ident">data_width</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Set pixel data width.</span>
+    <span class="doccomment">/// Set pixel data width.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_data_width</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">data_width</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">data_width</span> <span class="op">=</span> <span class="ident">data_width</span>;
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Set pixel data height.</span>
+    <span class="doccomment">/// Set pixel data height.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_data_height</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">data_height</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">set_data_height</span>(<span class="ident">data_height</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Set pixel data height.</span>
+    <span class="doccomment">/// Set pixel data height.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_data_height</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">data_height</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">data_height</span> <span class="op">=</span> <span class="ident">data_height</span>;
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Set number of generated or raw mip levels</span>
+    <span class="doccomment">/// Set number of generated or raw mip levels</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_mip_levels</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">mip_levels</span>: <span class="ident">MipLevels</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">set_mip_levels</span>(<span class="ident">mip_levels</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Set number of generated or raw mip levels</span>
+    <span class="doccomment">/// Set number of generated or raw mip levels</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_mip_levels</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">mip_levels</span>: <span class="ident">MipLevels</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">mip_levels</span> <span class="op">=</span> <span class="ident">mip_levels</span>;
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Set image extent.</span>
+    <span class="doccomment">/// Set image extent.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_kind</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">kind</span>: <span class="ident">image</span>::<span class="ident">Kind</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">set_kind</span>(<span class="ident">kind</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Set image kind.</span>
+    <span class="doccomment">/// Set image kind.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_kind</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">kind</span>: <span class="ident">image</span>::<span class="ident">Kind</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">kind</span> <span class="op">=</span> <span class="ident">kind</span>;
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// With image view kind.</span>
+    <span class="doccomment">/// With image view kind.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_view_kind</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">view_kind</span>: <span class="ident">image</span>::<span class="ident">ViewKind</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">set_view_kind</span>(<span class="ident">view_kind</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Set image view kind.</span>
+    <span class="doccomment">/// Set image view kind.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_view_kind</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">view_kind</span>: <span class="ident">image</span>::<span class="ident">ViewKind</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">view_kind</span> <span class="op">=</span> <span class="ident">view_kind</span>;
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// With image sampler info.</span>
+    <span class="doccomment">/// With image sampler info.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_sampler_info</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">sampler_info</span>: <span class="ident">gfx_hal</span>::<span class="ident">image</span>::<span class="ident">SamplerInfo</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">set_sampler_info</span>(<span class="ident">sampler_info</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Set image sampler info.</span>
+    <span class="doccomment">/// Set image sampler info.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_sampler_info</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">sampler_info</span>: <span class="ident">gfx_hal</span>::<span class="ident">image</span>::<span class="ident">SamplerInfo</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">sampler_info</span> <span class="op">=</span> <span class="ident">sampler_info</span>;
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// With swizzle.</span>
+    <span class="doccomment">/// With swizzle.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_swizzle</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">swizzle</span>: <span class="ident">Swizzle</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">set_swizzle</span>(<span class="ident">swizzle</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Set swizzle.</span>
+    <span class="doccomment">/// Set swizzle.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_swizzle</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">swizzle</span>: <span class="ident">Swizzle</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">swizzle</span> <span class="op">=</span> <span class="ident">swizzle</span>;
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Build texture.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ## Parameters</span>
-    <span class="doccomment">/// * `next_state`: The next state that this texture will be used in.</span>
-    <span class="doccomment">///     It will get transitioned to this state after uploading.</span>
-    <span class="doccomment">/// * `factory`: Factory to use to build the texture</span>
+    <span class="doccomment">/// Build texture.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// ## Parameters</span>
+    <span class="doccomment">/// * `next_state`: The next state that this texture will be used in.</span>
+    <span class="doccomment">///     It will get transitioned to this state after uploading.</span>
+    <span class="doccomment">/// * `factory`: Factory to use to build the texture</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">next_state</span>: <span class="ident">ImageState</span>,
@@ -965,9 +965,9 @@
             <span class="ident">layout</span>: <span class="ident">image</span>::<span class="ident">Layout</span>::<span class="ident">Undefined</span>,
         };
 
-        <span class="comment">// The reason that factory.upload_image is unsafe is that the image being uploaded</span>
-        <span class="comment">// must have been created by the same factory and that it is not in use; we guarantee</span>
-        <span class="comment">// that here because we just created the image on the same factory right before.</span>
+        <span class="comment">// The reason that factory.upload_image is unsafe is that the image being uploaded</span>
+        <span class="comment">// must have been created by the same factory and that it is not in use; we guarantee</span>
+        <span class="comment">// that here because we just created the image on the same factory right before.</span>
         <span class="kw">unsafe</span> {
             <span class="macro">profile_scope</span><span class="macro">!</span>(<span class="string">&quot;upload_image&quot;</span>);
 
@@ -1154,8 +1154,8 @@
     <span class="kw">let</span> <span class="ident">bgra</span> <span class="op">=</span> <span class="ident">Swizzle</span>(<span class="ident">Component</span>::<span class="ident">B</span>, <span class="ident">Component</span>::<span class="ident">G</span>, <span class="ident">Component</span>::<span class="ident">R</span>, <span class="ident">Component</span>::<span class="ident">A</span>);
 
     <span class="prelude-val">Some</span>(<span class="kw">match</span> <span class="ident">format</span> {
-        <span class="comment">// Destination formats chosen according to this table</span>
-        <span class="comment">// https://vulkan.gpuinfo.org/listformats.php</span>
+        <span class="comment">// Destination formats chosen according to this table</span>
+        <span class="comment">// https://vulkan.gpuinfo.org/listformats.php</span>
         <span class="ident">Format</span>::<span class="ident">Rg8Unorm</span> <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">Format</span>::<span class="ident">Rgba8Unorm</span>, <span class="ident">t2_u8</span>, <span class="ident">rgba</span>),
         <span class="ident">Format</span>::<span class="ident">Rg8Snorm</span> <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">Format</span>::<span class="ident">Rgba8Snorm</span>, <span class="ident">t2_u8</span>, <span class="ident">rgba</span>),
         <span class="ident">Format</span>::<span class="ident">Rg8Uscaled</span> <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">Format</span>::<span class="ident">Rgba8Uscaled</span>, <span class="ident">t2_u8</span>, <span class="ident">rgba</span>),
@@ -1211,7 +1211,7 @@
         <span class="ident">Format</span>::<span class="ident">Rgb32Uint</span> <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">Format</span>::<span class="ident">Rgba32Uint</span>, <span class="ident">t3_u32</span>, <span class="ident">rgba</span>),
         <span class="ident">Format</span>::<span class="ident">Rgb32Sint</span> <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">Format</span>::<span class="ident">Rgba32Sint</span>, <span class="ident">t3_u32</span>, <span class="ident">rgba</span>),
         <span class="ident">Format</span>::<span class="ident">Rgb32Sfloat</span> <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">Format</span>::<span class="ident">Rgba32Sfloat</span>, <span class="ident">t3_f32</span>, <span class="ident">rgba</span>),
-        <span class="comment">// TODO: add more conversions</span>
+        <span class="comment">// TODO: add more conversions</span>
         <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">None</span>,
     })
 }

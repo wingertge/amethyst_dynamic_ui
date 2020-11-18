@@ -175,7 +175,7 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">io</span>::<span class="ident">Cursor</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
-<span class="doccomment">/// This header will be included in each packet, and contains some basic information.</span>
+<span class="doccomment">/// This header will be included in each packet, and contains some basic information.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">StandardHeader</span> {
     <span class="ident">protocol_version</span>: <span class="ident">u16</span>,
     <span class="ident">packet_type</span>: <span class="ident">PacketType</span>,
@@ -184,7 +184,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">StandardHeader</span> {
-    <span class="doccomment">/// Create new header.</span>
+    <span class="doccomment">/// Create new header.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">delivery_guarantee</span>: <span class="ident">DeliveryGuarantee</span>,
         <span class="ident">ordering_guarantee</span>: <span class="ident">OrderingGuarantee</span>,
@@ -198,39 +198,39 @@
         }
     }
 
-    <span class="doccomment">/// Returns the protocol version</span>
+    <span class="doccomment">/// Returns the protocol version</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">protocol_version</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u16</span> {
         <span class="self">self</span>.<span class="ident">protocol_version</span>
     }
 
-    <span class="doccomment">/// Returns the DeliveryGuarantee</span>
+    <span class="doccomment">/// Returns the DeliveryGuarantee</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">delivery_guarantee</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DeliveryGuarantee</span> {
         <span class="self">self</span>.<span class="ident">delivery_guarantee</span>
     }
 
-    <span class="doccomment">/// Returns the OrderingGuarantee</span>
+    <span class="doccomment">/// Returns the OrderingGuarantee</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ordering_guarantee</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OrderingGuarantee</span> {
         <span class="self">self</span>.<span class="ident">ordering_guarantee</span>
     }
 
-    <span class="doccomment">/// Returns the PacketType</span>
+    <span class="doccomment">/// Returns the PacketType</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">packet_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">PacketType</span> {
         <span class="self">self</span>.<span class="ident">packet_type</span>
     }
 
-    <span class="doccomment">/// Returns true if the packet is a heartbeat packet, false otherwise</span>
+    <span class="doccomment">/// Returns true if the packet is a heartbeat packet, false otherwise</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_heartbeat</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">packet_type</span> <span class="op">=</span><span class="op">=</span> <span class="ident">PacketType</span>::<span class="ident">Heartbeat</span>
     }
 
-    <span class="doccomment">/// Returns true if the packet is a fragment, false if not</span>
+    <span class="doccomment">/// Returns true if the packet is a fragment, false if not</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_fragment</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">packet_type</span> <span class="op">=</span><span class="op">=</span> <span class="ident">PacketType</span>::<span class="ident">Fragment</span>
     }
 
-    <span class="doccomment">/// Checks if the protocol version in the packet is a valid version</span>
+    <span class="doccomment">/// Checks if the protocol version in the packet is a valid version</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_current_protocol</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="ident">ProtocolVersion</span>::<span class="ident">valid_version</span>(<span class="self">self</span>.<span class="ident">protocol_version</span>)
     }
@@ -277,7 +277,7 @@
         <span class="prelude-val">Ok</span>(<span class="ident">header</span>)
     }
 
-    <span class="doccomment">/// Get the size of this header.</span>
+    <span class="doccomment">/// Get the size of this header.</span>
     <span class="kw">fn</span> <span class="ident">size</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u8</span> {
         <span class="ident">STANDARD_HEADER_SIZE</span>
     }
@@ -300,7 +300,7 @@
         );
         <span class="macro">assert</span><span class="macro">!</span>[<span class="ident">header</span>.<span class="ident">parse</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buffer</span>).<span class="ident">is_ok</span>()];
 
-        <span class="comment">// [0 .. 3] protocol version</span>
+        <span class="comment">// [0 .. 3] protocol version</span>
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">buffer</span>[<span class="number">2</span>], <span class="ident">PacketType</span>::<span class="ident">Packet</span>.<span class="ident">to_u8</span>());
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">buffer</span>[<span class="number">3</span>], <span class="ident">DeliveryGuarantee</span>::<span class="ident">Unreliable</span>.<span class="ident">to_u8</span>());
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">buffer</span>[<span class="number">4</span>], <span class="ident">OrderingGuarantee</span>::<span class="ident">Sequenced</span>(<span class="prelude-val">None</span>).<span class="ident">to_u8</span>());

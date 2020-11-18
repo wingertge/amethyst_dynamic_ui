@@ -377,271 +377,271 @@
     };
 }
 
-<span class="doccomment">/// Vector of 2 `boolean` values.</span>
-<span class="doccomment">/// `foo: bvec2` is equivalent to glsl&#39;s `bvec2 foo;`</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// # Examples</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// ```rust</span>
-<span class="doccomment">/// # #[macro_use] extern crate glsl_layout;</span>
-<span class="doccomment">/// # use glsl_layout::{boolean, bvec2};</span>
-<span class="doccomment">/// # fn main() {</span>
-<span class="doccomment">/// let x: bvec2 = [boolean::from(true); 2].into();</span>
-<span class="doccomment">/// # }</span>
-<span class="doccomment">/// ```</span>
-<span class="doccomment">///</span>
+<span class="doccomment">/// Vector of 2 `boolean` values.</span>
+<span class="doccomment">/// `foo: bvec2` is equivalent to glsl&#39;s `bvec2 foo;`</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Examples</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```rust</span>
+<span class="doccomment">/// # #[macro_use] extern crate glsl_layout;</span>
+<span class="doccomment">/// # use glsl_layout::{boolean, bvec2};</span>
+<span class="doccomment">/// # fn main() {</span>
+<span class="doccomment">/// let x: bvec2 = [boolean::from(true); 2].into();</span>
+<span class="doccomment">/// # }</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">///</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">bvec2</span>([<span class="ident">boolean</span>; <span class="number">2</span>]);
 <span class="macro">implement_vec</span><span class="macro">!</span>(<span class="ident">bvec2</span> <span class="op">=</span><span class="op">&gt;</span> [<span class="ident">boolean</span>; <span class="number">2</span>] : <span class="ident">Align8</span>);
 
-<span class="doccomment">/// Vector of 3 `boolean` values.</span>
-<span class="doccomment">/// `foo: bvec3` is equivalent to glsl&#39;s `bvec3 foo;`</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// # Examples</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// ```rust</span>
-<span class="doccomment">/// # #[macro_use] extern crate glsl_layout;</span>
-<span class="doccomment">/// # use glsl_layout::{boolean, bvec3};</span>
-<span class="doccomment">/// # fn main() {</span>
-<span class="doccomment">/// let x: bvec3 = [boolean::from(true); 3].into();</span>
-<span class="doccomment">/// # }</span>
-<span class="doccomment">/// ```</span>
-<span class="doccomment">///</span>
+<span class="doccomment">/// Vector of 3 `boolean` values.</span>
+<span class="doccomment">/// `foo: bvec3` is equivalent to glsl&#39;s `bvec3 foo;`</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Examples</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```rust</span>
+<span class="doccomment">/// # #[macro_use] extern crate glsl_layout;</span>
+<span class="doccomment">/// # use glsl_layout::{boolean, bvec3};</span>
+<span class="doccomment">/// # fn main() {</span>
+<span class="doccomment">/// let x: bvec3 = [boolean::from(true); 3].into();</span>
+<span class="doccomment">/// # }</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">///</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">bvec3</span>([<span class="ident">boolean</span>; <span class="number">3</span>]);
 <span class="macro">implement_vec</span><span class="macro">!</span>(<span class="ident">bvec3</span> <span class="op">=</span><span class="op">&gt;</span> [<span class="ident">boolean</span>; <span class="number">3</span>] : <span class="ident">Align16</span>);
 
-<span class="doccomment">/// Vector of 4 `boolean` values.</span>
-<span class="doccomment">/// `foo: bvec4` is equivalent to glsl&#39;s `bvec4 foo;`</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// # Examples</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// ```rust</span>
-<span class="doccomment">/// # #[macro_use] extern crate glsl_layout;</span>
-<span class="doccomment">/// # use glsl_layout::{boolean, bvec4};</span>
-<span class="doccomment">/// # fn main() {</span>
-<span class="doccomment">/// let x: bvec4 = [boolean::from(true); 4].into();</span>
-<span class="doccomment">/// # }</span>
-<span class="doccomment">/// ```</span>
-<span class="doccomment">///</span>
+<span class="doccomment">/// Vector of 4 `boolean` values.</span>
+<span class="doccomment">/// `foo: bvec4` is equivalent to glsl&#39;s `bvec4 foo;`</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Examples</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```rust</span>
+<span class="doccomment">/// # #[macro_use] extern crate glsl_layout;</span>
+<span class="doccomment">/// # use glsl_layout::{boolean, bvec4};</span>
+<span class="doccomment">/// # fn main() {</span>
+<span class="doccomment">/// let x: bvec4 = [boolean::from(true); 4].into();</span>
+<span class="doccomment">/// # }</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">///</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">bvec4</span>([<span class="ident">boolean</span>; <span class="number">4</span>]);
 <span class="macro">implement_vec</span><span class="macro">!</span>(<span class="ident">bvec4</span> <span class="op">=</span><span class="op">&gt;</span> [<span class="ident">boolean</span>; <span class="number">4</span>] : <span class="ident">Align16</span>);
 
-<span class="doccomment">/// Vector of 2 `int` values.</span>
-<span class="doccomment">/// `foo: ivec2` is equivalent to glsl&#39;s `ivec2 foo;`</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// # Examples</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// ```rust</span>
-<span class="doccomment">/// # #[macro_use] extern crate glsl_layout;</span>
-<span class="doccomment">/// # use glsl_layout::ivec2;</span>
-<span class="doccomment">/// # fn main() {</span>
-<span class="doccomment">/// let x: ivec2 = [1i32; 2].into();</span>
-<span class="doccomment">/// # }</span>
-<span class="doccomment">/// ```</span>
-<span class="doccomment">///</span>
+<span class="doccomment">/// Vector of 2 `int` values.</span>
+<span class="doccomment">/// `foo: ivec2` is equivalent to glsl&#39;s `ivec2 foo;`</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Examples</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```rust</span>
+<span class="doccomment">/// # #[macro_use] extern crate glsl_layout;</span>
+<span class="doccomment">/// # use glsl_layout::ivec2;</span>
+<span class="doccomment">/// # fn main() {</span>
+<span class="doccomment">/// let x: ivec2 = [1i32; 2].into();</span>
+<span class="doccomment">/// # }</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">///</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ivec2</span>([<span class="ident">int</span>; <span class="number">2</span>]);
 <span class="macro">implement_vec</span><span class="macro">!</span>(<span class="ident">ivec2</span> <span class="op">=</span><span class="op">&gt;</span> [<span class="ident">int</span>; <span class="number">2</span>] : <span class="ident">Align8</span>);
 
-<span class="doccomment">/// Vector of 3 `int` values.</span>
-<span class="doccomment">/// `foo: ivec3` is equivalent to glsl&#39;s `ivec3 foo;`</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// # Examples</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// ```rust</span>
-<span class="doccomment">/// # #[macro_use] extern crate glsl_layout;</span>
-<span class="doccomment">/// # use glsl_layout::ivec3;</span>
-<span class="doccomment">/// # fn main() {</span>
-<span class="doccomment">/// let x: ivec3 = [1i32; 3].into();</span>
-<span class="doccomment">/// # }</span>
-<span class="doccomment">/// ```</span>
-<span class="doccomment">///</span>
+<span class="doccomment">/// Vector of 3 `int` values.</span>
+<span class="doccomment">/// `foo: ivec3` is equivalent to glsl&#39;s `ivec3 foo;`</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Examples</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```rust</span>
+<span class="doccomment">/// # #[macro_use] extern crate glsl_layout;</span>
+<span class="doccomment">/// # use glsl_layout::ivec3;</span>
+<span class="doccomment">/// # fn main() {</span>
+<span class="doccomment">/// let x: ivec3 = [1i32; 3].into();</span>
+<span class="doccomment">/// # }</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">///</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ivec3</span>([<span class="ident">int</span>; <span class="number">3</span>]);
 <span class="macro">implement_vec</span><span class="macro">!</span>(<span class="ident">ivec3</span> <span class="op">=</span><span class="op">&gt;</span> [<span class="ident">int</span>; <span class="number">3</span>] : <span class="ident">Align16</span>);
 
-<span class="doccomment">/// Vector of 4 `int` values.</span>
-<span class="doccomment">/// `foo: ivec4` is equivalent to glsl&#39;s `ivec4 foo;`</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// # Examples</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// ```rust</span>
-<span class="doccomment">/// # #[macro_use] extern crate glsl_layout;</span>
-<span class="doccomment">/// # use glsl_layout::ivec4;</span>
-<span class="doccomment">/// # fn main() {</span>
-<span class="doccomment">/// let x: ivec4 = [1i32; 4].into();</span>
-<span class="doccomment">/// # }</span>
-<span class="doccomment">/// ```</span>
-<span class="doccomment">///</span>
+<span class="doccomment">/// Vector of 4 `int` values.</span>
+<span class="doccomment">/// `foo: ivec4` is equivalent to glsl&#39;s `ivec4 foo;`</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Examples</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```rust</span>
+<span class="doccomment">/// # #[macro_use] extern crate glsl_layout;</span>
+<span class="doccomment">/// # use glsl_layout::ivec4;</span>
+<span class="doccomment">/// # fn main() {</span>
+<span class="doccomment">/// let x: ivec4 = [1i32; 4].into();</span>
+<span class="doccomment">/// # }</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">///</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ivec4</span>([<span class="ident">int</span>; <span class="number">4</span>]);
 <span class="macro">implement_vec</span><span class="macro">!</span>(<span class="ident">ivec4</span> <span class="op">=</span><span class="op">&gt;</span> [<span class="ident">int</span>; <span class="number">4</span>] : <span class="ident">Align16</span>);
 
-<span class="doccomment">/// Vector of 2 `uint` values.</span>
-<span class="doccomment">/// `foo: uvec2` is equivalent to glsl&#39;s `uvec2 foo;`</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// # Examples</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// ```rust</span>
-<span class="doccomment">/// # #[macro_use] extern crate glsl_layout;</span>
-<span class="doccomment">/// # use glsl_layout::uvec2;</span>
-<span class="doccomment">/// # fn main() {</span>
-<span class="doccomment">/// let x: uvec2 = [1u32; 2].into();</span>
-<span class="doccomment">/// # }</span>
-<span class="doccomment">/// ```</span>
-<span class="doccomment">///</span>
+<span class="doccomment">/// Vector of 2 `uint` values.</span>
+<span class="doccomment">/// `foo: uvec2` is equivalent to glsl&#39;s `uvec2 foo;`</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Examples</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```rust</span>
+<span class="doccomment">/// # #[macro_use] extern crate glsl_layout;</span>
+<span class="doccomment">/// # use glsl_layout::uvec2;</span>
+<span class="doccomment">/// # fn main() {</span>
+<span class="doccomment">/// let x: uvec2 = [1u32; 2].into();</span>
+<span class="doccomment">/// # }</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">///</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">uvec2</span>([<span class="ident">uint</span>; <span class="number">2</span>]);
 <span class="macro">implement_vec</span><span class="macro">!</span>(<span class="ident">uvec2</span> <span class="op">=</span><span class="op">&gt;</span> [<span class="ident">uint</span>; <span class="number">2</span>] : <span class="ident">Align8</span>);
 
-<span class="doccomment">/// Vector of 3 `uint` values.</span>
-<span class="doccomment">/// `foo: uvec3` is equivalent to glsl&#39;s `uvec3 foo;`</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// # Examples</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// ```rust</span>
-<span class="doccomment">/// # #[macro_use] extern crate glsl_layout;</span>
-<span class="doccomment">/// # use glsl_layout::uvec3;</span>
-<span class="doccomment">/// # fn main() {</span>
-<span class="doccomment">/// let x: uvec3 = [1u32; 3].into();</span>
-<span class="doccomment">/// # }</span>
-<span class="doccomment">/// ```</span>
-<span class="doccomment">///</span>
+<span class="doccomment">/// Vector of 3 `uint` values.</span>
+<span class="doccomment">/// `foo: uvec3` is equivalent to glsl&#39;s `uvec3 foo;`</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Examples</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```rust</span>
+<span class="doccomment">/// # #[macro_use] extern crate glsl_layout;</span>
+<span class="doccomment">/// # use glsl_layout::uvec3;</span>
+<span class="doccomment">/// # fn main() {</span>
+<span class="doccomment">/// let x: uvec3 = [1u32; 3].into();</span>
+<span class="doccomment">/// # }</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">///</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">uvec3</span>([<span class="ident">uint</span>; <span class="number">3</span>]);
 <span class="macro">implement_vec</span><span class="macro">!</span>(<span class="ident">uvec3</span> <span class="op">=</span><span class="op">&gt;</span> [<span class="ident">uint</span>; <span class="number">3</span>] : <span class="ident">Align16</span>);
 
-<span class="doccomment">/// Vector of 4 `uint` values.</span>
-<span class="doccomment">/// `foo: uvec4` is equivalent to glsl&#39;s `uvec4 foo;`</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// # Examples</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// ```rust</span>
-<span class="doccomment">/// # #[macro_use] extern crate glsl_layout;</span>
-<span class="doccomment">/// # use glsl_layout::uvec4;</span>
-<span class="doccomment">/// # fn main() {</span>
-<span class="doccomment">/// let x: uvec4 = [1u32; 4].into();</span>
-<span class="doccomment">/// # }</span>
-<span class="doccomment">/// ```</span>
-<span class="doccomment">///</span>
+<span class="doccomment">/// Vector of 4 `uint` values.</span>
+<span class="doccomment">/// `foo: uvec4` is equivalent to glsl&#39;s `uvec4 foo;`</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Examples</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```rust</span>
+<span class="doccomment">/// # #[macro_use] extern crate glsl_layout;</span>
+<span class="doccomment">/// # use glsl_layout::uvec4;</span>
+<span class="doccomment">/// # fn main() {</span>
+<span class="doccomment">/// let x: uvec4 = [1u32; 4].into();</span>
+<span class="doccomment">/// # }</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">///</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">uvec4</span>([<span class="ident">uint</span>; <span class="number">4</span>]);
 <span class="macro">implement_vec</span><span class="macro">!</span>(<span class="ident">uvec4</span> <span class="op">=</span><span class="op">&gt;</span> [<span class="ident">uint</span>; <span class="number">4</span>] : <span class="ident">Align16</span>);
 
-<span class="doccomment">/// Vector of 2 `float` values.</span>
-<span class="doccomment">/// `foo: vec2` is equivalent to glsl&#39;s `vec2 foo;`</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// # Examples</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// ```rust</span>
-<span class="doccomment">/// # #[macro_use] extern crate glsl_layout;</span>
-<span class="doccomment">/// # use glsl_layout::vec2;</span>
-<span class="doccomment">/// # fn main() {</span>
-<span class="doccomment">/// let x: vec2 = [1f32; 2].into();</span>
-<span class="doccomment">/// # }</span>
-<span class="doccomment">/// ```</span>
-<span class="doccomment">///</span>
+<span class="doccomment">/// Vector of 2 `float` values.</span>
+<span class="doccomment">/// `foo: vec2` is equivalent to glsl&#39;s `vec2 foo;`</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Examples</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```rust</span>
+<span class="doccomment">/// # #[macro_use] extern crate glsl_layout;</span>
+<span class="doccomment">/// # use glsl_layout::vec2;</span>
+<span class="doccomment">/// # fn main() {</span>
+<span class="doccomment">/// let x: vec2 = [1f32; 2].into();</span>
+<span class="doccomment">/// # }</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">///</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">vec2</span>([<span class="ident">float</span>; <span class="number">2</span>]);
 <span class="macro">implement_vec</span><span class="macro">!</span>(<span class="ident">vec2</span> <span class="op">=</span><span class="op">&gt;</span> [<span class="ident">float</span>; <span class="number">2</span>] : <span class="ident">Align8</span>);
 
-<span class="doccomment">/// Vector of 3 `float` values.</span>
-<span class="doccomment">/// `foo: vec3` is equivalent to glsl&#39;s `vec3 foo;`</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// # Examples</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// ```rust</span>
-<span class="doccomment">/// # #[macro_use] extern crate glsl_layout;</span>
-<span class="doccomment">/// # use glsl_layout::vec3;</span>
-<span class="doccomment">/// # fn main() {</span>
-<span class="doccomment">/// let x: vec3 = [1f32; 3].into();</span>
-<span class="doccomment">/// # }</span>
-<span class="doccomment">/// ```</span>
-<span class="doccomment">///</span>
+<span class="doccomment">/// Vector of 3 `float` values.</span>
+<span class="doccomment">/// `foo: vec3` is equivalent to glsl&#39;s `vec3 foo;`</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Examples</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```rust</span>
+<span class="doccomment">/// # #[macro_use] extern crate glsl_layout;</span>
+<span class="doccomment">/// # use glsl_layout::vec3;</span>
+<span class="doccomment">/// # fn main() {</span>
+<span class="doccomment">/// let x: vec3 = [1f32; 3].into();</span>
+<span class="doccomment">/// # }</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">///</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">vec3</span>([<span class="ident">float</span>; <span class="number">3</span>]);
 <span class="macro">implement_vec</span><span class="macro">!</span>(<span class="ident">vec3</span> <span class="op">=</span><span class="op">&gt;</span> [<span class="ident">float</span>; <span class="number">3</span>] : <span class="ident">Align16</span>);
 
-<span class="doccomment">/// Vector of 4 `float` values.</span>
-<span class="doccomment">/// `foo: vec4` is equivalent to glsl&#39;s `vec4 foo;`</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// # Examples</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// ```rust</span>
-<span class="doccomment">/// # #[macro_use] extern crate glsl_layout;</span>
-<span class="doccomment">/// # use glsl_layout::vec4;</span>
-<span class="doccomment">/// # fn main() {</span>
-<span class="doccomment">/// let x: vec4 = [1f32; 4].into();</span>
-<span class="doccomment">/// # }</span>
-<span class="doccomment">/// ```</span>
-<span class="doccomment">///</span>
+<span class="doccomment">/// Vector of 4 `float` values.</span>
+<span class="doccomment">/// `foo: vec4` is equivalent to glsl&#39;s `vec4 foo;`</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Examples</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```rust</span>
+<span class="doccomment">/// # #[macro_use] extern crate glsl_layout;</span>
+<span class="doccomment">/// # use glsl_layout::vec4;</span>
+<span class="doccomment">/// # fn main() {</span>
+<span class="doccomment">/// let x: vec4 = [1f32; 4].into();</span>
+<span class="doccomment">/// # }</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">///</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">vec4</span>([<span class="ident">float</span>; <span class="number">4</span>]);
 <span class="macro">implement_vec</span><span class="macro">!</span>(<span class="ident">vec4</span> <span class="op">=</span><span class="op">&gt;</span> [<span class="ident">float</span>; <span class="number">4</span>] : <span class="ident">Align16</span>);
 
-<span class="doccomment">/// Vector of 2 `double` value.</span>
-<span class="doccomment">/// `foo: dvec2` is equivalent to glsl&#39;s `dvec2 foo;`</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// # Examples</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// ```rust</span>
-<span class="doccomment">/// # #[macro_use] extern crate glsl_layout;</span>
-<span class="doccomment">/// # use glsl_layout::dvec2;</span>
-<span class="doccomment">/// # fn main() {</span>
-<span class="doccomment">/// let x: dvec2 = [1f32; 2].into();</span>
-<span class="doccomment">/// # }</span>
-<span class="doccomment">/// ```</span>
-<span class="doccomment">///</span>
+<span class="doccomment">/// Vector of 2 `double` value.</span>
+<span class="doccomment">/// `foo: dvec2` is equivalent to glsl&#39;s `dvec2 foo;`</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Examples</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```rust</span>
+<span class="doccomment">/// # #[macro_use] extern crate glsl_layout;</span>
+<span class="doccomment">/// # use glsl_layout::dvec2;</span>
+<span class="doccomment">/// # fn main() {</span>
+<span class="doccomment">/// let x: dvec2 = [1f32; 2].into();</span>
+<span class="doccomment">/// # }</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">///</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">dvec2</span>([<span class="ident">double</span>; <span class="number">2</span>]);
 <span class="macro">implement_vec</span><span class="macro">!</span>(<span class="ident">dvec2</span> <span class="op">=</span><span class="op">&gt;</span> [<span class="ident">double</span>; <span class="number">2</span>] : <span class="ident">Align16</span>);
 
-<span class="doccomment">/// Vector of 3 `double` value.</span>
-<span class="doccomment">/// `foo: dvec3` is equivalent to glsl&#39;s `dvec3 foo;`</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// # Examples</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// ```rust</span>
-<span class="doccomment">/// # #[macro_use] extern crate glsl_layout;</span>
-<span class="doccomment">/// # use glsl_layout::dvec3;</span>
-<span class="doccomment">/// # fn main() {</span>
-<span class="doccomment">/// let x: dvec3 = [1f32; 3].into();</span>
-<span class="doccomment">/// # }</span>
-<span class="doccomment">/// ```</span>
-<span class="doccomment">///</span>
+<span class="doccomment">/// Vector of 3 `double` value.</span>
+<span class="doccomment">/// `foo: dvec3` is equivalent to glsl&#39;s `dvec3 foo;`</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Examples</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```rust</span>
+<span class="doccomment">/// # #[macro_use] extern crate glsl_layout;</span>
+<span class="doccomment">/// # use glsl_layout::dvec3;</span>
+<span class="doccomment">/// # fn main() {</span>
+<span class="doccomment">/// let x: dvec3 = [1f32; 3].into();</span>
+<span class="doccomment">/// # }</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">///</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">dvec3</span>([<span class="ident">double</span>; <span class="number">3</span>]);
 <span class="macro">implement_vec</span><span class="macro">!</span>(<span class="ident">dvec3</span> <span class="op">=</span><span class="op">&gt;</span> [<span class="ident">double</span>; <span class="number">3</span>] : <span class="ident">Align32</span>);
 
-<span class="doccomment">/// Vector of 4 `double` value.</span>
-<span class="doccomment">/// `foo: dvec4` is equivalent to glsl&#39;s `dvec4 foo;`</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// # Examples</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// ```rust</span>
-<span class="doccomment">/// # #[macro_use] extern crate glsl_layout;</span>
-<span class="doccomment">/// # use glsl_layout::dvec4;</span>
-<span class="doccomment">/// # fn main() {</span>
-<span class="doccomment">/// let x: dvec4 = [1f32; 4].into();</span>
-<span class="doccomment">/// # }</span>
-<span class="doccomment">/// ```</span>
-<span class="doccomment">///</span>
+<span class="doccomment">/// Vector of 4 `double` value.</span>
+<span class="doccomment">/// `foo: dvec4` is equivalent to glsl&#39;s `dvec4 foo;`</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Examples</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```rust</span>
+<span class="doccomment">/// # #[macro_use] extern crate glsl_layout;</span>
+<span class="doccomment">/// # use glsl_layout::dvec4;</span>
+<span class="doccomment">/// # fn main() {</span>
+<span class="doccomment">/// let x: dvec4 = [1f32; 4].into();</span>
+<span class="doccomment">/// # }</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">///</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">dvec4</span>([<span class="ident">double</span>; <span class="number">4</span>]);

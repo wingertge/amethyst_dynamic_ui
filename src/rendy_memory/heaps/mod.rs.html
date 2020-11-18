@@ -327,15 +327,15 @@
     <span class="ident">std</span>::<span class="ident">ops</span>::<span class="ident">Range</span>,
 };
 
-<span class="doccomment">/// Possible errors returned by `Heaps`.</span>
+<span class="doccomment">/// Possible errors returned by `Heaps`.</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">missing_copy_implementations</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">failure</span>::<span class="ident">Fail</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">HeapsError</span> {
-    <span class="doccomment">/// Memory allocation failure.</span>
+    <span class="doccomment">/// Memory allocation failure.</span>
     <span class="attribute">#[<span class="ident">fail</span>(<span class="ident">display</span> <span class="op">=</span> <span class="string">&quot;{}&quot;</span>, <span class="ident">_0</span>)]</span>
     <span class="ident">AllocationError</span>(<span class="ident">gfx_hal</span>::<span class="ident">device</span>::<span class="ident">AllocationError</span>),
 
-    <span class="doccomment">/// No memory types among required for resource with requested properties was found.</span>
+    <span class="doccomment">/// No memory types among required for resource with requested properties was found.</span>
     <span class="attribute">#[<span class="ident">fail</span>(
         <span class="ident">display</span> <span class="op">=</span> <span class="string">&quot;Memory type among ({}) with properties ({:?}) not found&quot;</span>,
         <span class="ident">_0</span>, <span class="ident">_1</span>
@@ -355,18 +355,18 @@
     }
 }
 
-<span class="doccomment">/// Config for `Heaps` allocator.</span>
+<span class="doccomment">/// Config for `Heaps` allocator.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;serde&quot;</span>, <span class="ident">derive</span>(<span class="ident">serde</span>::<span class="ident">Serialize</span>, <span class="ident">serde</span>::<span class="ident">Deserialize</span>))]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">HeapsConfig</span> {
-    <span class="doccomment">/// Config for linear sub-allocator.</span>
+    <span class="doccomment">/// Config for linear sub-allocator.</span>
     <span class="kw">pub</span> <span class="ident">linear</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">LinearConfig</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// Config for dynamic sub-allocator.</span>
+    <span class="doccomment">/// Config for dynamic sub-allocator.</span>
     <span class="kw">pub</span> <span class="ident">dynamic</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DynamicConfig</span><span class="op">&gt;</span>,
 }
 
-<span class="doccomment">/// Heaps available on particular physical device.</span>
+<span class="doccomment">/// Heaps available on particular physical device.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Heaps</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">gfx_hal</span>::<span class="ident">Backend</span><span class="op">&gt;</span> {
     <span class="ident">types</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">MemoryType</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span><span class="op">&gt;</span>,
@@ -377,7 +377,7 @@
 <span class="kw">where</span>
     <span class="ident">B</span>: <span class="ident">gfx_hal</span>::<span class="ident">Backend</span>,
 {
-    <span class="doccomment">/// This must be called with `gfx_hal::memory::Properties` fetched from physical device.</span>
+    <span class="doccomment">/// This must be called with `gfx_hal::memory::Properties` fetched from physical device.</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>, <span class="ident">H</span><span class="op">&gt;</span>(<span class="ident">types</span>: <span class="ident">P</span>, <span class="ident">heaps</span>: <span class="ident">H</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span>
     <span class="kw">where</span>
         <span class="ident">P</span>: <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> (<span class="ident">gfx_hal</span>::<span class="ident">memory</span>::<span class="ident">Properties</span>, <span class="ident">u32</span>, <span class="ident">HeapsConfig</span>)<span class="op">&gt;</span>,
@@ -410,11 +410,11 @@
         }
     }
 
-    <span class="doccomment">/// Allocate memory block</span>
-    <span class="doccomment">/// from one of memory types specified by `mask`,</span>
-    <span class="doccomment">/// for intended `usage`,</span>
-    <span class="doccomment">/// with `size`</span>
-    <span class="doccomment">/// and `align` requirements.</span>
+    <span class="doccomment">/// Allocate memory block</span>
+    <span class="doccomment">/// from one of memory types specified by `mask`,</span>
+    <span class="doccomment">/// for intended `usage`,</span>
+    <span class="doccomment">/// with `size`</span>
+    <span class="doccomment">/// and `align` requirements.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">allocate</span>(
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
         <span class="ident">device</span>: <span class="kw-2">&amp;</span><span class="ident">B</span>::<span class="ident">Device</span>,
@@ -461,11 +461,11 @@
         <span class="self">self</span>.<span class="ident">allocate_from</span>(<span class="ident">device</span>, <span class="ident">memory_index</span> <span class="kw">as</span> <span class="ident">u32</span>, <span class="ident">usage</span>, <span class="ident">size</span>, <span class="ident">align</span>)
     }
 
-    <span class="doccomment">/// Allocate memory block</span>
-    <span class="doccomment">/// from `memory_index` specified,</span>
-    <span class="doccomment">/// for intended `usage`,</span>
-    <span class="doccomment">/// with `size`</span>
-    <span class="doccomment">/// and `align` requirements.</span>
+    <span class="doccomment">/// Allocate memory block</span>
+    <span class="doccomment">/// from `memory_index` specified,</span>
+    <span class="doccomment">/// for intended `usage`,</span>
+    <span class="doccomment">/// with `size`</span>
+    <span class="doccomment">/// and `align` requirements.</span>
     <span class="kw">fn</span> <span class="ident">allocate_from</span>(
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
         <span class="ident">device</span>: <span class="kw-2">&amp;</span><span class="ident">B</span>::<span class="ident">Device</span>,
@@ -499,11 +499,11 @@
         })
     }
 
-    <span class="doccomment">/// Free memory block.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Memory block must be allocated from this heap.</span>
+    <span class="doccomment">/// Free memory block.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Memory block must be allocated from this heap.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">free</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">device</span>: <span class="kw-2">&amp;</span><span class="ident">B</span>::<span class="ident">Device</span>, <span class="ident">block</span>: <span class="ident">MemoryBlock</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>) {
-        <span class="comment">// trace!(&quot;Free block &#39;{:#?}&#39;&quot;, block);</span>
+        <span class="comment">// trace!(&quot;Free block &#39;{:#?}&#39;&quot;, block);</span>
         <span class="kw">let</span> <span class="ident">memory_index</span> <span class="op">=</span> <span class="ident">block</span>.<span class="ident">memory_index</span>;
         <span class="macro">debug_assert</span><span class="macro">!</span>(<span class="ident">fits_usize</span>(<span class="ident">memory_index</span>));
         <span class="kw">let</span> <span class="ident">size</span> <span class="op">=</span> <span class="ident">block</span>.<span class="ident">size</span>();
@@ -514,16 +514,16 @@
         <span class="ident">memory_heap</span>.<span class="ident">freed</span>(<span class="ident">freed</span>, <span class="ident">size</span>);
     }
 
-    <span class="doccomment">/// Dispose of allocator.</span>
-    <span class="doccomment">/// Cleanup allocators before dropping.</span>
-    <span class="doccomment">/// Will panic if memory instances are left allocated.</span>
+    <span class="doccomment">/// Dispose of allocator.</span>
+    <span class="doccomment">/// Cleanup allocators before dropping.</span>
+    <span class="doccomment">/// Will panic if memory instances are left allocated.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">dispose</span>(<span class="self">self</span>, <span class="ident">device</span>: <span class="kw-2">&amp;</span><span class="ident">B</span>::<span class="ident">Device</span>) {
         <span class="kw">for</span> <span class="ident">mt</span> <span class="kw">in</span> <span class="self">self</span>.<span class="ident">types</span> {
             <span class="ident">mt</span>.<span class="ident">dispose</span>(<span class="ident">device</span>)
         }
     }
 
-    <span class="doccomment">/// Get memory utilization.</span>
+    <span class="doccomment">/// Get memory utilization.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">utilization</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TotalMemoryUtilization</span> {
         <span class="ident">TotalMemoryUtilization</span> {
             <span class="ident">heaps</span>: <span class="self">self</span>.<span class="ident">heaps</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="ident">MemoryHeap</span>::<span class="ident">utilization</span>).<span class="ident">collect</span>(),
@@ -532,7 +532,7 @@
     }
 }
 
-<span class="doccomment">/// Memory block allocated from `Heaps`.</span>
+<span class="doccomment">/// Memory block allocated from `Heaps`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MemoryBlock</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">gfx_hal</span>::<span class="ident">Backend</span><span class="op">&gt;</span> {
     <span class="ident">block</span>: <span class="ident">BlockFlavor</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>,
@@ -543,7 +543,7 @@
 <span class="kw">where</span>
     <span class="ident">B</span>: <span class="ident">gfx_hal</span>::<span class="ident">Backend</span>,
 {
-    <span class="doccomment">/// Get memory type id.</span>
+    <span class="doccomment">/// Get memory type id.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">memory_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
         <span class="self">self</span>.<span class="ident">memory_index</span>
     }
@@ -554,7 +554,7 @@
     <span class="ident">Dedicated</span>(<span class="ident">DedicatedBlock</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>),
     <span class="ident">Linear</span>(<span class="ident">LinearBlock</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>),
     <span class="ident">Dynamic</span>(<span class="ident">DynamicBlock</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>),
-    <span class="comment">// Chunk(ChunkBlock&lt;B&gt;),</span>
+    <span class="comment">// Chunk(ChunkBlock&lt;B&gt;),</span>
 }
 
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">any_block</span> {
@@ -564,7 +564,7 @@
             <span class="ident">Dedicated</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">block</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">expr</span>,
             <span class="ident">Linear</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">block</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">expr</span>,
             <span class="ident">Dynamic</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">block</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">expr</span>,
-            <span class="comment">// Chunk($block) =&gt; $expr,</span>
+            <span class="comment">// Chunk($block) =&gt; $expr,</span>
         }
     }};
     (<span class="op">&amp;</span> <span class="macro-nonterminal">$</span><span class="self">self</span>:<span class="macro-nonterminal">ident</span>. <span class="macro-nonterminal">$</span><span class="macro-nonterminal">block</span>:<span class="ident">ident</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">expr</span>:<span class="ident">expr</span>) <span class="op">=</span><span class="op">&gt;</span> {{
@@ -573,7 +573,7 @@
             <span class="ident">Dedicated</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">block</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">expr</span>,
             <span class="ident">Linear</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">block</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">expr</span>,
             <span class="ident">Dynamic</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">block</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">expr</span>,
-            <span class="comment">// Chunk($block) =&gt; $expr,</span>
+            <span class="comment">// Chunk($block) =&gt; $expr,</span>
         }
     }};
     (<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="macro-nonterminal">$</span><span class="self">self</span>:<span class="macro-nonterminal">ident</span>. <span class="macro-nonterminal">$</span><span class="macro-nonterminal">block</span>:<span class="ident">ident</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">expr</span>:<span class="ident">expr</span>) <span class="op">=</span><span class="op">&gt;</span> {{
@@ -582,7 +582,7 @@
             <span class="ident">Dedicated</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">block</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">expr</span>,
             <span class="ident">Linear</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">block</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">expr</span>,
             <span class="ident">Dynamic</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">block</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">expr</span>,
-            <span class="comment">// Chunk($block) =&gt; $expr,</span>
+            <span class="comment">// Chunk($block) =&gt; $expr,</span>
         }
     }};
 }
@@ -598,7 +598,7 @@
             <span class="ident">Dedicated</span>(<span class="ident">block</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">block</span>.<span class="ident">size</span>(),
             <span class="ident">Linear</span>(<span class="ident">block</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">block</span>.<span class="ident">size</span>(),
             <span class="ident">Dynamic</span>(<span class="ident">block</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">block</span>.<span class="ident">size</span>(),
-            <span class="comment">// Chunk(block) =&gt; block.size(),</span>
+            <span class="comment">// Chunk(block) =&gt; block.size(),</span>
         }
     }
 }

@@ -200,17 +200,17 @@
     <span class="ident">std</span>::<span class="ident">ops</span>::<span class="ident">Range</span>,
 };
 
-<span class="doccomment">/// A variant of `gfx_hal::image::Barrier` that uses Handle&lt;Image&lt;B&gt;&gt;</span>
+<span class="doccomment">/// A variant of `gfx_hal::image::Barrier` that uses Handle&lt;Image&lt;B&gt;&gt;</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">struct</span> <span class="ident">ImageBarrier</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">Backend</span><span class="op">&gt;</span> {
-    <span class="doccomment">/// The access flags controlling the image.</span>
+    <span class="doccomment">/// The access flags controlling the image.</span>
     <span class="kw">pub</span> <span class="ident">states</span>: <span class="ident">Range</span><span class="op">&lt;</span><span class="ident">image</span>::<span class="ident">State</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// The image the barrier controls.</span>
+    <span class="doccomment">/// The image the barrier controls.</span>
     <span class="kw">pub</span> <span class="ident">target</span>: <span class="ident">Handle</span><span class="op">&lt;</span><span class="ident">Image</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// A `SubresourceRange` that defines which section of an image the barrier applies to.</span>
+    <span class="doccomment">/// A `SubresourceRange` that defines which section of an image the barrier applies to.</span>
     <span class="kw">pub</span> <span class="ident">range</span>: <span class="ident">image</span>::<span class="ident">SubresourceRange</span>,
-    <span class="comment">// TODO: support queue transfers</span>
-    <span class="comment">// pub families: Option&lt;Range&lt;gfx_hal::queue::QueueFamilyId&gt;&gt;,</span>
+    <span class="comment">// TODO: support queue transfers</span>
+    <span class="comment">// pub families: Option&lt;Range&lt;gfx_hal::queue::QueueFamilyId&gt;&gt;,</span>
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">Backend</span><span class="op">&gt;</span> <span class="ident">ImageBarrier</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> {
@@ -224,8 +224,8 @@
     }
 }
 
-<span class="doccomment">/// Handles combining multiple image and buffer barriers that must be</span>
-<span class="doccomment">/// made before and after some target operations.</span>
+<span class="doccomment">/// Handles combining multiple image and buffer barriers that must be</span>
+<span class="doccomment">/// made before and after some target operations.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Barriers</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">Backend</span><span class="op">&gt;</span> {
     <span class="ident">before_stages</span>: <span class="ident">pso</span>::<span class="ident">PipelineStage</span>,
@@ -242,7 +242,7 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">Backend</span><span class="op">&gt;</span> <span class="ident">Barriers</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> {
-    <span class="doccomment">/// Create a new Barriers instance with target stages and accesses</span>
+    <span class="doccomment">/// Create a new Barriers instance with target stages and accesses</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">target_stages</span>: <span class="ident">pso</span>::<span class="ident">PipelineStage</span>,
         <span class="ident">target_buffer_access</span>: <span class="ident">buffer</span>::<span class="ident">Access</span>,
@@ -263,7 +263,7 @@
         }
     }
 
-    <span class="doccomment">/// Add an image to the barriers</span>
+    <span class="doccomment">/// Add an image to the barriers</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_image</span>(
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
         <span class="ident">image</span>: <span class="ident">Handle</span><span class="op">&lt;</span><span class="ident">Image</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span><span class="op">&gt;</span>,
@@ -306,7 +306,7 @@
         }
     }
 
-    <span class="doccomment">/// Add a buffer to the barriers</span>
+    <span class="doccomment">/// Add a buffer to the barriers</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_buffer</span>(
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
         <span class="ident">last_stage</span>: <span class="ident">pso</span>::<span class="ident">PipelineStage</span>,
@@ -320,7 +320,7 @@
         <span class="self">self</span>.<span class="ident">after_buffer_access</span> <span class="op">|</span><span class="op">=</span> <span class="ident">next_access</span>;
     }
 
-    <span class="doccomment">/// Encode the barriers that should come before the target operations</span>
+    <span class="doccomment">/// Encode the barriers that should come before the target operations</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">encode_before</span><span class="op">&lt;</span><span class="ident">C</span>, <span class="ident">L</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">encoder</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Encoder</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">B</span>, <span class="ident">C</span>, <span class="ident">L</span><span class="op">&gt;</span>) {
         <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">before_stages</span>.<span class="ident">is_empty</span>() {
             <span class="kw">let</span> <span class="ident">transitions</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">before_image_transitions</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">b</span><span class="op">|</span> <span class="ident">b</span>.<span class="ident">raw</span>());
@@ -350,7 +350,7 @@
         <span class="self">self</span>.<span class="ident">before_image_transitions</span>.<span class="ident">clear</span>();
     }
 
-    <span class="doccomment">/// Encode the barriers that should come after the target operations</span>
+    <span class="doccomment">/// Encode the barriers that should come after the target operations</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">encode_after</span><span class="op">&lt;</span><span class="ident">C</span>, <span class="ident">L</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">encoder</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Encoder</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">B</span>, <span class="ident">C</span>, <span class="ident">L</span><span class="op">&gt;</span>) {
         <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">target_stages</span>.<span class="ident">is_empty</span>() {
             <span class="kw">let</span> <span class="ident">transitions</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">after_image_transitions</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">b</span><span class="op">|</span> <span class="ident">b</span>.<span class="ident">raw</span>());

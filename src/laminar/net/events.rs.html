@@ -20,16 +20,16 @@
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">packet</span>::<span class="ident">Packet</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">net</span>::<span class="ident">SocketAddr</span>;
 
-<span class="doccomment">/// Events that can occur in `laminar` and that will be pushed through the `event_receiver` returned by `Socket::bind`.</span>
+<span class="doccomment">/// Events that can occur in `laminar` and that will be pushed through the `event_receiver` returned by `Socket::bind`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">SocketEvent</span> {
-    <span class="doccomment">/// A packet was received from a client.</span>
+    <span class="doccomment">/// A packet was received from a client.</span>
     <span class="ident">Packet</span>(<span class="ident">Packet</span>),
-    <span class="doccomment">/// A new client connected.</span>
-    <span class="doccomment">/// Clients are uniquely identified by the ip:port combination at this layer.</span>
+    <span class="doccomment">/// A new client connected.</span>
+    <span class="doccomment">/// Clients are uniquely identified by the ip:port combination at this layer.</span>
     <span class="ident">Connect</span>(<span class="ident">SocketAddr</span>),
-    <span class="doccomment">/// The client has been idling for a configurable amount of time.</span>
-    <span class="doccomment">/// You can control the timeout in the config.</span>
+    <span class="doccomment">/// The client has been idling for a configurable amount of time.</span>
+    <span class="doccomment">/// You can control the timeout in the config.</span>
     <span class="ident">Timeout</span>(<span class="ident">SocketAddr</span>),
 }
 </pre></div>

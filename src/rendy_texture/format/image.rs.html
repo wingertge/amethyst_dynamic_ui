@@ -302,14 +302,14 @@
 <span id="299">299</span>
 <span id="300">300</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="doccomment">//! Module that turns an image into a `Texture`</span>
+<span class="doccomment">//! Module that turns an image into a `Texture`</span>
 
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">pixel</span>, <span class="ident">MipLevels</span>, <span class="ident">TextureBuilder</span>};
 <span class="kw">use</span> <span class="ident">derivative</span>::<span class="ident">Derivative</span>;
 
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">num</span>::<span class="ident">NonZeroU8</span>;
 
-<span class="comment">// reexport for easy usage in ImageTextureConfig</span>
+<span class="comment">// reexport for easy usage in ImageTextureConfig</span>
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">image</span>::<span class="ident">ImageFormat</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Derivative</span>, <span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
@@ -327,15 +327,15 @@
     <span class="ident">Srgb</span>,
 }
 
-<span class="doccomment">/// A description how to interpret loaded texture.</span>
-<span class="doccomment">/// Defines the dimensionality and layer count of textures to load.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// When loading more than one layer, the loaded image is vertically</span>
-<span class="doccomment">/// divided into mutiple subimages. The layer width is preserved and</span>
-<span class="doccomment">/// it&#39;s height is a fraction of image&#39;s original height.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// 1D arrays are treated as a sequence of rows, each being an array entry.</span>
-<span class="doccomment">/// 1D images are treated as a single sequence of pixels.</span>
+<span class="doccomment">/// A description how to interpret loaded texture.</span>
+<span class="doccomment">/// Defines the dimensionality and layer count of textures to load.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// When loading more than one layer, the loaded image is vertically</span>
+<span class="doccomment">/// divided into mutiple subimages. The layer width is preserved and</span>
+<span class="doccomment">/// it&#39;s height is a fraction of image&#39;s original height.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// 1D arrays are treated as a sequence of rows, each being an array entry.</span>
+<span class="doccomment">/// 1D images are treated as a single sequence of pixels.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Derivative</span>, <span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;serde&quot;</span>, <span class="ident">derive</span>(<span class="ident">serde</span>::<span class="ident">Serialize</span>, <span class="ident">serde</span>::<span class="ident">Deserialize</span>))]</span>
 <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Default</span>)]</span>
@@ -394,9 +394,9 @@
 )]</span>
 <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Default</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ImageTextureConfig</span> {
-    <span class="doccomment">/// Interpret the image as given format.</span>
-    <span class="doccomment">/// When `None`, format is determined automatically based on magic bytes.</span>
-    <span class="doccomment">/// Automatic method doesn&#39;t support TGA format.</span>
+    <span class="doccomment">/// Interpret the image as given format.</span>
+    <span class="doccomment">/// When `None`, format is determined automatically based on magic bytes.</span>
+    <span class="doccomment">/// Automatic method doesn&#39;t support TGA format.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;serde&quot;</span>, <span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_image_format&quot;</span>))]</span>
     <span class="kw">pub</span> <span class="ident">format</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ImageFormat</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">repr</span>: <span class="ident">Repr</span>,
@@ -406,18 +406,18 @@
     ))]</span>
     <span class="kw">pub</span> <span class="ident">sampler_info</span>: <span class="ident">gfx_hal</span>::<span class="ident">image</span>::<span class="ident">SamplerInfo</span>,
     <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Default</span>(<span class="ident">value</span> <span class="op">=</span> <span class="string">&quot;false&quot;</span>))]</span>
-    <span class="doccomment">/// Automatically generate mipmaps for this image</span>
+    <span class="doccomment">/// Automatically generate mipmaps for this image</span>
     <span class="kw">pub</span> <span class="ident">generate_mips</span>: <span class="ident">bool</span>,
     <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Default</span>(<span class="ident">value</span> <span class="op">=</span> <span class="string">&quot;false&quot;</span>))]</span>
-    <span class="doccomment">/// Premultiply the alpha channel of the image, if there is one. Note that this</span>
-    <span class="doccomment">/// means an image stored with non-premultiplied alpha will become premultiplied,</span>
-    <span class="doccomment">/// rather than indicating that the supplied image is premultiplied to begin with.</span>
+    <span class="doccomment">/// Premultiply the alpha channel of the image, if there is one. Note that this</span>
+    <span class="doccomment">/// means an image stored with non-premultiplied alpha will become premultiplied,</span>
+    <span class="doccomment">/// rather than indicating that the supplied image is premultiplied to begin with.</span>
     <span class="kw">pub</span> <span class="ident">premultiply_alpha</span>: <span class="ident">bool</span>,
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;serde&quot;</span>)]</span>
 <span class="kw">mod</span> <span class="ident">serde_image_format</span> {
-    <span class="doccomment">//! Module for enabline serde to serialize and deserialize image formats</span>
+    <span class="doccomment">//! Module for enabline serde to serialize and deserialize image formats</span>
     <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Deserializer</span>, <span class="ident">Serialize</span>, <span class="ident">Serializer</span>};
 
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>)]</span>
@@ -470,7 +470,7 @@
     }};
 }
 
-<span class="doccomment">/// pixel.channel_count() must be 4</span>
+<span class="doccomment">/// pixel.channel_count() must be 4</span>
 <span class="kw">fn</span> <span class="ident">premultiply_alpha_4channel</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">image</span>::<span class="ident">Pixel</span><span class="op">&lt;</span><span class="ident">Subpixel</span> <span class="op">=</span> <span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">pixel</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">P</span>) {
     <span class="kw">let</span> <span class="ident">channels_mut</span> <span class="op">=</span> <span class="ident">pixel</span>.<span class="ident">channels_mut</span>();
     <span class="kw">let</span> <span class="ident">alpha</span> <span class="op">=</span> <span class="ident">channels_mut</span>[<span class="number">3</span>] <span class="kw">as</span> <span class="ident">f32</span> <span class="op">/</span> <span class="number">255.0</span>;
@@ -479,14 +479,14 @@
     <span class="ident">channels_mut</span>[<span class="number">2</span>] <span class="op">=</span> (<span class="ident">channels_mut</span>[<span class="number">2</span>] <span class="kw">as</span> <span class="ident">f32</span> <span class="op">*</span> <span class="ident">alpha</span>).<span class="ident">min</span>(<span class="number">255.0</span>).<span class="ident">max</span>(<span class="number">0.0</span>) <span class="kw">as</span> <span class="ident">u8</span>;
 }
 
-<span class="doccomment">/// pixel.channel_count() must be 2</span>
+<span class="doccomment">/// pixel.channel_count() must be 2</span>
 <span class="kw">fn</span> <span class="ident">premultiply_alpha_2channel</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">image</span>::<span class="ident">Pixel</span><span class="op">&lt;</span><span class="ident">Subpixel</span> <span class="op">=</span> <span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">pixel</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">P</span>) {
     <span class="kw">let</span> <span class="ident">channels_mut</span> <span class="op">=</span> <span class="ident">pixel</span>.<span class="ident">channels_mut</span>();
     <span class="kw">let</span> <span class="ident">alpha</span> <span class="op">=</span> <span class="ident">channels_mut</span>[<span class="number">1</span>] <span class="kw">as</span> <span class="ident">f32</span> <span class="op">/</span> <span class="number">255.0</span>;
     <span class="ident">channels_mut</span>[<span class="number">0</span>] <span class="op">=</span> (<span class="ident">channels_mut</span>[<span class="number">0</span>] <span class="kw">as</span> <span class="ident">f32</span> <span class="op">*</span> <span class="ident">alpha</span>).<span class="ident">min</span>(<span class="number">255.0</span>).<span class="ident">max</span>(<span class="number">0.0</span>) <span class="kw">as</span> <span class="ident">u8</span>;
 }
 
-<span class="doccomment">/// Attempts to load a Texture from an image.</span>
+<span class="doccomment">/// Attempts to load a Texture from an image.</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_from_image</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>(
     <span class="kw-2">mut</span> <span class="ident">reader</span>: <span class="ident">R</span>,
     <span class="ident">config</span>: <span class="ident">ImageTextureConfig</span>,
@@ -500,7 +500,7 @@
     <span class="kw">let</span> <span class="ident">image_format</span> <span class="op">=</span> <span class="ident">config</span>.<span class="ident">format</span>.<span class="ident">map_or_else</span>(
         <span class="op">|</span><span class="op">|</span> {
             <span class="kw">let</span> <span class="ident">r</span> <span class="op">=</span> <span class="ident">reader</span>.<span class="ident">by_ref</span>();
-            <span class="comment">// Longest size of image crate supported magic bytes</span>
+            <span class="comment">// Longest size of image crate supported magic bytes</span>
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">format_magic_bytes</span> <span class="op">=</span> [<span class="number">0u8</span>; <span class="number">10</span>];
             <span class="ident">r</span>.<span class="ident">read_exact</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">format_magic_bytes</span>)<span class="question-mark">?</span>;
             <span class="ident">r</span>.<span class="ident">seek</span>(<span class="ident">std</span>::<span class="ident">io</span>::<span class="ident">SeekFrom</span>::<span class="ident">Current</span>(<span class="op">-</span><span class="number">10</span>))<span class="question-mark">?</span>;

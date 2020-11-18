@@ -256,31 +256,31 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">net</span>::<span class="ident">SocketAddr</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Debug</span>)]</span>
-<span class="doccomment">/// This is a user friendly packet containing the payload, endpoint, and reliability guarantees.</span>
-<span class="doccomment">/// A packet could have reliability guarantees to specify how it should be delivered and processed.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// | Reliability Type             | Packet Drop     | Packet Duplication | Packet Order     | Packet Fragmentation |Packet Delivery|</span>
-<span class="doccomment">/// | :-------------:              | :-------------: | :-------------:    | :-------------:  | :-------------:      | :-------------:</span>
-<span class="doccomment">/// |   **Unreliable Unordered**   |       Any       |      Yes           |     No           |      No              |   No</span>
-<span class="doccomment">/// |   **Unreliable Sequenced**   |    Any + old    |      No            |     Sequenced    |      No              |   No</span>
-<span class="doccomment">/// |   **Reliable Unordered**     |       No        |      No            |     No           |      Yes             |   Yes</span>
-<span class="doccomment">/// |   **Reliable Ordered**       |       No        |      No            |     Ordered      |      Yes             |   Yes</span>
-<span class="doccomment">/// |   **Reliable Sequenced**     |    Only old     |      No            |     Sequenced    |      Yes             |   Only newest</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// You are able to send packets with the above reliability types.</span>
+<span class="doccomment">/// This is a user friendly packet containing the payload, endpoint, and reliability guarantees.</span>
+<span class="doccomment">/// A packet could have reliability guarantees to specify how it should be delivered and processed.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// | Reliability Type             | Packet Drop     | Packet Duplication | Packet Order     | Packet Fragmentation |Packet Delivery|</span>
+<span class="doccomment">/// | :-------------:              | :-------------: | :-------------:    | :-------------:  | :-------------:      | :-------------:</span>
+<span class="doccomment">/// |   **Unreliable Unordered**   |       Any       |      Yes           |     No           |      No              |   No</span>
+<span class="doccomment">/// |   **Unreliable Sequenced**   |    Any + old    |      No            |     Sequenced    |      No              |   No</span>
+<span class="doccomment">/// |   **Reliable Unordered**     |       No        |      No            |     No           |      Yes             |   Yes</span>
+<span class="doccomment">/// |   **Reliable Ordered**       |       No        |      No            |     Ordered      |      Yes             |   Yes</span>
+<span class="doccomment">/// |   **Reliable Sequenced**     |    Only old     |      No            |     Sequenced    |      Yes             |   Only newest</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// You are able to send packets with the above reliability types.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Packet</span> {
-    <span class="doccomment">/// the endpoint from where it came</span>
+    <span class="doccomment">/// the endpoint from where it came</span>
     <span class="ident">addr</span>: <span class="ident">SocketAddr</span>,
-    <span class="doccomment">/// the raw payload of the packet</span>
+    <span class="doccomment">/// the raw payload of the packet</span>
     <span class="ident">payload</span>: <span class="ident">Box</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span>,
-    <span class="doccomment">/// defines on how the packet will be delivered.</span>
+    <span class="doccomment">/// defines on how the packet will be delivered.</span>
     <span class="ident">delivery</span>: <span class="ident">DeliveryGuarantee</span>,
-    <span class="doccomment">/// defines on how the packet will be ordered.</span>
+    <span class="doccomment">/// defines on how the packet will be ordered.</span>
     <span class="ident">ordering</span>: <span class="ident">OrderingGuarantee</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Packet</span> {
-    <span class="doccomment">/// Create a new packet by passing the receiver, data, and guarantees on how this packet should be delivered.</span>
+    <span class="doccomment">/// Create a new packet by passing the receiver, data, and guarantees on how this packet should be delivered.</span>
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">addr</span>: <span class="ident">SocketAddr</span>,
         <span class="ident">payload</span>: <span class="ident">Box</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span>,
@@ -295,17 +295,17 @@
         }
     }
 
-    <span class="doccomment">/// Create a new unreliable packet by passing the receiver, data.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Unreliable: Packets can be dropped, duplicated or arrive without order.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// **Details**</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// | Packet Drop     | Packet Duplication | Packet Order     | Packet Fragmentation | Packet Delivery |</span>
-    <span class="doccomment">/// | :-------------: | :-------------:    | :-------------:  | :-------------:      | :-------------: |</span>
-    <span class="doccomment">/// |       Any       |        Yes         |      No          |      No              |       No        |</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Basically just bare UDP. The packet may or may not be delivered.</span>
+    <span class="doccomment">/// Create a new unreliable packet by passing the receiver, data.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Unreliable: Packets can be dropped, duplicated or arrive without order.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// **Details**</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// | Packet Drop     | Packet Duplication | Packet Order     | Packet Fragmentation | Packet Delivery |</span>
+    <span class="doccomment">/// | :-------------: | :-------------:    | :-------------:  | :-------------:      | :-------------: |</span>
+    <span class="doccomment">/// |       Any       |        Yes         |      No          |      No              |       No        |</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Basically just bare UDP. The packet may or may not be delivered.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unreliable</span>(<span class="ident">addr</span>: <span class="ident">SocketAddr</span>, <span class="ident">payload</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Packet</span> {
         <span class="ident">Packet</span> {
             <span class="ident">addr</span>,
@@ -315,17 +315,17 @@
         }
     }
 
-    <span class="doccomment">/// Create a new unreliable sequenced packet by passing the receiver, data.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Unreliable Sequenced; Packets can be dropped, but could not be duplicated and arrive in sequence.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// *Details*</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// | Packet Drop     | Packet Duplication | Packet Order     | Packet Fragmentation | Packet Delivery |</span>
-    <span class="doccomment">/// | :-------------: | :-------------:    | :-------------:  | :-------------:      | :-------------: |</span>
-    <span class="doccomment">/// |    Any + old    |        No          |      Sequenced   |      No              |       No        |</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Basically just bare UDP, free to be dropped, but has some sequencing to it so that only the newest packets are kept.</span>
+    <span class="doccomment">/// Create a new unreliable sequenced packet by passing the receiver, data.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Unreliable Sequenced; Packets can be dropped, but could not be duplicated and arrive in sequence.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// *Details*</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// | Packet Drop     | Packet Duplication | Packet Order     | Packet Fragmentation | Packet Delivery |</span>
+    <span class="doccomment">/// | :-------------: | :-------------:    | :-------------:  | :-------------:      | :-------------: |</span>
+    <span class="doccomment">/// |    Any + old    |        No          |      Sequenced   |      No              |       No        |</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Basically just bare UDP, free to be dropped, but has some sequencing to it so that only the newest packets are kept.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unreliable_sequenced</span>(
         <span class="ident">addr</span>: <span class="ident">SocketAddr</span>,
         <span class="ident">payload</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
@@ -339,16 +339,16 @@
         }
     }
 
-    <span class="doccomment">/// Create a new packet by passing the receiver, data.</span>
-    <span class="doccomment">/// Reliable; All packets will be sent and received, but without order.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// *Details*</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// |   Packet Drop   | Packet Duplication | Packet Order     | Packet Fragmentation | Packet Delivery |</span>
-    <span class="doccomment">/// | :-------------: | :-------------:    | :-------------:  | :-------------:      | :-------------: |</span>
-    <span class="doccomment">/// |       No        |      No            |      No          |      Yes             |       Yes       |</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Basically this is almost TCP without ordering of packets.</span>
+    <span class="doccomment">/// Create a new packet by passing the receiver, data.</span>
+    <span class="doccomment">/// Reliable; All packets will be sent and received, but without order.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// *Details*</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// |   Packet Drop   | Packet Duplication | Packet Order     | Packet Fragmentation | Packet Delivery |</span>
+    <span class="doccomment">/// | :-------------: | :-------------:    | :-------------:  | :-------------:      | :-------------: |</span>
+    <span class="doccomment">/// |       No        |      No            |      No          |      Yes             |       Yes       |</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Basically this is almost TCP without ordering of packets.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reliable_unordered</span>(<span class="ident">addr</span>: <span class="ident">SocketAddr</span>, <span class="ident">payload</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Packet</span> {
         <span class="ident">Packet</span> {
             <span class="ident">addr</span>,
@@ -358,20 +358,20 @@
         }
     }
 
-    <span class="doccomment">/// Create a new packet by passing the receiver, data and a optional stream on which the ordering will be done.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reliable; All packets will be sent and received, with order.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// *Details*</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// |   Packet Drop   | Packet Duplication | Packet Order     | Packet Fragmentation | Packet Delivery |</span>
-    <span class="doccomment">/// | :-------------: | :-------------:    | :-------------:  | :-------------:      | :-------------: |</span>
-    <span class="doccomment">/// |       No        |      No            |      Ordered     |      Yes             |       Yes       |</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Basically this is almost TCP-like with ordering of packets.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Remark</span>
-    <span class="doccomment">/// - When `stream_id` is specified as `None` the default stream will be used; if you are not sure what this is you can leave it at `None`.</span>
+    <span class="doccomment">/// Create a new packet by passing the receiver, data and a optional stream on which the ordering will be done.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Reliable; All packets will be sent and received, with order.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// *Details*</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// |   Packet Drop   | Packet Duplication | Packet Order     | Packet Fragmentation | Packet Delivery |</span>
+    <span class="doccomment">/// | :-------------: | :-------------:    | :-------------:  | :-------------:      | :-------------: |</span>
+    <span class="doccomment">/// |       No        |      No            |      Ordered     |      Yes             |       Yes       |</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Basically this is almost TCP-like with ordering of packets.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Remark</span>
+    <span class="doccomment">/// - When `stream_id` is specified as `None` the default stream will be used; if you are not sure what this is you can leave it at `None`.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reliable_ordered</span>(<span class="ident">addr</span>: <span class="ident">SocketAddr</span>, <span class="ident">payload</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">stream_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Packet</span> {
         <span class="ident">Packet</span> {
             <span class="ident">addr</span>,
@@ -381,21 +381,21 @@
         }
     }
 
-    <span class="doccomment">/// Create a new packet by passing the receiver, data and a optional stream on which the sequencing will be done.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reliable; All packets will be sent and received, but arranged in sequence.</span>
-    <span class="doccomment">/// Which means that only the newest packets will be let through, older packets will be received but they won&#39;t get to the user.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// *Details*</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// |   Packet Drop   | Packet Duplication | Packet Order     | Packet Fragmentation | Packet Delivery |</span>
-    <span class="doccomment">/// | :-------------: | :-------------:    | :-------------:  | :-------------:      | :-------------: |</span>
-    <span class="doccomment">/// |    Only old     |      No            |      Sequenced   |      Yes             |   Only newest   |</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Basically this is almost TCP-like but then sequencing instead of ordering.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Remark</span>
-    <span class="doccomment">/// - When `stream_id` is specified as `None` the default stream will be used; if you are not sure what this is you can leave it at `None`.</span>
+    <span class="doccomment">/// Create a new packet by passing the receiver, data and a optional stream on which the sequencing will be done.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Reliable; All packets will be sent and received, but arranged in sequence.</span>
+    <span class="doccomment">/// Which means that only the newest packets will be let through, older packets will be received but they won&#39;t get to the user.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// *Details*</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// |   Packet Drop   | Packet Duplication | Packet Order     | Packet Fragmentation | Packet Delivery |</span>
+    <span class="doccomment">/// | :-------------: | :-------------:    | :-------------:  | :-------------:      | :-------------: |</span>
+    <span class="doccomment">/// |    Only old     |      No            |      Sequenced   |      Yes             |   Only newest   |</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Basically this is almost TCP-like but then sequencing instead of ordering.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Remark</span>
+    <span class="doccomment">/// - When `stream_id` is specified as `None` the default stream will be used; if you are not sure what this is you can leave it at `None`.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reliable_sequenced</span>(<span class="ident">addr</span>: <span class="ident">SocketAddr</span>, <span class="ident">payload</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">stream_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Packet</span> {
         <span class="ident">Packet</span> {
             <span class="ident">addr</span>,
@@ -405,26 +405,26 @@
         }
     }
 
-    <span class="doccomment">/// Returns the payload of this packet.</span>
+    <span class="doccomment">/// Returns the payload of this packet.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">payload</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">payload</span>
     }
 
-    <span class="doccomment">/// Returns the address of this packet.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Remark</span>
-    <span class="doccomment">/// Could be both the receiving endpoint or the one to send this packet to.</span>
-    <span class="doccomment">/// This depends whether it is a packet that has been received or one that needs to be send.</span>
+    <span class="doccomment">/// Returns the address of this packet.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Remark</span>
+    <span class="doccomment">/// Could be both the receiving endpoint or the one to send this packet to.</span>
+    <span class="doccomment">/// This depends whether it is a packet that has been received or one that needs to be send.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">addr</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SocketAddr</span> {
         <span class="self">self</span>.<span class="ident">addr</span>
     }
 
-    <span class="doccomment">/// Returns the [`DeliveryGuarantee`](./enum.DeliveryGuarantee.html) of this packet.</span>
+    <span class="doccomment">/// Returns the [`DeliveryGuarantee`](./enum.DeliveryGuarantee.html) of this packet.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">delivery_guarantee</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DeliveryGuarantee</span> {
         <span class="self">self</span>.<span class="ident">delivery</span>
     }
 
-    <span class="doccomment">/// Returns the [`OrderingGuarantee`](./enum.OrderingGuarantee.html) of this packet.</span>
+    <span class="doccomment">/// Returns the [`OrderingGuarantee`](./enum.OrderingGuarantee.html) of this packet.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">order_guarantee</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OrderingGuarantee</span> {
         <span class="self">self</span>.<span class="ident">ordering</span>
     }

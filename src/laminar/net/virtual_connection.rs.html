@@ -960,14 +960,14 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">net</span>::<span class="ident">SocketAddr</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">time</span>::{<span class="ident">Duration</span>, <span class="ident">Instant</span>};
 
-<span class="doccomment">/// Contains the information about a certain &#39;virtual connection&#39; over udp.</span>
-<span class="doccomment">/// This connections also keeps track of network quality, processing packets, buffering data related to connection etc.</span>
+<span class="doccomment">/// Contains the information about a certain &#39;virtual connection&#39; over udp.</span>
+<span class="doccomment">/// This connections also keeps track of network quality, processing packets, buffering data related to connection etc.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">VirtualConnection</span> {
-    <span class="doccomment">/// Last time we received a packet from this client</span>
+    <span class="doccomment">/// Last time we received a packet from this client</span>
     <span class="kw">pub</span> <span class="ident">last_heard</span>: <span class="ident">Instant</span>,
-    <span class="doccomment">/// Last time we sent a packet to this client</span>
+    <span class="doccomment">/// Last time we sent a packet to this client</span>
     <span class="kw">pub</span> <span class="ident">last_sent</span>: <span class="ident">Instant</span>,
-    <span class="doccomment">/// The address of the remote endpoint</span>
+    <span class="doccomment">/// The address of the remote endpoint</span>
     <span class="kw">pub</span> <span class="ident">remote_address</span>: <span class="ident">SocketAddr</span>,
 
     <span class="ident">ordering_system</span>: <span class="ident">OrderingSystem</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span><span class="op">&gt;</span>,
@@ -980,7 +980,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">VirtualConnection</span> {
-    <span class="doccomment">/// Creates and returns a new Connection that wraps the provided socket address</span>
+    <span class="doccomment">/// Creates and returns a new Connection that wraps the provided socket address</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">addr</span>: <span class="ident">SocketAddr</span>, <span class="ident">config</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>, <span class="ident">time</span>: <span class="ident">Instant</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">VirtualConnection</span> {
         <span class="ident">VirtualConnection</span> {
             <span class="ident">last_heard</span>: <span class="ident">time</span>,
@@ -995,26 +995,26 @@
         }
     }
 
-    <span class="doccomment">/// Determine if this connection should be dropped due to its state</span>
+    <span class="doccomment">/// Determine if this connection should be dropped due to its state</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">should_be_dropped</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">acknowledge_handler</span>.<span class="ident">packets_in_flight</span>() <span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">max_packets_in_flight</span>
     }
 
-    <span class="doccomment">/// Returns a [Duration] representing the interval since we last heard from the client</span>
+    <span class="doccomment">/// Returns a [Duration] representing the interval since we last heard from the client</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">last_heard</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">time</span>: <span class="ident">Instant</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Duration</span> {
-        <span class="comment">// TODO: Replace with saturating_duration_since once it becomes stable.</span>
-        <span class="comment">// This function panics if the user supplies a time instant earlier than last_heard.</span>
+        <span class="comment">// TODO: Replace with saturating_duration_since once it becomes stable.</span>
+        <span class="comment">// This function panics if the user supplies a time instant earlier than last_heard.</span>
         <span class="ident">time</span>.<span class="ident">duration_since</span>(<span class="self">self</span>.<span class="ident">last_heard</span>)
     }
 
-    <span class="doccomment">/// Returns a [Duration] representing the interval since we last sent to the client</span>
+    <span class="doccomment">/// Returns a [Duration] representing the interval since we last sent to the client</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">last_sent</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">time</span>: <span class="ident">Instant</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Duration</span> {
-        <span class="comment">// TODO: Replace with saturating_duration_since once it becomes stable.</span>
-        <span class="comment">// This function panics if the user supplies a time instant earlier than last_heard.</span>
+        <span class="comment">// TODO: Replace with saturating_duration_since once it becomes stable.</span>
+        <span class="comment">// This function panics if the user supplies a time instant earlier than last_heard.</span>
         <span class="ident">time</span>.<span class="ident">duration_since</span>(<span class="self">self</span>.<span class="ident">last_sent</span>)
     }
 
-    <span class="doccomment">/// This will create a heartbeat packet that is expected to be sent over the network</span>
+    <span class="doccomment">/// This will create a heartbeat packet that is expected to be sent over the network</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_and_process_heartbeat</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">time</span>: <span class="ident">Instant</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OutgoingPacket</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">last_sent</span> <span class="op">=</span> <span class="ident">time</span>;
         <span class="self">self</span>.<span class="ident">congestion_handler</span>
@@ -1029,7 +1029,7 @@
             .<span class="ident">build</span>()
     }
 
-    <span class="doccomment">/// This will pre-process the given buffer to be sent over the network.</span>
+    <span class="doccomment">/// This will pre-process the given buffer to be sent over the network.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">process_outgoing</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
         <span class="ident">payload</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>],
@@ -1068,7 +1068,7 @@
 
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">item_identifier_value</span> <span class="op">=</span> <span class="prelude-val">None</span>;
                 <span class="kw">let</span> <span class="ident">outgoing</span> <span class="op">=</span> {
-                    <span class="comment">// spit the packet if the payload length is greater than the allowed fragment size.</span>
+                    <span class="comment">// spit the packet if the payload length is greater than the allowed fragment size.</span>
                     <span class="kw">if</span> <span class="ident">payload_length</span> <span class="op">&lt;</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">fragment_size</span> {
                         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">builder</span> <span class="op">=</span> <span class="ident">OutgoingPacketBuilder</span>::<span class="ident">new</span>(<span class="ident">payload</span>).<span class="ident">with_default_header</span>(
                             <span class="ident">PacketType</span>::<span class="ident">Packet</span>,
@@ -1171,7 +1171,7 @@
         }
     }
 
-    <span class="doccomment">/// This processes the incoming data and returns a packet if the data is complete.</span>
+    <span class="doccomment">/// This processes the incoming data and returns a packet if the data is complete.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">process_incoming</span>(
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
         <span class="ident">received_data</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
@@ -1189,8 +1189,8 @@
         }
 
         <span class="kw">if</span> <span class="ident">header</span>.<span class="ident">is_heartbeat</span>() {
-            <span class="comment">// Heartbeat packets are unreliable, unordered and empty packets.</span>
-            <span class="comment">// We already updated our `self.last_heard` time, nothing else to be done.</span>
+            <span class="comment">// Heartbeat packets are unreliable, unordered and empty packets.</span>
+            <span class="comment">// We already updated our `self.last_heard` time, nothing else to be done.</span>
             <span class="kw">return</span> <span class="prelude-val">Ok</span>(());
         }
 
@@ -1357,9 +1357,9 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="doccomment">/// This will gather dropped packets from the acknowledgment handler.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that after requesting dropped packets the dropped packets will be removed from this client.</span>
+    <span class="doccomment">/// This will gather dropped packets from the acknowledgment handler.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Note that after requesting dropped packets the dropped packets will be removed from this client.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">gather_dropped_packets</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">SentPacket</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">acknowledge_handler</span>.<span class="ident">dropped_packets</span>()
     }
@@ -1747,7 +1747,7 @@
 
         <span class="kw">match</span> <span class="ident">result</span> {
             <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">FragmentError</span>(<span class="ident">FragmentErrorKind</span>::<span class="ident">ExceededMaxFragments</span>)) <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="comment">// Ok</span>
+                <span class="comment">// Ok</span>
             }
             <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="macro">panic</span><span class="macro">!</span>[<span class="string">&quot;Supposed to get a fragment error&quot;</span>];
@@ -1755,7 +1755,7 @@
         }
     }
 
-    <span class="doccomment">/// ======= helper functions =========</span>
+    <span class="doccomment">/// ======= helper functions =========</span>
     <span class="kw">fn</span> <span class="ident">create_virtual_connection</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">VirtualConnection</span> {
         <span class="ident">VirtualConnection</span>::<span class="ident">new</span>(<span class="ident">get_fake_addr</span>(), <span class="kw-2">&amp;</span><span class="ident">Config</span>::<span class="ident">default</span>(), <span class="ident">Instant</span>::<span class="ident">now</span>())
     }
@@ -1764,7 +1764,7 @@
         <span class="string">&quot;127.0.0.1:0&quot;</span>.<span class="ident">parse</span>().<span class="ident">unwrap</span>()
     }
 
-    <span class="comment">// assert that the processing of the given `DeliveryGuarantee` and `OrderingGuarantee` results into the given `result_event`</span>
+    <span class="comment">// assert that the processing of the given `DeliveryGuarantee` and `OrderingGuarantee` results into the given `result_event`</span>
     <span class="kw">fn</span> <span class="ident">assert_incoming_with_order</span>(
         <span class="ident">delivery</span>: <span class="ident">DeliveryGuarantee</span>,
         <span class="ident">ordering</span>: <span class="ident">OrderingGuarantee</span>,
@@ -1774,7 +1774,7 @@
     ) {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">packet</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
 
-        <span class="comment">// configure the right header based on specified guarantees.</span>
+        <span class="comment">// configure the right header based on specified guarantees.</span>
         <span class="kw">let</span> <span class="ident">header</span> <span class="op">=</span> <span class="ident">StandardHeader</span>::<span class="ident">new</span>(<span class="ident">delivery</span>, <span class="ident">ordering</span>, <span class="ident">PacketType</span>::<span class="ident">Packet</span>);
         <span class="ident">header</span>.<span class="ident">parse</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">packet</span>).<span class="ident">unwrap</span>();
 
@@ -1820,7 +1820,7 @@
         }
     }
 
-    <span class="comment">// assert that the given `DeliveryGuarantee` results into the given `SocketEvent` after processing.</span>
+    <span class="comment">// assert that the given `DeliveryGuarantee` results into the given `SocketEvent` after processing.</span>
     <span class="kw">fn</span> <span class="ident">assert_incoming_without_order</span>(
         <span class="ident">delivery</span>: <span class="ident">DeliveryGuarantee</span>,
         <span class="ident">connection</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">VirtualConnection</span>,
@@ -1828,7 +1828,7 @@
     ) {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">packet</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
 
-        <span class="comment">// configure the right header based on specified guarantees.</span>
+        <span class="comment">// configure the right header based on specified guarantees.</span>
         <span class="kw">let</span> <span class="ident">header</span> <span class="op">=</span> <span class="ident">StandardHeader</span>::<span class="ident">new</span>(<span class="ident">delivery</span>, <span class="ident">OrderingGuarantee</span>::<span class="prelude-val">None</span>, <span class="ident">PacketType</span>::<span class="ident">Packet</span>);
         <span class="ident">header</span>.<span class="ident">parse</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">packet</span>).<span class="ident">unwrap</span>();
 
@@ -1850,7 +1850,7 @@
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">event</span>, <span class="prelude-val">Ok</span>(<span class="ident">result_event</span>));
     }
 
-    <span class="comment">// assert that the size of the processed header is the same as the given one.</span>
+    <span class="comment">// assert that the size of the processed header is the same as the given one.</span>
     <span class="kw">fn</span> <span class="ident">assert_right_header_size</span>(
         <span class="ident">delivery</span>: <span class="ident">DeliveryGuarantee</span>,
         <span class="ident">ordering</span>: <span class="ident">OrderingGuarantee</span>,

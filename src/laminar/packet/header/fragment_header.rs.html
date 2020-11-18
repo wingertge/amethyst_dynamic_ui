@@ -119,7 +119,7 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">io</span>::<span class="ident">Cursor</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
-<span class="doccomment">/// This header represents a fragmented packet header.</span>
+<span class="doccomment">/// This header represents a fragmented packet header.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FragmentHeader</span> {
     <span class="ident">sequence</span>: <span class="ident">u16</span>,
     <span class="ident">id</span>: <span class="ident">u8</span>,
@@ -127,7 +127,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">FragmentHeader</span> {
-    <span class="doccomment">/// Create new fragment with the given packet header</span>
+    <span class="doccomment">/// Create new fragment with the given packet header</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">seq</span>: <span class="ident">u16</span>, <span class="ident">id</span>: <span class="ident">u8</span>, <span class="ident">num_fragments</span>: <span class="ident">u8</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">FragmentHeader</span> {
             <span class="ident">id</span>,
@@ -136,17 +136,17 @@
         }
     }
 
-    <span class="doccomment">/// Get the id of this fragment.</span>
+    <span class="doccomment">/// Get the id of this fragment.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u8</span> {
         <span class="self">self</span>.<span class="ident">id</span>
     }
 
-    <span class="doccomment">/// Get the sequence number from this packet.</span>
+    <span class="doccomment">/// Get the sequence number from this packet.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sequence</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u16</span> {
         <span class="self">self</span>.<span class="ident">sequence</span>
     }
 
-    <span class="doccomment">/// Get the total number of fragments in the packet this fragment is part of.</span>
+    <span class="doccomment">/// Get the total number of fragments in the packet this fragment is part of.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">fragment_count</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u8</span> {
         <span class="self">self</span>.<span class="ident">num_fragments</span>
     }
@@ -181,7 +181,7 @@
         <span class="prelude-val">Ok</span>(<span class="ident">header</span>)
     }
 
-    <span class="doccomment">/// Get the size of this header.</span>
+    <span class="doccomment">/// Get the size of this header.</span>
     <span class="kw">fn</span> <span class="ident">size</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u8</span> {
         <span class="ident">FRAGMENT_HEADER_SIZE</span>
     }

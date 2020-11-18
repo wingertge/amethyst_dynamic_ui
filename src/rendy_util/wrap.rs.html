@@ -285,10 +285,10 @@
 <span id="282">282</span>
 <span id="283">283</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="doccomment">//! These are Vulkan Instance and Device wrappers that contain a unique ID</span>
-<span class="doccomment">//! This allows checking if any other Vulkan resource belongs to a specific</span>
-<span class="doccomment">//! Instance or Device. This is required to ensure we are making a safe</span>
-<span class="doccomment">//! call.</span>
+<span class="doccomment">//! These are Vulkan Instance and Device wrappers that contain a unique ID</span>
+<span class="doccomment">//! This allows checking if any other Vulkan resource belongs to a specific</span>
+<span class="doccomment">//! Instance or Device. This is required to ensure we are making a safe</span>
+<span class="doccomment">//! call.</span>
 
 <span class="kw">use</span> {
     <span class="ident">gfx_hal</span>::<span class="ident">Backend</span>,
@@ -306,7 +306,7 @@
     );
 
     <span class="kw">if</span> <span class="ident">id</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
-        <span class="comment">// Warn once.</span>
+        <span class="comment">// Warn once.</span>
         <span class="ident">log</span>::<span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;Slow safety checks are enabled! You can disable them in production by enabling the &#39;no-slow-safety-checks&#39; feature!&quot;</span>);
     }
 
@@ -339,22 +339,22 @@
     <span class="ident">DeviceId</span> { <span class="ident">instance</span> }
 }
 
-<span class="doccomment">/// Id of the hal instance.</span>
+<span class="doccomment">/// Id of the hal instance.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">InstanceId</span> {
-    <span class="doccomment">/// Unique id.</span>
+    <span class="doccomment">/// Unique id.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;no-slow-safety-checks&quot;</span>))]</span>
     <span class="kw">pub</span> <span class="ident">id</span>: <span class="ident">u32</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">InstanceId</span> {
-    <span class="doccomment">/// Create new instance id.</span>
+    <span class="doccomment">/// Create new instance id.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">new_instance_id</span>()
     }
 }
 
-<span class="doccomment">/// Raw instance wrapper with id.</span>
+<span class="doccomment">/// Raw instance wrapper with id.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Instance</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">Backend</span><span class="op">&gt;</span> {
     <span class="ident">instance</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Any</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span><span class="op">&gt;</span>,
     <span class="ident">id</span>: <span class="ident">InstanceId</span>,
@@ -365,7 +365,7 @@
 <span class="kw">where</span>
     <span class="ident">B</span>: <span class="ident">Backend</span>,
 {
-    <span class="doccomment">/// Wrap instance value.</span>
+    <span class="doccomment">/// Wrap instance value.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">instance</span>: <span class="kw">impl</span> <span class="ident">gfx_hal</span>::<span class="ident">Instance</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">Instance</span> {
             <span class="ident">id</span>: <span class="ident">new_instance_id</span>(),
@@ -379,22 +379,22 @@
 <span class="kw">where</span>
     <span class="ident">B</span>: <span class="ident">Backend</span>,
 {
-    <span class="doccomment">/// Get instance id.</span>
+    <span class="doccomment">/// Get instance id.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">InstanceId</span> {
         <span class="self">self</span>.<span class="ident">id</span>
     }
 
-    <span class="doccomment">/// Get reference to raw instance.</span>
+    <span class="doccomment">/// Get reference to raw instance.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">raw</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">dyn</span> <span class="ident">Any</span> {
         <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="self">self</span>.<span class="ident">instance</span>
     }
 
-    <span class="doccomment">/// Get mutable reference to raw instance.</span>
+    <span class="doccomment">/// Get mutable reference to raw instance.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">raw_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">dyn</span> <span class="ident">Any</span> {
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="self">self</span>.<span class="ident">instance</span>
     }
 
-    <span class="doccomment">/// Get reference to typed raw instance.</span>
+    <span class="doccomment">/// Get reference to typed raw instance.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">raw_typed</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">T</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">T</span>: <span class="ident">gfx_hal</span>::<span class="ident">Instance</span>,
@@ -410,7 +410,7 @@
         }
     }
 
-    <span class="doccomment">/// Get mutable reference to typed raw instance.</span>
+    <span class="doccomment">/// Get mutable reference to typed raw instance.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">raw_typed_mut</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">T</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">T</span>: <span class="ident">gfx_hal</span>::<span class="ident">Instance</span>,
@@ -436,25 +436,25 @@
     }
 }
 
-<span class="doccomment">/// Id of the instance.</span>
+<span class="doccomment">/// Id of the instance.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DeviceId</span> {
-    <span class="doccomment">/// Unique id.</span>
+    <span class="doccomment">/// Unique id.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;no-slow-safety-checks&quot;</span>))]</span>
     <span class="kw">pub</span> <span class="ident">id</span>: <span class="ident">u32</span>,
 
-    <span class="doccomment">/// Instance id.</span>
+    <span class="doccomment">/// Instance id.</span>
     <span class="kw">pub</span> <span class="ident">instance</span>: <span class="ident">InstanceId</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">DeviceId</span> {
-    <span class="doccomment">/// Create new device id.</span>
+    <span class="doccomment">/// Create new device id.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">instance</span>: <span class="ident">InstanceId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">new_device_id</span>(<span class="ident">instance</span>)
     }
 }
 
-<span class="doccomment">/// Raw device wrapper with id.</span>
+<span class="doccomment">/// Raw device wrapper with id.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Device</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">Backend</span><span class="op">&gt;</span> {
     <span class="ident">device</span>: <span class="ident">B</span>::<span class="ident">Device</span>,
@@ -465,7 +465,7 @@
 <span class="kw">where</span>
     <span class="ident">B</span>: <span class="ident">Backend</span>,
 {
-    <span class="doccomment">/// Wrap device value.</span>
+    <span class="doccomment">/// Wrap device value.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">device</span>: <span class="ident">B</span>::<span class="ident">Device</span>, <span class="ident">instance</span>: <span class="kw-2">&amp;</span><span class="ident">Instance</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">Device</span> {
             <span class="ident">id</span>: <span class="ident">new_device_id</span>(<span class="ident">instance</span>.<span class="ident">id</span>),
@@ -473,22 +473,22 @@
         }
     }
 
-    <span class="doccomment">/// Wrap device value.</span>
+    <span class="doccomment">/// Wrap device value.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_raw</span>(<span class="ident">device</span>: <span class="ident">B</span>::<span class="ident">Device</span>, <span class="ident">id</span>: <span class="ident">DeviceId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">Device</span> { <span class="ident">id</span>, <span class="ident">device</span> }
     }
 
-    <span class="doccomment">/// Get device id.</span>
+    <span class="doccomment">/// Get device id.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DeviceId</span> {
         <span class="self">self</span>.<span class="ident">id</span>
     }
 
-    <span class="doccomment">/// Get reference to raw device.</span>
+    <span class="doccomment">/// Get reference to raw device.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">raw</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">B</span>::<span class="ident">Device</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">device</span>
     }
 
-    <span class="doccomment">/// Get mutable reference to raw device.</span>
+    <span class="doccomment">/// Get mutable reference to raw device.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">raw_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">B</span>::<span class="ident">Device</span> {
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">device</span>
     }
@@ -505,7 +505,7 @@
     }
 }
 
-<span class="doccomment">/// Implement ownership checking for value with `device: DeviceId` field.</span>
+<span class="doccomment">/// Implement ownership checking for value with `device: DeviceId` field.</span>
 <span class="attribute">#[<span class="ident">macro_export</span>]</span>
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">device_owned</span> {
     (<span class="macro-nonterminal">$</span><span class="kw">type</span>:<span class="macro-nonterminal">ident</span><span class="op">&lt;</span><span class="ident">B</span> $(, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg</span>:<span class="ident">ident</span> $(: $(<span class="question-mark">?</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">sized</span>:<span class="ident">ident</span>)<span class="question-mark">?</span> $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">bound</span>:<span class="ident">path</span>)<span class="question-mark">?</span>)<span class="question-mark">?</span>)<span class="kw-2">*</span><span class="op">&gt;</span> @ <span class="macro-nonterminal">$</span><span class="macro-nonterminal">getter</span>:<span class="ident">expr</span>) <span class="op">=</span><span class="op">&gt;</span> {
@@ -517,22 +517,22 @@
                 $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg</span>: $(<span class="question-mark">?</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">sized</span>)<span class="op">*</span> $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">bound</span>)<span class="question-mark">?</span>,)<span class="question-mark">?</span>
             )<span class="op">*</span>
         {
-            <span class="doccomment">/// Get owned id.</span>
+            <span class="doccomment">/// Get owned id.</span>
             <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">device_id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">DeviceId</span> {
                 (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">getter</span>)(<span class="self">self</span>)
             }
 
-            <span class="doccomment">/// Assert specified device is owner.</span>
+            <span class="doccomment">/// Assert specified device is owner.</span>
             <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">assert_device_owner</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">device</span>: <span class="kw-2">&amp;</span><span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">Device</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>) {
                 <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">device_id</span>(), <span class="ident">device</span>.<span class="ident">id</span>(), <span class="string">&quot;Resource is not owned by specified device&quot;</span>);
             }
 
-            <span class="doccomment">/// Get owned id.</span>
+            <span class="doccomment">/// Get owned id.</span>
             <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">instance_id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">InstanceId</span> {
                 <span class="self">self</span>.<span class="ident">device_id</span>().<span class="ident">instance</span>
             }
 
-            <span class="doccomment">/// Assert specified instance is owner.</span>
+            <span class="doccomment">/// Assert specified instance is owner.</span>
             <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">assert_instance_owner</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">instance</span>: <span class="kw-2">&amp;</span><span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">Instance</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>) {
                 <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">instance_id</span>(), <span class="ident">instance</span>.<span class="ident">id</span>(), <span class="string">&quot;Resource is not owned by specified instance&quot;</span>);
             }
@@ -544,7 +544,7 @@
     };
 }
 
-<span class="doccomment">/// Implement ownership checking for value with `instance: InstanceId` field.</span>
+<span class="doccomment">/// Implement ownership checking for value with `instance: InstanceId` field.</span>
 <span class="attribute">#[<span class="ident">macro_export</span>]</span>
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">instance_owned</span> {
     (<span class="macro-nonterminal">$</span><span class="kw">type</span>:<span class="macro-nonterminal">ident</span><span class="op">&lt;</span><span class="ident">B</span> $(, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg</span>:<span class="ident">ident</span> $(: $(<span class="question-mark">?</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">sized</span>:<span class="ident">ident</span>)<span class="question-mark">?</span> $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">bound</span>:<span class="ident">path</span>)<span class="question-mark">?</span>)<span class="question-mark">?</span>)<span class="kw-2">*</span><span class="op">&gt;</span>) <span class="op">=</span><span class="op">&gt;</span> {
@@ -556,12 +556,12 @@
                 $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg</span>: $(<span class="question-mark">?</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">sized</span>)<span class="question-mark">?</span> $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">bound</span>)<span class="question-mark">?</span>,)<span class="question-mark">?</span>
             )<span class="op">*</span>
         {
-            <span class="doccomment">/// Get owned id.</span>
+            <span class="doccomment">/// Get owned id.</span>
             <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">instance_id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">InstanceId</span> {
                 <span class="self">self</span>.<span class="ident">instance</span>
             }
 
-            <span class="doccomment">/// Assert specified instance is owner.</span>
+            <span class="doccomment">/// Assert specified instance is owner.</span>
             <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">assert_instance_owner</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">instance</span>: <span class="kw-2">&amp;</span><span class="ident">Instance</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>) {
                 <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">instance_id</span>(), <span class="ident">instance</span>.<span class="ident">id</span>());
             }

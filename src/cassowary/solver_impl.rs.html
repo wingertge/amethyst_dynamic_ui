@@ -822,7 +822,7 @@
     <span class="ident">constant</span>: <span class="ident">f64</span>
 }
 
-<span class="doccomment">/// A constraint solver using the Cassowary algorithm. For proper usage please see the top level crate documentation.</span>
+<span class="doccomment">/// A constraint solver using the Cassowary algorithm. For proper usage please see the top level crate documentation.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Solver</span> {
     <span class="ident">cns</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">Constraint</span>, <span class="ident">Tag</span><span class="op">&gt;</span>,
     <span class="ident">var_data</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">Variable</span>, (<span class="ident">f64</span>, <span class="ident">Symbol</span>, <span class="ident">usize</span>)<span class="op">&gt;</span>,
@@ -832,14 +832,14 @@
     <span class="ident">should_clear_changes</span>: <span class="ident">bool</span>,
     <span class="ident">rows</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">Symbol</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">Row</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="ident">edits</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">Variable</span>, <span class="ident">EditInfo</span><span class="op">&gt;</span>,
-    <span class="ident">infeasible_rows</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Symbol</span><span class="op">&gt;</span>, <span class="comment">// never contains external symbols</span>
+    <span class="ident">infeasible_rows</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Symbol</span><span class="op">&gt;</span>, <span class="comment">// never contains external symbols</span>
     <span class="ident">objective</span>: <span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">Row</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="ident">artificial</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">Row</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="ident">id_tick</span>: <span class="ident">usize</span>
 }
 
 <span class="kw">impl</span> <span class="ident">Solver</span> {
-    <span class="doccomment">/// Construct a new solver.</span>
+    <span class="doccomment">/// Construct a new solver.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Solver</span> {
         <span class="ident">Solver</span> {
             <span class="ident">cns</span>: <span class="ident">HashMap</span>::<span class="ident">new</span>(),
@@ -867,27 +867,27 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="doccomment">/// Add a constraint to the solver.</span>
+    <span class="doccomment">/// Add a constraint to the solver.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_constraint</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">constraint</span>: <span class="ident">Constraint</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">AddConstraintError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">cns</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">constraint</span>) {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">AddConstraintError</span>::<span class="ident">DuplicateConstraint</span>);
         }
 
-        <span class="comment">// Creating a row causes symbols to reserved for the variables</span>
-        <span class="comment">// in the constraint. If this method exits with an exception,</span>
-        <span class="comment">// then its possible those variables will linger in the var map.</span>
-        <span class="comment">// Since its likely that those variables will be used in other</span>
-        <span class="comment">// constraints and since exceptional conditions are uncommon,</span>
-        <span class="comment">// i&#39;m not too worried about aggressive cleanup of the var map.</span>
+        <span class="comment">// Creating a row causes symbols to reserved for the variables</span>
+        <span class="comment">// in the constraint. If this method exits with an exception,</span>
+        <span class="comment">// then its possible those variables will linger in the var map.</span>
+        <span class="comment">// Since its likely that those variables will be used in other</span>
+        <span class="comment">// constraints and since exceptional conditions are uncommon,</span>
+        <span class="comment">// i&#39;m not too worried about aggressive cleanup of the var map.</span>
         <span class="kw">let</span> (<span class="kw-2">mut</span> <span class="ident">row</span>, <span class="ident">tag</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">create_row</span>(<span class="kw-2">&amp;</span><span class="ident">constraint</span>);
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">subject</span> <span class="op">=</span> <span class="ident">Solver</span>::<span class="ident">choose_subject</span>(<span class="kw-2">&amp;</span><span class="ident">row</span>, <span class="kw-2">&amp;</span><span class="ident">tag</span>);
 
-        <span class="comment">// If chooseSubject could find a valid entering symbol, one</span>
-        <span class="comment">// last option is available if the entire row is composed of</span>
-        <span class="comment">// dummy variables. If the constant of the row is zero, then</span>
-        <span class="comment">// this represents redundant constraints and the new dummy</span>
-        <span class="comment">// marker can enter the basis. If the constant is non-zero,</span>
-        <span class="comment">// then it represents an unsatisfiable constraint.</span>
+        <span class="comment">// If chooseSubject could find a valid entering symbol, one</span>
+        <span class="comment">// last option is available if the entire row is composed of</span>
+        <span class="comment">// dummy variables. If the constant of the row is zero, then</span>
+        <span class="comment">// this represents redundant constraints and the new dummy</span>
+        <span class="comment">// marker can enter the basis. If the constant is non-zero,</span>
+        <span class="comment">// then it represents an unsatisfiable constraint.</span>
         <span class="kw">if</span> <span class="ident">subject</span>.<span class="ident">type_</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">SymbolType</span>::<span class="ident">Invalid</span> <span class="op">&amp;&amp;</span> <span class="ident">Solver</span>::<span class="ident">all_dummies</span>(<span class="kw-2">&amp;</span><span class="ident">row</span>) {
             <span class="kw">if</span> <span class="op">!</span><span class="ident">near_zero</span>(<span class="ident">row</span>.<span class="ident">constant</span>) {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">AddConstraintError</span>::<span class="ident">UnsatisfiableConstraint</span>);
@@ -896,9 +896,9 @@
             }
         }
 
-        <span class="comment">// If an entering symbol still isn&#39;t found, then the row must</span>
-        <span class="comment">// be added using an artificial variable. If that fails, then</span>
-        <span class="comment">// the row represents an unsatisfiable constraint.</span>
+        <span class="comment">// If an entering symbol still isn&#39;t found, then the row must</span>
+        <span class="comment">// be added using an artificial variable. If that fails, then</span>
+        <span class="comment">// the row represents an unsatisfiable constraint.</span>
         <span class="kw">if</span> <span class="ident">subject</span>.<span class="ident">type_</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">SymbolType</span>::<span class="ident">Invalid</span> {
             <span class="kw">if</span> <span class="op">!</span><span class="macro">try</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">add_with_artificial_variable</span>(<span class="kw-2">&amp;</span><span class="ident">row</span>)
                      .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">AddConstraintError</span>::<span class="ident">InternalSolverError</span>(<span class="ident">e</span>.<span class="number">0</span>))) {
@@ -916,25 +916,25 @@
 
         <span class="self">self</span>.<span class="ident">cns</span>.<span class="ident">insert</span>(<span class="ident">constraint</span>, <span class="ident">tag</span>);
 
-        <span class="comment">// Optimizing after each constraint is added performs less</span>
-        <span class="comment">// aggregate work due to a smaller average system size. It</span>
-        <span class="comment">// also ensures the solver remains in a consistent state.</span>
+        <span class="comment">// Optimizing after each constraint is added performs less</span>
+        <span class="comment">// aggregate work due to a smaller average system size. It</span>
+        <span class="comment">// also ensures the solver remains in a consistent state.</span>
         <span class="kw">let</span> <span class="ident">objective</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">objective</span>.<span class="ident">clone</span>();
         <span class="macro">try</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">optimise</span>(<span class="kw-2">&amp;</span><span class="ident">objective</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">AddConstraintError</span>::<span class="ident">InternalSolverError</span>(<span class="ident">e</span>.<span class="number">0</span>)));
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="doccomment">/// Remove a constraint from the solver.</span>
+    <span class="doccomment">/// Remove a constraint from the solver.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove_constraint</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">constraint</span>: <span class="kw-2">&amp;</span><span class="ident">Constraint</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">RemoveConstraintError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">tag</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">cns</span>.<span class="ident">remove</span>(<span class="ident">constraint</span>).<span class="ident">ok_or</span>(<span class="ident">RemoveConstraintError</span>::<span class="ident">UnknownConstraint</span>));
 
-        <span class="comment">// Remove the error effects from the objective function</span>
-        <span class="comment">// *before* pivoting, or substitutions into the objective</span>
-        <span class="comment">// will lead to incorrect solver results.</span>
+        <span class="comment">// Remove the error effects from the objective function</span>
+        <span class="comment">// *before* pivoting, or substitutions into the objective</span>
+        <span class="comment">// will lead to incorrect solver results.</span>
         <span class="self">self</span>.<span class="ident">remove_constraint_effects</span>(<span class="ident">constraint</span>, <span class="kw-2">&amp;</span><span class="ident">tag</span>);
 
-        <span class="comment">// If the marker is basic, simply drop the row. Otherwise,</span>
-        <span class="comment">// pivot the marker into the basis and then drop the row.</span>
+        <span class="comment">// If the marker is basic, simply drop the row. Otherwise,</span>
+        <span class="comment">// pivot the marker into the basis and then drop the row.</span>
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">None</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">rows</span>.<span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="ident">tag</span>.<span class="ident">marker</span>) {
             <span class="kw">let</span> (<span class="ident">leaving</span>, <span class="kw-2">mut</span> <span class="ident">row</span>) <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">get_marker_leaving_row</span>(<span class="ident">tag</span>.<span class="ident">marker</span>)
                                      .<span class="ident">ok_or</span>(
@@ -944,14 +944,14 @@
             <span class="self">self</span>.<span class="ident">substitute</span>(<span class="ident">tag</span>.<span class="ident">marker</span>, <span class="kw-2">&amp;</span><span class="ident">row</span>);
         }
 
-        <span class="comment">// Optimizing after each constraint is removed ensures that the</span>
-        <span class="comment">// solver remains consistent. It makes the solver api easier to</span>
-        <span class="comment">// use at a small tradeoff for speed.</span>
+        <span class="comment">// Optimizing after each constraint is removed ensures that the</span>
+        <span class="comment">// solver remains consistent. It makes the solver api easier to</span>
+        <span class="comment">// use at a small tradeoff for speed.</span>
         <span class="kw">let</span> <span class="ident">objective</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">objective</span>.<span class="ident">clone</span>();
         <span class="macro">try</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">optimise</span>(<span class="kw-2">&amp;</span><span class="ident">objective</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">RemoveConstraintError</span>::<span class="ident">InternalSolverError</span>(<span class="ident">e</span>.<span class="number">0</span>)));
 
-        <span class="comment">// Check for and decrease the reference count for variables referenced by the constraint</span>
-        <span class="comment">// If the reference count is zero remove the variable from the variable map</span>
+        <span class="comment">// Check for and decrease the reference count for variables referenced by the constraint</span>
+        <span class="comment">// If the reference count is zero remove the variable from the variable map</span>
         <span class="kw">for</span> <span class="ident">term</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">constraint</span>.<span class="ident">expr</span>().<span class="ident">terms</span> {
             <span class="kw">if</span> <span class="op">!</span><span class="ident">near_zero</span>(<span class="ident">term</span>.<span class="ident">coefficient</span>) {
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">should_remove</span> <span class="op">=</span> <span class="bool-val">false</span>;
@@ -968,15 +968,15 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="doccomment">/// Test whether a constraint has been added to the solver.</span>
+    <span class="doccomment">/// Test whether a constraint has been added to the solver.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">has_constraint</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">constraint</span>: <span class="kw-2">&amp;</span><span class="ident">Constraint</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">cns</span>.<span class="ident">contains_key</span>(<span class="ident">constraint</span>)
     }
 
-    <span class="doccomment">/// Add an edit variable to the solver.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This method should be called before the `suggest_value` method is</span>
-    <span class="doccomment">/// used to supply a suggested value for the given edit variable.</span>
+    <span class="doccomment">/// Add an edit variable to the solver.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This method should be called before the `suggest_value` method is</span>
+    <span class="doccomment">/// used to supply a suggested value for the given edit variable.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_edit_variable</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">v</span>: <span class="ident">Variable</span>, <span class="ident">strength</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">AddEditVariableError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">edits</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">v</span>) {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">AddEditVariableError</span>::<span class="ident">DuplicateEditVariable</span>);
@@ -997,7 +997,7 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="doccomment">/// Remove an edit variable from the solver.</span>
+    <span class="doccomment">/// Remove an edit variable from the solver.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove_edit_variable</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">v</span>: <span class="ident">Variable</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">RemoveEditVariableError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">constraint</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">edits</span>.<span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="ident">v</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">constraint</span>) {
             <span class="macro">try</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">remove_constraint</span>(<span class="kw-2">&amp;</span><span class="ident">constraint</span>)
@@ -1013,15 +1013,15 @@
         }
     }
 
-    <span class="doccomment">/// Test whether an edit variable has been added to the solver.</span>
+    <span class="doccomment">/// Test whether an edit variable has been added to the solver.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">has_edit_variable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">v</span>: <span class="kw-2">&amp;</span><span class="ident">Variable</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">edits</span>.<span class="ident">contains_key</span>(<span class="ident">v</span>)
     }
 
-    <span class="doccomment">/// Suggest a value for the given edit variable.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This method should be used after an edit variable has been added to</span>
-    <span class="doccomment">/// the solver in order to suggest the value for that variable.</span>
+    <span class="doccomment">/// Suggest a value for the given edit variable.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This method should be used after an edit variable has been added to</span>
+    <span class="doccomment">/// the solver in order to suggest the value for that variable.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">suggest_value</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">variable</span>: <span class="ident">Variable</span>, <span class="ident">value</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">SuggestValueError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> (<span class="ident">info_tag_marker</span>, <span class="ident">info_tag_other</span>, <span class="ident">delta</span>) <span class="op">=</span> {
             <span class="kw">let</span> <span class="ident">info</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">edits</span>.<span class="ident">get_mut</span>(<span class="kw-2">&amp;</span><span class="ident">variable</span>).<span class="ident">ok_or</span>(<span class="ident">SuggestValueError</span>::<span class="ident">UnknownEditVariable</span>));
@@ -1029,10 +1029,10 @@
             <span class="ident">info</span>.<span class="ident">constant</span> <span class="op">=</span> <span class="ident">value</span>;
             (<span class="ident">info</span>.<span class="ident">tag</span>.<span class="ident">marker</span>, <span class="ident">info</span>.<span class="ident">tag</span>.<span class="ident">other</span>, <span class="ident">delta</span>)
         };
-        <span class="comment">// tag.marker and tag.other are never external symbols</span>
+        <span class="comment">// tag.marker and tag.other are never external symbols</span>
 
-        <span class="comment">// The nice version of the following code runs into non-lexical borrow issues.</span>
-        <span class="comment">// Ideally the `if row...` code would be in the body of the if. Pretend that it is.</span>
+        <span class="comment">// The nice version of the following code runs into non-lexical borrow issues.</span>
+        <span class="comment">// Ideally the `if row...` code would be in the body of the if. Pretend that it is.</span>
         {
             <span class="kw">let</span> <span class="ident">infeasible_rows</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">infeasible_rows</span>;
             <span class="kw">if</span> <span class="self">self</span>.<span class="ident">rows</span>.<span class="ident">get_mut</span>(<span class="kw-2">&amp;</span><span class="ident">info_tag_marker</span>)
@@ -1055,7 +1055,7 @@
                     <span class="kw">let</span> <span class="ident">diff</span> <span class="op">=</span> <span class="ident">delta</span> <span class="op">*</span> <span class="ident">coeff</span>;
                     <span class="kw">if</span> <span class="ident">diff</span> <span class="op">!</span><span class="op">=</span> <span class="number">0.0</span> <span class="op">&amp;&amp;</span> <span class="ident">symbol</span>.<span class="ident">type_</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">SymbolType</span>::<span class="ident">External</span> {
                         <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">var_for_symbol</span>[<span class="ident">symbol</span>];
-                        <span class="comment">// inline var_changed - borrow checker workaround</span>
+                        <span class="comment">// inline var_changed - borrow checker workaround</span>
                         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">should_clear_changes</span> {
                             <span class="self">self</span>.<span class="ident">changed</span>.<span class="ident">clear</span>();
                             <span class="self">self</span>.<span class="ident">should_clear_changes</span> <span class="op">=</span> <span class="bool-val">false</span>;
@@ -1083,10 +1083,10 @@
         <span class="self">self</span>.<span class="ident">changed</span>.<span class="ident">insert</span>(<span class="ident">v</span>);
     }
 
-    <span class="doccomment">/// Fetches all changes to the values of variables since the last call to this function.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// The list of changes returned is not in a specific order. Each change comprises the variable changed and</span>
-    <span class="doccomment">/// the new value of that variable.</span>
+    <span class="doccomment">/// Fetches all changes to the values of variables since the last call to this function.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The list of changes returned is not in a specific order. Each change comprises the variable changed and</span>
+    <span class="doccomment">/// the new value of that variable.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">fetch_changes</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span>[(<span class="ident">Variable</span>, <span class="ident">f64</span>)] {
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">should_clear_changes</span> {
             <span class="self">self</span>.<span class="ident">changed</span>.<span class="ident">clear</span>();
@@ -1108,13 +1108,13 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">public_changes</span>
     }
 
-    <span class="doccomment">/// Reset the solver to the empty starting condition.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This method resets the internal solver state to the empty starting</span>
-    <span class="doccomment">/// condition, as if no constraints or edit variables have been added.</span>
-    <span class="doccomment">/// This can be faster than deleting the solver and creating a new one</span>
-    <span class="doccomment">/// when the entire system must change, since it can avoid unnecessary</span>
-    <span class="doccomment">/// heap (de)allocations.</span>
+    <span class="doccomment">/// Reset the solver to the empty starting condition.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This method resets the internal solver state to the empty starting</span>
+    <span class="doccomment">/// condition, as if no constraints or edit variables have been added.</span>
+    <span class="doccomment">/// This can be faster than deleting the solver and creating a new one</span>
+    <span class="doccomment">/// when the entire system must change, since it can avoid unnecessary</span>
+    <span class="doccomment">/// heap (de)allocations.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reset</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
         <span class="self">self</span>.<span class="ident">rows</span>.<span class="ident">clear</span>();
         <span class="self">self</span>.<span class="ident">cns</span>.<span class="ident">clear</span>();
@@ -1129,9 +1129,9 @@
         <span class="self">self</span>.<span class="ident">id_tick</span> <span class="op">=</span> <span class="number">1</span>;
     }
 
-    <span class="doccomment">/// Get the symbol for the given variable.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// If a symbol does not exist for the variable, one will be created.</span>
+    <span class="doccomment">/// Get the symbol for the given variable.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// If a symbol does not exist for the variable, one will be created.</span>
     <span class="kw">fn</span> <span class="ident">get_var_symbol</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">v</span>: <span class="ident">Variable</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Symbol</span> {
         <span class="kw">let</span> <span class="ident">id_tick</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">id_tick</span>;
         <span class="kw">let</span> <span class="ident">var_for_symbol</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">var_for_symbol</span>;
@@ -1145,25 +1145,25 @@
         <span class="ident">value</span>.<span class="number">1</span>
     }
 
-    <span class="doccomment">/// Create a new Row object for the given constraint.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// The terms in the constraint will be converted to cells in the row.</span>
-    <span class="doccomment">/// Any term in the constraint with a coefficient of zero is ignored.</span>
-    <span class="doccomment">/// This method uses the `getVarSymbol` method to get the symbol for</span>
-    <span class="doccomment">/// the variables added to the row. If the symbol for a given cell</span>
-    <span class="doccomment">/// variable is basic, the cell variable will be substituted with the</span>
-    <span class="doccomment">/// basic row.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// The necessary slack and error variables will be added to the row.</span>
-    <span class="doccomment">/// If the constant for the row is negative, the sign for the row</span>
-    <span class="doccomment">/// will be inverted so the constant becomes positive.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// The tag will be updated with the marker and error symbols to use</span>
-    <span class="doccomment">/// for tracking the movement of the constraint in the tableau.</span>
+    <span class="doccomment">/// Create a new Row object for the given constraint.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The terms in the constraint will be converted to cells in the row.</span>
+    <span class="doccomment">/// Any term in the constraint with a coefficient of zero is ignored.</span>
+    <span class="doccomment">/// This method uses the `getVarSymbol` method to get the symbol for</span>
+    <span class="doccomment">/// the variables added to the row. If the symbol for a given cell</span>
+    <span class="doccomment">/// variable is basic, the cell variable will be substituted with the</span>
+    <span class="doccomment">/// basic row.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The necessary slack and error variables will be added to the row.</span>
+    <span class="doccomment">/// If the constant for the row is negative, the sign for the row</span>
+    <span class="doccomment">/// will be inverted so the constant becomes positive.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The tag will be updated with the marker and error symbols to use</span>
+    <span class="doccomment">/// for tracking the movement of the constraint in the tableau.</span>
     <span class="kw">fn</span> <span class="ident">create_row</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">constraint</span>: <span class="kw-2">&amp;</span><span class="ident">Constraint</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">Row</span><span class="op">&gt;</span>, <span class="ident">Tag</span>) {
         <span class="kw">let</span> <span class="ident">expr</span> <span class="op">=</span> <span class="ident">constraint</span>.<span class="ident">expr</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">row</span> <span class="op">=</span> <span class="ident">Row</span>::<span class="ident">new</span>(<span class="ident">expr</span>.<span class="ident">constant</span>);
-        <span class="comment">// Substitute the current basic variables into the row.</span>
+        <span class="comment">// Substitute the current basic variables into the row.</span>
         <span class="kw">for</span> <span class="ident">term</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">expr</span>.<span class="ident">terms</span> {
             <span class="kw">if</span> <span class="op">!</span><span class="ident">near_zero</span>(<span class="ident">term</span>.<span class="ident">coefficient</span>) {
                 <span class="kw">let</span> <span class="ident">symbol</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_var_symbol</span>(<span class="ident">term</span>.<span class="ident">variable</span>);
@@ -1177,7 +1177,7 @@
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">objective</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">objective</span>.<span class="ident">borrow_mut</span>();
 
-        <span class="comment">// Add the necessary slack, error, and dummy variables.</span>
+        <span class="comment">// Add the necessary slack, error, and dummy variables.</span>
         <span class="kw">let</span> <span class="ident">tag</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">constraint</span>.<span class="ident">op</span>() {
             <span class="ident">RelationalOperator</span>::<span class="ident">GreaterOrEqual</span> <span class="op">|</span>
             <span class="ident">RelationalOperator</span>::<span class="ident">LessOrEqual</span> <span class="op">=</span><span class="op">&gt;</span> {
@@ -1211,8 +1211,8 @@
                     <span class="self">self</span>.<span class="ident">id_tick</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
                     <span class="kw">let</span> <span class="ident">errminus</span> <span class="op">=</span> <span class="ident">Symbol</span>(<span class="self">self</span>.<span class="ident">id_tick</span>, <span class="ident">SymbolType</span>::<span class="ident">Error</span>);
                     <span class="self">self</span>.<span class="ident">id_tick</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
-                    <span class="ident">row</span>.<span class="ident">insert_symbol</span>(<span class="ident">errplus</span>, <span class="op">-</span><span class="number">1.0</span>); <span class="comment">// v = eplus - eminus</span>
-                    <span class="ident">row</span>.<span class="ident">insert_symbol</span>(<span class="ident">errminus</span>, <span class="number">1.0</span>); <span class="comment">// v - eplus + eminus = 0</span>
+                    <span class="ident">row</span>.<span class="ident">insert_symbol</span>(<span class="ident">errplus</span>, <span class="op">-</span><span class="number">1.0</span>); <span class="comment">// v = eplus - eminus</span>
+                    <span class="ident">row</span>.<span class="ident">insert_symbol</span>(<span class="ident">errminus</span>, <span class="number">1.0</span>); <span class="comment">// v - eplus + eminus = 0</span>
                     <span class="ident">objective</span>.<span class="ident">insert_symbol</span>(<span class="ident">errplus</span>, <span class="ident">constraint</span>.<span class="ident">strength</span>());
                     <span class="ident">objective</span>.<span class="ident">insert_symbol</span>(<span class="ident">errminus</span>, <span class="ident">constraint</span>.<span class="ident">strength</span>());
                     <span class="ident">Tag</span> {
@@ -1231,25 +1231,25 @@
             }
         };
 
-        <span class="comment">// Ensure the row has a positive constant.</span>
+        <span class="comment">// Ensure the row has a positive constant.</span>
         <span class="kw">if</span> <span class="ident">row</span>.<span class="ident">constant</span> <span class="op">&lt;</span> <span class="number">0.0</span> {
             <span class="ident">row</span>.<span class="ident">reverse_sign</span>();
         }
         (<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">row</span>), <span class="ident">tag</span>)
     }
 
-    <span class="doccomment">/// Choose the subject for solving for the row.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This method will choose the best subject for using as the solve</span>
-    <span class="doccomment">/// target for the row. An invalid symbol will be returned if there</span>
-    <span class="doccomment">/// is no valid target.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// The symbols are chosen according to the following precedence:</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// 1) The first symbol representing an external variable.</span>
-    <span class="doccomment">/// 2) A negative slack or error tag variable.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// If a subject cannot be found, an invalid symbol will be returned.</span>
+    <span class="doccomment">/// Choose the subject for solving for the row.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This method will choose the best subject for using as the solve</span>
+    <span class="doccomment">/// target for the row. An invalid symbol will be returned if there</span>
+    <span class="doccomment">/// is no valid target.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The symbols are chosen according to the following precedence:</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// 1) The first symbol representing an external variable.</span>
+    <span class="doccomment">/// 2) A negative slack or error tag variable.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// If a subject cannot be found, an invalid symbol will be returned.</span>
     <span class="kw">fn</span> <span class="ident">choose_subject</span>(<span class="ident">row</span>: <span class="kw-2">&amp;</span><span class="ident">Row</span>, <span class="ident">tag</span>: <span class="kw-2">&amp;</span><span class="ident">Tag</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Symbol</span> {
         <span class="kw">for</span> <span class="ident">s</span> <span class="kw">in</span> <span class="ident">row</span>.<span class="ident">cells</span>.<span class="ident">keys</span>() {
             <span class="kw">if</span> <span class="ident">s</span>.<span class="ident">type_</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">SymbolType</span>::<span class="ident">External</span> {
@@ -1269,39 +1269,39 @@
         <span class="ident">Symbol</span>::<span class="ident">invalid</span>()
     }
 
-    <span class="doccomment">/// Add the row to the tableau using an artificial variable.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This will return false if the constraint cannot be satisfied.</span>
+    <span class="doccomment">/// Add the row to the tableau using an artificial variable.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This will return false if the constraint cannot be satisfied.</span>
     <span class="kw">fn</span> <span class="ident">add_with_artificial_variable</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">row</span>: <span class="kw-2">&amp;</span><span class="ident">Row</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">bool</span>, <span class="ident">InternalSolverError</span><span class="op">&gt;</span> {
-        <span class="comment">// Create and add the artificial variable to the tableau</span>
+        <span class="comment">// Create and add the artificial variable to the tableau</span>
         <span class="kw">let</span> <span class="ident">art</span> <span class="op">=</span> <span class="ident">Symbol</span>(<span class="self">self</span>.<span class="ident">id_tick</span>, <span class="ident">SymbolType</span>::<span class="ident">Slack</span>);
         <span class="self">self</span>.<span class="ident">id_tick</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
         <span class="self">self</span>.<span class="ident">rows</span>.<span class="ident">insert</span>(<span class="ident">art</span>, <span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">row</span>.<span class="ident">clone</span>()));
         <span class="self">self</span>.<span class="ident">artificial</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">Rc</span>::<span class="ident">new</span>(<span class="ident">RefCell</span>::<span class="ident">new</span>(<span class="ident">row</span>.<span class="ident">clone</span>())));
 
-        <span class="comment">// Optimize the artificial objective. This is successful</span>
-        <span class="comment">// only if the artificial objective is optimized to zero.</span>
+        <span class="comment">// Optimize the artificial objective. This is successful</span>
+        <span class="comment">// only if the artificial objective is optimized to zero.</span>
         <span class="kw">let</span> <span class="ident">artificial</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">artificial</span>.<span class="ident">as_ref</span>().<span class="ident">unwrap</span>().<span class="ident">clone</span>();
         <span class="macro">try</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">optimise</span>(<span class="kw-2">&amp;</span><span class="ident">artificial</span>));
         <span class="kw">let</span> <span class="ident">success</span> <span class="op">=</span> <span class="ident">near_zero</span>(<span class="ident">artificial</span>.<span class="ident">borrow</span>().<span class="ident">constant</span>);
         <span class="self">self</span>.<span class="ident">artificial</span> <span class="op">=</span> <span class="prelude-val">None</span>;
 
-        <span class="comment">// If the artificial variable is basic, pivot the row so that</span>
-        <span class="comment">// it becomes basic. If the row is constant, exit early.</span>
+        <span class="comment">// If the artificial variable is basic, pivot the row so that</span>
+        <span class="comment">// it becomes basic. If the row is constant, exit early.</span>
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">mut</span> <span class="ident">row</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">rows</span>.<span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="ident">art</span>) {
             <span class="kw">if</span> <span class="ident">row</span>.<span class="ident">cells</span>.<span class="ident">is_empty</span>() {
                 <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">success</span>);
             }
-            <span class="kw">let</span> <span class="ident">entering</span> <span class="op">=</span> <span class="ident">Solver</span>::<span class="ident">any_pivotable_symbol</span>(<span class="kw-2">&amp;</span><span class="ident">row</span>); <span class="comment">// never External</span>
+            <span class="kw">let</span> <span class="ident">entering</span> <span class="op">=</span> <span class="ident">Solver</span>::<span class="ident">any_pivotable_symbol</span>(<span class="kw-2">&amp;</span><span class="ident">row</span>); <span class="comment">// never External</span>
             <span class="kw">if</span> <span class="ident">entering</span>.<span class="ident">type_</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">SymbolType</span>::<span class="ident">Invalid</span> {
-                <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>); <span class="comment">// unsatisfiable (will this ever happen?)</span>
+                <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>); <span class="comment">// unsatisfiable (will this ever happen?)</span>
             }
             <span class="ident">row</span>.<span class="ident">solve_for_symbols</span>(<span class="ident">art</span>, <span class="ident">entering</span>);
             <span class="self">self</span>.<span class="ident">substitute</span>(<span class="ident">entering</span>, <span class="kw-2">&amp;</span><span class="ident">row</span>);
             <span class="self">self</span>.<span class="ident">rows</span>.<span class="ident">insert</span>(<span class="ident">entering</span>, <span class="ident">row</span>);
         }
 
-        <span class="comment">// Remove the artificial row from the tableau</span>
+        <span class="comment">// Remove the artificial row from the tableau</span>
         <span class="kw">for</span> (<span class="kw">_</span>, <span class="ident">row</span>) <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">rows</span> {
             <span class="ident">row</span>.<span class="ident">remove</span>(<span class="ident">art</span>);
         }
@@ -1309,16 +1309,16 @@
         <span class="prelude-val">Ok</span>(<span class="ident">success</span>)
     }
 
-    <span class="doccomment">/// Substitute the parametric symbol with the given row.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This method will substitute all instances of the parametric symbol</span>
-    <span class="doccomment">/// in the tableau and the objective function with the given row.</span>
+    <span class="doccomment">/// Substitute the parametric symbol with the given row.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This method will substitute all instances of the parametric symbol</span>
+    <span class="doccomment">/// in the tableau and the objective function with the given row.</span>
     <span class="kw">fn</span> <span class="ident">substitute</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">symbol</span>: <span class="ident">Symbol</span>, <span class="ident">row</span>: <span class="kw-2">&amp;</span><span class="ident">Row</span>) {
         <span class="kw">for</span> (<span class="kw-2">&amp;</span><span class="ident">other_symbol</span>, <span class="ident">other_row</span>) <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">rows</span> {
             <span class="kw">let</span> <span class="ident">constant_changed</span> <span class="op">=</span> <span class="ident">other_row</span>.<span class="ident">substitute</span>(<span class="ident">symbol</span>, <span class="ident">row</span>);
             <span class="kw">if</span> <span class="ident">other_symbol</span>.<span class="ident">type_</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">SymbolType</span>::<span class="ident">External</span> <span class="op">&amp;&amp;</span> <span class="ident">constant_changed</span> {
                 <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">var_for_symbol</span>[<span class="kw-2">&amp;</span><span class="ident">other_symbol</span>];
-                <span class="comment">// inline var_changed</span>
+                <span class="comment">// inline var_changed</span>
                 <span class="kw">if</span> <span class="self">self</span>.<span class="ident">should_clear_changes</span> {
                     <span class="self">self</span>.<span class="ident">changed</span>.<span class="ident">clear</span>();
                     <span class="self">self</span>.<span class="ident">should_clear_changes</span> <span class="op">=</span> <span class="bool-val">false</span>;
@@ -1335,10 +1335,10 @@
         }
     }
 
-    <span class="doccomment">/// Optimize the system for the given objective function.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This method performs iterations of Phase 2 of the simplex method</span>
-    <span class="doccomment">/// until the objective function reaches a minimum.</span>
+    <span class="doccomment">/// Optimize the system for the given objective function.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This method performs iterations of Phase 2 of the simplex method</span>
+    <span class="doccomment">/// until the objective function reaches a minimum.</span>
     <span class="kw">fn</span> <span class="ident">optimise</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">objective</span>: <span class="kw-2">&amp;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">Row</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">InternalSolverError</span><span class="op">&gt;</span> {
         <span class="kw">loop</span> {
             <span class="kw">let</span> <span class="ident">entering</span> <span class="op">=</span> <span class="ident">Solver</span>::<span class="ident">get_entering_symbol</span>(<span class="kw-2">&amp;</span><span class="ident">objective</span>.<span class="ident">borrow</span>());
@@ -1347,7 +1347,7 @@
             }
             <span class="kw">let</span> (<span class="ident">leaving</span>, <span class="kw-2">mut</span> <span class="ident">row</span>) <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">get_leaving_row</span>(<span class="ident">entering</span>)
                              .<span class="ident">ok_or</span>(<span class="ident">InternalSolverError</span>(<span class="string">&quot;The objective is unbounded&quot;</span>)));
-            <span class="comment">// pivot the entering symbol into the basis</span>
+            <span class="comment">// pivot the entering symbol into the basis</span>
             <span class="ident">row</span>.<span class="ident">solve_for_symbols</span>(<span class="ident">leaving</span>, <span class="ident">entering</span>);
             <span class="self">self</span>.<span class="ident">substitute</span>(<span class="ident">entering</span>, <span class="kw-2">&amp;</span><span class="ident">row</span>);
             <span class="kw">if</span> <span class="ident">entering</span>.<span class="ident">type_</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">SymbolType</span>::<span class="ident">External</span> <span class="op">&amp;&amp;</span> <span class="ident">row</span>.<span class="ident">constant</span> <span class="op">!</span><span class="op">=</span> <span class="number">0.0</span> {
@@ -1358,12 +1358,12 @@
         }
     }
 
-    <span class="doccomment">/// Optimize the system using the dual of the simplex method.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// The current state of the system should be such that the objective</span>
-    <span class="doccomment">/// function is optimal, but not feasible. This method will perform</span>
-    <span class="doccomment">/// an iteration of the dual simplex method to make the solution both</span>
-    <span class="doccomment">/// optimal and feasible.</span>
+    <span class="doccomment">/// Optimize the system using the dual of the simplex method.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The current state of the system should be such that the objective</span>
+    <span class="doccomment">/// function is optimal, but not feasible. This method will perform</span>
+    <span class="doccomment">/// an iteration of the dual simplex method to make the solution both</span>
+    <span class="doccomment">/// optimal and feasible.</span>
     <span class="kw">fn</span> <span class="ident">dual_optimise</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">InternalSolverError</span><span class="op">&gt;</span> {
         <span class="kw">while</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">infeasible_rows</span>.<span class="ident">is_empty</span>() {
             <span class="kw">let</span> <span class="ident">leaving</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">infeasible_rows</span>.<span class="ident">pop</span>().<span class="ident">unwrap</span>();
@@ -1382,7 +1382,7 @@
                 <span class="kw">if</span> <span class="ident">entering</span>.<span class="ident">type_</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">SymbolType</span>::<span class="ident">Invalid</span> {
                     <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">InternalSolverError</span>(<span class="string">&quot;Dual optimise failed.&quot;</span>));
                 }
-                <span class="comment">// pivot the entering symbol into the basis</span>
+                <span class="comment">// pivot the entering symbol into the basis</span>
                 <span class="ident">row</span>.<span class="ident">solve_for_symbols</span>(<span class="ident">leaving</span>, <span class="ident">entering</span>);
                 <span class="self">self</span>.<span class="ident">substitute</span>(<span class="ident">entering</span>, <span class="kw-2">&amp;</span><span class="ident">row</span>);
                 <span class="kw">if</span> <span class="ident">entering</span>.<span class="ident">type_</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">SymbolType</span>::<span class="ident">External</span> <span class="op">&amp;&amp;</span> <span class="ident">row</span>.<span class="ident">constant</span> <span class="op">!</span><span class="op">=</span> <span class="number">0.0</span> {
@@ -1395,13 +1395,13 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="doccomment">/// Compute the entering variable for a pivot operation.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This method will return first symbol in the objective function which</span>
-    <span class="doccomment">/// is non-dummy and has a coefficient less than zero. If no symbol meets</span>
-    <span class="doccomment">/// the criteria, it means the objective function is at a minimum, and an</span>
-    <span class="doccomment">/// invalid symbol is returned.</span>
-    <span class="doccomment">/// Could return an External symbol</span>
+    <span class="doccomment">/// Compute the entering variable for a pivot operation.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This method will return first symbol in the objective function which</span>
+    <span class="doccomment">/// is non-dummy and has a coefficient less than zero. If no symbol meets</span>
+    <span class="doccomment">/// the criteria, it means the objective function is at a minimum, and an</span>
+    <span class="doccomment">/// invalid symbol is returned.</span>
+    <span class="doccomment">/// Could return an External symbol</span>
     <span class="kw">fn</span> <span class="ident">get_entering_symbol</span>(<span class="ident">objective</span>: <span class="kw-2">&amp;</span><span class="ident">Row</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Symbol</span> {
         <span class="kw">for</span> (<span class="ident">symbol</span>, <span class="ident">value</span>) <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">objective</span>.<span class="ident">cells</span> {
             <span class="kw">if</span> <span class="ident">symbol</span>.<span class="ident">type_</span>() <span class="op">!</span><span class="op">=</span> <span class="ident">SymbolType</span>::<span class="ident">Dummy</span> <span class="op">&amp;&amp;</span> <span class="kw-2">*</span><span class="ident">value</span> <span class="op">&lt;</span> <span class="number">0.0</span> {
@@ -1411,14 +1411,14 @@
         <span class="ident">Symbol</span>::<span class="ident">invalid</span>()
     }
 
-    <span class="doccomment">/// Compute the entering symbol for the dual optimize operation.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This method will return the symbol in the row which has a positive</span>
-    <span class="doccomment">/// coefficient and yields the minimum ratio for its respective symbol</span>
-    <span class="doccomment">/// in the objective function. The provided row *must* be infeasible.</span>
-    <span class="doccomment">/// If no symbol is found which meats the criteria, an invalid symbol</span>
-    <span class="doccomment">/// is returned.</span>
-    <span class="doccomment">/// Could return an External symbol</span>
+    <span class="doccomment">/// Compute the entering symbol for the dual optimize operation.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This method will return the symbol in the row which has a positive</span>
+    <span class="doccomment">/// coefficient and yields the minimum ratio for its respective symbol</span>
+    <span class="doccomment">/// in the objective function. The provided row *must* be infeasible.</span>
+    <span class="doccomment">/// If no symbol is found which meats the criteria, an invalid symbol</span>
+    <span class="doccomment">/// is returned.</span>
+    <span class="doccomment">/// Could return an External symbol</span>
     <span class="kw">fn</span> <span class="ident">get_dual_entering_symbol</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">row</span>: <span class="kw-2">&amp;</span><span class="ident">Row</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Symbol</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">entering</span> <span class="op">=</span> <span class="ident">Symbol</span>::<span class="ident">invalid</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ratio</span> <span class="op">=</span> ::<span class="ident">std</span>::<span class="ident">f64</span>::<span class="ident">INFINITY</span>;
@@ -1436,10 +1436,10 @@
         <span class="ident">entering</span>
     }
 
-    <span class="doccomment">/// Get the first Slack or Error symbol in the row.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// If no such symbol is present, and Invalid symbol will be returned.</span>
-    <span class="doccomment">/// Never returns an External symbol</span>
+    <span class="doccomment">/// Get the first Slack or Error symbol in the row.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// If no such symbol is present, and Invalid symbol will be returned.</span>
+    <span class="doccomment">/// Never returns an External symbol</span>
     <span class="kw">fn</span> <span class="ident">any_pivotable_symbol</span>(<span class="ident">row</span>: <span class="kw-2">&amp;</span><span class="ident">Row</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Symbol</span> {
         <span class="kw">for</span> <span class="ident">symbol</span> <span class="kw">in</span> <span class="ident">row</span>.<span class="ident">cells</span>.<span class="ident">keys</span>() {
             <span class="kw">if</span> <span class="ident">symbol</span>.<span class="ident">type_</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">SymbolType</span>::<span class="ident">Slack</span> <span class="op">|</span><span class="op">|</span> <span class="ident">symbol</span>.<span class="ident">type_</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">SymbolType</span>::<span class="ident">Error</span> {
@@ -1449,13 +1449,13 @@
         <span class="ident">Symbol</span>::<span class="ident">invalid</span>()
     }
 
-    <span class="doccomment">/// Compute the row which holds the exit symbol for a pivot.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This method will return an iterator to the row in the row map</span>
-    <span class="doccomment">/// which holds the exit symbol. If no appropriate exit symbol is</span>
-    <span class="doccomment">/// found, the end() iterator will be returned. This indicates that</span>
-    <span class="doccomment">/// the objective function is unbounded.</span>
-    <span class="doccomment">/// Never returns a row for an External symbol</span>
+    <span class="doccomment">/// Compute the row which holds the exit symbol for a pivot.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This method will return an iterator to the row in the row map</span>
+    <span class="doccomment">/// which holds the exit symbol. If no appropriate exit symbol is</span>
+    <span class="doccomment">/// found, the end() iterator will be returned. This indicates that</span>
+    <span class="doccomment">/// the objective function is unbounded.</span>
+    <span class="doccomment">/// Never returns a row for an External symbol</span>
     <span class="kw">fn</span> <span class="ident">get_leaving_row</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">entering</span>: <span class="ident">Symbol</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">Symbol</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">Row</span><span class="op">&gt;</span>)<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ratio</span> <span class="op">=</span> ::<span class="ident">std</span>::<span class="ident">f64</span>::<span class="ident">INFINITY</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">found</span> <span class="op">=</span> <span class="prelude-val">None</span>;
@@ -1474,23 +1474,23 @@
         <span class="ident">found</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> (<span class="ident">s</span>, <span class="self">self</span>.<span class="ident">rows</span>.<span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="ident">s</span>).<span class="ident">unwrap</span>()))
     }
 
-    <span class="doccomment">/// Compute the leaving row for a marker variable.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This method will return an iterator to the row in the row map</span>
-    <span class="doccomment">/// which holds the given marker variable. The row will be chosen</span>
-    <span class="doccomment">/// according to the following precedence:</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// 1) The row with a restricted basic varible and a negative coefficient</span>
-    <span class="doccomment">///    for the marker with the smallest ratio of -constant / coefficient.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// 2) The row with a restricted basic variable and the smallest ratio</span>
-    <span class="doccomment">///    of constant / coefficient.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// 3) The last unrestricted row which contains the marker.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// If the marker does not exist in any row, the row map end() iterator</span>
-    <span class="doccomment">/// will be returned. This indicates an internal solver error since</span>
-    <span class="doccomment">/// the marker *should* exist somewhere in the tableau.</span>
+    <span class="doccomment">/// Compute the leaving row for a marker variable.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This method will return an iterator to the row in the row map</span>
+    <span class="doccomment">/// which holds the given marker variable. The row will be chosen</span>
+    <span class="doccomment">/// according to the following precedence:</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// 1) The row with a restricted basic varible and a negative coefficient</span>
+    <span class="doccomment">///    for the marker with the smallest ratio of -constant / coefficient.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// 2) The row with a restricted basic variable and the smallest ratio</span>
+    <span class="doccomment">///    of constant / coefficient.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// 3) The last unrestricted row which contains the marker.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// If the marker does not exist in any row, the row map end() iterator</span>
+    <span class="doccomment">/// will be returned. This indicates an internal solver error since</span>
+    <span class="doccomment">/// the marker *should* exist somewhere in the tableau.</span>
     <span class="kw">fn</span> <span class="ident">get_marker_leaving_row</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">marker</span>: <span class="ident">Symbol</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">Symbol</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">Row</span><span class="op">&gt;</span>)<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">r1</span> <span class="op">=</span> ::<span class="ident">std</span>::<span class="ident">f64</span>::<span class="ident">INFINITY</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">r2</span> <span class="op">=</span> <span class="ident">r1</span>;
@@ -1532,7 +1532,7 @@
             })
     }
 
-    <span class="doccomment">/// Remove the effects of a constraint on the objective function.</span>
+    <span class="doccomment">/// Remove the effects of a constraint on the objective function.</span>
     <span class="kw">fn</span> <span class="ident">remove_constraint_effects</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">cn</span>: <span class="kw-2">&amp;</span><span class="ident">Constraint</span>, <span class="ident">tag</span>: <span class="kw-2">&amp;</span><span class="ident">Tag</span>) {
         <span class="kw">if</span> <span class="ident">tag</span>.<span class="ident">marker</span>.<span class="ident">type_</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">SymbolType</span>::<span class="ident">Error</span> {
             <span class="self">self</span>.<span class="ident">remove_marker_effects</span>(<span class="ident">tag</span>.<span class="ident">marker</span>, <span class="ident">cn</span>.<span class="ident">strength</span>());
@@ -1541,7 +1541,7 @@
         }
     }
 
-    <span class="doccomment">/// Remove the effects of an error marker on the objective function.</span>
+    <span class="doccomment">/// Remove the effects of an error marker on the objective function.</span>
     <span class="kw">fn</span> <span class="ident">remove_marker_effects</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">marker</span>: <span class="ident">Symbol</span>, <span class="ident">strength</span>: <span class="ident">f64</span>) {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">row</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">rows</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">marker</span>) {
             <span class="self">self</span>.<span class="ident">objective</span>.<span class="ident">borrow_mut</span>().<span class="ident">insert_row</span>(<span class="ident">row</span>, <span class="op">-</span><span class="ident">strength</span>);
@@ -1550,7 +1550,7 @@
         }
     }
 
-    <span class="doccomment">/// Test whether a row is composed of all dummy variables.</span>
+    <span class="doccomment">/// Test whether a row is composed of all dummy variables.</span>
     <span class="kw">fn</span> <span class="ident">all_dummies</span>(<span class="ident">row</span>: <span class="kw-2">&amp;</span><span class="ident">Row</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">for</span> <span class="ident">symbol</span> <span class="kw">in</span> <span class="ident">row</span>.<span class="ident">cells</span>.<span class="ident">keys</span>() {
             <span class="kw">if</span> <span class="ident">symbol</span>.<span class="ident">type_</span>() <span class="op">!</span><span class="op">=</span> <span class="ident">SymbolType</span>::<span class="ident">Dummy</span> {
@@ -1560,10 +1560,10 @@
         <span class="bool-val">true</span>
     }
 
-    <span class="doccomment">/// Get the stored value for a variable.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Normally values should be retrieved and updated using `fetch_changes`, but</span>
-    <span class="doccomment">/// this method can be used for debugging or testing.</span>
+    <span class="doccomment">/// Get the stored value for a variable.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Normally values should be retrieved and updated using `fetch_changes`, but</span>
+    <span class="doccomment">/// this method can be used for debugging or testing.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">v</span>: <span class="ident">Variable</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span> {
         <span class="self">self</span>.<span class="ident">var_data</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">v</span>).<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> {
             <span class="self">self</span>.<span class="ident">rows</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">s</span>.<span class="number">1</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="ident">r</span>.<span class="ident">constant</span>)

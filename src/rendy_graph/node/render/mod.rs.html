@@ -31,24 +31,24 @@
 <span id="28">28</span>
 <span id="29">29</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="doccomment">//!</span>
-<span class="doccomment">//! Advanced render pass node.</span>
-<span class="doccomment">//! Will replace render pass node when polished.</span>
-<span class="doccomment">//!</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! Advanced render pass node.</span>
+<span class="doccomment">//! Will replace render pass node when polished.</span>
+<span class="doccomment">//!</span>
 
 <span class="kw">mod</span> <span class="ident">group</span>;
 <span class="kw">mod</span> <span class="ident">pass</span>;
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::{<span class="ident">group</span>::<span class="kw-2">*</span>, <span class="ident">pass</span>::<span class="kw-2">*</span>};
 
-<span class="doccomment">/// Result of draw preparation.</span>
+<span class="doccomment">/// Result of draw preparation.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>)]</span>
 <span class="attribute">#[<span class="ident">must_use</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">PrepareResult</span> {
-    <span class="doccomment">/// Force record draw commands.</span>
+    <span class="doccomment">/// Force record draw commands.</span>
     <span class="ident">DrawRecord</span>,
 
-    <span class="doccomment">/// Reuse draw commands.</span>
+    <span class="doccomment">/// Reuse draw commands.</span>
     <span class="ident">DrawReuse</span>,
 }
 

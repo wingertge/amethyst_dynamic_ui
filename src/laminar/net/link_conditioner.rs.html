@@ -57,29 +57,29 @@
 <span id="54">54</span>
 <span id="55">55</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="doccomment">//! This module provides means to simulate various network conditions for development. The primary focus is</span>
-<span class="doccomment">//! for testing applications under adverse conditions such as high packet loss networks, or high latency</span>
-<span class="doccomment">//! networks. This is not in heavy use yet, hence the allowing dead code. These will be removed as our testing</span>
-<span class="doccomment">//! becomes more sophisticated.</span>
+<span class="doccomment">//! This module provides means to simulate various network conditions for development. The primary focus is</span>
+<span class="doccomment">//! for testing applications under adverse conditions such as high packet loss networks, or high latency</span>
+<span class="doccomment">//! networks. This is not in heavy use yet, hence the allowing dead code. These will be removed as our testing</span>
+<span class="doccomment">//! becomes more sophisticated.</span>
 
 <span class="kw">use</span> <span class="ident">rand</span>::<span class="ident">Rng</span>;
 <span class="kw">use</span> <span class="ident">rand_pcg</span>::<span class="ident">Pcg64Mcg</span> <span class="kw">as</span> <span class="ident">Random</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">time</span>::<span class="ident">Duration</span>;
 
-<span class="doccomment">/// Network simulator. Used to simulate network conditions as dropped packets and packet delays.</span>
-<span class="doccomment">/// For use in [Socket::set_link_conditioner](crate::net::Socket::set_link_conditioner).</span>
+<span class="doccomment">/// Network simulator. Used to simulate network conditions as dropped packets and packet delays.</span>
+<span class="doccomment">/// For use in [Socket::set_link_conditioner](crate::net::Socket::set_link_conditioner).</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">LinkConditioner</span> {
-    <span class="comment">// Value between 0 and 1, representing the % change a packet will be dropped on sending</span>
+    <span class="comment">// Value between 0 and 1, representing the % change a packet will be dropped on sending</span>
     <span class="ident">packet_loss</span>: <span class="ident">f64</span>,
-    <span class="comment">// Duration of the delay imposed between packets</span>
+    <span class="comment">// Duration of the delay imposed between packets</span>
     <span class="ident">latency</span>: <span class="ident">Duration</span>,
-    <span class="comment">// Random number generator</span>
+    <span class="comment">// Random number generator</span>
     <span class="ident">random</span>: <span class="ident">Random</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">LinkConditioner</span> {
-    <span class="doccomment">/// Creates and returns a LinkConditioner</span>
+    <span class="doccomment">/// Creates and returns a LinkConditioner</span>
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">LinkConditioner</span> {
         <span class="ident">LinkConditioner</span> {
@@ -89,19 +89,19 @@
         }
     }
 
-    <span class="doccomment">/// Sets the packet loss rate of Link Conditioner</span>
+    <span class="doccomment">/// Sets the packet loss rate of Link Conditioner</span>
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_packet_loss</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">rate</span>: <span class="ident">f64</span>) {
         <span class="self">self</span>.<span class="ident">packet_loss</span> <span class="op">=</span> <span class="ident">rate</span>;
     }
 
-    <span class="doccomment">/// Sets the latency the link conditioner should apply to each packet</span>
+    <span class="doccomment">/// Sets the latency the link conditioner should apply to each packet</span>
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_latency</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">latency</span>: <span class="ident">Duration</span>) {
         <span class="self">self</span>.<span class="ident">latency</span> <span class="op">=</span> <span class="ident">latency</span>
     }
 
-    <span class="doccomment">/// Function that checks to see if a packet should be dropped or not</span>
+    <span class="doccomment">/// Function that checks to see if a packet should be dropped or not</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">should_send</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">random</span>.<span class="ident">gen_range</span>(<span class="number">0.0</span>, <span class="number">1.0</span>) <span class="op">&gt;</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">packet_loss</span>
     }

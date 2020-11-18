@@ -165,7 +165,7 @@
     <span class="ident">gfx_hal</span>::{<span class="ident">queue</span>::<span class="ident">RawCommandQueue</span>, <span class="ident">Backend</span>},
 };
 
-<span class="doccomment">/// Command queue wrapper.</span>
+<span class="doccomment">/// Command queue wrapper.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">derivative</span>::<span class="ident">Derivative</span>)]</span>
 <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Queue</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">Backend</span><span class="op">&gt;</span> {
@@ -189,23 +189,23 @@
         }
     }
 
-    <span class="doccomment">/// Id of the queue.</span>
+    <span class="doccomment">/// Id of the queue.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">QueueId</span> {
         <span class="self">self</span>.<span class="ident">id</span>
     }
 
-    <span class="doccomment">/// Get raw command queue.</span>
+    <span class="doccomment">/// Get raw command queue.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">raw</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">impl</span> <span class="ident">RawCommandQueue</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> {
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">raw</span>
     }
 
-    <span class="doccomment">/// Returns next queue epoch.</span>
+    <span class="doccomment">/// Returns next queue epoch.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">next_epoch</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u64</span> {
         <span class="self">self</span>.<span class="ident">next_epoch</span>
     }
 
-    <span class="doccomment">/// Submit commands to the queue of the family.</span>
-    <span class="doccomment">/// Fence must be submitted.</span>
+    <span class="doccomment">/// Submit commands to the queue of the family.</span>
+    <span class="doccomment">/// Fence must be submitted.</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">submit</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
         <span class="ident">submissions</span>: <span class="kw">impl</span> <span class="ident">IntoIterator</span><span class="op">&lt;</span>
@@ -263,9 +263,9 @@
         }
     }
 
-    <span class="doccomment">/// Submit commands to the queue of the family.</span>
-    <span class="doccomment">/// Fence must be submitted.</span>
-    <span class="doccomment">/// This version uses raw fence and doesn&#39;t increment epoch.</span>
+    <span class="doccomment">/// Submit commands to the queue of the family.</span>
+    <span class="doccomment">/// Fence must be submitted.</span>
+    <span class="doccomment">/// This version uses raw fence and doesn&#39;t increment epoch.</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">submit_raw_fence</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
         <span class="ident">submissions</span>: <span class="kw">impl</span> <span class="ident">IntoIterator</span><span class="op">&lt;</span>
@@ -311,7 +311,7 @@
         }
     }
 
-    <span class="doccomment">/// Wait for queue to finish all pending commands.</span>
+    <span class="doccomment">/// Wait for queue to finish all pending commands.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">wait_idle</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">gfx_hal</span>::<span class="ident">error</span>::<span class="ident">HostExecutionError</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">raw</span>.<span class="ident">wait_idle</span>()
     }

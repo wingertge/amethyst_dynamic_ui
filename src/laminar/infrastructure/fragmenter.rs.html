@@ -210,14 +210,14 @@
 
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">io</span>::<span class="ident">Write</span>;
 
-<span class="doccomment">/// Type that will manage fragmentation of packets.</span>
+<span class="doccomment">/// Type that will manage fragmentation of packets.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Fragmentation</span> {
     <span class="ident">fragments</span>: <span class="ident">SequenceBuffer</span><span class="op">&lt;</span><span class="ident">ReassemblyData</span><span class="op">&gt;</span>,
     <span class="ident">config</span>: <span class="ident">Config</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Fragmentation</span> {
-    <span class="doccomment">/// Creates and returns a new Fragmentation</span>
+    <span class="doccomment">/// Creates and returns a new Fragmentation</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">config</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Fragmentation</span> {
         <span class="ident">Fragmentation</span> {
             <span class="ident">fragments</span>: <span class="ident">SequenceBuffer</span>::<span class="ident">with_capacity</span>(<span class="ident">config</span>.<span class="ident">fragment_reassembly_buffer_size</span>),
@@ -225,35 +225,35 @@
         }
     }
 
-    <span class="doccomment">/// This functions checks how many times a number fits into another number and will round up.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// For example we have two numbers:</span>
-    <span class="doccomment">/// - number 1 = 4000;</span>
-    <span class="doccomment">/// - number 2 = 1024;</span>
-    <span class="doccomment">/// If you do it the easy way the answer will be 4000/1024 = 3.90625.</span>
-    <span class="doccomment">/// But since we care about how how many whole times the number fits in we need the result 4.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that when rust is rounding it is always rounding to zero (3.456 as u32 = 3)</span>
-    <span class="doccomment">/// 1. calculate with modulo if `number 1` fits exactly in the `number 2`.</span>
-    <span class="doccomment">/// 2. Divide `number 1` with `number 2` (this wil be rounded to zero by rust)</span>
-    <span class="doccomment">/// 3. So in all cases we need to add 1 to get the right amount of fragments.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// lets take an example</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Calculate modules:</span>
-    <span class="doccomment">/// - number 1 % number 2 = 928</span>
-    <span class="doccomment">/// - this is bigger than 0 so remainder = 1</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Calculate how many times the `number 1` fits in `number 2`:</span>
-    <span class="doccomment">/// - number 1 / number 2 = 3,90625 (this will be rounded to 3)</span>
-    <span class="doccomment">/// - add remainder from above to 3 = 4.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// The above described method will figure out for all number how many times it fits into another number rounded up.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// So an example of dividing a packet of bytes we get these fragments:</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// So for 4000 bytes we need 4 fragments</span>
-    <span class="doccomment">/// [fragment: 1024] [fragment: 1024] [fragment: 1024] [fragment: 928]</span>
+    <span class="doccomment">/// This functions checks how many times a number fits into another number and will round up.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// For example we have two numbers:</span>
+    <span class="doccomment">/// - number 1 = 4000;</span>
+    <span class="doccomment">/// - number 2 = 1024;</span>
+    <span class="doccomment">/// If you do it the easy way the answer will be 4000/1024 = 3.90625.</span>
+    <span class="doccomment">/// But since we care about how how many whole times the number fits in we need the result 4.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Note that when rust is rounding it is always rounding to zero (3.456 as u32 = 3)</span>
+    <span class="doccomment">/// 1. calculate with modulo if `number 1` fits exactly in the `number 2`.</span>
+    <span class="doccomment">/// 2. Divide `number 1` with `number 2` (this wil be rounded to zero by rust)</span>
+    <span class="doccomment">/// 3. So in all cases we need to add 1 to get the right amount of fragments.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// lets take an example</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Calculate modules:</span>
+    <span class="doccomment">/// - number 1 % number 2 = 928</span>
+    <span class="doccomment">/// - this is bigger than 0 so remainder = 1</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Calculate how many times the `number 1` fits in `number 2`:</span>
+    <span class="doccomment">/// - number 1 / number 2 = 3,90625 (this will be rounded to 3)</span>
+    <span class="doccomment">/// - add remainder from above to 3 = 4.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The above described method will figure out for all number how many times it fits into another number rounded up.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// So an example of dividing a packet of bytes we get these fragments:</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// So for 4000 bytes we need 4 fragments</span>
+    <span class="doccomment">/// [fragment: 1024] [fragment: 1024] [fragment: 1024] [fragment: 928]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">fragments_needed</span>(<span class="ident">payload_length</span>: <span class="ident">u16</span>, <span class="ident">fragment_size</span>: <span class="ident">u16</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u16</span> {
         <span class="kw">let</span> <span class="ident">remainder</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">payload_length</span> <span class="op">%</span> <span class="ident">fragment_size</span> <span class="op">&gt;</span> <span class="number">0</span> {
             <span class="number">1</span>
@@ -263,13 +263,13 @@
         ((<span class="ident">payload_length</span> <span class="op">/</span> <span class="ident">fragment_size</span>) <span class="op">+</span> <span class="ident">remainder</span>)
     }
 
-    <span class="doccomment">/// Split the given payload into fragments and write those fragments to the passed packet data.</span>
+    <span class="doccomment">/// Split the given payload into fragments and write those fragments to the passed packet data.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">spit_into_fragments</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="ident">payload</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>], <span class="ident">config</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>]<span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">fragments</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
 
         <span class="kw">let</span> <span class="ident">payload_length</span> <span class="op">=</span> <span class="ident">payload</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u16</span>;
         <span class="kw">let</span> <span class="ident">num_fragments</span> <span class="op">=</span>
-            <span class="comment">// Safe cast max fragments is u8</span>
+            <span class="comment">// Safe cast max fragments is u8</span>
             <span class="ident">Fragmentation</span>::<span class="ident">fragments_needed</span>(<span class="ident">payload_length</span>, <span class="ident">config</span>.<span class="ident">fragment_size</span>) <span class="kw">as</span> <span class="ident">u8</span>;
 
         <span class="kw">if</span> <span class="ident">num_fragments</span> <span class="op">&gt;</span> <span class="ident">config</span>.<span class="ident">max_fragments</span> {
@@ -277,16 +277,16 @@
         }
 
         <span class="kw">for</span> <span class="ident">fragment_id</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">num_fragments</span> {
-            <span class="comment">// get start and end position of buffer</span>
+            <span class="comment">// get start and end position of buffer</span>
             <span class="kw">let</span> <span class="ident">start_fragment_pos</span> <span class="op">=</span> <span class="ident">u16</span>::<span class="ident">from</span>(<span class="ident">fragment_id</span>) <span class="op">*</span> <span class="ident">config</span>.<span class="ident">fragment_size</span>;
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">end_fragment_pos</span> <span class="op">=</span> (<span class="ident">u16</span>::<span class="ident">from</span>(<span class="ident">fragment_id</span>) <span class="op">+</span> <span class="number">1</span>) <span class="op">*</span> <span class="ident">config</span>.<span class="ident">fragment_size</span>;
 
-            <span class="comment">// If remaining buffer fits int one packet just set the end position to the length of the packet payload.</span>
+            <span class="comment">// If remaining buffer fits int one packet just set the end position to the length of the packet payload.</span>
             <span class="kw">if</span> <span class="ident">end_fragment_pos</span> <span class="op">&gt;</span> <span class="ident">payload_length</span> {
                 <span class="ident">end_fragment_pos</span> <span class="op">=</span> <span class="ident">payload_length</span>;
             }
 
-            <span class="comment">// get specific slice of data for fragment</span>
+            <span class="comment">// get specific slice of data for fragment</span>
             <span class="kw">let</span> <span class="ident">fragment_data</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">payload</span>[<span class="ident">start_fragment_pos</span> <span class="kw">as</span> <span class="ident">usize</span>..<span class="ident">end_fragment_pos</span> <span class="kw">as</span> <span class="ident">usize</span>];
 
             <span class="ident">fragments</span>.<span class="ident">push</span>(<span class="ident">fragment_data</span>);
@@ -295,14 +295,14 @@
         <span class="prelude-val">Ok</span>(<span class="ident">fragments</span>)
     }
 
-    <span class="doccomment">/// This will read fragment data and return the complete packet when all fragments are received.</span>
+    <span class="doccomment">/// This will read fragment data and return the complete packet when all fragments are received.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">handle_fragment</span>(
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
         <span class="ident">fragment_header</span>: <span class="ident">FragmentHeader</span>,
         <span class="ident">fragment_payload</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
         <span class="ident">acked_header</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AckedPacketHeader</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">AckedPacketHeader</span>)<span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="comment">// read fragment packet</span>
+        <span class="comment">// read fragment packet</span>
 
         <span class="self">self</span>.<span class="ident">create_fragment_if_not_exists</span>(<span class="ident">fragment_header</span>);
 
@@ -312,13 +312,13 @@
         <span class="kw">let</span> <span class="ident">total_buffer</span>;
 
         {
-            <span class="comment">// get entry of previous received fragments</span>
+            <span class="comment">// get entry of previous received fragments</span>
             <span class="kw">let</span> <span class="ident">reassembly_data</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">fragments</span>.<span class="ident">get_mut</span>(<span class="ident">fragment_header</span>.<span class="ident">sequence</span>()) {
                 <span class="prelude-val">Some</span>(<span class="ident">val</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">val</span>,
                 <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">FragmentErrorKind</span>::<span class="ident">CouldNotFindFragmentById</span>)<span class="question-mark">?</span>,
             };
 
-            <span class="comment">// Got the data</span>
+            <span class="comment">// Got the data</span>
             <span class="kw">if</span> <span class="ident">reassembly_data</span>.<span class="ident">num_fragments_total</span> <span class="op">!</span><span class="op">=</span> <span class="ident">fragment_header</span>.<span class="ident">fragment_count</span>() {
                 <span class="prelude-val">Err</span>(<span class="ident">FragmentErrorKind</span>::<span class="ident">FragmentWithUnevenNumberOfFragments</span>)<span class="question-mark">?</span>
             }
@@ -331,11 +331,11 @@
                 <span class="prelude-val">Err</span>(<span class="ident">FragmentErrorKind</span>::<span class="ident">AlreadyProcessedFragment</span>)<span class="question-mark">?</span>
             }
 
-            <span class="comment">// increase number of received fragments and set the specific fragment to received.</span>
+            <span class="comment">// increase number of received fragments and set the specific fragment to received.</span>
             <span class="ident">reassembly_data</span>.<span class="ident">num_fragments_received</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
             <span class="ident">reassembly_data</span>.<span class="ident">fragments_received</span>[<span class="ident">usize</span>::<span class="ident">from</span>(<span class="ident">fragment_header</span>.<span class="ident">id</span>())] <span class="op">=</span> <span class="bool-val">true</span>;
 
-            <span class="comment">// add the payload from the fragment to the buffer whe have in cache</span>
+            <span class="comment">// add the payload from the fragment to the buffer whe have in cache</span>
             <span class="ident">reassembly_data</span>.<span class="ident">buffer</span>.<span class="ident">write_all</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">fragment_payload</span>)<span class="question-mark">?</span>;
 
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">acked_header</span>) <span class="op">=</span> <span class="ident">acked_header</span> {
@@ -352,7 +352,7 @@
             <span class="ident">total_buffer</span> <span class="op">=</span> <span class="ident">reassembly_data</span>.<span class="ident">buffer</span>.<span class="ident">clone</span>();
         }
 
-        <span class="comment">// if we received all fragments then remove entry and return the total received bytes.</span>
+        <span class="comment">// if we received all fragments then remove entry and return the total received bytes.</span>
         <span class="kw">if</span> <span class="ident">num_fragments_received</span> <span class="op">=</span><span class="op">=</span> <span class="ident">num_fragments_total</span> {
             <span class="kw">let</span> <span class="ident">sequence</span> <span class="op">=</span> <span class="ident">sequence</span> <span class="kw">as</span> <span class="ident">u16</span>;
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">mut</span> <span class="ident">reassembly_data</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">fragments</span>.<span class="ident">remove</span>(<span class="ident">sequence</span>) {
@@ -370,7 +370,7 @@
         <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>)
     }
 
-    <span class="doccomment">/// If fragment does not exist we need to insert a new entry.</span>
+    <span class="doccomment">/// If fragment does not exist we need to insert a new entry.</span>
     <span class="kw">fn</span> <span class="ident">create_fragment_if_not_exists</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">fragment_header</span>: <span class="ident">FragmentHeader</span>) {
         <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">fragments</span>.<span class="ident">exists</span>(<span class="ident">fragment_header</span>.<span class="ident">sequence</span>()) {
             <span class="kw">let</span> <span class="ident">reassembly_data</span> <span class="op">=</span> <span class="ident">ReassemblyData</span>::<span class="ident">new</span>(

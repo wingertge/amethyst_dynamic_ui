@@ -295,18 +295,18 @@
 
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">io</span>::<span class="ident">Cursor</span>;
 
-<span class="doccomment">/// Can be used to read the packet contents of laminar.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// # Remarks</span>
-<span class="doccomment">/// - `PacketReader` is using an underlying `Cursor` to manage the reading of the bytes.</span>
-<span class="doccomment">/// - `PacketReader` can interpret where some data is located in the buffer, that&#39;s why you don&#39;t have to worry about the position of the `Cursor`.</span>
+<span class="doccomment">/// Can be used to read the packet contents of laminar.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Remarks</span>
+<span class="doccomment">/// - `PacketReader` is using an underlying `Cursor` to manage the reading of the bytes.</span>
+<span class="doccomment">/// - `PacketReader` can interpret where some data is located in the buffer, that&#39;s why you don&#39;t have to worry about the position of the `Cursor`.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PacketReader</span><span class="op">&lt;</span><span class="lifetime">&#39;s</span><span class="op">&gt;</span> {
     <span class="ident">buffer</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;s</span> [<span class="ident">u8</span>],
     <span class="ident">cursor</span>: <span class="ident">Cursor</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;s</span> [<span class="ident">u8</span>]<span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;s</span><span class="op">&gt;</span> <span class="ident">PacketReader</span><span class="op">&lt;</span><span class="lifetime">&#39;s</span><span class="op">&gt;</span> {
-    <span class="doccomment">/// Construct a new instance of `PacketReader`, the given `buffer` will be used to read information from.</span>
+    <span class="doccomment">/// Construct a new instance of `PacketReader`, the given `buffer` will be used to read information from.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">buffer</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;s</span> [<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">PacketReader</span><span class="op">&lt;</span><span class="lifetime">&#39;s</span><span class="op">&gt;</span> {
         <span class="ident">PacketReader</span> {
             <span class="ident">buffer</span>,
@@ -314,10 +314,10 @@
         }
     }
 
-    <span class="doccomment">/// Read the `StandardHeader` from the underlying buffer.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Remark</span>
-    <span class="doccomment">/// - Will change the position to the location of `StandardHeader`</span>
+    <span class="doccomment">/// Read the `StandardHeader` from the underlying buffer.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Remark</span>
+    <span class="doccomment">/// - Will change the position to the location of `StandardHeader`</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">read_standard_header</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">StandardHeader</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">cursor</span>.<span class="ident">set_position</span>(<span class="number">0</span>);
 
@@ -328,10 +328,10 @@
         }
     }
 
-    <span class="doccomment">/// Read the `StandardHeader` from the underlying buffer.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Remark</span>
-    <span class="doccomment">/// - Will change the position to the location of `StandardHeader`</span>
+    <span class="doccomment">/// Read the `StandardHeader` from the underlying buffer.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Remark</span>
+    <span class="doccomment">/// - Will change the position to the location of `StandardHeader`</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">read_arranging_header</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">start_offset</span>: <span class="ident">u16</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ArrangingHeader</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">cursor</span>.<span class="ident">set_position</span>(<span class="ident">u64</span>::<span class="ident">from</span>(<span class="ident">start_offset</span>));
 
@@ -342,12 +342,12 @@
         }
     }
 
-    <span class="doccomment">/// Read the `AckedPacketHeader` from the underlying buffer.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Remark</span>
-    <span class="doccomment">/// - Will change the position to the location of `AckedPacketHeader`</span>
+    <span class="doccomment">/// Read the `AckedPacketHeader` from the underlying buffer.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Remark</span>
+    <span class="doccomment">/// - Will change the position to the location of `AckedPacketHeader`</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">read_acknowledge_header</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">AckedPacketHeader</span><span class="op">&gt;</span> {
-        <span class="comment">// acknowledge header comes after standard header.</span>
+        <span class="comment">// acknowledge header comes after standard header.</span>
         <span class="self">self</span>.<span class="ident">cursor</span>.<span class="ident">set_position</span>(<span class="ident">u64</span>::<span class="ident">from</span>(<span class="ident">STANDARD_HEADER_SIZE</span>));
 
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">can_read</span>(<span class="ident">AckedPacketHeader</span>::<span class="ident">size</span>()) {
@@ -359,13 +359,13 @@
         }
     }
 
-    <span class="doccomment">/// Read the `FragmentHeader` and optionally the `AckedPacketHeader` from the underlying buffer.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Remark</span>
-    <span class="doccomment">/// - Notice that this will continue on the position of last read header;</span>
-    <span class="doccomment">/// e.g. when reading `StandardHeader` the position of the underlying `Cursor` will be at the end where it left of,</span>
-    <span class="doccomment">/// when calling this function afterward it will read the `FragmentHeader` from there on.</span>
-    <span class="doccomment">/// - Note that only the first fragment of a sequence contains acknowledgment information that&#39;s why `AckedPacketHeader` is optional.</span>
+    <span class="doccomment">/// Read the `FragmentHeader` and optionally the `AckedPacketHeader` from the underlying buffer.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Remark</span>
+    <span class="doccomment">/// - Notice that this will continue on the position of last read header;</span>
+    <span class="doccomment">/// e.g. when reading `StandardHeader` the position of the underlying `Cursor` will be at the end where it left of,</span>
+    <span class="doccomment">/// when calling this function afterward it will read the `FragmentHeader` from there on.</span>
+    <span class="doccomment">/// - Note that only the first fragment of a sequence contains acknowledgment information that&#39;s why `AckedPacketHeader` is optional.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">read_fragment</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">FragmentHeader</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AckedPacketHeader</span><span class="op">&gt;</span>)<span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">can_read</span>(<span class="ident">FragmentHeader</span>::<span class="ident">size</span>()) {
             <span class="kw">let</span> <span class="ident">fragment_header</span> <span class="op">=</span> <span class="ident">FragmentHeader</span>::<span class="ident">read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">cursor</span>)<span class="question-mark">?</span>;
@@ -382,19 +382,19 @@
         }
     }
 
-    <span class="doccomment">/// Read the payload` from the underlying buffer.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Remark</span>
-    <span class="doccomment">/// - Notice that this will continue on the position of last read header;</span>
-    <span class="doccomment">/// e.g. when reading `StandardHeader` the position of the underlying `Cursor` will be at the end where it left of,</span>
-    <span class="doccomment">/// when calling this function afterward it will read all the bytes from there on.</span>
+    <span class="doccomment">/// Read the payload` from the underlying buffer.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Remark</span>
+    <span class="doccomment">/// - Notice that this will continue on the position of last read header;</span>
+    <span class="doccomment">/// e.g. when reading `StandardHeader` the position of the underlying `Cursor` will be at the end where it left of,</span>
+    <span class="doccomment">/// when calling this function afterward it will read all the bytes from there on.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">read_payload</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">buffer</span>[<span class="self">self</span>.<span class="ident">cursor</span>.<span class="ident">position</span>() <span class="kw">as</span> <span class="ident">usize</span>..<span class="self">self</span>.<span class="ident">buffer</span>.<span class="ident">len</span>()]
             .<span class="ident">to_vec</span>()
             .<span class="ident">into_boxed_slice</span>()
     }
 
-    <span class="comment">// checks if a given length of bytes could be read with the buffer.</span>
+    <span class="comment">// checks if a given length of bytes could be read with the buffer.</span>
     <span class="kw">fn</span> <span class="ident">can_read</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">length</span>: <span class="ident">u8</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         (<span class="self">self</span>.<span class="ident">buffer</span>.<span class="ident">len</span>() <span class="op">-</span> <span class="self">self</span>.<span class="ident">cursor</span>.<span class="ident">position</span>() <span class="kw">as</span> <span class="ident">usize</span>) <span class="op">&gt;</span><span class="op">=</span> <span class="ident">length</span> <span class="kw">as</span> <span class="ident">usize</span>
     }
@@ -416,7 +416,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">assure_read_standard_header</span>() {
-        <span class="comment">// standard header</span>
+        <span class="comment">// standard header</span>
         <span class="kw">let</span> <span class="ident">reliable_ordered_payload</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>]].<span class="ident">concat</span>();
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">reader</span> <span class="op">=</span> <span class="ident">PacketReader</span>::<span class="ident">new</span>(<span class="ident">reliable_ordered_payload</span>.<span class="ident">as_slice</span>());
@@ -437,7 +437,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">assure_read_acknowledgment_header</span>() {
-        <span class="comment">// standard header, acked header</span>
+        <span class="comment">// standard header, acked header</span>
         <span class="kw">let</span> <span class="ident">reliable_ordered_payload</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span>
             <span class="macro">vec</span><span class="macro">!</span>[<span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>], <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">3</span>]].<span class="ident">concat</span>();
 
@@ -452,7 +452,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">assure_read_fragment_header</span>() {
-        <span class="comment">// standard header, acked header, arranging header</span>
+        <span class="comment">// standard header, acked header, arranging header</span>
         <span class="kw">let</span> <span class="ident">reliable_ordered_payload</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[
             <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>],
             <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">3</span>],
@@ -487,7 +487,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">assure_read_unreliable_sequenced_header</span>() {
-        <span class="comment">// standard header, arranging header</span>
+        <span class="comment">// standard header, arranging header</span>
         <span class="kw">let</span> <span class="ident">reliable_ordered_payload</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>], <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>]].<span class="ident">concat</span>();
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">reader</span> <span class="op">=</span> <span class="ident">PacketReader</span>::<span class="ident">new</span>(<span class="ident">reliable_ordered_payload</span>.<span class="ident">as_slice</span>());
@@ -502,7 +502,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">assure_read_reliable_ordered_header</span>() {
-        <span class="comment">// standard header, acked header, arranging header</span>
+        <span class="comment">// standard header, acked header, arranging header</span>
         <span class="kw">let</span> <span class="ident">reliable_ordered_payload</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[
             <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>],
             <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">3</span>],
@@ -538,7 +538,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">assure_read_reliable_unordered_header</span>() {
-        <span class="comment">// standard header, acked header, arranging header</span>
+        <span class="comment">// standard header, acked header, arranging header</span>
         <span class="kw">let</span> <span class="ident">reliable_ordered_payload</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span>
             <span class="macro">vec</span><span class="macro">!</span>[<span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>], <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">3</span>]].<span class="ident">concat</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">reader</span> <span class="op">=</span> <span class="ident">PacketReader</span>::<span class="ident">new</span>(<span class="ident">reliable_ordered_payload</span>.<span class="ident">as_slice</span>());
@@ -564,7 +564,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">expect_read_error</span>() {
-        <span class="comment">// standard header (with one corrupt byte)</span>
+        <span class="comment">// standard header (with one corrupt byte)</span>
         <span class="kw">let</span> <span class="ident">reliable_ordered_payload</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>]].<span class="ident">concat</span>();
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">reader</span> <span class="op">=</span> <span class="ident">PacketReader</span>::<span class="ident">new</span>(<span class="ident">reliable_ordered_payload</span>.<span class="ident">as_slice</span>());

@@ -547,7 +547,7 @@
 <span id="544">544</span>
 <span id="545">545</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="doccomment">//! Defines present node.</span>
+<span class="doccomment">//! Defines present node.</span>
 
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">command</span>::{
@@ -586,7 +586,7 @@
     }
 }
 
-<span class="doccomment">/// Node that presents images to the surface.</span>
+<span class="doccomment">/// Node that presents images to the surface.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PresentNode</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">gfx_hal</span>::<span class="ident">Backend</span><span class="op">&gt;</span> {
     <span class="ident">per_image</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ForImage</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span><span class="op">&gt;</span>,
@@ -597,7 +597,7 @@
     <span class="ident">blit_filter</span>: <span class="ident">gfx_hal</span>::<span class="ident">image</span>::<span class="ident">Filter</span>,
 }
 
-<span class="comment">// Raw pointer destroys Send/Sync autoimpl, but it&#39;s always from the same graph.</span>
+<span class="comment">// Raw pointer destroys Send/Sync autoimpl, but it&#39;s always from the same graph.</span>
 <span class="kw">unsafe</span> <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">gfx_hal</span>::<span class="ident">Backend</span><span class="op">&gt;</span> <span class="ident">Sync</span> <span class="kw">for</span> <span class="ident">PresentNode</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> {}
 <span class="kw">unsafe</span> <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">gfx_hal</span>::<span class="ident">Backend</span><span class="op">&gt;</span> <span class="ident">Send</span> <span class="kw">for</span> <span class="ident">PresentNode</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> {}
 
@@ -605,13 +605,13 @@
 <span class="kw">where</span>
     <span class="ident">B</span>: <span class="ident">gfx_hal</span>::<span class="ident">Backend</span>,
 {
-    <span class="doccomment">/// Node builder.</span>
-    <span class="doccomment">/// By default attempts to use 3 images in the swapchain with present mode priority:</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Mailbox &gt; Fifo &gt; Relaxed &gt; Immediate.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// You can query the real image count and present mode which will be used with</span>
-    <span class="doccomment">/// `PresentBuilder::image_count()` and `PresentBuilder::present_mode()`.</span>
+    <span class="doccomment">/// Node builder.</span>
+    <span class="doccomment">/// By default attempts to use 3 images in the swapchain with present mode priority:</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Mailbox &gt; Fifo &gt; Relaxed &gt; Immediate.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// You can query the real image count and present mode which will be used with</span>
+    <span class="doccomment">/// `PresentBuilder::image_count()` and `PresentBuilder::present_mode()`.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">builder</span>(<span class="ident">factory</span>: <span class="kw-2">&amp;</span><span class="ident">Factory</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>, <span class="ident">surface</span>: <span class="ident">Surface</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>, <span class="ident">image</span>: <span class="ident">ImageId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">PresentBuilder</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> {
         <span class="kw">let</span> (<span class="ident">caps</span>, <span class="ident">_f</span>, <span class="ident">present_modes_caps</span>) <span class="op">=</span> <span class="ident">factory</span>.<span class="ident">get_surface_compatibility</span>(<span class="kw-2">&amp;</span><span class="ident">surface</span>);
 
@@ -803,7 +803,7 @@
     <span class="prelude-val">Ok</span>(<span class="ident">per_image</span>)
 }
 
-<span class="doccomment">/// Presentation node description.</span>
+<span class="doccomment">/// Presentation node description.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PresentBuilder</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">gfx_hal</span>::<span class="ident">Backend</span><span class="op">&gt;</span> {
     <span class="ident">surface</span>: <span class="ident">Surface</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>,
@@ -820,25 +820,25 @@
 <span class="kw">where</span>
     <span class="ident">B</span>: <span class="ident">gfx_hal</span>::<span class="ident">Backend</span>,
 {
-    <span class="doccomment">/// Add dependency.</span>
-    <span class="doccomment">/// Node will be placed after its dependencies.</span>
+    <span class="doccomment">/// Add dependency.</span>
+    <span class="doccomment">/// Node will be placed after its dependencies.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_dependency</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">dependency</span>: <span class="ident">NodeId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">dependencies</span>.<span class="ident">push</span>(<span class="ident">dependency</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Add dependency.</span>
-    <span class="doccomment">/// Node will be placed after its dependencies.</span>
+    <span class="doccomment">/// Add dependency.</span>
+    <span class="doccomment">/// Node will be placed after its dependencies.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_dependency</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">dependency</span>: <span class="ident">NodeId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">add_dependency</span>(<span class="ident">dependency</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Request a number of images in the swapchain. This is not guaranteed</span>
-    <span class="doccomment">/// to be the final image count, but it will be if supported by the hardware.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Check `PresentBuilder::image_count()` after calling this function but before</span>
-    <span class="doccomment">/// building to see the final image count.</span>
+    <span class="doccomment">/// Request a number of images in the swapchain. This is not guaranteed</span>
+    <span class="doccomment">/// to be the final image count, but it will be if supported by the hardware.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Check `PresentBuilder::image_count()` after calling this function but before</span>
+    <span class="doccomment">/// building to see the final image count.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_image_count</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">image_count</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">image_count</span> <span class="op">=</span> <span class="ident">image_count</span>
             .<span class="ident">min</span>(<span class="kw-2">*</span><span class="self">self</span>.<span class="ident">img_count_caps</span>.<span class="ident">end</span>())
@@ -847,27 +847,27 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Set up filter used for resizing when backbuffer size does not match source image size.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Default is `Nearest`.</span>
+    <span class="doccomment">/// Set up filter used for resizing when backbuffer size does not match source image size.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Default is `Nearest`.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_blit_filter</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">filter</span>: <span class="ident">gfx_hal</span>::<span class="ident">image</span>::<span class="ident">Filter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">blit_filter</span> <span class="op">=</span> <span class="ident">filter</span>;
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Request a priority of present modes when creating the swapchain for the</span>
-    <span class="doccomment">/// PresentNode. Lower index means higher priority.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Check `PresentBuilder::present_mode()` after calling this function but before</span>
-    <span class="doccomment">/// building to see the final present mode.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ## Parameters</span>
-    <span class="doccomment">/// - present_modes_priority: A function which takes a `gfx_hal::PresentMode` and returns</span>
-    <span class="doccomment">/// an `Option&lt;usize&gt;`. `None` indicates not to use this mode, and a higher number returned</span>
-    <span class="doccomment">/// indicates a higher prioirity for that mode.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ## Panics</span>
-    <span class="doccomment">/// - Panics if none of the provided `PresentMode`s are supported.</span>
+    <span class="doccomment">/// Request a priority of present modes when creating the swapchain for the</span>
+    <span class="doccomment">/// PresentNode. Lower index means higher priority.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Check `PresentBuilder::present_mode()` after calling this function but before</span>
+    <span class="doccomment">/// building to see the final present mode.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// ## Parameters</span>
+    <span class="doccomment">/// - present_modes_priority: A function which takes a `gfx_hal::PresentMode` and returns</span>
+    <span class="doccomment">/// an `Option&lt;usize&gt;`. `None` indicates not to use this mode, and a higher number returned</span>
+    <span class="doccomment">/// indicates a higher prioirity for that mode.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// ## Panics</span>
+    <span class="doccomment">/// - Panics if none of the provided `PresentMode`s are supported.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_present_modes_priority</span><span class="op">&lt;</span><span class="ident">PF</span><span class="op">&gt;</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">present_modes_priority</span>: <span class="ident">PF</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span>
     <span class="kw">where</span>
         <span class="ident">PF</span>: <span class="ident">Fn</span>(<span class="ident">gfx_hal</span>::<span class="ident">PresentMode</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>,
@@ -890,12 +890,12 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Get image count in presentable swapchain.</span>
+    <span class="doccomment">/// Get image count in presentable swapchain.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">image_count</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
         <span class="self">self</span>.<span class="ident">image_count</span>
     }
 
-    <span class="doccomment">/// Get present mode used by node.</span>
+    <span class="doccomment">/// Get present mode used by node.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">present_mode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">gfx_hal</span>::<span class="ident">PresentMode</span> {
         <span class="self">self</span>.<span class="ident">present_mode</span>
     }
@@ -907,7 +907,7 @@
     <span class="ident">T</span>: <span class="question-mark">?</span><span class="ident">Sized</span>,
 {
     <span class="kw">fn</span> <span class="ident">family</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">factory</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Factory</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>, <span class="ident">families</span>: <span class="kw-2">&amp;</span>[<span class="ident">Family</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">FamilyId</span><span class="op">&gt;</span> {
-        <span class="comment">// Find correct queue family.</span>
+        <span class="comment">// Find correct queue family.</span>
         <span class="ident">families</span>
             .<span class="ident">iter</span>()
             .<span class="ident">find</span>(<span class="op">|</span><span class="ident">family</span><span class="op">|</span> <span class="ident">factory</span>.<span class="ident">surface_support</span>(<span class="ident">family</span>.<span class="ident">id</span>(), <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">surface</span>))
@@ -1036,23 +1036,23 @@
                                 <span class="string">&quot;Swapchain present error after next_image is acquired: {}&quot;</span>,
                                 <span class="ident">e</span>
                             );
-                            <span class="comment">// recreate swapchain on next frame.</span>
+                            <span class="comment">// recreate swapchain on next frame.</span>
                             <span class="kw">break</span>;
                         }
                     }
                 }
                 <span class="prelude-val">Err</span>(<span class="ident">gfx_hal</span>::<span class="ident">window</span>::<span class="ident">AcquireError</span>::<span class="ident">OutOfDate</span>) <span class="op">=</span><span class="op">&gt;</span> {
-                    <span class="comment">// recreate swapchain and try again.</span>
+                    <span class="comment">// recreate swapchain and try again.</span>
                 }
                 <span class="ident">e</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="ident">e</span>.<span class="ident">unwrap</span>();
                     <span class="kw">break</span>;
                 }
             }
-            <span class="comment">// Recreate swapchain when OutOfDate</span>
-            <span class="comment">// The code has to execute after match due to mutable aliasing issues.</span>
+            <span class="comment">// Recreate swapchain when OutOfDate</span>
+            <span class="comment">// The code has to execute after match due to mutable aliasing issues.</span>
 
-            <span class="comment">// TODO: use retired swapchains once available in hal and remove that wait</span>
+            <span class="comment">// TODO: use retired swapchains once available in hal and remove that wait</span>
             <span class="ident">factory</span>.<span class="ident">wait_idle</span>().<span class="ident">unwrap</span>();
 
             <span class="kw">let</span> <span class="ident">extent</span> <span class="op">=</span> <span class="ident">ctx</span>

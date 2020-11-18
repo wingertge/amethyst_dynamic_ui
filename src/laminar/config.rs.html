@@ -83,57 +83,57 @@
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">default</span>::<span class="ident">Default</span>, <span class="ident">time</span>::<span class="ident">Duration</span>};
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
-<span class="doccomment">/// Contains the configuration options to configure laminar for special use-cases.</span>
+<span class="doccomment">/// Contains the configuration options to configure laminar for special use-cases.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Config</span> {
-    <span class="doccomment">/// Make the underlying UDP socket block when true, otherwise non-blocking.</span>
+    <span class="doccomment">/// Make the underlying UDP socket block when true, otherwise non-blocking.</span>
     <span class="kw">pub</span> <span class="ident">blocking_mode</span>: <span class="ident">bool</span>,
-    <span class="doccomment">/// Value which can specify the amount of time that can pass without hearing from a client before considering them disconnected</span>
+    <span class="doccomment">/// Value which can specify the amount of time that can pass without hearing from a client before considering them disconnected</span>
     <span class="kw">pub</span> <span class="ident">idle_connection_timeout</span>: <span class="ident">Duration</span>,
-    <span class="doccomment">/// Value which specifies at which interval (if at all) a heartbeat should be sent, if no other packet was sent in the meantime.</span>
-    <span class="doccomment">/// If None, no heartbeats will be sent (the default).</span>
+    <span class="doccomment">/// Value which specifies at which interval (if at all) a heartbeat should be sent, if no other packet was sent in the meantime.</span>
+    <span class="doccomment">/// If None, no heartbeats will be sent (the default).</span>
     <span class="kw">pub</span> <span class="ident">heartbeat_interval</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Duration</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// Value which can specify the maximum size a packet can be in bytes. This value is inclusive of fragmenting; if a packet is fragmented, the total size of the fragments cannot exceed this value.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Recommended value: 16384</span>
+    <span class="doccomment">/// Value which can specify the maximum size a packet can be in bytes. This value is inclusive of fragmenting; if a packet is fragmented, the total size of the fragments cannot exceed this value.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Recommended value: 16384</span>
     <span class="kw">pub</span> <span class="ident">max_packet_size</span>: <span class="ident">usize</span>,
-    <span class="doccomment">/// Value which can specify the maximal allowed fragments.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Why can&#39;t I have more than 255 (u8)?</span>
-    <span class="doccomment">/// This is because you don&#39;t want to send more then 256 fragments over UDP, with high amounts of fragments the chance for an invalid packet is very high.</span>
-    <span class="doccomment">/// Use TCP instead (later we will probably support larger ranges but every fragment packet then needs to be resent if it doesn&#39;t get an acknowledgment).</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// default: 16 but keep in mind that lower is better.</span>
+    <span class="doccomment">/// Value which can specify the maximal allowed fragments.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Why can&#39;t I have more than 255 (u8)?</span>
+    <span class="doccomment">/// This is because you don&#39;t want to send more then 256 fragments over UDP, with high amounts of fragments the chance for an invalid packet is very high.</span>
+    <span class="doccomment">/// Use TCP instead (later we will probably support larger ranges but every fragment packet then needs to be resent if it doesn&#39;t get an acknowledgment).</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// default: 16 but keep in mind that lower is better.</span>
     <span class="kw">pub</span> <span class="ident">max_fragments</span>: <span class="ident">u8</span>,
-    <span class="doccomment">/// Value which can specify the size of a fragment.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This is the maximum size of each fragment. It defaults to `1450` bytes, due to the default MTU on most network devices being `1500`.</span>
+    <span class="doccomment">/// Value which can specify the size of a fragment.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This is the maximum size of each fragment. It defaults to `1450` bytes, due to the default MTU on most network devices being `1500`.</span>
     <span class="kw">pub</span> <span class="ident">fragment_size</span>: <span class="ident">u16</span>,
-    <span class="doccomment">/// Value which can specify the size of the buffer that queues up fragments ready to be reassembled once all fragments have arrived.```</span>
+    <span class="doccomment">/// Value which can specify the size of the buffer that queues up fragments ready to be reassembled once all fragments have arrived.```</span>
     <span class="kw">pub</span> <span class="ident">fragment_reassembly_buffer_size</span>: <span class="ident">u16</span>,
-    <span class="doccomment">/// Value that specifies the size of the buffer the UDP data will be read into. Defaults to `1450` bytes.</span>
+    <span class="doccomment">/// Value that specifies the size of the buffer the UDP data will be read into. Defaults to `1450` bytes.</span>
     <span class="kw">pub</span> <span class="ident">receive_buffer_max_size</span>: <span class="ident">usize</span>,
-    <span class="doccomment">/// Value which can specify the factor which will smooth out network jitter.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use-case: If one packet hast not arrived we don&#39;t directly want to transform to a bad network state.</span>
-    <span class="doccomment">/// Value that specifies the factor used to smooth out network jitter. It defaults to 10% of the round-trip time. It is expressed as a ratio, with 0 equal to 0% and 1 equal to 100%. This helps prevent flapping of `VirtualConnections`</span>
+    <span class="doccomment">/// Value which can specify the factor which will smooth out network jitter.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// use-case: If one packet hast not arrived we don&#39;t directly want to transform to a bad network state.</span>
+    <span class="doccomment">/// Value that specifies the factor used to smooth out network jitter. It defaults to 10% of the round-trip time. It is expressed as a ratio, with 0 equal to 0% and 1 equal to 100%. This helps prevent flapping of `VirtualConnections`</span>
     <span class="kw">pub</span> <span class="ident">rtt_smoothing_factor</span>: <span class="ident">f32</span>,
-    <span class="doccomment">/// Value which can specify the maximal round trip time (rtt) for packet.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Value which specifies the maximum round trip time before we consider it a problem. This is expressed in milliseconds.</span>
+    <span class="doccomment">/// Value which can specify the maximal round trip time (rtt) for packet.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Value which specifies the maximum round trip time before we consider it a problem. This is expressed in milliseconds.</span>
     <span class="kw">pub</span> <span class="ident">rtt_max_value</span>: <span class="ident">u16</span>,
-    <span class="doccomment">/// Value which can specify the event buffer we read socket events into.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Value that specifies the size of the event buffer into which we receive socket events, in bytes. Defaults to 1024.</span>
+    <span class="doccomment">/// Value which can specify the event buffer we read socket events into.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Value that specifies the size of the event buffer into which we receive socket events, in bytes. Defaults to 1024.</span>
     <span class="kw">pub</span> <span class="ident">socket_event_buffer_size</span>: <span class="ident">usize</span>,
-    <span class="doccomment">/// Value which can specify how long we should block polling for socket events.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Value that specifies how long we should block polling for socket events, in milliseconds. Defaults to `1ms`.</span>
+    <span class="doccomment">/// Value which can specify how long we should block polling for socket events.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Value that specifies how long we should block polling for socket events, in milliseconds. Defaults to `1ms`.</span>
     <span class="kw">pub</span> <span class="ident">socket_polling_timeout</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Duration</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// The maximum amount of reliable packets in flight on this connection before we drop the</span>
-    <span class="doccomment">/// connection.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// When we send a reliable packet, it is stored locally until an acknowledgement comes back to</span>
-    <span class="doccomment">/// us, if that store grows to a size</span>
+    <span class="doccomment">/// The maximum amount of reliable packets in flight on this connection before we drop the</span>
+    <span class="doccomment">/// connection.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// When we send a reliable packet, it is stored locally until an acknowledgement comes back to</span>
+    <span class="doccomment">/// us, if that store grows to a size</span>
     <span class="kw">pub</span> <span class="ident">max_packets_in_flight</span>: <span class="ident">u16</span>,
 }
 

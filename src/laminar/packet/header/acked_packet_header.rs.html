@@ -122,20 +122,20 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">io</span>::<span class="ident">Cursor</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
-<span class="doccomment">/// This header providing reliability information.</span>
+<span class="doccomment">/// This header providing reliability information.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AckedPacketHeader</span> {
-    <span class="doccomment">/// this is the sequence number so that we can know where in the sequence of packages this packet belongs.</span>
+    <span class="doccomment">/// this is the sequence number so that we can know where in the sequence of packages this packet belongs.</span>
     <span class="kw">pub</span> <span class="ident">seq</span>: <span class="ident">u16</span>,
-    <span class="comment">// this is the last acknowledged sequence number.</span>
+    <span class="comment">// this is the last acknowledged sequence number.</span>
     <span class="ident">ack_seq</span>: <span class="ident">u16</span>,
-    <span class="comment">// this is an bitfield of all last 32 acknowledged packages</span>
+    <span class="comment">// this is an bitfield of all last 32 acknowledged packages</span>
     <span class="ident">ack_field</span>: <span class="ident">u32</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">AckedPacketHeader</span> {
-    <span class="doccomment">/// When we compose packet headers, the local sequence becomes the sequence number of the packet, and the remote sequence becomes the ack.</span>
-    <span class="doccomment">/// The ack bitfield is calculated by looking into a queue of up to 33 packets, containing sequence numbers in the range [remote sequence - 32, remote sequence].</span>
-    <span class="doccomment">/// We set bit n (in [1,32]) in ack bits to 1 if the sequence number remote sequence - n is in the received queue.</span>
+    <span class="doccomment">/// When we compose packet headers, the local sequence becomes the sequence number of the packet, and the remote sequence becomes the ack.</span>
+    <span class="doccomment">/// The ack bitfield is calculated by looking into a queue of up to 33 packets, containing sequence numbers in the range [remote sequence - 32, remote sequence].</span>
+    <span class="doccomment">/// We set bit n (in [1,32]) in ack bits to 1 if the sequence number remote sequence - n is in the received queue.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">seq_num</span>: <span class="ident">u16</span>, <span class="ident">last_seq</span>: <span class="ident">u16</span>, <span class="ident">bit_field</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AckedPacketHeader</span> {
         <span class="ident">AckedPacketHeader</span> {
             <span class="ident">seq</span>: <span class="ident">seq_num</span>,
@@ -144,18 +144,18 @@
         }
     }
 
-    <span class="doccomment">/// Get the sequence number from this packet.</span>
+    <span class="doccomment">/// Get the sequence number from this packet.</span>
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sequence</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u16</span> {
         <span class="self">self</span>.<span class="ident">seq</span>
     }
 
-    <span class="doccomment">/// Get bit field of all last 32 acknowledged packages</span>
+    <span class="doccomment">/// Get bit field of all last 32 acknowledged packages</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ack_field</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
         <span class="self">self</span>.<span class="ident">ack_field</span>
     }
 
-    <span class="doccomment">/// Get last acknowledged sequence number.</span>
+    <span class="doccomment">/// Get last acknowledged sequence number.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ack_seq</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u16</span> {
         <span class="self">self</span>.<span class="ident">ack_seq</span>
     }

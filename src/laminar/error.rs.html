@@ -204,7 +204,7 @@
 <span id="201">201</span>
 <span id="202">202</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="doccomment">//! This module contains the laminar error handling logic.</span>
+<span class="doccomment">//! This module contains the laminar error handling logic.</span>
 
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">SocketEvent</span>;
 <span class="kw">use</span> <span class="ident">crossbeam_channel</span>::<span class="ident">SendError</span>;
@@ -214,27 +214,27 @@
     <span class="ident">io</span>, <span class="ident">result</span>,
 };
 
-<span class="doccomment">/// Wrapped result type for Laminar errors.</span>
+<span class="doccomment">/// Wrapped result type for Laminar errors.</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">result</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
-<span class="doccomment">/// Enum with all possible network errors that could occur.</span>
+<span class="doccomment">/// Enum with all possible network errors that could occur.</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ErrorKind</span> {
-    <span class="doccomment">/// Error in decoding the packet</span>
+    <span class="doccomment">/// Error in decoding the packet</span>
     <span class="ident">DecodingError</span>(<span class="ident">DecodingErrorKind</span>),
-    <span class="doccomment">/// Error relating to receiving or parsing a fragment</span>
+    <span class="doccomment">/// Error relating to receiving or parsing a fragment</span>
     <span class="ident">FragmentError</span>(<span class="ident">FragmentErrorKind</span>),
-    <span class="doccomment">/// Error relating to receiving or parsing a packet</span>
+    <span class="doccomment">/// Error relating to receiving or parsing a packet</span>
     <span class="ident">PacketError</span>(<span class="ident">PacketErrorKind</span>),
-    <span class="doccomment">/// Wrapper around a std io::Error</span>
+    <span class="doccomment">/// Wrapper around a std io::Error</span>
     <span class="ident">IOError</span>(<span class="ident">io</span>::<span class="ident">Error</span>),
-    <span class="doccomment">/// Did not receive enough data</span>
+    <span class="doccomment">/// Did not receive enough data</span>
     <span class="ident">ReceivedDataToShort</span>,
-    <span class="doccomment">/// Protocol versions did not match</span>
+    <span class="doccomment">/// Protocol versions did not match</span>
     <span class="ident">ProtocolVersionMismatch</span>,
-    <span class="doccomment">/// Could not send on `SendChannel`.</span>
+    <span class="doccomment">/// Could not send on `SendChannel`.</span>
     <span class="ident">SendError</span>(<span class="ident">SendError</span><span class="op">&lt;</span><span class="ident">SocketEvent</span><span class="op">&gt;</span>),
-    <span class="doccomment">/// Expected header but could not be read from buffer.</span>
+    <span class="doccomment">/// Expected header but could not be read from buffer.</span>
     <span class="ident">CouldNotReadHeader</span>(<span class="ident">String</span>),
 }
 
@@ -279,14 +279,14 @@
 
 <span class="kw">impl</span> <span class="ident">Error</span> <span class="kw">for</span> <span class="ident">ErrorKind</span> {}
 
-<span class="doccomment">/// Errors that could occur while parsing packet contents</span>
+<span class="doccomment">/// Errors that could occur while parsing packet contents</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Clone</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">DecodingErrorKind</span> {
-    <span class="doccomment">/// The [PacketType] could not be read</span>
+    <span class="doccomment">/// The [PacketType] could not be read</span>
     <span class="ident">PacketType</span>,
-    <span class="doccomment">/// The [OrderingGuarantee] could not be read</span>
+    <span class="doccomment">/// The [OrderingGuarantee] could not be read</span>
     <span class="ident">OrderingGuarantee</span>,
-    <span class="doccomment">/// The [DeliveryGuarantee] could not be read</span>
+    <span class="doccomment">/// The [DeliveryGuarantee] could not be read</span>
     <span class="ident">DeliveryGuarantee</span>,
 }
 
@@ -304,10 +304,10 @@
     }
 }
 
-<span class="doccomment">/// Errors that could occur while parsing packet contents</span>
+<span class="doccomment">/// Errors that could occur while parsing packet contents</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Clone</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">PacketErrorKind</span> {
-    <span class="doccomment">/// The maximal allowed size of the packet was exceeded</span>
+    <span class="doccomment">/// The maximal allowed size of the packet was exceeded</span>
     <span class="ident">ExceededMaxPacketSize</span>,
 }
 
@@ -321,22 +321,22 @@
     }
 }
 
-<span class="doccomment">/// Errors that could occur with constructing/parsing fragment contents</span>
+<span class="doccomment">/// Errors that could occur with constructing/parsing fragment contents</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Clone</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">FragmentErrorKind</span> {
-    <span class="doccomment">/// PacketHeader was not found in the packet</span>
+    <span class="doccomment">/// PacketHeader was not found in the packet</span>
     <span class="ident">PacketHeaderNotFound</span>,
-    <span class="doccomment">/// Max number of allowed fragments has been exceeded</span>
+    <span class="doccomment">/// Max number of allowed fragments has been exceeded</span>
     <span class="ident">ExceededMaxFragments</span>,
-    <span class="doccomment">/// This fragment was already processed</span>
+    <span class="doccomment">/// This fragment was already processed</span>
     <span class="ident">AlreadyProcessedFragment</span>,
-    <span class="doccomment">/// Attempted to fragment with an incorrect number of fragments</span>
+    <span class="doccomment">/// Attempted to fragment with an incorrect number of fragments</span>
     <span class="ident">FragmentWithUnevenNumberOfFragments</span>,
-    <span class="doccomment">/// Fragment we expected to be able to find we couldn&#39;t</span>
+    <span class="doccomment">/// Fragment we expected to be able to find we couldn&#39;t</span>
     <span class="ident">CouldNotFindFragmentById</span>,
-    <span class="doccomment">/// Multiple ack headers sent with these fragments</span>
+    <span class="doccomment">/// Multiple ack headers sent with these fragments</span>
     <span class="ident">MultipleAckHeaders</span>,
-    <span class="doccomment">/// Ack header is missing from a finished set of fragments</span>
+    <span class="doccomment">/// Ack header is missing from a finished set of fragments</span>
     <span class="ident">MissingAckHeader</span>,
 }
 

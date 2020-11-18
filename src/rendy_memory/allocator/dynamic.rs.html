@@ -669,7 +669,7 @@
     <span class="ident">hibitset</span>::{<span class="ident">BitSet</span>, <span class="ident">BitSetLike</span> <span class="kw">as</span> <span class="kw">_</span>},
 };
 
-<span class="doccomment">/// Memory block allocated from `DynamicAllocator`</span>
+<span class="doccomment">/// Memory block allocated from `DynamicAllocator`</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DynamicBlock</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">Backend</span><span class="op">&gt;</span> {
     <span class="ident">block_index</span>: <span class="ident">u32</span>,
@@ -689,7 +689,7 @@
     <span class="ident">B</span>: <span class="ident">Backend</span>,
 {
     <span class="kw">fn</span> <span class="ident">shared_memory</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">Memory</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> {
-        <span class="comment">// Memory won&#39;t be freed until last block created from it deallocated.</span>
+        <span class="comment">// Memory won&#39;t be freed until last block created from it deallocated.</span>
         <span class="kw">unsafe</span> { <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="self">self</span>.<span class="ident">memory</span> }
     }
 
@@ -751,45 +751,45 @@
     <span class="kw">fn</span> <span class="ident">unmap</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">_device</span>: <span class="kw-2">&amp;</span><span class="ident">B</span>::<span class="ident">Device</span>) {}
 }
 
-<span class="doccomment">/// Config for `DynamicAllocator`.</span>
+<span class="doccomment">/// Config for `DynamicAllocator`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;serde&quot;</span>, <span class="ident">derive</span>(<span class="ident">serde</span>::<span class="ident">Serialize</span>, <span class="ident">serde</span>::<span class="ident">Deserialize</span>))]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DynamicConfig</span> {
-    <span class="doccomment">/// All requests are rounded up to multiple of this value.</span>
+    <span class="doccomment">/// All requests are rounded up to multiple of this value.</span>
     <span class="kw">pub</span> <span class="ident">block_size_granularity</span>: <span class="ident">u64</span>,
 
-    <span class="doccomment">/// Maximum chunk of blocks size.</span>
-    <span class="doccomment">/// Actual chunk size is `min(max_chunk_size, block_size * blocks_per_chunk)`</span>
+    <span class="doccomment">/// Maximum chunk of blocks size.</span>
+    <span class="doccomment">/// Actual chunk size is `min(max_chunk_size, block_size * blocks_per_chunk)`</span>
     <span class="kw">pub</span> <span class="ident">max_chunk_size</span>: <span class="ident">u64</span>,
 
-    <span class="doccomment">/// Minimum size of device allocation.</span>
+    <span class="doccomment">/// Minimum size of device allocation.</span>
     <span class="kw">pub</span> <span class="ident">min_device_allocation</span>: <span class="ident">u64</span>,
 }
 
-<span class="doccomment">/// No-fragmentation allocator.</span>
-<span class="doccomment">/// Suitable for any type of small allocations.</span>
-<span class="doccomment">/// Every freed block can be reused.</span>
+<span class="doccomment">/// No-fragmentation allocator.</span>
+<span class="doccomment">/// Suitable for any type of small allocations.</span>
+<span class="doccomment">/// Every freed block can be reused.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DynamicAllocator</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">Backend</span><span class="op">&gt;</span> {
-    <span class="doccomment">/// Memory type that this allocator allocates.</span>
+    <span class="doccomment">/// Memory type that this allocator allocates.</span>
     <span class="ident">memory_type</span>: <span class="ident">gfx_hal</span>::<span class="ident">MemoryTypeId</span>,
 
-    <span class="doccomment">/// Memory properties of the memory type.</span>
+    <span class="doccomment">/// Memory properties of the memory type.</span>
     <span class="ident">memory_properties</span>: <span class="ident">gfx_hal</span>::<span class="ident">memory</span>::<span class="ident">Properties</span>,
 
-    <span class="doccomment">/// All requests are rounded up to multiple of this value.</span>
+    <span class="doccomment">/// All requests are rounded up to multiple of this value.</span>
     <span class="ident">block_size_granularity</span>: <span class="ident">u64</span>,
 
-    <span class="doccomment">/// Maximum chunk of blocks size.</span>
+    <span class="doccomment">/// Maximum chunk of blocks size.</span>
     <span class="ident">max_chunk_size</span>: <span class="ident">u64</span>,
 
-    <span class="doccomment">/// Minimum size of device allocation.</span>
+    <span class="doccomment">/// Minimum size of device allocation.</span>
     <span class="ident">min_device_allocation</span>: <span class="ident">u64</span>,
 
-    <span class="doccomment">/// Chunk lists.</span>
+    <span class="doccomment">/// Chunk lists.</span>
     <span class="ident">sizes</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">u64</span>, <span class="ident">SizeEntry</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// Ordered set of sizes that have allocated chunks.</span>
+    <span class="doccomment">/// Ordered set of sizes that have allocated chunks.</span>
     <span class="ident">chunks</span>: <span class="ident">BTreeSet</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
 }
 
@@ -798,13 +798,13 @@
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">struct</span> <span class="ident">SizeEntry</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">Backend</span><span class="op">&gt;</span> {
-    <span class="doccomment">/// Total count of allocated blocks with size corresponding to this entry.</span>
+    <span class="doccomment">/// Total count of allocated blocks with size corresponding to this entry.</span>
     <span class="ident">total_blocks</span>: <span class="ident">u64</span>,
 
-    <span class="doccomment">/// Bits per ready (non-exhausted) chunks with free blocks.</span>
+    <span class="doccomment">/// Bits per ready (non-exhausted) chunks with free blocks.</span>
     <span class="ident">ready_chunks</span>: <span class="ident">BitSet</span>,
 
-    <span class="doccomment">/// List of chunks.</span>
+    <span class="doccomment">/// List of chunks.</span>
     <span class="ident">chunks</span>: <span class="ident">slab</span>::<span class="ident">Slab</span><span class="op">&lt;</span><span class="ident">Chunk</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
@@ -828,9 +828,9 @@
 <span class="kw">where</span>
     <span class="ident">B</span>: <span class="ident">Backend</span>,
 {
-    <span class="doccomment">/// Create new `DynamicAllocator`</span>
-    <span class="doccomment">/// for `memory_type` with `memory_properties` specified,</span>
-    <span class="doccomment">/// with `DynamicConfig` provided.</span>
+    <span class="doccomment">/// Create new `DynamicAllocator`</span>
+    <span class="doccomment">/// for `memory_type` with `memory_properties` specified,</span>
+    <span class="doccomment">/// with `DynamicConfig` provided.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">memory_type</span>: <span class="ident">gfx_hal</span>::<span class="ident">MemoryTypeId</span>,
         <span class="ident">memory_properties</span>: <span class="ident">gfx_hal</span>::<span class="ident">memory</span>::<span class="ident">Properties</span>,
@@ -881,12 +881,12 @@
         }
     }
 
-    <span class="doccomment">/// Maximum allocation size.</span>
+    <span class="doccomment">/// Maximum allocation size.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">max_allocation</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u64</span> {
         <span class="self">self</span>.<span class="ident">max_chunk_size</span> <span class="op">/</span> <span class="ident">MIN_BLOCKS_PER_CHUNK</span> <span class="kw">as</span> <span class="ident">u64</span>
     }
 
-    <span class="doccomment">/// Allocate memory chunk from device.</span>
+    <span class="doccomment">/// Allocate memory chunk from device.</span>
     <span class="kw">fn</span> <span class="ident">alloc_chunk_from_device</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">device</span>: <span class="kw-2">&amp;</span><span class="ident">B</span>::<span class="ident">Device</span>,
@@ -899,9 +899,9 @@
             <span class="ident">block_size</span>
         );
 
-        <span class="comment">// Allocate from device.</span>
+        <span class="comment">// Allocate from device.</span>
         <span class="kw">let</span> (<span class="ident">memory</span>, <span class="ident">mapping</span>) <span class="op">=</span> <span class="kw">unsafe</span> {
-            <span class="comment">// Valid memory type specified.</span>
+            <span class="comment">// Valid memory type specified.</span>
             <span class="kw">let</span> <span class="ident">raw</span> <span class="op">=</span> <span class="ident">device</span>.<span class="ident">allocate_memory</span>(<span class="self">self</span>.<span class="ident">memory_type</span>, <span class="ident">chunk_size</span>)<span class="question-mark">?</span>;
 
             <span class="kw">let</span> <span class="ident">mapping</span> <span class="op">=</span> <span class="kw">if</span> <span class="self">self</span>
@@ -926,7 +926,7 @@
         <span class="prelude-val">Ok</span>(<span class="ident">Chunk</span>::<span class="ident">from_memory</span>(<span class="ident">block_size</span>, <span class="ident">memory</span>, <span class="ident">mapping</span>))
     }
 
-    <span class="doccomment">/// Allocate memory chunk for given block size.</span>
+    <span class="doccomment">/// Allocate memory chunk for given block size.</span>
     <span class="kw">fn</span> <span class="ident">alloc_chunk</span>(
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
         <span class="ident">device</span>: <span class="kw-2">&amp;</span><span class="ident">B</span>::<span class="ident">Device</span>,
@@ -943,12 +943,12 @@
         <span class="kw">let</span> <span class="ident">min_size</span> <span class="op">=</span> <span class="ident">min_chunk_size</span>.<span class="ident">min</span>(<span class="ident">total_blocks</span> <span class="op">*</span> <span class="ident">block_size</span>);
         <span class="kw">let</span> <span class="ident">max_chunk_size</span> <span class="op">=</span> <span class="ident">MAX_BLOCKS_PER_CHUNK</span> <span class="kw">as</span> <span class="ident">u64</span> <span class="op">*</span> <span class="ident">block_size</span>;
 
-        <span class="comment">// If smallest possible chunk size is larger then this allocator max allocation</span>
+        <span class="comment">// If smallest possible chunk size is larger then this allocator max allocation</span>
         <span class="kw">if</span> <span class="ident">min_size</span> <span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">max_allocation</span>()
             <span class="op">|</span><span class="op">|</span> (<span class="ident">total_blocks</span> <span class="op">&lt;</span> <span class="ident">MIN_BLOCKS_PER_CHUNK</span> <span class="kw">as</span> <span class="ident">u64</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">min_size</span> <span class="op">&gt;</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">min_device_allocation</span>)
         {
-            <span class="comment">// Allocate memory block from device.</span>
+            <span class="comment">// Allocate memory block from device.</span>
             <span class="kw">let</span> <span class="ident">chunk</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">alloc_chunk_from_device</span>(<span class="ident">device</span>, <span class="ident">block_size</span>, <span class="ident">min_size</span>)<span class="question-mark">?</span>;
             <span class="kw">return</span> <span class="prelude-val">Ok</span>((<span class="ident">chunk</span>, <span class="ident">min_size</span>));
         }
@@ -958,7 +958,7 @@
             .<span class="ident">range</span>(<span class="ident">min_chunk_size</span>..<span class="op">=</span><span class="ident">max_chunk_size</span>)
             .<span class="ident">next_back</span>()
         {
-            <span class="comment">// Allocate block for the chunk.</span>
+            <span class="comment">// Allocate block for the chunk.</span>
             <span class="kw">let</span> (<span class="ident">block</span>, <span class="ident">allocated</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">alloc_from_entry</span>(<span class="ident">device</span>, <span class="ident">chunk_size</span>, <span class="number">1</span>)<span class="question-mark">?</span>;
             <span class="prelude-val">Ok</span>((<span class="ident">Chunk</span>::<span class="ident">from_block</span>(<span class="ident">block_size</span>, <span class="ident">block</span>), <span class="ident">allocated</span>))
         } <span class="kw">else</span> {
@@ -971,7 +971,7 @@
         }
     }
 
-    <span class="doccomment">/// Allocate blocks from particular chunk.</span>
+    <span class="doccomment">/// Allocate blocks from particular chunk.</span>
     <span class="kw">fn</span> <span class="ident">alloc_from_chunk</span>(
         <span class="ident">chunks</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">slab</span>::<span class="ident">Slab</span><span class="op">&lt;</span><span class="ident">Chunk</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span><span class="op">&gt;</span>,
         <span class="ident">chunk_index</span>: <span class="ident">u32</span>,
@@ -1004,7 +1004,7 @@
         })
     }
 
-    <span class="doccomment">/// Allocate blocks from size entry.</span>
+    <span class="doccomment">/// Allocate blocks from size entry.</span>
     <span class="kw">fn</span> <span class="ident">alloc_from_entry</span>(
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
         <span class="ident">device</span>: <span class="kw-2">&amp;</span><span class="ident">B</span>::<span class="ident">Device</span>,
@@ -1047,7 +1047,7 @@
         <span class="prelude-val">Ok</span>((<span class="ident">block</span>, <span class="ident">allocated</span>))
     }
 
-    <span class="doccomment">/// Allocate block.</span>
+    <span class="doccomment">/// Allocate block.</span>
     <span class="kw">fn</span> <span class="ident">alloc_block</span>(
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
         <span class="ident">device</span>: <span class="kw-2">&amp;</span><span class="ident">B</span>::<span class="ident">Device</span>,
@@ -1124,7 +1124,7 @@
         }
     }
 
-    <span class="doccomment">/// Perform full cleanup of the memory allocated.</span>
+    <span class="doccomment">/// Perform full cleanup of the memory allocated.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">dispose</span>(<span class="self">self</span>) {
         <span class="kw">if</span> <span class="op">!</span><span class="ident">thread</span>::<span class="ident">panicking</span>() {
             <span class="kw">for</span> (<span class="ident">index</span>, <span class="ident">size</span>) <span class="kw">in</span> <span class="self">self</span>.<span class="ident">sizes</span> {
@@ -1176,13 +1176,13 @@
     }
 }
 
-<span class="doccomment">/// Block allocated for chunk.</span>
+<span class="doccomment">/// Block allocated for chunk.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">enum</span> <span class="ident">ChunkFlavor</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">Backend</span><span class="op">&gt;</span> {
-    <span class="doccomment">/// Allocated from device.</span>
+    <span class="doccomment">/// Allocated from device.</span>
     <span class="ident">Dedicated</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">Memory</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">NonNull</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>),
 
-    <span class="doccomment">/// Allocated from chunk of bigger blocks.</span>
+    <span class="doccomment">/// Allocated from chunk of bigger blocks.</span>
     <span class="ident">Dynamic</span>(<span class="ident">DynamicBlock</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>),
 }
 
@@ -1238,7 +1238,7 @@
         <span class="ident">range</span>.<span class="ident">end</span> <span class="op">-</span> <span class="ident">range</span>.<span class="ident">start</span>
     }
 
-    <span class="comment">// Get block bytes range</span>
+    <span class="comment">// Get block bytes range</span>
     <span class="kw">fn</span> <span class="ident">blocks_range</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">block_size</span>: <span class="ident">u64</span>, <span class="ident">block_index</span>: <span class="ident">u32</span>, <span class="ident">count</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Range</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">range</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">range</span>();
         <span class="kw">let</span> <span class="ident">start</span> <span class="op">=</span> <span class="ident">range</span>.<span class="ident">start</span> <span class="op">+</span> <span class="ident">block_size</span> <span class="op">*</span> <span class="ident">block_index</span> <span class="kw">as</span> <span class="ident">u64</span>;
@@ -1247,7 +1247,7 @@
         <span class="ident">start</span>..<span class="ident">end</span>
     }
 
-    <span class="doccomment">/// Check if there are free blocks.</span>
+    <span class="doccomment">/// Check if there are free blocks.</span>
     <span class="kw">fn</span> <span class="ident">is_unused</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">block_size</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">let</span> <span class="ident">blocks</span> <span class="op">=</span> (<span class="self">self</span>.<span class="ident">size</span>() <span class="op">/</span> <span class="ident">block_size</span>).<span class="ident">min</span>(<span class="ident">MAX_BLOCKS_PER_CHUNK</span> <span class="kw">as</span> <span class="ident">u64</span>);
 
@@ -1258,7 +1258,7 @@
         <span class="self">self</span>.<span class="ident">blocks</span> <span class="op">=</span><span class="op">=</span> <span class="ident">mask</span>
     }
 
-    <span class="doccomment">/// Check if there are free blocks.</span>
+    <span class="doccomment">/// Check if there are free blocks.</span>
     <span class="kw">fn</span> <span class="ident">is_exhausted</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">blocks</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span>
     }

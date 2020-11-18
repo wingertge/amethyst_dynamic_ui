@@ -54,9 +54,9 @@
 <span id="51">51</span>
 <span id="52">52</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="doccomment">//! Module that generates functions to load a single color into a 1x1 `Texture`. Which function</span>
-<span class="doccomment">//! to use depends on what color space the user is using.</span>
-<span class="doccomment">//!</span>
+<span class="doccomment">//! Module that generates functions to load a single color into a 1x1 `Texture`. Which function</span>
+<span class="doccomment">//! to use depends on what color space the user is using.</span>
+<span class="doccomment">//!</span>
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">pixel</span>, <span class="ident">texture</span>::<span class="ident">TextureBuilder</span>};
 <span class="kw">use</span> <span class="ident">palette</span>::{<span class="ident">white_point</span>::<span class="ident">WhitePoint</span>, <span class="ident">Component</span>};
 
@@ -71,7 +71,7 @@
         )
     };
     ($(<span class="kw">pub</span> <span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">load_fn</span>:<span class="ident">ident</span><span class="op">&lt;</span>$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span>:<span class="ident">ident</span>: <span class="macro-nonterminal">$</span><span class="kw">where</span>:<span class="macro-nonterminal">path</span>),<span class="kw-2">*</span><span class="op">&gt;</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">palette</span>:<span class="ident">ident</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">pixel</span>:<span class="ident">ident</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">swizzle</span>:<span class="ident">tt</span>;)<span class="kw-2">*</span>) <span class="op">=</span><span class="op">&gt;</span> {$(
-        <span class="doccomment">/// Function to load texture from `palette` pixels.</span>
+        <span class="doccomment">/// Function to load texture from `palette` pixels.</span>
         <span class="kw">pub</span> <span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">load_fn</span><span class="op">&lt;</span>$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span>),<span class="kw-2">*</span><span class="op">&gt;</span>(
             <span class="ident">palette</span>: <span class="ident">palette</span>::<span class="macro-nonterminal">$</span><span class="macro-nonterminal">palette</span><span class="op">&lt;</span>$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span>),<span class="kw-2">*</span><span class="op">&gt;</span>,
         ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TextureBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span><span class="op">&gt;</span>

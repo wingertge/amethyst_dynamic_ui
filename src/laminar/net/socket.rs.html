@@ -1305,7 +1305,7 @@
     <span class="ident">time</span>::{<span class="ident">Duration</span>, <span class="ident">Instant</span>},
 };
 
-<span class="doccomment">/// A reliable UDP socket implementation with configurable reliability and ordering guarantees.</span>
+<span class="doccomment">/// A reliable UDP socket implementation with configurable reliability and ordering guarantees.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Socket</span> {
     <span class="ident">socket</span>: <span class="ident">UdpSocket</span>,
@@ -1326,19 +1326,19 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Socket</span> {
-    <span class="doccomment">/// Binds to the socket and then sets up `ActiveConnections` to manage the &quot;connections&quot;.</span>
-    <span class="doccomment">/// Because UDP connections are not persistent, we can only infer the status of the remote</span>
-    <span class="doccomment">/// endpoint by looking to see if they are still sending packets or not</span>
+    <span class="doccomment">/// Binds to the socket and then sets up `ActiveConnections` to manage the &quot;connections&quot;.</span>
+    <span class="doccomment">/// Because UDP connections are not persistent, we can only infer the status of the remote</span>
+    <span class="doccomment">/// endpoint by looking to see if they are still sending packets or not</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">bind</span><span class="op">&lt;</span><span class="ident">A</span>: <span class="ident">ToSocketAddrs</span><span class="op">&gt;</span>(<span class="ident">addresses</span>: <span class="ident">A</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="ident">Socket</span>::<span class="ident">bind_with_config</span>(<span class="ident">addresses</span>, <span class="ident">Config</span>::<span class="ident">default</span>())
     }
 
-    <span class="doccomment">/// Bind to any local port on the system, if available</span>
+    <span class="doccomment">/// Bind to any local port on the system, if available</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">bind_any</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="self">Self</span>::<span class="ident">bind_any_with_config</span>(<span class="ident">Config</span>::<span class="ident">default</span>())
     }
 
-    <span class="doccomment">/// Bind to any local port on the system, if available, with a given config</span>
+    <span class="doccomment">/// Bind to any local port on the system, if available, with a given config</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">bind_any_with_config</span>(<span class="ident">config</span>: <span class="ident">Config</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">loopback</span> <span class="op">=</span> <span class="ident">Ipv4Addr</span>::<span class="ident">new</span>(<span class="number">127</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>);
         <span class="kw">let</span> <span class="ident">address</span> <span class="op">=</span> <span class="ident">SocketAddrV4</span>::<span class="ident">new</span>(<span class="ident">loopback</span>, <span class="number">0</span>);
@@ -1346,11 +1346,11 @@
         <span class="self">Self</span>::<span class="ident">bind_internal</span>(<span class="ident">socket</span>, <span class="ident">config</span>)
     }
 
-    <span class="doccomment">/// Binds to the socket and then sets up `ActiveConnections` to manage the &quot;connections&quot;.</span>
-    <span class="doccomment">/// Because UDP connections are not persistent, we can only infer the status of the remote</span>
-    <span class="doccomment">/// endpoint by looking to see if they are still sending packets or not</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This function allows you to configure laminar with the passed configuration.</span>
+    <span class="doccomment">/// Binds to the socket and then sets up `ActiveConnections` to manage the &quot;connections&quot;.</span>
+    <span class="doccomment">/// Because UDP connections are not persistent, we can only infer the status of the remote</span>
+    <span class="doccomment">/// endpoint by looking to see if they are still sending packets or not</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This function allows you to configure laminar with the passed configuration.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">bind_with_config</span><span class="op">&lt;</span><span class="ident">A</span>: <span class="ident">ToSocketAddrs</span><span class="op">&gt;</span>(<span class="ident">addresses</span>: <span class="ident">A</span>, <span class="ident">config</span>: <span class="ident">Config</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">socket</span> <span class="op">=</span> <span class="ident">UdpSocket</span>::<span class="ident">bind</span>(<span class="ident">addresses</span>)<span class="question-mark">?</span>;
         <span class="self">Self</span>::<span class="ident">bind_internal</span>(<span class="ident">socket</span>, <span class="ident">config</span>)
@@ -1374,21 +1374,21 @@
         })
     }
 
-    <span class="doccomment">/// Returns a handle to the packet sender which provides a thread-safe way to enqueue packets</span>
-    <span class="doccomment">/// to be processed. This should be used when the socket is busy running its polling loop in a</span>
-    <span class="doccomment">/// separate thread.</span>
+    <span class="doccomment">/// Returns a handle to the packet sender which provides a thread-safe way to enqueue packets</span>
+    <span class="doccomment">/// to be processed. This should be used when the socket is busy running its polling loop in a</span>
+    <span class="doccomment">/// separate thread.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_packet_sender</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Sender</span><span class="op">&lt;</span><span class="ident">Packet</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">sender</span>.<span class="ident">clone</span>()
     }
 
-    <span class="doccomment">/// Returns a handle to the event receiver which provides a thread-safe way to retrieve events</span>
-    <span class="doccomment">/// from the socket. This should be used when the socket is busy running its polling loop in</span>
-    <span class="doccomment">/// a separate thread.</span>
+    <span class="doccomment">/// Returns a handle to the event receiver which provides a thread-safe way to retrieve events</span>
+    <span class="doccomment">/// from the socket. This should be used when the socket is busy running its polling loop in</span>
+    <span class="doccomment">/// a separate thread.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_event_receiver</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Receiver</span><span class="op">&lt;</span><span class="ident">SocketEvent</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">receiver</span>.<span class="ident">clone</span>()
     }
 
-    <span class="doccomment">/// Send a packet</span>
+    <span class="doccomment">/// Send a packet</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">send</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">packet</span>: <span class="ident">Packet</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">sender</span>.<span class="ident">send</span>(<span class="ident">packet</span>) {
             <span class="prelude-val">Ok</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(()),
@@ -1398,7 +1398,7 @@
         }
     }
 
-    <span class="doccomment">/// Receive a packet</span>
+    <span class="doccomment">/// Receive a packet</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">recv</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SocketEvent</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">receiver</span>.<span class="ident">try_recv</span>() {
             <span class="prelude-val">Ok</span>(<span class="ident">pkt</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">pkt</span>),
@@ -1407,16 +1407,16 @@
         }
     }
 
-    <span class="doccomment">/// Entry point to the run loop. This should run in a spawned thread since calls to `poll.poll`</span>
-    <span class="doccomment">/// are blocking. We will default this to sleeping for 1ms.</span>
+    <span class="doccomment">/// Entry point to the run loop. This should run in a spawned thread since calls to `poll.poll`</span>
+    <span class="doccomment">/// are blocking. We will default this to sleeping for 1ms.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">start_polling</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
         <span class="self">self</span>.<span class="ident">start_polling_with_duration</span>(<span class="prelude-val">Some</span>(<span class="ident">Duration</span>::<span class="ident">from_millis</span>(<span class="number">1</span>)))
     }
 
-    <span class="doccomment">/// Run the polling loop with a specified sleep duration. This should run in a spawned thread</span>
-    <span class="doccomment">/// since calls to `poll.poll` are blocking.</span>
+    <span class="doccomment">/// Run the polling loop with a specified sleep duration. This should run in a spawned thread</span>
+    <span class="doccomment">/// since calls to `poll.poll` are blocking.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">start_polling_with_duration</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">sleep_duration</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Duration</span><span class="op">&gt;</span>) {
-        <span class="comment">// Nothing should break out of this loop!</span>
+        <span class="comment">// Nothing should break out of this loop!</span>
         <span class="kw">loop</span> {
             <span class="self">self</span>.<span class="ident">manual_poll</span>(<span class="ident">Instant</span>::<span class="ident">now</span>());
             <span class="kw">match</span> <span class="ident">sleep_duration</span> {
@@ -1426,9 +1426,9 @@
         }
     }
 
-    <span class="doccomment">/// Process any inbound/outbound packets and handle idle clients</span>
+    <span class="doccomment">/// Process any inbound/outbound packets and handle idle clients</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">manual_poll</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">time</span>: <span class="ident">Instant</span>) {
-        <span class="comment">// First we pull all newly arrived packets and handle them</span>
+        <span class="comment">// First we pull all newly arrived packets and handle them</span>
         <span class="kw">loop</span> {
             <span class="kw">match</span> <span class="self">self</span>.<span class="ident">recv_from</span>(<span class="ident">time</span>) {
                 <span class="prelude-val">Ok</span>(<span class="ident">UdpSocketState</span>::<span class="ident">MaybeMore</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">continue</span>,
@@ -1437,7 +1437,7 @@
             }
         }
 
-        <span class="comment">// Now grab all the packets waiting to be sent and send them</span>
+        <span class="comment">// Now grab all the packets waiting to be sent and send them</span>
         <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">p</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">packet_receiver</span>.<span class="ident">try_recv</span>() {
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">send_to</span>(<span class="ident">p</span>, <span class="ident">time</span>) {
                 <span class="kw">match</span> <span class="ident">e</span> {
@@ -1447,15 +1447,15 @@
             }
         }
 
-        <span class="comment">// Check for idle clients</span>
+        <span class="comment">// Check for idle clients</span>
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">handle_idle_clients</span>(<span class="ident">time</span>) {
             <span class="macro">error</span><span class="macro">!</span>(<span class="string">&quot;Encountered an error when sending TimeoutEvent: {:?}&quot;</span>, <span class="ident">e</span>);
         }
 
-        <span class="comment">// Handle any dead clients</span>
+        <span class="comment">// Handle any dead clients</span>
         <span class="self">self</span>.<span class="ident">handle_dead_clients</span>().<span class="ident">expect</span>(<span class="string">&quot;Internal laminar error&quot;</span>);
 
-        <span class="comment">// Finally send heartbeat packets to connections that require them, if enabled</span>
+        <span class="comment">// Finally send heartbeat packets to connections that require them, if enabled</span>
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">heartbeat_interval</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">heartbeat_interval</span> {
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">send_heartbeat_packets</span>(<span class="ident">heartbeat_interval</span>, <span class="ident">time</span>) {
                 <span class="kw">match</span> <span class="ident">e</span> {
@@ -1466,18 +1466,18 @@
         }
     }
 
-    <span class="doccomment">/// Set the link conditioner for this socket. See [LinkConditioner] for further details.</span>
+    <span class="doccomment">/// Set the link conditioner for this socket. See [LinkConditioner] for further details.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_link_conditioner</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">link_conditioner</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">LinkConditioner</span><span class="op">&gt;</span>) {
         <span class="self">self</span>.<span class="ident">link_conditioner</span> <span class="op">=</span> <span class="ident">link_conditioner</span>;
     }
 
-    <span class="doccomment">/// Get the local socket address</span>
+    <span class="doccomment">/// Get the local socket address</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">local_addr</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SocketAddr</span><span class="op">&gt;</span> {
         <span class="prelude-val">Ok</span>(<span class="self">self</span>.<span class="ident">socket</span>.<span class="ident">local_addr</span>()<span class="question-mark">?</span>)
     }
 
-    <span class="doccomment">/// Iterate through the dead connections and disconnect them by removing them from the</span>
-    <span class="doccomment">/// connection map while informing the user of this by sending an event.</span>
+    <span class="doccomment">/// Iterate through the dead connections and disconnect them by removing them from the</span>
+    <span class="doccomment">/// connection map while informing the user of this by sending an event.</span>
     <span class="kw">fn</span> <span class="ident">handle_dead_clients</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">dead_addresses</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">connections</span>.<span class="ident">dead_connections</span>();
         <span class="kw">for</span> <span class="ident">address</span> <span class="kw">in</span> <span class="ident">dead_addresses</span> {
@@ -1488,9 +1488,9 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="doccomment">/// Iterate through all of the idle connections based on `idle_connection_timeout` config and</span>
-    <span class="doccomment">/// remove them from the active connections. For each connection removed, we will send a</span>
-    <span class="doccomment">/// `SocketEvent::TimeOut` event to the `event_sender` channel.</span>
+    <span class="doccomment">/// Iterate through all of the idle connections based on `idle_connection_timeout` config and</span>
+    <span class="doccomment">/// remove them from the active connections. For each connection removed, we will send a</span>
+    <span class="doccomment">/// `SocketEvent::TimeOut` event to the `event_sender` channel.</span>
     <span class="kw">fn</span> <span class="ident">handle_idle_clients</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">time</span>: <span class="ident">Instant</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">idle_addresses</span> <span class="op">=</span> <span class="self">self</span>
             .<span class="ident">connections</span>
@@ -1503,8 +1503,8 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="doccomment">/// Iterate over all connections which have not sent a packet for a duration of at least</span>
-    <span class="doccomment">/// `heartbeat_interval` (from config), and send a heartbeat packet to each.</span>
+    <span class="doccomment">/// Iterate over all connections which have not sent a packet for a duration of at least</span>
+    <span class="doccomment">/// `heartbeat_interval` (from config), and send a heartbeat packet to each.</span>
     <span class="kw">fn</span> <span class="ident">send_heartbeat_packets</span>(
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
         <span class="ident">heartbeat_interval</span>: <span class="ident">Duration</span>,
@@ -1532,7 +1532,7 @@
         <span class="prelude-val">Ok</span>(<span class="ident">bytes_sent</span>)
     }
 
-    <span class="comment">// Serializes and sends a `Packet` on the socket. On success, returns the number of bytes written.</span>
+    <span class="comment">// Serializes and sends a `Packet` on the socket. On success, returns the number of bytes written.</span>
     <span class="kw">fn</span> <span class="ident">send_to</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">packet</span>: <span class="ident">Packet</span>, <span class="ident">time</span>: <span class="ident">Instant</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">connection</span> <span class="op">=</span>
             <span class="self">self</span>.<span class="ident">connections</span>
@@ -1544,9 +1544,9 @@
             .<span class="ident">flat_map</span>(<span class="op">|</span><span class="ident">waiting_packet</span><span class="op">|</span> {
                 <span class="ident">connection</span>.<span class="ident">process_outgoing</span>(
                     <span class="kw-2">&amp;</span><span class="ident">waiting_packet</span>.<span class="ident">payload</span>,
-                    <span class="comment">// Because a delivery guarantee is only sent with reliable packets</span>
+                    <span class="comment">// Because a delivery guarantee is only sent with reliable packets</span>
                     <span class="ident">DeliveryGuarantee</span>::<span class="ident">Reliable</span>,
-                    <span class="comment">// This is stored with the dropped packet because they could be mixed</span>
+                    <span class="comment">// This is stored with the dropped packet because they could be mixed</span>
                     <span class="ident">waiting_packet</span>.<span class="ident">ordering_guarantee</span>,
                     <span class="ident">waiting_packet</span>.<span class="ident">item_identifier</span>,
                     <span class="ident">time</span>,
@@ -1583,7 +1583,7 @@
         <span class="prelude-val">Ok</span>(<span class="ident">bytes_sent</span>)
     }
 
-    <span class="comment">// On success the packet will be sent on the `event_sender`</span>
+    <span class="comment">// On success the packet will be sent on the `event_sender`</span>
     <span class="kw">fn</span> <span class="ident">recv_from</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">time</span>: <span class="ident">Instant</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">UdpSocketState</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">socket</span>.<span class="ident">recv_from</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">recv_buffer</span>) {
             <span class="prelude-val">Ok</span>((<span class="ident">recv_len</span>, <span class="ident">address</span>)) <span class="op">=</span><span class="op">&gt;</span> {
@@ -1626,14 +1626,14 @@
         }
     }
 
-    <span class="comment">// Send a single packet over the UDP socket.</span>
+    <span class="comment">// Send a single packet over the UDP socket.</span>
     <span class="kw">fn</span> <span class="ident">send_packet</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">addr</span>: <span class="kw-2">&amp;</span><span class="ident">SocketAddr</span>, <span class="ident">payload</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">bytes_sent</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">socket</span>.<span class="ident">send_to</span>(<span class="ident">payload</span>, <span class="ident">addr</span>)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(<span class="ident">bytes_sent</span>)
     }
 
-    <span class="comment">// In the presence of a link conditioner, we would like it to determine whether or not we should</span>
-    <span class="comment">// send a packet.</span>
+    <span class="comment">// In the presence of a link conditioner, we would like it to determine whether or not we should</span>
+    <span class="comment">// send a packet.</span>
     <span class="kw">fn</span> <span class="ident">should_send_packet</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">link_conditioner</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">link_conditioner</span> {
             <span class="ident">link_conditioner</span>.<span class="ident">should_send</span>()
@@ -1761,7 +1761,7 @@
 
         <span class="kw">let</span> <span class="ident">time</span> <span class="op">=</span> <span class="ident">Instant</span>::<span class="ident">now</span>();
 
-        <span class="comment">// Send a packet that the server ignores/drops</span>
+        <span class="comment">// Send a packet that the server ignores/drops</span>
         <span class="ident">client</span>
             .<span class="ident">send</span>(<span class="ident">Packet</span>::<span class="ident">reliable_unordered</span>(
                 <span class="string">&quot;127.0.0.1:12335&quot;</span>.<span class="ident">parse</span>::<span class="op">&lt;</span><span class="ident">SocketAddr</span><span class="op">&gt;</span>().<span class="ident">unwrap</span>(),
@@ -1770,10 +1770,10 @@
             .<span class="ident">unwrap</span>();
         <span class="ident">client</span>.<span class="ident">manual_poll</span>(<span class="ident">time</span>);
 
-        <span class="comment">// Drop the inbound packet, this simulates a network error</span>
+        <span class="comment">// Drop the inbound packet, this simulates a network error</span>
         <span class="ident">server</span>.<span class="ident">forget_all_incoming_packets</span>();
 
-        <span class="comment">// Send a packet that the server receives</span>
+        <span class="comment">// Send a packet that the server receives</span>
         <span class="kw">for</span> <span class="ident">id</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">u8</span>::<span class="ident">max_value</span>() {
             <span class="ident">client</span>
                 .<span class="ident">send</span>(<span class="ident">create_test_packet</span>(<span class="ident">id</span>, <span class="string">&quot;127.0.0.1:12335&quot;</span>))
@@ -1802,7 +1802,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">server</span> <span class="op">=</span> <span class="ident">Socket</span>::<span class="ident">bind</span>(<span class="string">&quot;127.0.0.1:12337&quot;</span>.<span class="ident">parse</span>::<span class="op">&lt;</span><span class="ident">SocketAddr</span><span class="op">&gt;</span>().<span class="ident">unwrap</span>()).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">Socket</span>::<span class="ident">bind</span>(<span class="string">&quot;127.0.0.1:12338&quot;</span>.<span class="ident">parse</span>::<span class="op">&lt;</span><span class="ident">SocketAddr</span><span class="op">&gt;</span>().<span class="ident">unwrap</span>()).<span class="ident">unwrap</span>();
 
-        <span class="comment">// Send a bunch of packets to a server</span>
+        <span class="comment">// Send a bunch of packets to a server</span>
         <span class="kw">for</span> <span class="kw">_</span> <span class="kw">in</span> <span class="number">0</span>..<span class="number">3</span> {
             <span class="ident">client</span>
                 .<span class="ident">send</span>(<span class="ident">Packet</span>::<span class="ident">unreliable</span>(
@@ -1822,8 +1822,8 @@
         }
         <span class="macro">assert</span><span class="macro">!</span>[<span class="ident">server</span>.<span class="ident">recv</span>().<span class="ident">is_none</span>()];
 
-        <span class="comment">// The server shall not have any connection in its connection table even though it received</span>
-        <span class="comment">// packets</span>
+        <span class="comment">// The server shall not have any connection in its connection table even though it received</span>
+        <span class="comment">// packets</span>
         <span class="macro">assert_eq</span><span class="macro">!</span>[<span class="number">0</span>, <span class="ident">server</span>.<span class="ident">connection_count</span>()];
 
         <span class="ident">server</span>
@@ -1835,7 +1835,7 @@
 
         <span class="ident">server</span>.<span class="ident">manual_poll</span>(<span class="ident">time</span>);
 
-        <span class="comment">// The server only adds to its table after having sent explicitly</span>
+        <span class="comment">// The server only adds to its table after having sent explicitly</span>
         <span class="macro">assert_eq</span><span class="macro">!</span>[<span class="number">1</span>, <span class="ident">server</span>.<span class="ident">connection_count</span>()];
     }
 
@@ -1846,7 +1846,7 @@
 
         <span class="kw">let</span> <span class="ident">time</span> <span class="op">=</span> <span class="ident">Instant</span>::<span class="ident">now</span>();
 
-        <span class="comment">// Send a packet that the server ignores/drops</span>
+        <span class="comment">// Send a packet that the server ignores/drops</span>
         <span class="ident">client</span>
             .<span class="ident">send</span>(<span class="ident">Packet</span>::<span class="ident">reliable_sequenced</span>(
                 <span class="string">&quot;127.0.0.1:12329&quot;</span>.<span class="ident">parse</span>::<span class="op">&lt;</span><span class="ident">SocketAddr</span><span class="op">&gt;</span>().<span class="ident">unwrap</span>(),
@@ -1856,10 +1856,10 @@
             .<span class="ident">unwrap</span>();
         <span class="ident">client</span>.<span class="ident">manual_poll</span>(<span class="ident">time</span>);
 
-        <span class="comment">// Drop the inbound packet, this simulates a network error</span>
+        <span class="comment">// Drop the inbound packet, this simulates a network error</span>
         <span class="ident">server</span>.<span class="ident">forget_all_incoming_packets</span>();
 
-        <span class="comment">// Send a packet that the server receives</span>
+        <span class="comment">// Send a packet that the server receives</span>
         <span class="kw">for</span> <span class="ident">id</span> <span class="kw">in</span> <span class="number">0</span>..<span class="number">36</span> {
             <span class="ident">client</span>
                 .<span class="ident">send</span>(<span class="ident">create_sequenced_packet</span>(<span class="ident">id</span>, <span class="string">&quot;127.0.0.1:12329&quot;</span>))
@@ -1888,7 +1888,7 @@
 
         <span class="kw">let</span> <span class="ident">time</span> <span class="op">=</span> <span class="ident">Instant</span>::<span class="ident">now</span>();
 
-        <span class="comment">// Send a packet that the server ignores/drops</span>
+        <span class="comment">// Send a packet that the server ignores/drops</span>
         <span class="ident">client</span>
             .<span class="ident">send</span>(<span class="ident">Packet</span>::<span class="ident">reliable_ordered</span>(
                 <span class="string">&quot;127.0.0.1:12333&quot;</span>.<span class="ident">parse</span>::<span class="op">&lt;</span><span class="ident">SocketAddr</span><span class="op">&gt;</span>().<span class="ident">unwrap</span>(),
@@ -1898,10 +1898,10 @@
             .<span class="ident">unwrap</span>();
         <span class="ident">client</span>.<span class="ident">manual_poll</span>(<span class="ident">time</span>);
 
-        <span class="comment">// Drop the inbound packet, this simulates a network error</span>
+        <span class="comment">// Drop the inbound packet, this simulates a network error</span>
         <span class="ident">server</span>.<span class="ident">forget_all_incoming_packets</span>();
 
-        <span class="comment">// Send a packet that the server receives</span>
+        <span class="comment">// Send a packet that the server receives</span>
         <span class="kw">for</span> <span class="ident">id</span> <span class="kw">in</span> <span class="number">0</span>..<span class="number">35</span> {
             <span class="ident">client</span>
                 .<span class="ident">send</span>(<span class="ident">create_ordered_packet</span>(<span class="ident">id</span>, <span class="string">&quot;127.0.0.1:12333&quot;</span>))
@@ -1976,7 +1976,7 @@
         <span class="kw">let</span> <span class="ident">server_addr</span> <span class="op">=</span> <span class="ident">server</span>.<span class="ident">local_addr</span>().<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">client_addr</span> <span class="op">=</span> <span class="ident">client</span>.<span class="ident">local_addr</span>().<span class="ident">unwrap</span>();
 
-        <span class="comment">// Acknowledge the client</span>
+        <span class="comment">// Acknowledge the client</span>
         <span class="ident">server</span>
             .<span class="ident">send</span>(<span class="ident">Packet</span>::<span class="ident">unreliable</span>(<span class="ident">client_addr</span>, <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>]))
             .<span class="ident">unwrap</span>();
@@ -2133,7 +2133,7 @@
 
         <span class="kw">let</span> <span class="ident">fragment_packet_size</span> <span class="op">=</span> <span class="ident">STANDARD_HEADER_SIZE</span> <span class="op">+</span> <span class="ident">FRAGMENT_HEADER_SIZE</span>;
 
-        <span class="comment">// the first fragment of an sequence of fragments contains also the acknowledgment header.</span>
+        <span class="comment">// the first fragment of an sequence of fragments contains also the acknowledgment header.</span>
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="ident">server</span>
                 .<span class="ident">send_to</span>(
@@ -2192,7 +2192,7 @@
             <span class="ident">SocketEvent</span>::<span class="ident">Packet</span>(<span class="ident">Packet</span>::<span class="ident">unreliable</span>(<span class="ident">client_addr</span>, <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>]))
         );
 
-        <span class="comment">// Acknowledge the client</span>
+        <span class="comment">// Acknowledge the client</span>
         <span class="ident">server</span>
             .<span class="ident">send</span>(<span class="ident">Packet</span>::<span class="ident">unreliable</span>(<span class="ident">client_addr</span>, <span class="macro">vec</span><span class="macro">!</span>[]))
             .<span class="ident">unwrap</span>();
@@ -2200,20 +2200,20 @@
         <span class="ident">server</span>.<span class="ident">manual_poll</span>(<span class="ident">now</span>);
         <span class="ident">client</span>.<span class="ident">manual_poll</span>(<span class="ident">now</span>);
 
-        <span class="comment">// Make sure the connection was successful on the client side</span>
+        <span class="comment">// Make sure the connection was successful on the client side</span>
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="ident">client</span>.<span class="ident">recv</span>().<span class="ident">unwrap</span>(),
             <span class="ident">SocketEvent</span>::<span class="ident">Packet</span>(<span class="ident">Packet</span>::<span class="ident">unreliable</span>(<span class="ident">server_addr</span>, <span class="macro">vec</span><span class="macro">!</span>[]))
         );
 
-        <span class="comment">// Give just enough time for no timeout events to occur (yet)</span>
+        <span class="comment">// Give just enough time for no timeout events to occur (yet)</span>
         <span class="ident">server</span>.<span class="ident">manual_poll</span>(<span class="ident">now</span> <span class="op">+</span> <span class="ident">config</span>.<span class="ident">idle_connection_timeout</span> <span class="op">-</span> <span class="ident">Duration</span>::<span class="ident">from_millis</span>(<span class="number">1</span>));
         <span class="ident">client</span>.<span class="ident">manual_poll</span>(<span class="ident">now</span> <span class="op">+</span> <span class="ident">config</span>.<span class="ident">idle_connection_timeout</span> <span class="op">-</span> <span class="ident">Duration</span>::<span class="ident">from_millis</span>(<span class="number">1</span>));
 
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">server</span>.<span class="ident">recv</span>(), <span class="prelude-val">None</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">client</span>.<span class="ident">recv</span>(), <span class="prelude-val">None</span>);
 
-        <span class="comment">// Give enough time for timeouts to be detected</span>
+        <span class="comment">// Give enough time for timeouts to be detected</span>
         <span class="ident">server</span>.<span class="ident">manual_poll</span>(<span class="ident">now</span> <span class="op">+</span> <span class="ident">config</span>.<span class="ident">idle_connection_timeout</span>);
         <span class="ident">client</span>.<span class="ident">manual_poll</span>(<span class="ident">now</span> <span class="op">+</span> <span class="ident">config</span>.<span class="ident">idle_connection_timeout</span>);
 
@@ -2230,11 +2230,11 @@
         <span class="kw">let</span> <span class="ident">server_addr</span> <span class="op">=</span> <span class="string">&quot;127.0.0.1:12351&quot;</span>.<span class="ident">parse</span>::<span class="op">&lt;</span><span class="ident">SocketAddr</span><span class="op">&gt;</span>().<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">client_addr</span> <span class="op">=</span> <span class="string">&quot;127.0.0.1:12352&quot;</span>.<span class="ident">parse</span>::<span class="op">&lt;</span><span class="ident">SocketAddr</span><span class="op">&gt;</span>().<span class="ident">unwrap</span>();
 
-        <span class="comment">// Start up a server and a client.</span>
+        <span class="comment">// Start up a server and a client.</span>
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">server</span> <span class="op">=</span> <span class="ident">Socket</span>::<span class="ident">bind_with_config</span>(<span class="ident">server_addr</span>, <span class="ident">config</span>.<span class="ident">clone</span>()).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">Socket</span>::<span class="ident">bind_with_config</span>(<span class="ident">client_addr</span>, <span class="ident">config</span>.<span class="ident">clone</span>()).<span class="ident">unwrap</span>();
 
-        <span class="comment">// Initiate a connection</span>
+        <span class="comment">// Initiate a connection</span>
         <span class="ident">client</span>
             .<span class="ident">send</span>(<span class="ident">Packet</span>::<span class="ident">unreliable</span>(<span class="ident">server_addr</span>, <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>]))
             .<span class="ident">unwrap</span>();
@@ -2243,15 +2243,15 @@
         <span class="ident">client</span>.<span class="ident">manual_poll</span>(<span class="ident">now</span>);
         <span class="ident">server</span>.<span class="ident">manual_poll</span>(<span class="ident">now</span>);
 
-        <span class="comment">// Make sure the connection was successful on the server side</span>
+        <span class="comment">// Make sure the connection was successful on the server side</span>
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">server</span>.<span class="ident">recv</span>().<span class="ident">unwrap</span>(), <span class="ident">SocketEvent</span>::<span class="ident">Connect</span>(<span class="ident">client_addr</span>));
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="ident">server</span>.<span class="ident">recv</span>().<span class="ident">unwrap</span>(),
             <span class="ident">SocketEvent</span>::<span class="ident">Packet</span>(<span class="ident">Packet</span>::<span class="ident">unreliable</span>(<span class="ident">client_addr</span>, <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>]))
         );
 
-        <span class="comment">// Acknowledge the client</span>
-        <span class="comment">// This way, the server also knows about the connection and sends heartbeats</span>
+        <span class="comment">// Acknowledge the client</span>
+        <span class="comment">// This way, the server also knows about the connection and sends heartbeats</span>
         <span class="ident">server</span>
             .<span class="ident">send</span>(<span class="ident">Packet</span>::<span class="ident">unreliable</span>(<span class="ident">client_addr</span>, <span class="macro">vec</span><span class="macro">!</span>[]))
             .<span class="ident">unwrap</span>();
@@ -2259,21 +2259,21 @@
         <span class="ident">server</span>.<span class="ident">manual_poll</span>(<span class="ident">now</span>);
         <span class="ident">client</span>.<span class="ident">manual_poll</span>(<span class="ident">now</span>);
 
-        <span class="comment">// Make sure the connection was successful on the client side</span>
+        <span class="comment">// Make sure the connection was successful on the client side</span>
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="ident">client</span>.<span class="ident">recv</span>().<span class="ident">unwrap</span>(),
             <span class="ident">SocketEvent</span>::<span class="ident">Packet</span>(<span class="ident">Packet</span>::<span class="ident">unreliable</span>(<span class="ident">server_addr</span>, <span class="macro">vec</span><span class="macro">!</span>[]))
         );
 
-        <span class="comment">// Give time to send heartbeats</span>
+        <span class="comment">// Give time to send heartbeats</span>
         <span class="ident">client</span>.<span class="ident">manual_poll</span>(<span class="ident">now</span> <span class="op">+</span> <span class="ident">config</span>.<span class="ident">heartbeat_interval</span>.<span class="ident">unwrap</span>());
         <span class="ident">server</span>.<span class="ident">manual_poll</span>(<span class="ident">now</span> <span class="op">+</span> <span class="ident">config</span>.<span class="ident">heartbeat_interval</span>.<span class="ident">unwrap</span>());
 
-        <span class="comment">// Give time for timeouts to occur if no heartbeats were sent</span>
+        <span class="comment">// Give time for timeouts to occur if no heartbeats were sent</span>
         <span class="ident">client</span>.<span class="ident">manual_poll</span>(<span class="ident">now</span> <span class="op">+</span> <span class="ident">config</span>.<span class="ident">idle_connection_timeout</span>);
         <span class="ident">server</span>.<span class="ident">manual_poll</span>(<span class="ident">now</span> <span class="op">+</span> <span class="ident">config</span>.<span class="ident">idle_connection_timeout</span>);
 
-        <span class="comment">// Assert that no disconnection events occurred</span>
+        <span class="comment">// Assert that no disconnection events occurred</span>
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">client</span>.<span class="ident">recv</span>(), <span class="prelude-val">None</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">server</span>.<span class="ident">recv</span>(), <span class="prelude-val">None</span>);
     }
@@ -2298,13 +2298,13 @@
         <span class="kw">const</span> <span class="ident">LOCAL_ADDR</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;127.0.0.1:13000&quot;</span>;
         <span class="kw">const</span> <span class="ident">REMOTE_ADDR</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;127.0.0.1:14000&quot;</span>;
 
-        <span class="comment">// Start up a server and a client.</span>
+        <span class="comment">// Start up a server and a client.</span>
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">server</span> <span class="op">=</span> <span class="ident">Socket</span>::<span class="ident">bind</span>(<span class="ident">REMOTE_ADDR</span>.<span class="ident">parse</span>::<span class="op">&lt;</span><span class="ident">SocketAddr</span><span class="op">&gt;</span>().<span class="ident">unwrap</span>()).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">Socket</span>::<span class="ident">bind</span>(<span class="ident">LOCAL_ADDR</span>.<span class="ident">parse</span>::<span class="op">&lt;</span><span class="ident">SocketAddr</span><span class="op">&gt;</span>().<span class="ident">unwrap</span>()).<span class="ident">unwrap</span>();
 
         <span class="kw">let</span> <span class="ident">now</span> <span class="op">=</span> <span class="ident">Instant</span>::<span class="ident">now</span>();
 
-        <span class="comment">// Send enough packets to ensure that we must have dropped packets.</span>
+        <span class="comment">// Send enough packets to ensure that we must have dropped packets.</span>
         <span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span>..<span class="number">35</span> {
             <span class="ident">client</span>.<span class="ident">send</span>(<span class="ident">create_test_packet</span>(<span class="ident">i</span>, <span class="ident">REMOTE_ADDR</span>)).<span class="ident">unwrap</span>();
             <span class="ident">client</span>.<span class="ident">manual_poll</span>(<span class="ident">now</span>);
@@ -2321,16 +2321,16 @@
             }
         }
 
-        <span class="comment">// Ensure that we get the correct number of events to the server.</span>
-        <span class="comment">// 35 connect events plus the 35 messages</span>
+        <span class="comment">// Ensure that we get the correct number of events to the server.</span>
+        <span class="comment">// 35 connect events plus the 35 messages</span>
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">events</span>.<span class="ident">len</span>(), <span class="number">70</span>);
 
-        <span class="comment">// Finally the server decides to send us a message back. This necessarily will include</span>
-        <span class="comment">// the ack information for 33 of the sent 35 packets.</span>
+        <span class="comment">// Finally the server decides to send us a message back. This necessarily will include</span>
+        <span class="comment">// the ack information for 33 of the sent 35 packets.</span>
         <span class="ident">server</span>.<span class="ident">send</span>(<span class="ident">create_test_packet</span>(<span class="number">0</span>, <span class="ident">LOCAL_ADDR</span>)).<span class="ident">unwrap</span>();
         <span class="ident">server</span>.<span class="ident">manual_poll</span>(<span class="ident">now</span>);
 
-        <span class="comment">// Loop to ensure that the client gets the server message before moving on.</span>
+        <span class="comment">// Loop to ensure that the client gets the server message before moving on.</span>
         <span class="kw">loop</span> {
             <span class="ident">client</span>.<span class="ident">manual_poll</span>(<span class="ident">now</span>);
             <span class="kw">if</span> <span class="ident">client</span>.<span class="ident">recv</span>().<span class="ident">is_some</span>() {
@@ -2338,8 +2338,8 @@
             }
         }
 
-        <span class="comment">// This next sent message should end up sending the 2 unacked messages plus the new messages</span>
-        <span class="comment">// with payload 35</span>
+        <span class="comment">// This next sent message should end up sending the 2 unacked messages plus the new messages</span>
+        <span class="comment">// with payload 35</span>
         <span class="ident">events</span>.<span class="ident">clear</span>();
         <span class="ident">client</span>.<span class="ident">send</span>(<span class="ident">create_test_packet</span>(<span class="number">35</span>, <span class="ident">REMOTE_ADDR</span>)).<span class="ident">unwrap</span>();
         <span class="ident">client</span>.<span class="ident">manual_poll</span>(<span class="ident">now</span>);
@@ -2387,7 +2387,7 @@
 
         <span class="kw">let</span> <span class="ident">time</span> <span class="op">=</span> <span class="ident">Instant</span>::<span class="ident">now</span>();
 
-        <span class="comment">// We give both the server and the client a really bad bidirectional link</span>
+        <span class="comment">// We give both the server and the client a really bad bidirectional link</span>
         <span class="kw">let</span> <span class="ident">link_conditioner</span> <span class="op">=</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">lc</span> <span class="op">=</span> <span class="ident">LinkConditioner</span>::<span class="ident">new</span>();
             <span class="ident">lc</span>.<span class="ident">set_packet_loss</span>(<span class="number">0.9</span>);
@@ -2399,8 +2399,8 @@
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">set</span> <span class="op">=</span> <span class="ident">HashSet</span>::<span class="ident">new</span>();
 
-        <span class="comment">// We chat 100 packets between the client and server, which will re-send any non-acked</span>
-        <span class="comment">// packets</span>
+        <span class="comment">// We chat 100 packets between the client and server, which will re-send any non-acked</span>
+        <span class="comment">// packets</span>
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">send_many_packets</span> <span class="op">=</span> <span class="op">|</span><span class="ident">dummy</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">|</span> {
             <span class="kw">for</span> <span class="ident">id</span> <span class="kw">in</span> <span class="number">0</span>..<span class="number">100</span> {
                 <span class="ident">client</span>
@@ -2434,15 +2434,15 @@
             <span class="kw">return</span> <span class="ident">set</span>.<span class="ident">len</span>();
         };
 
-        <span class="comment">// The first chatting sequence sends packets 0..100 from the client to the server. After</span>
-        <span class="comment">// this we just chat with a value of 255 so we don&#39;t accidentally overlap those chatting</span>
-        <span class="comment">// packets with the packets we want to ack.</span>
+        <span class="comment">// The first chatting sequence sends packets 0..100 from the client to the server. After</span>
+        <span class="comment">// this we just chat with a value of 255 so we don&#39;t accidentally overlap those chatting</span>
+        <span class="comment">// packets with the packets we want to ack.</span>
         <span class="ident">send_many_packets</span>(<span class="prelude-val">None</span>);
         <span class="ident">send_many_packets</span>(<span class="prelude-val">Some</span>(<span class="number">255</span>));
         <span class="ident">send_many_packets</span>(<span class="prelude-val">Some</span>(<span class="number">255</span>));
         <span class="ident">send_many_packets</span>(<span class="prelude-val">Some</span>(<span class="number">255</span>));
 
-        <span class="comment">// 101 because we have 0..100 and 255 from the dummies</span>
+        <span class="comment">// 101 because we have 0..100 and 255 from the dummies</span>
         <span class="macro">assert_eq</span><span class="macro">!</span>[<span class="number">101</span>, <span class="ident">send_many_packets</span>(<span class="prelude-val">Some</span>(<span class="number">255</span>))];
     }
 
@@ -2514,7 +2514,7 @@
         <span class="kw">let</span> <span class="ident">time</span> <span class="op">=</span> <span class="ident">Instant</span>::<span class="ident">now</span>();
         <span class="kw">let</span> <span class="ident">dummy</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>];
 
-        <span class="comment">// ---</span>
+        <span class="comment">// ---</span>
 
         <span class="ident">client</span>
             .<span class="ident">send</span>(<span class="ident">Packet</span>::<span class="ident">unreliable</span>(<span class="ident">server_addr</span>, <span class="ident">dummy</span>.<span class="ident">clone</span>()))
@@ -2525,7 +2525,7 @@
             .<span class="ident">unwrap</span>();
         <span class="ident">server</span>.<span class="ident">manual_poll</span>(<span class="ident">time</span>);
 
-        <span class="comment">// ---</span>
+        <span class="comment">// ---</span>
 
         <span class="kw">let</span> <span class="ident">exceeds</span> <span class="op">=</span> <span class="string">b&quot;Fragmented string&quot;</span>.<span class="ident">to_vec</span>();
         <span class="ident">client</span>
@@ -2560,11 +2560,11 @@
                 .<span class="ident">unwrap</span>();
             <span class="ident">server</span>.<span class="ident">manual_poll</span>(<span class="ident">time</span>);
             <span class="macro">assert</span><span class="macro">!</span>[<span class="ident">client</span>.<span class="ident">recv</span>().<span class="ident">is_some</span>()];
-            <span class="comment">// If the last iteration returns None here, it indicates we just received a re-sent</span>
-            <span class="comment">// fragment, because `manual_poll` only processes a single incoming UDP packet per</span>
-            <span class="comment">// `manual_poll` if and only if the socket is in blocking mode.</span>
-            <span class="comment">//</span>
-            <span class="comment">// If that functionality is changed, we will receive something unexpected here</span>
+            <span class="comment">// If the last iteration returns None here, it indicates we just received a re-sent</span>
+            <span class="comment">// fragment, because `manual_poll` only processes a single incoming UDP packet per</span>
+            <span class="comment">// `manual_poll` if and only if the socket is in blocking mode.</span>
+            <span class="comment">//</span>
+            <span class="comment">// If that functionality is changed, we will receive something unexpected here</span>
             <span class="kw">match</span> <span class="ident">server</span>.<span class="ident">recv</span>() {
                 <span class="prelude-val">Some</span>(<span class="ident">SocketEvent</span>::<span class="ident">Packet</span>(<span class="ident">pkt</span>)) <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="macro">assert_eq</span><span class="macro">!</span>[<span class="ident">dummy</span>, <span class="ident">pkt</span>.<span class="ident">payload</span>()];

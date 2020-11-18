@@ -82,14 +82,14 @@
     }
 }
 
-<span class="doccomment">/// Boolean value.</span>
+<span class="doccomment">/// Boolean value.</span>
 <span class="attribute">#[<span class="macro-nonterminal">repr</span>(<span class="ident">C</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">boolean</span>(<span class="ident">u32</span>);
 <span class="macro">impl_scalar</span><span class="macro">!</span>(<span class="ident">boolean</span> : <span class="ident">Align4</span>);
 
 <span class="kw">impl</span> <span class="ident">boolean</span> {
-    <span class="doccomment">/// Create `boolean` from `bool`.</span>
+    <span class="doccomment">/// Create `boolean` from `bool`.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">value</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">value</span>.<span class="ident">into</span>()
     }
@@ -111,19 +111,19 @@
     }
 }
 
-<span class="doccomment">/// Signed integer value.</span>
+<span class="doccomment">/// Signed integer value.</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">int</span> <span class="op">=</span> <span class="ident">i32</span>;
 <span class="macro">impl_scalar</span><span class="macro">!</span>(<span class="ident">int</span> : <span class="ident">Align4</span>);
 
-<span class="doccomment">/// Unsigned integer value.</span>
+<span class="doccomment">/// Unsigned integer value.</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">uint</span> <span class="op">=</span> <span class="ident">u32</span>;
 <span class="macro">impl_scalar</span><span class="macro">!</span>(<span class="ident">uint</span> : <span class="ident">Align4</span>);
 
-<span class="doccomment">/// floating-point value.</span>
+<span class="doccomment">/// floating-point value.</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">float</span> <span class="op">=</span> <span class="ident">f32</span>;
 <span class="macro">impl_scalar</span><span class="macro">!</span>(<span class="ident">float</span> : <span class="ident">Align4</span>);
 
-<span class="doccomment">/// Double-precision floating-point value.</span>
+<span class="doccomment">/// Double-precision floating-point value.</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">double</span> <span class="op">=</span> <span class="ident">f64</span>;
 <span class="macro">impl_scalar</span><span class="macro">!</span>(<span class="ident">double</span> : <span class="ident">Align8</span>);
 </pre></div>

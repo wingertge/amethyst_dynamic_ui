@@ -144,45 +144,45 @@
     <span class="ident">gfx_hal</span>::<span class="ident">memory</span>::<span class="ident">Properties</span>,
 };
 
-<span class="doccomment">/// Memory utilization stats.</span>
+<span class="doccomment">/// Memory utilization stats.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MemoryUtilization</span> {
-    <span class="doccomment">/// Total number of bytes allocated.</span>
+    <span class="doccomment">/// Total number of bytes allocated.</span>
     <span class="kw">pub</span> <span class="ident">used</span>: <span class="ident">u64</span>,
-    <span class="doccomment">/// Effective number bytes allocated.</span>
+    <span class="doccomment">/// Effective number bytes allocated.</span>
     <span class="kw">pub</span> <span class="ident">effective</span>: <span class="ident">u64</span>,
 }
 
-<span class="doccomment">/// Memory utilization of one heap.</span>
+<span class="doccomment">/// Memory utilization of one heap.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MemoryHeapUtilization</span> {
-    <span class="doccomment">/// Utilization.</span>
+    <span class="doccomment">/// Utilization.</span>
     <span class="kw">pub</span> <span class="ident">utilization</span>: <span class="ident">MemoryUtilization</span>,
 
-    <span class="doccomment">/// Memory heap size.</span>
+    <span class="doccomment">/// Memory heap size.</span>
     <span class="kw">pub</span> <span class="ident">size</span>: <span class="ident">u64</span>,
 }
 
-<span class="doccomment">/// Memory utilization of one type.</span>
+<span class="doccomment">/// Memory utilization of one type.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MemoryTypeUtilization</span> {
-    <span class="doccomment">/// Utilization.</span>
+    <span class="doccomment">/// Utilization.</span>
     <span class="kw">pub</span> <span class="ident">utilization</span>: <span class="ident">MemoryUtilization</span>,
 
-    <span class="doccomment">/// Memory type info.</span>
+    <span class="doccomment">/// Memory type info.</span>
     <span class="kw">pub</span> <span class="ident">properties</span>: <span class="ident">Properties</span>,
 
-    <span class="doccomment">/// Index of heap this memory type uses.</span>
+    <span class="doccomment">/// Index of heap this memory type uses.</span>
     <span class="kw">pub</span> <span class="ident">heap_index</span>: <span class="ident">usize</span>,
 }
 
-<span class="doccomment">/// Total memory utilization.</span>
+<span class="doccomment">/// Total memory utilization.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TotalMemoryUtilization</span> {
-    <span class="doccomment">/// Utilization by types.</span>
+    <span class="doccomment">/// Utilization by types.</span>
     <span class="kw">pub</span> <span class="ident">types</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">MemoryTypeUtilization</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// Utilization by heaps.</span>
+    <span class="doccomment">/// Utilization by heaps.</span>
     <span class="kw">pub</span> <span class="ident">heaps</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">MemoryHeapUtilization</span><span class="op">&gt;</span>,
 }
 
@@ -196,7 +196,7 @@
             <span class="kw">let</span> <span class="ident">MemoryUtilization</span> { <span class="ident">used</span>, <span class="ident">effective</span> } <span class="op">=</span> <span class="ident">heap</span>.<span class="ident">utilization</span>;
             <span class="kw">let</span> <span class="ident">usage_basis_points</span> <span class="op">=</span> <span class="ident">used</span> <span class="op">*</span> <span class="number">10000</span> <span class="op">/</span> <span class="ident">size</span>;
             <span class="kw">let</span> <span class="ident">fill</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">usage_basis_points</span> <span class="op">&gt;</span> <span class="number">10000</span> {
-                <span class="comment">// Shouldn&#39;t happen, but just in case.</span>
+                <span class="comment">// Shouldn&#39;t happen, but just in case.</span>
                 <span class="number">50</span>
             } <span class="kw">else</span> {
                 (<span class="ident">usage_basis_points</span> <span class="op">/</span> <span class="number">200</span>) <span class="kw">as</span> <span class="ident">usize</span>

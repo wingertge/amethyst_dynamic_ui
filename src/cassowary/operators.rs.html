@@ -573,7 +573,7 @@
     <span class="ident">Constraint</span>
 };
 
-<span class="comment">// Relation</span>
+<span class="comment">// Relation</span>
 
 <span class="kw">impl</span> <span class="ident">ops</span>::<span class="ident">BitOr</span><span class="op">&lt;</span><span class="ident">WeightedRelation</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">f64</span> {
     <span class="kw">type</span> <span class="ident">Output</span> <span class="op">=</span> <span class="ident">PartialConstraint</span>;
@@ -641,7 +641,7 @@
     }
 }
 
-<span class="comment">// Variable</span>
+<span class="comment">// Variable</span>
 
 <span class="kw">impl</span> <span class="ident">ops</span>::<span class="ident">Add</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Variable</span> {
     <span class="kw">type</span> <span class="ident">Output</span> <span class="op">=</span> <span class="ident">Expression</span>;
@@ -823,7 +823,7 @@
     }
 }
 
-<span class="comment">// Term</span>
+<span class="comment">// Term</span>
 
 <span class="kw">impl</span> <span class="ident">ops</span>::<span class="ident">Mul</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Term</span> {
     <span class="kw">type</span> <span class="ident">Output</span> <span class="op">=</span> <span class="ident">Term</span>;
@@ -981,7 +981,7 @@
     }
 }
 
-<span class="comment">// Expression</span>
+<span class="comment">// Expression</span>
 
 <span class="kw">impl</span> <span class="ident">ops</span>::<span class="ident">Mul</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Expression</span> {
     <span class="kw">type</span> <span class="ident">Output</span> <span class="op">=</span> <span class="ident">Expression</span>;

@@ -47,7 +47,7 @@
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">packet</span>::<span class="ident">SequenceNumber</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
-<span class="doccomment">/// This contains the information required to reassemble fragments.</span>
+<span class="doccomment">/// This contains the information required to reassemble fragments.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ReassemblyData</span> {
     <span class="kw">pub</span> <span class="ident">sequence</span>: <span class="ident">SequenceNumber</span>,
     <span class="kw">pub</span> <span class="ident">num_fragments_received</span>: <span class="ident">u8</span>,

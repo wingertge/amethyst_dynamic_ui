@@ -183,19 +183,19 @@
 };
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">convert</span>::<span class="ident">TryFrom</span>;
 
-<span class="doccomment">/// Enum to specify how a packet should be delivered.</span>
+<span class="doccomment">/// Enum to specify how a packet should be delivered.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">DeliveryGuarantee</span> {
-    <span class="doccomment">/// Packet may or may not be delivered</span>
+    <span class="doccomment">/// Packet may or may not be delivered</span>
     <span class="ident">Unreliable</span>,
-    <span class="doccomment">/// Packet will be delivered</span>
+    <span class="doccomment">/// Packet will be delivered</span>
     <span class="ident">Reliable</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">EnumConverter</span> <span class="kw">for</span> <span class="ident">DeliveryGuarantee</span> {
     <span class="kw">type</span> <span class="ident">Enum</span> <span class="op">=</span> <span class="ident">DeliveryGuarantee</span>;
 
-    <span class="doccomment">/// Get integer value from `DeliveryGuarantee` enum.</span>
+    <span class="doccomment">/// Get integer value from `DeliveryGuarantee` enum.</span>
     <span class="kw">fn</span> <span class="ident">to_u8</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u8</span> {
         <span class="kw-2">*</span><span class="self">self</span> <span class="kw">as</span> <span class="ident">u8</span>
     }
@@ -203,7 +203,7 @@
 
 <span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DeliveryGuarantee</span> {
     <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">ErrorKind</span>;
-    <span class="doccomment">/// Get `DeliveryGuarantee` enum instance from integer value.</span>
+    <span class="doccomment">/// Get `DeliveryGuarantee` enum instance from integer value.</span>
     <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">value</span>: <span class="ident">u8</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="self">Self</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
             <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">DeliveryGuarantee</span>::<span class="ident">Unreliable</span>),
@@ -215,14 +215,14 @@
     }
 }
 
-<span class="doccomment">/// Enum to specify how a packet should be arranged.</span>
+<span class="doccomment">/// Enum to specify how a packet should be arranged.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">OrderingGuarantee</span> {
-    <span class="doccomment">/// No arranging will be done.</span>
+    <span class="doccomment">/// No arranging will be done.</span>
     <span class="prelude-val">None</span>,
-    <span class="doccomment">/// Packets will be arranged in sequence.</span>
+    <span class="doccomment">/// Packets will be arranged in sequence.</span>
     <span class="ident">Sequenced</span>(<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>),
-    <span class="doccomment">/// Packets will be arranged in order.</span>
+    <span class="doccomment">/// Packets will be arranged in order.</span>
     <span class="ident">Ordered</span>(<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>),
 }
 
@@ -235,7 +235,7 @@
 <span class="kw">impl</span> <span class="ident">EnumConverter</span> <span class="kw">for</span> <span class="ident">OrderingGuarantee</span> {
     <span class="kw">type</span> <span class="ident">Enum</span> <span class="op">=</span> <span class="ident">OrderingGuarantee</span>;
 
-    <span class="doccomment">/// Get integer value from `OrderingGuarantee` enum.</span>
+    <span class="doccomment">/// Get integer value from `OrderingGuarantee` enum.</span>
     <span class="kw">fn</span> <span class="ident">to_u8</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u8</span> {
         <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">OrderingGuarantee</span>::<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">0</span>,
@@ -247,7 +247,7 @@
 
 <span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">OrderingGuarantee</span> {
     <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">ErrorKind</span>;
-    <span class="doccomment">/// Get `OrderingGuarantee` enum instance from integer value.</span>
+    <span class="doccomment">/// Get `OrderingGuarantee` enum instance from integer value.</span>
     <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">value</span>: <span class="ident">u8</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="self">Self</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
             <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">OrderingGuarantee</span>::<span class="prelude-val">None</span>),
@@ -261,13 +261,13 @@
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>)]</span>
-<span class="doccomment">/// Id to identify a certain packet type.</span>
+<span class="doccomment">/// Id to identify a certain packet type.</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">PacketType</span> {
-    <span class="doccomment">/// Full packet that is not fragmented</span>
+    <span class="doccomment">/// Full packet that is not fragmented</span>
     <span class="ident">Packet</span> <span class="op">=</span> <span class="number">0</span>,
-    <span class="doccomment">/// Fragment of a full packet</span>
+    <span class="doccomment">/// Fragment of a full packet</span>
     <span class="ident">Fragment</span> <span class="op">=</span> <span class="number">1</span>,
-    <span class="doccomment">/// Heartbeat packet</span>
+    <span class="doccomment">/// Heartbeat packet</span>
     <span class="ident">Heartbeat</span> <span class="op">=</span> <span class="number">2</span>,
 }
 

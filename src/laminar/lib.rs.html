@@ -45,26 +45,26 @@
 <span id="42">42</span>
 <span id="43">43</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="doccomment">//! Laminar is a semi-reliable UDP-based protocol for multiplayer games. This library implements wrappers around the UDP-protocol,</span>
-<span class="doccomment">//! and provides a lightweight, message-based interface which provides certain guarantees like reliability and ordering.</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! Laminar was designed to be used within the [Amethyst][amethyst] game engine but is usable without it.</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! [amethyst]: https://github.com/amethyst/amethyst</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! # Concepts</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! This library is loosely based off of [Gaffer on Games][gog] and has features similar to RakNet, Steam Socket, and netcode.io.</span>
-<span class="doccomment">//! The idea is to provide a native Rust low-level UDP-protocol which supports the use of cases of video games that require multiplayer features.</span>
-<span class="doccomment">//! The library itself provides a few low-level types of packets that provide different types of guarantees. The most</span>
-<span class="doccomment">//! basic are unreliable and reliable packets. Ordering, sequencing can be done on multiple streams.</span>
-<span class="doccomment">//! For more information, read the projects [README.md][readme], [book][book], [docs][docs] or [examples][examples].</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! [gog]: https://gafferongames.com/</span>
-<span class="doccomment">//! [readme]: https://github.com/amethyst/laminar/blob/master/README.md</span>
-<span class="doccomment">//! [book]: https://github.com/amethyst/laminar/tree/master/docs/md_book</span>
-<span class="doccomment">//! [docs]: https://docs.rs/laminar/</span>
-<span class="doccomment">//! [examples]: https://github.com/amethyst/laminar/tree/master/examples</span>
+<span class="doccomment">//! Laminar is a semi-reliable UDP-based protocol for multiplayer games. This library implements wrappers around the UDP-protocol,</span>
+<span class="doccomment">//! and provides a lightweight, message-based interface which provides certain guarantees like reliability and ordering.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! Laminar was designed to be used within the [Amethyst][amethyst] game engine but is usable without it.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! [amethyst]: https://github.com/amethyst/amethyst</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! # Concepts</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! This library is loosely based off of [Gaffer on Games][gog] and has features similar to RakNet, Steam Socket, and netcode.io.</span>
+<span class="doccomment">//! The idea is to provide a native Rust low-level UDP-protocol which supports the use of cases of video games that require multiplayer features.</span>
+<span class="doccomment">//! The library itself provides a few low-level types of packets that provide different types of guarantees. The most</span>
+<span class="doccomment">//! basic are unreliable and reliable packets. Ordering, sequencing can be done on multiple streams.</span>
+<span class="doccomment">//! For more information, read the projects [README.md][readme], [book][book], [docs][docs] or [examples][examples].</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! [gog]: https://gafferongames.com/</span>
+<span class="doccomment">//! [readme]: https://github.com/amethyst/laminar/blob/master/README.md</span>
+<span class="doccomment">//! [book]: https://github.com/amethyst/laminar/tree/master/docs/md_book</span>
+<span class="doccomment">//! [docs]: https://docs.rs/laminar/</span>
+<span class="doccomment">//! [examples]: https://github.com/amethyst/laminar/tree/master/examples</span>
 
 <span class="attribute">#![<span class="ident">warn</span>(<span class="ident">missing_docs</span>)]</span>
 <span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">trivially_copy_pass_by_ref</span>)]</span>

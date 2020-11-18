@@ -108,14 +108,14 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">io</span>::<span class="ident">Cursor</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
-<span class="doccomment">/// This header represents a fragmented packet header.</span>
+<span class="doccomment">/// This header represents a fragmented packet header.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ArrangingHeader</span> {
     <span class="ident">arranging_id</span>: <span class="ident">SequenceNumber</span>,
     <span class="ident">stream_id</span>: <span class="ident">u8</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">ArrangingHeader</span> {
-    <span class="doccomment">/// Create new fragment with the given packet header</span>
+    <span class="doccomment">/// Create new fragment with the given packet header</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">arranging_id</span>: <span class="ident">SequenceNumber</span>, <span class="ident">stream_id</span>: <span class="ident">u8</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">ArrangingHeader</span> {
             <span class="ident">arranging_id</span>,
@@ -123,12 +123,12 @@
         }
     }
 
-    <span class="doccomment">/// Get the sequence number from this packet.</span>
+    <span class="doccomment">/// Get the sequence number from this packet.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">arranging_id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SequenceNumber</span> {
         <span class="self">self</span>.<span class="ident">arranging_id</span>
     }
 
-    <span class="doccomment">/// Get the sequence number from this packet.</span>
+    <span class="doccomment">/// Get the sequence number from this packet.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stream_id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u8</span> {
         <span class="self">self</span>.<span class="ident">stream_id</span>
     }
@@ -160,7 +160,7 @@
         <span class="prelude-val">Ok</span>(<span class="ident">header</span>)
     }
 
-    <span class="doccomment">/// Get the size of this header.</span>
+    <span class="doccomment">/// Get the size of this header.</span>
     <span class="kw">fn</span> <span class="ident">size</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u8</span> {
         <span class="ident">ARRANGING_PACKET_HEADER</span>
     }

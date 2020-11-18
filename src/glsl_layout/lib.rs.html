@@ -103,80 +103,80 @@
 <span id="100">100</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="attribute">#![<span class="ident">allow</span>(<span class="ident">non_camel_case_types</span>)]</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! This crates provides data types to build structures ready to upload into UBO.</span>
-<span class="doccomment">//! Data layout will match one for uniform blocks declared with `layout(std140)`.</span>
-<span class="doccomment">//! See [specs](https://www.khronos.org/registry/OpenGL/specs/gl/glspec45.core.pdf#page=159) for alignment rules.</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! # Examples</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! ```rust</span>
-<span class="doccomment">//! # macro_rules! offset_of {</span>
-<span class="doccomment">//! #     ($type:ty: $($name:ident).+) =&gt; {</span>
-<span class="doccomment">//! #         unsafe { // No dereferencing</span>
-<span class="doccomment">//! #             let value: &amp;$type = &amp;*::std::ptr::null();</span>
-<span class="doccomment">//! #             let offset = &amp;value $(.$name)+ as *const _ as usize;</span>
-<span class="doccomment">//! #             let base = value as *const _ as usize;</span>
-<span class="doccomment">//! #             offset - base</span>
-<span class="doccomment">//! #         }</span>
-<span class="doccomment">//! #     }</span>
-<span class="doccomment">//! # }</span>
-<span class="doccomment">//! #</span>
-<span class="doccomment">//! # #[macro_use]</span>
-<span class="doccomment">//! # extern crate glsl_layout;</span>
-<span class="doccomment">//! # use glsl_layout::*;</span>
-<span class="doccomment">//! # fn main() {</span>
-<span class="doccomment">//! #     use std::mem::size_of;</span>
-<span class="doccomment">//! #</span>
-<span class="doccomment">//! #[derive(Debug, Default, Clone, Copy, AsStd140)]</span>
-<span class="doccomment">//! struct Foo {</span>
-<span class="doccomment">//!     x: int,</span>
-<span class="doccomment">//!     y: vec3,</span>
-<span class="doccomment">//!     z: float,</span>
-<span class="doccomment">//!     w: mat4x4,</span>
-<span class="doccomment">//!     a: [f32; 3],</span>
-<span class="doccomment">//!     b: f32,</span>
-<span class="doccomment">//! }</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! type UFoo = &lt;Foo as AsStd140&gt;::Std140;</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! assert_eq!(</span>
-<span class="doccomment">//!     offset_of!(UFoo: y),</span>
-<span class="doccomment">//!     round_up_to(size_of::&lt;int&gt;(), 16), // `vec3` has alignment of size `vec4`</span>
-<span class="doccomment">//!     &quot;Offset of field `y` must be equal of size of `x` rounded up to the alignment&quot;,</span>
-<span class="doccomment">//! );</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! assert_eq!(</span>
-<span class="doccomment">//!     offset_of!(UFoo: z),</span>
-<span class="doccomment">//!     round_up_to(offset_of!(UFoo: y) + size_of::&lt;vec3&gt;(), 4),</span>
-<span class="doccomment">//!     &quot;Field `z` must follow `y`. `y` should not have padding at the end&quot;,</span>
-<span class="doccomment">//! );</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! assert_eq!(</span>
-<span class="doccomment">//!     offset_of!(UFoo: b),</span>
-<span class="doccomment">//!     offset_of!(UFoo: a) + size_of::&lt;[[f32; 4]; 3]&gt;(),</span>
-<span class="doccomment">//!     &quot;Field `b` must follow `a`. But `a` has padding at the end.&quot;,</span>
-<span class="doccomment">//! );</span>
-<span class="doccomment">//! #</span>
-<span class="doccomment">//! let foo_uniform = Foo {</span>
-<span class="doccomment">//!     x: 2,</span>
-<span class="doccomment">//!     y: [0.0; 3].into(),</span>
-<span class="doccomment">//!     z: 0.0,</span>
-<span class="doccomment">//!     w: [[0.0; 4]; 4].into(),</span>
-<span class="doccomment">//!     a: [0.0; 3].into(),</span>
-<span class="doccomment">//!     b: 0.0,</span>
-<span class="doccomment">//! }.std140();</span>
-<span class="doccomment">//! # }</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! # fn round_up_to(offset: usize, align: usize) -&gt; usize {</span>
-<span class="doccomment">//! #     if offset % align == 0 {</span>
-<span class="doccomment">//! #         offset</span>
-<span class="doccomment">//! #     } else {</span>
-<span class="doccomment">//! #         (((offset - 1) / align) + 1) * align</span>
-<span class="doccomment">//! #     }</span>
-<span class="doccomment">//! # }</span>
-<span class="doccomment">//! ```</span>
-<span class="doccomment">//!</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! This crates provides data types to build structures ready to upload into UBO.</span>
+<span class="doccomment">//! Data layout will match one for uniform blocks declared with `layout(std140)`.</span>
+<span class="doccomment">//! See [specs](https://www.khronos.org/registry/OpenGL/specs/gl/glspec45.core.pdf#page=159) for alignment rules.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! # Examples</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ```rust</span>
+<span class="doccomment">//! # macro_rules! offset_of {</span>
+<span class="doccomment">//! #     ($type:ty: $($name:ident).+) =&gt; {</span>
+<span class="doccomment">//! #         unsafe { // No dereferencing</span>
+<span class="doccomment">//! #             let value: &amp;$type = &amp;*::std::ptr::null();</span>
+<span class="doccomment">//! #             let offset = &amp;value $(.$name)+ as *const _ as usize;</span>
+<span class="doccomment">//! #             let base = value as *const _ as usize;</span>
+<span class="doccomment">//! #             offset - base</span>
+<span class="doccomment">//! #         }</span>
+<span class="doccomment">//! #     }</span>
+<span class="doccomment">//! # }</span>
+<span class="doccomment">//! #</span>
+<span class="doccomment">//! # #[macro_use]</span>
+<span class="doccomment">//! # extern crate glsl_layout;</span>
+<span class="doccomment">//! # use glsl_layout::*;</span>
+<span class="doccomment">//! # fn main() {</span>
+<span class="doccomment">//! #     use std::mem::size_of;</span>
+<span class="doccomment">//! #</span>
+<span class="doccomment">//! #[derive(Debug, Default, Clone, Copy, AsStd140)]</span>
+<span class="doccomment">//! struct Foo {</span>
+<span class="doccomment">//!     x: int,</span>
+<span class="doccomment">//!     y: vec3,</span>
+<span class="doccomment">//!     z: float,</span>
+<span class="doccomment">//!     w: mat4x4,</span>
+<span class="doccomment">//!     a: [f32; 3],</span>
+<span class="doccomment">//!     b: f32,</span>
+<span class="doccomment">//! }</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! type UFoo = &lt;Foo as AsStd140&gt;::Std140;</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! assert_eq!(</span>
+<span class="doccomment">//!     offset_of!(UFoo: y),</span>
+<span class="doccomment">//!     round_up_to(size_of::&lt;int&gt;(), 16), // `vec3` has alignment of size `vec4`</span>
+<span class="doccomment">//!     &quot;Offset of field `y` must be equal of size of `x` rounded up to the alignment&quot;,</span>
+<span class="doccomment">//! );</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! assert_eq!(</span>
+<span class="doccomment">//!     offset_of!(UFoo: z),</span>
+<span class="doccomment">//!     round_up_to(offset_of!(UFoo: y) + size_of::&lt;vec3&gt;(), 4),</span>
+<span class="doccomment">//!     &quot;Field `z` must follow `y`. `y` should not have padding at the end&quot;,</span>
+<span class="doccomment">//! );</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! assert_eq!(</span>
+<span class="doccomment">//!     offset_of!(UFoo: b),</span>
+<span class="doccomment">//!     offset_of!(UFoo: a) + size_of::&lt;[[f32; 4]; 3]&gt;(),</span>
+<span class="doccomment">//!     &quot;Field `b` must follow `a`. But `a` has padding at the end.&quot;,</span>
+<span class="doccomment">//! );</span>
+<span class="doccomment">//! #</span>
+<span class="doccomment">//! let foo_uniform = Foo {</span>
+<span class="doccomment">//!     x: 2,</span>
+<span class="doccomment">//!     y: [0.0; 3].into(),</span>
+<span class="doccomment">//!     z: 0.0,</span>
+<span class="doccomment">//!     w: [[0.0; 4]; 4].into(),</span>
+<span class="doccomment">//!     a: [0.0; 3].into(),</span>
+<span class="doccomment">//!     b: 0.0,</span>
+<span class="doccomment">//! }.std140();</span>
+<span class="doccomment">//! # }</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! # fn round_up_to(offset: usize, align: usize) -&gt; usize {</span>
+<span class="doccomment">//! #     if offset % align == 0 {</span>
+<span class="doccomment">//! #         offset</span>
+<span class="doccomment">//! #     } else {</span>
+<span class="doccomment">//! #         (((offset - 1) / align) + 1) * align</span>
+<span class="doccomment">//! #     }</span>
+<span class="doccomment">//! # }</span>
+<span class="doccomment">//! ```</span>
+<span class="doccomment">//!</span>
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">align</span>;

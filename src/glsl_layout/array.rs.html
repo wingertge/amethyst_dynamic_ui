@@ -466,8 +466,8 @@
     <span class="kw">fn</span> <span class="ident">map_array</span>(<span class="ident">values</span>: <span class="ident">A</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span>;
 }
 
-<span class="doccomment">/// Aligning wrapper.</span>
-<span class="doccomment">/// Elements for array are aligned to 16 bytes (size of vec4) at least.</span>
+<span class="doccomment">/// Aligning wrapper.</span>
+<span class="doccomment">/// Elements for array are aligned to 16 bytes (size of vec4) at least.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>, <span class="ident">align</span>(<span class="number">16</span>))]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Element</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">AsStd140</span><span class="op">&gt;</span>(<span class="kw">pub</span> <span class="ident">T</span>, <span class="kw">pub</span> <span class="ident">T</span>::<span class="ident">Align</span>);
@@ -507,7 +507,7 @@
     <span class="kw">type</span> <span class="ident">Align</span> <span class="op">=</span> <span class="ident">Align16</span>;
     <span class="kw">type</span> <span class="ident">Std140</span> <span class="op">=</span> [<span class="ident">Element</span><span class="op">&lt;</span><span class="ident">T</span>::<span class="ident">Std140</span><span class="op">&gt;</span>];
 
-    <span class="doccomment">/// Get aligned data from structure.</span>
+    <span class="doccomment">/// Get aligned data from structure.</span>
     <span class="kw">fn</span> <span class="ident">std140</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> [<span class="ident">Element</span><span class="op">&lt;</span><span class="ident">T</span>::<span class="ident">Std140</span><span class="op">&gt;</span>]
     <span class="kw">where</span>
         [<span class="ident">Element</span><span class="op">&lt;</span><span class="ident">T</span>::<span class="ident">Std140</span><span class="op">&gt;</span>]: <span class="ident">Sized</span>,
