@@ -6,7 +6,7 @@
 }</pre></div><div class="docblock"><p>Additional parsing methods for <code>Ident</code>.</p>
 <p>This trait is sealed and cannot be implemented for types outside of Syn.</p>
 <p><em>This trait is available if Syn is built with the <code>&quot;parsing&quot;</code> feature.</em></p>
-</div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.parse_any" class="method"><code>pub fn <a href="#tymethod.parse_any" class="fnname">parse_any</a>(input: <a class="struct" href="../../../syn/buffer/struct.Cursor.html" title="struct syn::buffer::Cursor">Cursor</a>&lt;'_&gt;) -&gt; <a class="type" href="../../../syn/synom/type.PResult.html" title="type syn::synom::PResult">PResult</a>&lt;'_, Self&gt;</code></h3><div class="docblock"><p>Parses any identifier including keywords.</p>
+</div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.parse_any" class="method"><code>pub fn <a href="#tymethod.parse_any" class="fnname">parse_any</a>(input: <a class="struct" href="../../../syn/buffer/struct.Cursor.html" title="struct syn::buffer::Cursor">Cursor</a>&lt;'_&gt;) -&gt; <a class="type" href="../../../syn/synom/type.PResult.html" title="type syn::synom::PResult">PResult</a>&lt;'_, Self&gt;</code><a class="srclink" href="../../../src/syn/synom.rs.html#403" title="goto source code">[src]</a></h3><div class="docblock"><p>Parses any identifier including keywords.</p>
 <p>This is useful when parsing a DSL which allows Rust keywords as
 identifiers.</p>
 

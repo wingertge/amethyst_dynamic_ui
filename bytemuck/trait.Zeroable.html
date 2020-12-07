@@ -14,7 +14,7 @@
 <li>Your type must be allowed to be an &quot;all zeroes&quot; bit pattern (eg: no
 <a href="https://doc.rust-lang.org/nightly/core/ptr/non_null/struct.NonNull.html"><code>NonNull&lt;T&gt;</code></a>).</li>
 </ul>
-</div><h2 id="provided-methods" class="small-section-header">Provided methods<a href="#provided-methods" class="anchor"></a></h2><div class="methods"><h3 id="method.zeroed" class="method"><code>pub fn <a href="#method.zeroed" class="fnname">zeroed</a>() -&gt; Self</code></h3><div class="docblock"><p>Calls <a href="https://doc.rust-lang.org/nightly/core/mem/fn.zeroed.html"><code>zeroed</code></a>.</p>
+</div><h2 id="provided-methods" class="small-section-header">Provided methods<a href="#provided-methods" class="anchor"></a></h2><div class="methods"><h3 id="method.zeroed" class="method"><code>pub fn <a href="#method.zeroed" class="fnname">zeroed</a>() -&gt; Self</code><a class="srclink" href="../src/bytemuck/zeroable.rs.html#22-24" title="goto source code">[src]</a></h3><div class="docblock"><p>Calls <a href="https://doc.rust-lang.org/nightly/core/mem/fn.zeroed.html"><code>zeroed</code></a>.</p>
 <p>This is a trait method so that you can write <code>MyType::zeroed()</code> in your
 code. It is a contract of this trait that if you implement it on your type
 you <strong>must not</strong> override this method.</p>
