@@ -602,7 +602,7 @@ parameters.</p>
 to call this function is passing the result of invoking the <code>quote!</code>
 macro to it.</p>
 
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="ident">s</span>.<span class="ident">gen_impl</span>(<span class="macro">quote</span><span class="macro">!</span> {
     <span class="comment">// You can write any items which you want to import into scope here.</span>
     <span class="comment">// For example, you may want to include an `extern crate` for the</span>
@@ -637,7 +637,7 @@ into scope are not leaked to the calling crate.</p>
 <p>By default, the above invocation may generate an output like the
 following:</p>
 
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="kw">const</span> <span class="ident">_DERIVE_krate_Trait_FOR_Struct</span>: () <span class="op">=</span> {
     <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">krate</span>;
     <span class="kw">use</span> <span class="ident">krate</span>::<span class="ident">Trait</span> <span class="kw">as</span> <span class="ident">MyTrait</span>;
@@ -648,7 +648,7 @@ following:</p>
 <p>The <code>Structure</code> may also be confired with the [<code>underscore_const</code>] method
 to generate <code>const _</code> instead.</p>
 
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="kw">const</span> <span class="kw">_</span>: () <span class="op">=</span> {
     <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">krate</span>;
     <span class="kw">use</span> <span class="ident">krate</span>::<span class="ident">Trait</span> <span class="kw">as</span> <span class="ident">MyTrait</span>;

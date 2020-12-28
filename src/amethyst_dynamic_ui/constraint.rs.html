@@ -911,7 +911,7 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">ConstraintBuilder</span> <span class="kw">for</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">ConstraintBuilder</span><span class="op">&gt;</span> {
+<span class="kw">impl</span> <span class="ident">ConstraintBuilder</span> <span class="kw">for</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ConstraintBuilder</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">build</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="ident">LayoutVars</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Constraint</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">build</span>(<span class="ident">widget</span>)
     }

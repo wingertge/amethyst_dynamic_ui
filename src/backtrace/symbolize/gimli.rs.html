@@ -1165,7 +1165,7 @@
     }
 }
 
-<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">resolve</span>(<span class="ident">what</span>: <span class="ident">ResolveWhat</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>, <span class="ident">cb</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">dyn</span> <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="kw">super</span>::<span class="ident">Symbol</span>)) {
+<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">resolve</span>(<span class="ident">what</span>: <span class="ident">ResolveWhat</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>, <span class="ident">cb</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="kw">super</span>::<span class="ident">Symbol</span>)) {
     <span class="kw">let</span> <span class="ident">addr</span> <span class="op">=</span> <span class="ident">what</span>.<span class="ident">address_or_ip</span>();
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">call</span> <span class="op">=</span> <span class="op">|</span><span class="ident">sym</span>: <span class="ident">Symbol</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span><span class="op">|</span> {
         <span class="comment">// Extend the lifetime of `sym` to `&#39;static` since we are unfortunately</span>

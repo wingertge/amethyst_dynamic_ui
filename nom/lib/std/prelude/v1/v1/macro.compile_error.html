@@ -15,7 +15,7 @@ but emits an error during <em>compilation</em> rather than at <em>runtime</em>.<
 the compiler would still emit an error, but the error's message would not mention the two
 valid values.</p>
 
-<div class='information'><div class='tooltip compile_fail'>ⓘ<span class='tooltiptext'>This example deliberately fails to compile</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered compile_fail">
+<div class='information'><div class='tooltip compile_fail'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered compile_fail">
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">give_me_foo_or_bar</span> {
     (<span class="ident">foo</span>) <span class="op">=</span><span class="op">&gt;</span> {};
     (<span class="ident">bar</span>) <span class="op">=</span><span class="op">&gt;</span> {};
@@ -28,7 +28,7 @@ valid values.</p>
 <span class="comment">// ^ will fail at compile time with message &quot;This macro only accepts `foo` or `bar`&quot;</span></pre></div>
 <p>Emit compiler error if one of a number of features isn't available.</p>
 
-<div class='information'><div class='tooltip compile_fail'>ⓘ<span class='tooltiptext'>This example deliberately fails to compile</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered compile_fail">
+<div class='information'><div class='tooltip compile_fail'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered compile_fail">
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;foo&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;bar&quot;</span>)))]</span>
 <span class="macro">compile_error</span><span class="macro">!</span>(<span class="string">&quot;Either feature \&quot;foo\&quot; or \&quot;bar\&quot; must be enabled for this crate.&quot;</span>);</pre></div>
 </div></section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../../../../../";window.currentCrate = "nom";</script><script src="../../../../../../main.js"></script><script defer src="../../../../../../search-index.js"></script></body></html>

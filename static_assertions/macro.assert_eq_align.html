@@ -20,7 +20,7 @@ when <a href="https://en.wikipedia.org/wiki/Foreign_function_interface">FFI</a> 
 <p>The following example fails to compile because <code>i32x4</code> explicitly has 4
 times the alignment as <code>[i32; 4]</code>:</p>
 
-<div class='information'><div class='tooltip compile_fail'>ⓘ<span class='tooltiptext'>This example deliberately fails to compile</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered compile_fail">
+<div class='information'><div class='tooltip compile_fail'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered compile_fail">
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">align</span>(<span class="number">16</span>))]</span>
 <span class="kw">struct</span> <span class="ident">i32x4</span>([<span class="ident">i32</span>; <span class="number">4</span>]);
 

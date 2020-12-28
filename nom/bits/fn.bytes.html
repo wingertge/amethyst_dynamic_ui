@@ -6,7 +6,7 @@ parser, allowing byte-slice parsers to work on bit streams.</p>
 <p>A partial byte remaining in the input will be ignored and the given parser will start parsing
 at the next full byte.</p>
 
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="kw">use</span> <span class="ident">nom</span>::<span class="ident">bits</span>::{<span class="ident">bits</span>, <span class="ident">bytes</span>, <span class="ident">streaming</span>::<span class="ident">take_bits</span>};
 
 <span class="kw">fn</span> <span class="ident">parse</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">IResult</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>[<span class="ident">u8</span>], (<span class="ident">u8</span>, <span class="ident">u8</span>, <span class="kw-2">&amp;</span>[<span class="ident">u8</span>])<span class="op">&gt;</span> {

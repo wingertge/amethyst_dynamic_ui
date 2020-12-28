@@ -63,7 +63,7 @@ which can lead to unsoundness.
 </p>
 <p>For example, the following will fail to compile:</p>
 
-<div class='information'><div class='tooltip compile_fail'>ⓘ<span class='tooltiptext'>This example deliberately fails to compile</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered compile_fail">
+<div class='information'><div class='tooltip compile_fail'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered compile_fail">
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>, <span class="ident">packed</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>)]</span>
 <span class="kw">struct</span> <span class="ident">Example</span> {
@@ -75,7 +75,7 @@ which can lead to unsoundness.
 <code>safe_packed_borrows</code> lint, the macro will still fail to compile even if
 that lint is <code>#[allow]</code>ed:</p>
 
-<div class='information'><div class='tooltip compile_fail'>ⓘ<span class='tooltiptext'>This example deliberately fails to compile</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered compile_fail">
+<div class='information'><div class='tooltip compile_fail'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered compile_fail">
 <span class="comment">// Still doesn&#39;t compile:</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">safe_packed_borrows</span>)]</span> {
   <span class="kw">let</span> <span class="ident">_offset</span> <span class="op">=</span> <span class="ident">bytemuck</span>::<span class="macro">offset_of</span><span class="macro">!</span>(<span class="ident">Example</span>, <span class="ident">field</span>);

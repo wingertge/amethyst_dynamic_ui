@@ -6,7 +6,7 @@ Using the <code>Sender</code> you can get using the <code>send_handle</code> met
 can add functions modifying <code>World</code> from an asynchronous context.
 Those callbacks will be ran sequentially without preserving ordering.</p>
 <h1 id="example" class="section-header"><a href="#example">Example</a></h1>
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="comment">// First, get a `Sender` handle.</span>
 <span class="kw">let</span> <span class="ident">handle</span> <span class="op">=</span> <span class="ident">world</span>.<span class="ident">read_resource</span>::<span class="op">&lt;</span><span class="ident">CallbackQueue</span><span class="op">&gt;</span>().<span class="ident">send_handle</span>();
 <span class="comment">// Then, create your asynchronous context (Future, Callback-based library, etc..)</span>

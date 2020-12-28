@@ -388,7 +388,7 @@ at your option.
 }
 
 <span class="doccomment">/// Create the not found error.</span>
-<span class="kw">fn</span> <span class="ident">create_not_found_err</span>(<span class="ident">orig_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">dyn</span> <span class="ident">Display</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">create_not_found_err</span>(<span class="ident">orig_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">Display</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span> {
     <span class="prelude-val">Err</span>(<span class="macro">format</span><span class="macro">!</span>(
         <span class="string">&quot;Could not find `{}` in `dependencies` or `dev-dependencies` in `{}`!&quot;</span>,
         <span class="ident">orig_name</span>, <span class="ident">path</span>

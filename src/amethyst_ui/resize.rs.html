@@ -147,7 +147,7 @@
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">missing_debug_implementations</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">UiResize</span> {
     <span class="doccomment">/// The core function of this component</span>
-    <span class="kw">pub</span> <span class="ident">function</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">UiTransform</span>, (<span class="ident">f32</span>, <span class="ident">f32</span>)) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">function</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">UiTransform</span>, (<span class="ident">f32</span>, <span class="ident">f32</span>)) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">UiResize</span> {

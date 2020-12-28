@@ -257,8 +257,8 @@
     <span class="kw">fn</span> <span class="ident">import</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">name</span>: <span class="ident">String</span>,
-        <span class="ident">source</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Source</span><span class="op">&gt;</span>,
-        <span class="ident">create_reload</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Format</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+        <span class="ident">source</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Source</span><span class="op">&gt;</span>,
+        <span class="ident">create_reload</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Format</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">FormatValue</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;profiler&quot;</span>)]</span>
         <span class="macro">profile_scope</span><span class="macro">!</span>(<span class="string">&quot;import_asset&quot;</span>);
@@ -296,7 +296,7 @@
 <span class="ident">objekt</span>::<span class="macro">clone_trait_object</span><span class="macro">!</span>(<span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span> <span class="ident">SerializableFormat</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span>);
 
 <span class="comment">// Allow using dynamic types on sites that accept format as generic.</span>
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">D</span>: <span class="lifetime">&#39;static</span><span class="op">&gt;</span> <span class="ident">Format</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Format</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">D</span>: <span class="lifetime">&#39;static</span><span class="op">&gt;</span> <span class="ident">Format</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Format</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> {
         <span class="self">self</span>.<span class="ident">deref</span>().<span class="ident">name</span>()
     }
@@ -307,14 +307,14 @@
     <span class="kw">fn</span> <span class="ident">import</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">name</span>: <span class="ident">String</span>,
-        <span class="ident">source</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Source</span><span class="op">&gt;</span>,
-        <span class="ident">create_reload</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Format</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+        <span class="ident">source</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Source</span><span class="op">&gt;</span>,
+        <span class="ident">create_reload</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Format</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">FormatValue</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">deref</span>().<span class="ident">import</span>(<span class="ident">name</span>, <span class="ident">source</span>, <span class="ident">create_reload</span>)
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">D</span>: <span class="lifetime">&#39;static</span><span class="op">&gt;</span> <span class="ident">Format</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">SerializableFormat</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">D</span>: <span class="lifetime">&#39;static</span><span class="op">&gt;</span> <span class="ident">Format</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">SerializableFormat</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> {
         <span class="self">self</span>.<span class="ident">deref</span>().<span class="ident">name</span>()
     }
@@ -325,21 +325,21 @@
     <span class="kw">fn</span> <span class="ident">import</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">name</span>: <span class="ident">String</span>,
-        <span class="ident">source</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Source</span><span class="op">&gt;</span>,
-        <span class="ident">create_reload</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Format</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+        <span class="ident">source</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Source</span><span class="op">&gt;</span>,
+        <span class="ident">create_reload</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Format</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">FormatValue</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">deref</span>().<span class="ident">import</span>(<span class="ident">name</span>, <span class="ident">source</span>, <span class="ident">create_reload</span>)
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">D</span>: <span class="ident">FormatRegisteredData</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span> <span class="ident">SerializableFormat</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">SerializableFormat</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span><span class="op">&gt;</span> {}
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">D</span>: <span class="ident">FormatRegisteredData</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span> <span class="ident">SerializableFormat</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">SerializableFormat</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span><span class="op">&gt;</span> {}
 
 <span class="doccomment">/// The `Ok` return value of `Format::import` for a given asset type `A`.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FormatValue</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span> {
     <span class="doccomment">/// The format data.</span>
     <span class="kw">pub</span> <span class="ident">data</span>: <span class="ident">D</span>,
     <span class="doccomment">/// An optional reload structure</span>
-    <span class="kw">pub</span> <span class="ident">reload</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Reload</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">reload</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Reload</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span> <span class="ident">FormatValue</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span> {

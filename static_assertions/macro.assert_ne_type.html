@@ -15,14 +15,14 @@ module scope:</p>
 <p>The <a href="index.html#limitations">labeling limitation</a> is not necessary if
 compiling on nightly Rust with the <code>nightly</code> feature enabled:</p>
 
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="attribute">#![<span class="ident">feature</span>(<span class="ident">underscore_const_names</span>)]</span>
 
 <span class="macro">assert_ne_type</span><span class="macro">!</span>(<span class="ident">u8</span>, (<span class="ident">u8</span>,), [<span class="ident">u8</span>]);</pre></div>
 <p>The following produces a compilation failure because <code>c_uchar</code> is a type
 alias for <code>u8</code>:</p>
 
-<div class='information'><div class='tooltip compile_fail'>ⓘ<span class='tooltiptext'>This example deliberately fails to compile</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered compile_fail">
+<div class='information'><div class='tooltip compile_fail'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered compile_fail">
 <span class="macro">assert_ne_type</span><span class="macro">!</span>(<span class="ident">std</span>::<span class="ident">os</span>::<span class="ident">raw</span>::<span class="ident">c_uchar</span>, <span class="ident">u8</span>, <span class="ident">u32</span>);
 <span class="macro">assert_ne_type</span><span class="macro">!</span>(<span class="ident">std</span>::<span class="ident">os</span>::<span class="ident">raw</span>::<span class="ident">c_uchar</span>, <span class="ident">u32</span>, <span class="ident">u8</span>);
 <span class="macro">assert_ne_type</span><span class="macro">!</span>(<span class="ident">u32</span>, <span class="ident">std</span>::<span class="ident">os</span>::<span class="ident">raw</span>::<span class="ident">c_uchar</span>, <span class="ident">u8</span>);</pre></div>

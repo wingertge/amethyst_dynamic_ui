@@ -229,7 +229,7 @@
 <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">enum</span> <span class="ident">JobResult</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
     <span class="prelude-val">None</span>,
     <span class="prelude-val">Ok</span>(<span class="ident">T</span>),
-    <span class="ident">Panic</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Any</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span>),
+    <span class="ident">Panic</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Any</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span>),
 }
 
 <span class="doccomment">/// A `Job` is used to advertise work for other threads that they may</span>

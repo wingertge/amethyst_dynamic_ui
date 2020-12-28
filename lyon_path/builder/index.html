@@ -7,7 +7,7 @@
 <a href="https://docs.rs/lyon_path/*/lyon_path">lyon_path</a> crate using the
 <a href="traits.FlatPathBuilder.html">FlatPathBuilder</a> interface.</p>
 
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="kw">use</span> <span class="ident">lyon_path</span>::<span class="ident">Path</span>;
 <span class="kw">use</span> <span class="ident">lyon_core</span>::<span class="ident">math</span>::{<span class="ident">point</span>};
 <span class="kw">use</span> <span class="ident">lyon_path</span>::<span class="ident">builder</span>::<span class="kw-2">*</span>;
@@ -27,7 +27,7 @@
 <p>The next example uses the <a href="traits.PathBuilder.html">PathBuilder</a> trait, which adds
 some simple curves to the <a href="traits.FlatPathBuilder.html">FlatPathBuilder</a> trait.</p>
 
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">builder</span> <span class="op">=</span> <span class="ident">Path</span>::<span class="ident">builder</span>();
 
 <span class="ident">builder</span>.<span class="ident">move_to</span>(<span class="ident">point</span>(<span class="number">0.0</span>, <span class="number">0.0</span>));
@@ -43,7 +43,7 @@ the rest of the <a href="https://svgwg.org/specs/paths/">SVG path</a> commands.<
 <a href="traits.PathBuilder.html">PathBuilder</a>. Therefore it is possible to create an SvgBuilder
 adapter on top of a PathBuilder using the with_svg method:</p>
 
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">builder</span> <span class="op">=</span> <span class="ident">Path</span>::<span class="ident">builder</span>().<span class="ident">with_svg</span>();
 
 <span class="ident">builder</span>.<span class="ident">move_to</span>(<span class="ident">point</span>(<span class="number">0.0</span>, <span class="number">0.0</span>));
@@ -55,7 +55,7 @@ adapter on top of a PathBuilder using the with_svg method:</p>
 <p>To build a path that approximates curves with a sequence of line segments, use the
 flattened method:</p>
 
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="kw">let</span> <span class="ident">tolerance</span> <span class="op">=</span> <span class="number">0.05</span>;<span class="comment">// maximum distance between a curve and its approximation.</span>
 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">builder</span> <span class="op">=</span> <span class="ident">Path</span>::<span class="ident">builder</span>().<span class="ident">flattened</span>(<span class="ident">tolerance</span>);
 

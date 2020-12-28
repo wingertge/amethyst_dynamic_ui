@@ -160,7 +160,7 @@ that point, we <code>break</code> out of the loop, and we're done iterating.</p>
 <p>There's one more subtle bit here: the standard library contains an
 interesting implementation of <a href="../../../../nom/lib/std/prelude/v1/v1/trait.IntoIterator.html" title="IntoIterator"><code>IntoIterator</code></a>:</p>
 
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">I</span>: <span class="ident">Iterator</span><span class="op">&gt;</span> <span class="ident">IntoIterator</span> <span class="kw">for</span> <span class="ident">I</span></pre></div>
 <p>In other words, all <a href="../../../../nom/lib/std/prelude/v1/v1/trait.Iterator.html" title="Iterator"><code>Iterator</code></a>s implement <a href="../../../../nom/lib/std/prelude/v1/v1/trait.IntoIterator.html" title="IntoIterator"><code>IntoIterator</code></a>, by just
 returning themselves. This means two things:</p>

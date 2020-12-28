@@ -565,7 +565,7 @@
 <span class="doccomment">/// so there&#39;s no need to get `LazyUpdate` mutably.</span>
 <span class="doccomment">/// This resource is added to the world by default.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">LazyUpdate</span> {
-    <span class="ident">queue</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Queue</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">LazyUpdateInternal</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="ident">queue</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Queue</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">LazyUpdateInternal</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">LazyUpdate</span> {

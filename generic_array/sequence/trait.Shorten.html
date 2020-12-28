@@ -12,7 +12,7 @@ appending or prepending an element to it.</p>
 </div></div><span class="loading-content">Loading content...</span><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.pop_back" class="method"><code>pub fn <a href="#tymethod.pop_back" class="fnname">pop_back</a>(self) -&gt; (Self::<a class="type" href="../../generic_array/sequence/trait.Shorten.html#associatedtype.Shorter" title="type generic_array::sequence::Shorten::Shorter">Shorter</a>, T)</code><a class="srclink" href="../../src/generic_array/sequence.rs.html#161" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns a new array without the last element, and the last element.</p>
 <p>Example:</p>
 
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="kw">let</span> <span class="ident">a</span> <span class="op">=</span> <span class="macro">arr</span><span class="macro">!</span>[<span class="ident">i32</span>; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];
 
 <span class="kw">let</span> (<span class="ident">init</span>, <span class="ident">last</span>) <span class="op">=</span> <span class="ident">a</span>.<span class="ident">pop_back</span>();
@@ -22,7 +22,7 @@ appending or prepending an element to it.</p>
 </div><h3 id="tymethod.pop_front" class="method"><code>pub fn <a href="#tymethod.pop_front" class="fnname">pop_front</a>(self) -&gt; (T, Self::<a class="type" href="../../generic_array/sequence/trait.Shorten.html#associatedtype.Shorter" title="type generic_array::sequence::Shorten::Shorter">Shorter</a>)</code><a class="srclink" href="../../src/generic_array/sequence.rs.html#174" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns a new array without the first element, and the first element.
 Example:</p>
 
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="kw">let</span> <span class="ident">a</span> <span class="op">=</span> <span class="macro">arr</span><span class="macro">!</span>[<span class="ident">i32</span>; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];
 
 <span class="kw">let</span> (<span class="ident">head</span>, <span class="ident">tail</span>) <span class="op">=</span> <span class="ident">a</span>.<span class="ident">pop_front</span>();

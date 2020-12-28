@@ -27,7 +27,7 @@ report why. There is the option of providing a compile error message string:</p>
 <p>Some configurations are impossible. For example, we can't be compiling for
 both macOS <em>and</em> Windows simultaneously:</p>
 
-<div class='information'><div class='tooltip compile_fail'>ⓘ<span class='tooltiptext'>This example deliberately fails to compile</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered compile_fail">
+<div class='information'><div class='tooltip compile_fail'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered compile_fail">
 <span class="macro">assert_cfg</span><span class="macro">!</span>(<span class="ident">all</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;macos&quot;</span>,
                 <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;windows&quot;</span>),
             <span class="string">&quot;No, that&#39;s not how it works! ಠ_ಠ&quot;</span>);</pre></div>

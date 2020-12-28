@@ -136,11 +136,11 @@ rustc messages will be much easier to understand.</p>
 <p>A parser in nom is a function which, for an input type <code>I</code>, an output type <code>O</code>
 and an optional error type <code>E</code>, will have the following signature:</p>
 
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="kw">fn</span> <span class="ident">parser</span>(<span class="ident">input</span>: <span class="ident">I</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">IResult</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">O</span>, <span class="ident">E</span><span class="op">&gt;</span>;</pre></div>
 <p>Or like this, if you don't want to specify a custom error type (it will be <code>u32</code> by default):</p>
 
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="kw">fn</span> <span class="ident">parser</span>(<span class="ident">input</span>: <span class="ident">I</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">IResult</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">O</span><span class="op">&gt;</span>;</pre></div>
 <p><code>IResult</code> is an alias for the <code>Result</code> type:</p>
 

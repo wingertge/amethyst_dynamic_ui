@@ -28,7 +28,7 @@ single line:</p>
 <p>The following example fails to compile because trait <code>C</code> does not require
 <a href="https://doc.rust-lang.org/std/marker/trait.Copy.html"><code>Copy</code></a>:</p>
 
-<div class='information'><div class='tooltip compile_fail'>ⓘ<span class='tooltiptext'>This example deliberately fails to compile</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered compile_fail">
+<div class='information'><div class='tooltip compile_fail'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered compile_fail">
 <span class="kw">trait</span> <span class="ident">C</span> {}
 
 <span class="macro">assert_trait_super_all</span><span class="macro">!</span>(<span class="ident">Copy</span>: <span class="ident">A</span>, <span class="ident">B</span>, <span class="ident">C</span>);</pre></div>

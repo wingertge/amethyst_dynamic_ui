@@ -23,7 +23,7 @@ from this stream.</p>
 <p>The parser below invokes <a href="../../syn/struct.Attribute.html#method.parse_outer"><code>Attribute::parse_outer</code></a> to parse a vector of
 zero or more outer attributes.</p>
 
-<div class='information'><div class='tooltip edition'>ⓘ<span class='tooltiptext'>This code runs with edition 2018</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered edition ">
+<div class='information'><div class='tooltip edition' data-edition="2018">ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered edition">
 <span class="kw">use</span> <span class="ident">syn</span>::{<span class="ident">Attribute</span>, <span class="ident">Ident</span>, <span class="prelude-ty">Result</span>, <span class="ident">Token</span>};
 <span class="kw">use</span> <span class="ident">syn</span>::<span class="ident">parse</span>::{<span class="ident">Parse</span>, <span class="ident">ParseStream</span>};
 
@@ -66,7 +66,7 @@ inside of parentheses.</p>
 <p>In this example we finish parsing the list of supertraits when the next
 token in the input is either <code>where</code> or an opening curly brace.</p>
 
-<div class='information'><div class='tooltip edition'>ⓘ<span class='tooltiptext'>This code runs with edition 2018</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered edition ">
+<div class='information'><div class='tooltip edition' data-edition="2018">ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered edition">
 <span class="kw">use</span> <span class="ident">syn</span>::{<span class="ident">braced</span>, <span class="ident">token</span>, <span class="ident">Generics</span>, <span class="ident">Ident</span>, <span class="prelude-ty">Result</span>, <span class="ident">Token</span>, <span class="ident">TypeParamBound</span>};
 <span class="kw">use</span> <span class="ident">syn</span>::<span class="ident">parse</span>::{<span class="ident">Parse</span>, <span class="ident">ParseStream</span>};
 <span class="kw">use</span> <span class="ident">syn</span>::<span class="ident">punctuated</span>::<span class="ident">Punctuated</span>;
@@ -122,7 +122,7 @@ token in the input is either <code>where</code> or an opening curly brace.</p>
 keyword in Rust. We can't use just <code>peek</code> and decide to parse a union if
 the very next token is <code>union</code>, because someone is free to write a <code>mod union</code> and a macro invocation that looks like <code>union::some_macro! { ... }</code>. In other words <code>union</code> is a contextual keyword.</p>
 
-<div class='information'><div class='tooltip edition'>ⓘ<span class='tooltiptext'>This code runs with edition 2018</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered edition ">
+<div class='information'><div class='tooltip edition' data-edition="2018">ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered edition">
 <span class="kw">use</span> <span class="ident">syn</span>::{<span class="ident">Ident</span>, <span class="ident">ItemUnion</span>, <span class="ident">Macro</span>, <span class="prelude-ty">Result</span>, <span class="ident">Token</span>};
 <span class="kw">use</span> <span class="ident">syn</span>::<span class="ident">parse</span>::{<span class="ident">Parse</span>, <span class="ident">ParseStream</span>};
 
@@ -149,7 +149,7 @@ the very next token is <code>union</code>, because someone is free to write a <c
 <p>Parsing continues until the end of this parse stream. The entire content
 of this parse stream must consist of <code>T</code> and <code>P</code>.</p>
 <h1 id="example-3" class="section-header"><a href="#example-3">Example</a></h1>
-<div class='information'><div class='tooltip edition'>ⓘ<span class='tooltiptext'>This code runs with edition 2018</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered edition ">
+<div class='information'><div class='tooltip edition' data-edition="2018">ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered edition">
 <span class="kw">use</span> <span class="ident">syn</span>::{<span class="ident">parenthesized</span>, <span class="ident">token</span>, <span class="ident">Ident</span>, <span class="prelude-ty">Result</span>, <span class="ident">Token</span>, <span class="ident">Type</span>};
 <span class="kw">use</span> <span class="ident">syn</span>::<span class="ident">parse</span>::{<span class="ident">Parse</span>, <span class="ident">ParseStream</span>};
 <span class="kw">use</span> <span class="ident">syn</span>::<span class="ident">punctuated</span>::<span class="ident">Punctuated</span>;
@@ -181,7 +181,7 @@ of this parse stream must consist of <code>T</code> and <code>P</code>.</p>
 <p>This method returns true at the end of the content of a set of
 delimiters, as well as at the very end of the complete macro input.</p>
 <h1 id="example-4" class="section-header"><a href="#example-4">Example</a></h1>
-<div class='information'><div class='tooltip edition'>ⓘ<span class='tooltiptext'>This code runs with edition 2018</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered edition ">
+<div class='information'><div class='tooltip edition' data-edition="2018">ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered edition">
 <span class="kw">use</span> <span class="ident">syn</span>::{<span class="ident">braced</span>, <span class="ident">token</span>, <span class="ident">Ident</span>, <span class="ident">Item</span>, <span class="prelude-ty">Result</span>, <span class="ident">Token</span>};
 <span class="kw">use</span> <span class="ident">syn</span>::<span class="ident">parse</span>::{<span class="ident">Parse</span>, <span class="ident">ParseStream</span>};
 
@@ -213,7 +213,7 @@ delimiters, as well as at the very end of the complete macro input.</p>
 </div><h4 id="method.lookahead1" class="method"><code>pub fn <a href="#method.lookahead1" class="fnname">lookahead1</a>(&amp;self) -&gt; <a class="struct" href="../../syn/parse/struct.Lookahead1.html" title="struct syn::parse::Lookahead1">Lookahead1</a>&lt;'a&gt;</code><a class="srclink" href="../../src/syn/parse.rs.html#719-721" title="goto source code">[src]</a></h4><div class="docblock"><p>Constructs a helper for peeking at the next token in this stream and
 building an error message if it is not one of a set of expected tokens.</p>
 <h1 id="example-5" class="section-header"><a href="#example-5">Example</a></h1>
-<div class='information'><div class='tooltip edition'>ⓘ<span class='tooltiptext'>This code runs with edition 2018</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered edition ">
+<div class='information'><div class='tooltip edition' data-edition="2018">ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered edition">
 <span class="kw">use</span> <span class="ident">syn</span>::{<span class="ident">ConstParam</span>, <span class="ident">Ident</span>, <span class="ident">Lifetime</span>, <span class="ident">LifetimeDef</span>, <span class="prelude-ty">Result</span>, <span class="ident">Token</span>, <span class="ident">TypeParam</span>};
 <span class="kw">use</span> <span class="ident">syn</span>::<span class="ident">parse</span>::{<span class="ident">Parse</span>, <span class="ident">ParseStream</span>};
 
@@ -256,7 +256,7 @@ involve copying token buffers. Where you might hit performance problems
 is if your macro ends up parsing a large amount of content more than
 once.</p>
 
-<div class='information'><div class='tooltip edition'>ⓘ<span class='tooltiptext'>This code runs with edition 2018</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered edition ">
+<div class='information'><div class='tooltip edition' data-edition="2018">ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered edition">
 <span class="comment">// Do not do this.</span>
 <span class="kw">if</span> <span class="ident">input</span>.<span class="ident">fork</span>().<span class="ident">parse</span>::<span class="op">&lt;</span><span class="ident">Expr</span><span class="op">&gt;</span>().<span class="ident">is_ok</span>() {
     <span class="kw">return</span> <span class="ident">input</span>.<span class="ident">parse</span>::<span class="op">&lt;</span><span class="ident">Expr</span><span class="op">&gt;</span>();
@@ -284,7 +284,7 @@ visibilities.</p>
 needs to distinguish parentheses that specify visibility restrictions
 from parentheses that form part of a tuple type.</p>
 
-<div class='information'><div class='tooltip edition'>ⓘ<span class='tooltiptext'>This code runs with edition 2018</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered edition ">
+<div class='information'><div class='tooltip edition' data-edition="2018">ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered edition">
 <span class="kw">struct</span> <span class="ident">S</span>(<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">A</span>, <span class="kw">pub</span> (<span class="ident">B</span>, <span class="ident">C</span>));</pre></div>
 <p>In this example input the first tuple struct element of <code>S</code> has
 <code>pub(crate)</code> visibility while the second tuple struct element has <code>pub</code>
@@ -294,7 +294,7 @@ than part of a visibility restriction.</p>
 parentheses after the <code>pub</code> keyword. This is a small bounded amount of
 work performed against the forked parse stream.</p>
 
-<div class='information'><div class='tooltip edition'>ⓘ<span class='tooltiptext'>This code runs with edition 2018</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered edition ">
+<div class='information'><div class='tooltip edition' data-edition="2018">ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered edition">
 <span class="kw">use</span> <span class="ident">syn</span>::{<span class="ident">parenthesized</span>, <span class="ident">token</span>, <span class="ident">Ident</span>, <span class="ident">Path</span>, <span class="prelude-ty">Result</span>, <span class="ident">Token</span>};
 <span class="kw">use</span> <span class="ident">syn</span>::<span class="ident">ext</span>::<span class="ident">IdentExt</span>;
 <span class="kw">use</span> <span class="ident">syn</span>::<span class="ident">parse</span>::{<span class="ident">Parse</span>, <span class="ident">ParseStream</span>};
@@ -351,7 +351,7 @@ work performed against the forked parse stream.</p>
 }</pre></div>
 </div><h4 id="method.error" class="method"><code>pub fn <a href="#method.error" class="fnname">error</a>&lt;T:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html" title="trait core::fmt::Display">Display</a>&gt;(&amp;self, message: T) -&gt; <a class="struct" href="../../syn/parse/struct.Error.html" title="struct syn::parse::Error">Error</a></code><a class="srclink" href="../../src/syn/parse.rs.html#888-890" title="goto source code">[src]</a></h4><div class="docblock"><p>Triggers an error at the current position of the parse stream.</p>
 <h1 id="example-7" class="section-header"><a href="#example-7">Example</a></h1>
-<div class='information'><div class='tooltip edition'>ⓘ<span class='tooltiptext'>This code runs with edition 2018</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered edition ">
+<div class='information'><div class='tooltip edition' data-edition="2018">ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered edition">
 <span class="kw">use</span> <span class="ident">syn</span>::{<span class="ident">Expr</span>, <span class="prelude-ty">Result</span>, <span class="ident">Token</span>};
 <span class="kw">use</span> <span class="ident">syn</span>::<span class="ident">parse</span>::{<span class="ident">Parse</span>, <span class="ident">ParseStream</span>};
 
@@ -380,7 +380,7 @@ position of this stream only if parsing succeeds.</p>
 the basic built-in token types. It is not something that will be used
 widely outside of the Syn codebase.</p>
 <h1 id="example-8" class="section-header"><a href="#example-8">Example</a></h1>
-<div class='information'><div class='tooltip edition'>ⓘ<span class='tooltiptext'>This code runs with edition 2018</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered edition ">
+<div class='information'><div class='tooltip edition' data-edition="2018">ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered edition">
 <span class="kw">use</span> <span class="ident">proc_macro2</span>::<span class="ident">TokenTree</span>;
 <span class="kw">use</span> <span class="ident">syn</span>::<span class="prelude-ty">Result</span>;
 <span class="kw">use</span> <span class="ident">syn</span>::<span class="ident">parse</span>::<span class="ident">ParseStream</span>;

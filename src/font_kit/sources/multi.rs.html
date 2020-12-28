@@ -145,12 +145,12 @@
 <span class="doccomment">/// fonts plus some other application-supplied fonts.</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">missing_debug_implementations</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MultiSource</span> {
-    <span class="ident">subsources</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Source</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="ident">subsources</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Source</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">MultiSource</span> {
     <span class="doccomment">/// Creates a new source that contains all the fonts in the supplied sources.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_sources</span>(<span class="ident">subsources</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Source</span><span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MultiSource</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_sources</span>(<span class="ident">subsources</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Source</span><span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MultiSource</span> {
         <span class="ident">MultiSource</span> { <span class="ident">subsources</span> }
     }
 

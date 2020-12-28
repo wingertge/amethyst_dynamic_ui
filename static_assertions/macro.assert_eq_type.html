@@ -18,7 +18,7 @@ module scope:</p>
 <p>The <a href="index.html#limitations">labeling limitation</a> is not necessary if
 compiling on nightly Rust with the <code>nightly</code> feature enabled:</p>
 
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="attribute">#![<span class="ident">feature</span>(<span class="ident">underscore_const_names</span>)]</span>
 
 <span class="macro">assert_eq_type</span><span class="macro">!</span>(<span class="ident">u8</span>, <span class="ident">A</span>, <span class="ident">B</span>);</pre></div>
@@ -32,6 +32,6 @@ use <code>'static</code> in that case:</p>
 <p>The following produces a compilation failure because <code>String</code> and <code>str</code> do
 not refer to the same type:</p>
 
-<div class='information'><div class='tooltip compile_fail'>ⓘ<span class='tooltiptext'>This example deliberately fails to compile</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered compile_fail">
+<div class='information'><div class='tooltip compile_fail'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered compile_fail">
 <span class="macro">assert_eq_type</span><span class="macro">!</span>(<span class="ident">String</span>, <span class="ident">str</span>);</pre></div>
 </div></section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../";window.currentCrate = "static_assertions";</script><script src="../main.js"></script><script defer src="../search-index.js"></script></body></html>

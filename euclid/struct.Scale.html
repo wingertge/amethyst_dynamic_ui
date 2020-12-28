@@ -97,7 +97,7 @@ method panics. Use <code>try_cast</code> if that must be case.</p>
 <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">to_mm</span>.<span class="ident">cast</span>::<span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span>(), <span class="ident">Scale</span>::<span class="ident">new</span>(<span class="number">10.0</span>));</pre></div>
 <p>That conversion will panic, because <code>i32</code> not enough to store such big numbers:</p>
 
-<div class='information'><div class='tooltip should_panic'>ⓘ<span class='tooltiptext'>This example panics</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered should_panic">
+<div class='information'><div class='tooltip should_panic'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered should_panic">
 <span class="kw">use</span> <span class="ident">euclid</span>::<span class="ident">Scale</span>;
 <span class="kw">enum</span> <span class="ident">Mm</span> {};<span class="comment">// millimeter = 10^-2 meters</span>
 <span class="kw">enum</span> <span class="ident">Em</span> {};<span class="comment">// exameter   = 10^18 meters</span>

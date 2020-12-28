@@ -596,7 +596,7 @@
                 })
                 .<span class="ident">map</span>(<span class="op">|</span><span class="ident">res</span><span class="op">|</span> {
                     <span class="self">self</span>.<span class="ident">fat</span>[<span class="ident">index</span>]
-                        .<span class="ident">create_ptr</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">Box</span>::<span class="ident">as_ref</span>(<span class="kw-2">&amp;</span><span class="ident">res</span>.<span class="ident">borrow</span>()) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">dyn</span> <span class="ident">Resource</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span>
+                        .<span class="ident">create_ptr</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">Box</span>::<span class="ident">as_ref</span>(<span class="kw-2">&amp;</span><span class="ident">res</span>.<span class="ident">borrow</span>()) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">dyn</span> <span class="ident">Resource</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span>
                         ())
                 })
                 <span class="comment">// we lengthen the lifetime from `&#39;_` to `&#39;a` here, see above</span>
@@ -661,7 +661,7 @@
                 })
                 .<span class="ident">map</span>(<span class="op">|</span><span class="ident">res</span><span class="op">|</span> {
                     <span class="self">self</span>.<span class="ident">fat</span>[<span class="ident">index</span>].<span class="ident">create_ptr</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">Box</span>::<span class="ident">as_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">res</span>.<span class="ident">borrow_mut</span>())
-                        <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">dyn</span> <span class="ident">Resource</span>
+                        <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">dyn</span> <span class="ident">Resource</span>
                         <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> ()) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>
                 })
                 <span class="comment">// we lengthen the lifetime from `&#39;_` to `&#39;a` here, see above</span>
@@ -801,7 +801,7 @@
     <span class="doccomment">/// Tries to convert `world` to a trait object of type `&amp;T`.</span>
     <span class="doccomment">/// If `world` doesn&#39;t have an implementation for `T` (or it wasn&#39;t</span>
     <span class="doccomment">/// registered), this will return `None`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">res</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">dyn</span> <span class="ident">Resource</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">res</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw">dyn</span> <span class="ident">Resource</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">T</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="self">self</span>.<span class="ident">indices</span>
                 .<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">Any</span>::<span class="ident">get_type_id</span>(<span class="ident">res</span>))
@@ -812,7 +812,7 @@
     <span class="doccomment">/// Tries to convert `world` to a trait object of type `&amp;mut T`.</span>
     <span class="doccomment">/// If `world` doesn&#39;t have an implementation for `T` (or it wasn&#39;t</span>
     <span class="doccomment">/// registered), this will return `None`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_mut</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">res</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">dyn</span> <span class="ident">Resource</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_mut</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">res</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw">dyn</span> <span class="ident">Resource</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">T</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="self">self</span>.<span class="ident">indices</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">Any</span>::<span class="ident">get_type_id</span>(<span class="ident">res</span>)).<span class="ident">map</span>(<span class="kw">move</span> <span class="op">|</span><span class="kw-2">&amp;</span><span class="ident">ind</span><span class="op">|</span> {
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span>(<span class="self">self</span>.<span class="ident">fat</span>[<span class="ident">ind</span>].<span class="ident">create_ptr</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">res</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> ()) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>)
@@ -874,7 +874,7 @@
         <span class="kw">fn</span> <span class="ident">method2</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">x</span>: <span class="ident">i32</span>);
     }
 
-    <span class="kw">unsafe</span> <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">CastFrom</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">dyn</span> <span class="ident">Object</span>
+    <span class="kw">unsafe</span> <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">CastFrom</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="kw">dyn</span> <span class="ident">Object</span>
     <span class="kw">where</span>
         <span class="ident">T</span>: <span class="ident">Object</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
     {
@@ -918,7 +918,7 @@
         <span class="ident">world</span>.<span class="ident">insert</span>(<span class="ident">ImplementorA</span>(<span class="number">3</span>));
         <span class="ident">world</span>.<span class="ident">insert</span>(<span class="ident">ImplementorB</span>(<span class="number">1</span>));
 
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">table</span> <span class="op">=</span> <span class="ident">MetaTable</span>::<span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Object</span><span class="op">&gt;</span>::<span class="ident">new</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">table</span> <span class="op">=</span> <span class="ident">MetaTable</span>::<span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Object</span><span class="op">&gt;</span>::<span class="ident">new</span>();
         <span class="ident">table</span>.<span class="ident">register</span>(<span class="kw-2">&amp;</span><span class="ident">ImplementorA</span>(<span class="number">125</span>));
         <span class="ident">table</span>.<span class="ident">register</span>(<span class="kw-2">&amp;</span><span class="ident">ImplementorB</span>(<span class="number">111_111</span>));
 
@@ -946,7 +946,7 @@
         <span class="ident">world</span>.<span class="ident">insert</span>(<span class="ident">ImplementorA</span>(<span class="number">3</span>));
         <span class="ident">world</span>.<span class="ident">insert</span>(<span class="ident">ImplementorB</span>(<span class="number">1</span>));
 
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">table</span> <span class="op">=</span> <span class="ident">MetaTable</span>::<span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Object</span><span class="op">&gt;</span>::<span class="ident">new</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">table</span> <span class="op">=</span> <span class="ident">MetaTable</span>::<span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Object</span><span class="op">&gt;</span>::<span class="ident">new</span>();
         <span class="ident">table</span>.<span class="ident">register</span>(<span class="kw-2">&amp;</span><span class="ident">ImplementorA</span>(<span class="number">125</span>));
         <span class="ident">table</span>.<span class="ident">register</span>(<span class="kw-2">&amp;</span><span class="ident">ImplementorB</span>(<span class="number">111_111</span>));
 
@@ -997,7 +997,7 @@
         <span class="ident">world</span>.<span class="ident">insert</span>(<span class="ident">ImplementorC</span>);
         <span class="ident">world</span>.<span class="ident">insert</span>(<span class="ident">ImplementorD</span>);
 
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">table</span> <span class="op">=</span> <span class="ident">MetaTable</span>::<span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Object</span><span class="op">&gt;</span>::<span class="ident">new</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">table</span> <span class="op">=</span> <span class="ident">MetaTable</span>::<span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Object</span><span class="op">&gt;</span>::<span class="ident">new</span>();
         <span class="ident">table</span>.<span class="ident">register</span>(<span class="kw-2">&amp;</span><span class="ident">ImplementorC</span>);
         <span class="ident">table</span>.<span class="ident">register</span>(<span class="kw-2">&amp;</span><span class="ident">ImplementorD</span>);
 

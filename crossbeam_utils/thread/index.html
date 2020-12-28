@@ -23,7 +23,7 @@
 <h1 id="why-scoped-threads" class="section-header"><a href="#why-scoped-threads">Why scoped threads?</a></h1>
 <p>Suppose we wanted to re-write the previous example using plain threads:</p>
 
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">thread</span>;
 
 <span class="kw">let</span> <span class="ident">people</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[
@@ -72,7 +72,7 @@ can safely access variables outside it.</p>
 tricky because argument <code>s</code> lives <em>inside</em> the invocation of <code>thread::scope()</code> and as such
 cannot be borrowed by scoped threads:</p>
 
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="kw">use</span> <span class="ident">crossbeam_utils</span>::<span class="ident">thread</span>;
 
 <span class="ident">thread</span>::<span class="ident">scope</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> {

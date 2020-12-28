@@ -94,7 +94,7 @@ the closure must be <code>Send</code>.</p>
 <code>F: Send</code> for typical use cases. For example, consider the following code snippet, which
 exemplifies the typical use case of deferring the deallocation of a shared reference:</p>
 
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="kw">let</span> <span class="ident">shared</span> <span class="op">=</span> <span class="ident">Owned</span>::<span class="ident">new</span>(<span class="number">7i32</span>).<span class="ident">into_shared</span>(<span class="ident">guard</span>);
 <span class="ident">guard</span>.<span class="ident">defer_unchecked</span>(<span class="kw">move</span> <span class="op">|</span><span class="op">|</span> <span class="ident">shared</span>.<span class="ident">into_owned</span>()); <span class="comment">// `Shared` is not `Send`!</span></pre></div>
 <p>While <code>Shared</code> is not <code>Send</code>, it's safe for another thread to call the deferred function,
@@ -156,7 +156,7 @@ must be sendable to other threads.</p>
 <code>T: Send</code> for typical use cases. For example, consider the following code snippet, which
 exemplifies the typical use case of deferring the deallocation of a shared reference:</p>
 
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="kw">let</span> <span class="ident">shared</span> <span class="op">=</span> <span class="ident">Owned</span>::<span class="ident">new</span>(<span class="number">7i32</span>).<span class="ident">into_shared</span>(<span class="ident">guard</span>);
 <span class="ident">guard</span>.<span class="ident">defer_destroy</span>(<span class="ident">shared</span>); <span class="comment">// `Shared` is not `Send`!</span></pre></div>
 <p>While <code>Shared</code> is not <code>Send</code>, it's safe for another thread to call the destructor, because

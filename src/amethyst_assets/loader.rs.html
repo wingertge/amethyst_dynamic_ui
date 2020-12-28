@@ -270,7 +270,7 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Loader</span> {
     <span class="ident">hot_reload</span>: <span class="ident">bool</span>,
     <span class="ident">pool</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">ThreadPool</span><span class="op">&gt;</span>,
-    <span class="ident">sources</span>: <span class="ident">FnvHashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Source</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="ident">sources</span>: <span class="ident">FnvHashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Arc</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Source</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Loader</span> {
@@ -305,7 +305,7 @@
         <span class="ident">S</span>: <span class="ident">Source</span>,
     {
         <span class="self">self</span>.<span class="ident">sources</span>
-            .<span class="ident">insert</span>(<span class="ident">id</span>.<span class="ident">into</span>(), <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">source</span>) <span class="kw">as</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Source</span><span class="op">&gt;</span>);
+            .<span class="ident">insert</span>(<span class="ident">id</span>.<span class="ident">into</span>(), <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">source</span>) <span class="kw">as</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Source</span><span class="op">&gt;</span>);
     }
 
     <span class="doccomment">/// Set the default source of the `Loader`.</span>
@@ -408,7 +408,7 @@
         <span class="kw">let</span> <span class="ident">processed</span> <span class="op">=</span> <span class="ident">storage</span>.<span class="ident">processed</span>.<span class="ident">clone</span>();
 
         <span class="kw">let</span> <span class="ident">hot_reload</span> <span class="op">=</span> <span class="kw">if</span> <span class="self">self</span>.<span class="ident">hot_reload</span> {
-            <span class="prelude-val">Some</span>(<span class="ident">objekt</span>::<span class="ident">clone_box</span>(<span class="kw-2">&amp;</span><span class="ident">format</span>) <span class="kw">as</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Format</span><span class="op">&lt;</span><span class="ident">A</span>::<span class="ident">Data</span><span class="op">&gt;</span><span class="op">&gt;</span>)
+            <span class="prelude-val">Some</span>(<span class="ident">objekt</span>::<span class="ident">clone_box</span>(<span class="kw-2">&amp;</span><span class="ident">format</span>) <span class="kw">as</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Format</span><span class="op">&lt;</span><span class="ident">A</span>::<span class="ident">Data</span><span class="op">&gt;</span><span class="op">&gt;</span>)
         } <span class="kw">else</span> {
             <span class="prelude-val">None</span>
         };
@@ -419,7 +419,7 @@
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">format</span>
                 .<span class="ident">import</span>(<span class="ident">name</span>.<span class="ident">clone</span>(), <span class="ident">source</span>, <span class="ident">hot_reload</span>)
                 .<span class="ident">with_context</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">Error</span>::<span class="ident">Format</span>(<span class="ident">format_name</span>));
-            <span class="kw">let</span> <span class="ident">tracker</span> <span class="op">=</span> <span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">tracker</span>) <span class="kw">as</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Tracker</span><span class="op">&gt;</span>;
+            <span class="kw">let</span> <span class="ident">tracker</span> <span class="op">=</span> <span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">tracker</span>) <span class="kw">as</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Tracker</span><span class="op">&gt;</span>;
 
             <span class="ident">processed</span>.<span class="ident">push</span>(<span class="ident">Processed</span>::<span class="ident">NewAsset</span> {
                 <span class="ident">data</span>,
@@ -491,7 +491,7 @@
         <span class="ident">handle</span>
     }
 
-    <span class="kw">fn</span> <span class="ident">source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">source</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Source</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">source</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Source</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">sources</span>
             .<span class="ident">get</span>(<span class="ident">source</span>)
             .<span class="ident">expect</span>(<span class="string">&quot;No such source. Maybe you forgot to add it with `Loader::add_source`?&quot;</span>)

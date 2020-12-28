@@ -24,6 +24,7 @@ implementors["glyph_brush"] = [{"text":"impl Error for BrushError","synthetic":f
 implementors["hound"] = [{"text":"impl Error for Error","synthetic":false,"types":[]}];
 implementors["humantime"] = [{"text":"impl Error for Error","synthetic":false,"types":[]},{"text":"impl Error for Error","synthetic":false,"types":[]}];
 implementors["image"] = [{"text":"impl Error for ImageError","synthetic":false,"types":[]},{"text":"impl Error for UnsupportedError","synthetic":false,"types":[]},{"text":"impl Error for ParameterError","synthetic":false,"types":[]},{"text":"impl Error for EncodingError","synthetic":false,"types":[]},{"text":"impl Error for DecodingError","synthetic":false,"types":[]},{"text":"impl Error for LimitError","synthetic":false,"types":[]},{"text":"impl Error for Error","synthetic":false,"types":[]}];
+implementors["itertools"] = [{"text":"impl&lt;I&gt; Error for ExactlyOneError&lt;I&gt; <span class=\"where fmt-newline\">where<br>&nbsp;&nbsp;&nbsp;&nbsp;I: Iterator + Debug,<br>&nbsp;&nbsp;&nbsp;&nbsp;I::Item: Debug,&nbsp;</span>","synthetic":false,"types":[]}];
 implementors["jpeg_decoder"] = [{"text":"impl Error for Error","synthetic":false,"types":[]}];
 implementors["laminar"] = [{"text":"impl Error for ErrorKind","synthetic":false,"types":[]}];
 implementors["lewton"] = [{"text":"impl Error for HeaderReadError","synthetic":false,"types":[]},{"text":"impl Error for AudioReadError","synthetic":false,"types":[]},{"text":"impl Error for VorbisError","synthetic":false,"types":[]}];

@@ -46,21 +46,21 @@ by range syntax like <code>..</code>, <code>a..</code>, <code>..b</code>, <code>
 <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span>..<span class="number">3</span>, (<span class="number">1</span>..).<span class="ident">assert_len</span>(<span class="ident">v</span>.<span class="ident">len</span>()));</pre></div>
 <p>Panics when <a href="../../../../nom/lib/std/ops/trait.Index.html#tymethod.index"><code>Index::index</code></a> would panic:</p>
 
-<div class='information'><div class='tooltip should_panic'>ⓘ<span class='tooltiptext'>This example panics</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered should_panic">
+<div class='information'><div class='tooltip should_panic'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered should_panic">
 <span class="attribute">#![<span class="ident">feature</span>(<span class="ident">range_bounds_assert_len</span>)]</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ops</span>::<span class="ident">RangeBounds</span>;
 
 (<span class="number">2</span>..<span class="number">1</span>).<span class="ident">assert_len</span>(<span class="number">3</span>);</pre></div>
 
-<div class='information'><div class='tooltip should_panic'>ⓘ<span class='tooltiptext'>This example panics</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered should_panic">
+<div class='information'><div class='tooltip should_panic'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered should_panic">
 <span class="attribute">#![<span class="ident">feature</span>(<span class="ident">range_bounds_assert_len</span>)]</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ops</span>::<span class="ident">RangeBounds</span>;
 
 (<span class="number">1</span>..<span class="number">4</span>).<span class="ident">assert_len</span>(<span class="number">3</span>);</pre></div>
 
-<div class='information'><div class='tooltip should_panic'>ⓘ<span class='tooltiptext'>This example panics</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered should_panic">
+<div class='information'><div class='tooltip should_panic'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered should_panic">
 <span class="attribute">#![<span class="ident">feature</span>(<span class="ident">range_bounds_assert_len</span>)]</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ops</span>::<span class="ident">RangeBounds</span>;

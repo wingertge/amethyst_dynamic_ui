@@ -26,7 +26,7 @@ as defined by <a href="https://unicode.org/reports/tr35/tr35.html#Unicode_langua
 <p>If <code>feature = &quot;macros&quot;</code> is selected, the crate provides a procedural macro
 which allows to construct build-time well-formed language identifiers with zero-cost at runtime.</p>
 
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="kw">use</span> <span class="ident">unic_langid</span>::{<span class="ident">langid</span>, <span class="ident">langids</span>};
 
 <span class="kw">let</span> <span class="ident">es_ar</span> <span class="op">=</span> <span class="macro">langid</span><span class="macro">!</span>(<span class="string">&quot;es-AR&quot;</span>);
@@ -54,7 +54,7 @@ but since the parsing is performed at build time, it doesn't need a <code>Result
 subtags to most likely values, or removing the subtags that are not needed.</p>
 <p>Both methods return a <code>bool</code> that indicates if the identifier has been modified.</p>
 
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="kw">use</span> <span class="ident">unic_langid</span>::<span class="ident">LanuageIdentifier</span>;
 
 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">li</span>: <span class="ident">LanguageIdentifier</span> <span class="op">=</span> <span class="string">&quot;fr-FR&quot;</span>.<span class="ident">parse</span>()

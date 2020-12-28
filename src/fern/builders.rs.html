@@ -2041,7 +2041,7 @@
     <span class="doccomment">/// assert_eq!(min_level, log::LevelFilter::Info);</span>
     <span class="doccomment">/// # }</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_log</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">log</span>::<span class="ident">LevelFilter</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">log</span>::<span class="ident">Log</span><span class="op">&gt;</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_log</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">log</span>::<span class="ident">LevelFilter</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">log</span>::<span class="ident">Log</span><span class="op">&gt;</span>) {
         <span class="kw">let</span> (<span class="ident">level</span>, <span class="ident">logger</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">into_dispatch</span>();
         <span class="kw">if</span> <span class="ident">level</span> <span class="op">=</span><span class="op">=</span> <span class="ident">log</span>::<span class="ident">LevelFilter</span>::<span class="ident">Off</span> {
             (<span class="ident">level</span>, <span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">log_impl</span>::<span class="ident">Null</span>))
@@ -2087,7 +2087,7 @@
     },
     <span class="doccomment">/// Writes all messages to the writer with `line_sep` separator.</span>
     <span class="ident">Writer</span> {
-        <span class="ident">stream</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Write</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span>,
+        <span class="ident">stream</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Write</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span>,
         <span class="ident">line_sep</span>: <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">str</span><span class="op">&gt;</span>,
     },
     <span class="doccomment">/// Writes all messages to the reopen::Reopen file with `line_sep`</span>
@@ -2107,9 +2107,9 @@
     <span class="doccomment">/// Passes all messages to other dispatch that&#39;s shared.</span>
     <span class="ident">SharedDispatch</span>(<span class="ident">SharedDispatch</span>),
     <span class="doccomment">/// Passes all messages to other logger.</span>
-    <span class="ident">OtherBoxed</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Log</span><span class="op">&gt;</span>),
+    <span class="ident">OtherBoxed</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Log</span><span class="op">&gt;</span>),
     <span class="doccomment">/// Passes all messages to other logger.</span>
-    <span class="ident">OtherStatic</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">dyn</span> <span class="ident">Log</span>),
+    <span class="ident">OtherStatic</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="kw">dyn</span> <span class="ident">Log</span>),
     <span class="doccomment">/// Passes all messages to the syslog.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">not</span>(<span class="ident">windows</span>), <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;syslog-3&quot;</span>))]</span>
     <span class="ident">Syslog3</span>(<span class="ident">syslog3</span>::<span class="ident">Logger</span>),
@@ -2121,7 +2121,7 @@
     <span class="ident">Syslog4Rfc5424</span> {
         <span class="ident">logger</span>: <span class="ident">Syslog4Rfc5424Logger</span>,
         <span class="ident">transform</span>: <span class="ident">Box</span><span class="op">&lt;</span>
-            <span class="ident">dyn</span> <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">log</span>::<span class="ident">Record</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">i32</span>, <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">String</span>)
+            <span class="kw">dyn</span> <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">log</span>::<span class="ident">Record</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">i32</span>, <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">String</span>)
                 <span class="op">+</span> <span class="ident">Sync</span>
                 <span class="op">+</span> <span class="ident">Send</span>,
         <span class="op">&gt;</span>,
@@ -2193,16 +2193,16 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Log</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Output</span> {
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Log</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Output</span> {
     <span class="doccomment">/// Creates an output logger forwarding all messages to the custom logger.</span>
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">log</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Log</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">log</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Log</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">Output</span>(<span class="ident">OutputInner</span>::<span class="ident">OtherBoxed</span>(<span class="ident">log</span>))
     }
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">dyn</span> <span class="ident">Log</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Output</span> {
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="kw">dyn</span> <span class="ident">Log</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Output</span> {
     <span class="doccomment">/// Creates an output logger forwarding all messages to the custom logger.</span>
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">log</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">dyn</span> <span class="ident">Log</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">log</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="kw">dyn</span> <span class="ident">Log</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">Output</span>(<span class="ident">OutputInner</span>::<span class="ident">OtherStatic</span>(<span class="ident">log</span>))
     }
 }
@@ -2220,14 +2220,14 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Write</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Output</span> {
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Write</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Output</span> {
     <span class="doccomment">/// Creates an output logger which writes all messages to the writer with</span>
     <span class="doccomment">/// `\n` as the separator.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This does no buffering and it is up to the writer to do buffering as</span>
     <span class="doccomment">/// needed (eg. wrap it in `BufWriter`). However, flush is called after</span>
     <span class="doccomment">/// each log record.</span>
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">writer</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Write</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">writer</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Write</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">Output</span>(<span class="ident">OutputInner</span>::<span class="ident">Writer</span> {
             <span class="ident">stream</span>: <span class="ident">writer</span>,
             <span class="ident">line_sep</span>: <span class="string">&quot;\n&quot;</span>.<span class="ident">into</span>(),
@@ -2425,7 +2425,7 @@
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`Dispatch::chain`]: struct.Dispatch.html#method.chain</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">writer</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">str</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">writer</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Write</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span>, <span class="ident">line_sep</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">writer</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">str</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">writer</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Write</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span>, <span class="ident">line_sep</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">Output</span>(<span class="ident">OutputInner</span>::<span class="ident">Writer</span> {
             <span class="ident">stream</span>: <span class="ident">writer</span>,
             <span class="ident">line_sep</span>: <span class="ident">line_sep</span>.<span class="ident">into</span>(),
@@ -2600,7 +2600,7 @@
             <span class="kw">fn</span> <span class="ident">flush</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {}
         }
 
-        <span class="self">Self</span>::<span class="ident">from</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">CallShim</span>(<span class="ident">func</span>)) <span class="kw">as</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">log</span>::<span class="ident">Log</span><span class="op">&gt;</span>)
+        <span class="self">Self</span>::<span class="ident">from</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">CallShim</span>(<span class="ident">func</span>)) <span class="kw">as</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">log</span>::<span class="ident">Log</span><span class="op">&gt;</span>)
     }
 }
 

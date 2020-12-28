@@ -37,7 +37,7 @@
 <p>If you are using <strong>libcore</strong> but not libstd (<code>#![no_std]</code>) or liballoc, enable the <code>no_std</code>
 Cargo feature and write this:</p>
 
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="macro">mopafy</span><span class="macro">!</span>(<span class="ident">Trait</span>, <span class="ident">core</span> <span class="op">=</span> <span class="ident">core</span>);</pre></div>
 <p>(This is akin to <code>mopafy!(Trait, core = std)</code> if you were using libstd.)</p>
 <p>Unlike the other two techniques, this only gets you the <code>&amp;Any</code> and <code>&amp;mut Any</code> methods; the
@@ -47,7 +47,7 @@ Cargo feature and write this:</p>
 <p>If you are using <strong>libcore and liballoc</strong> but not libstd (<code>#![no_std]</code>), enable the <code>no_std</code>
 Cargo feature and write this:</p>
 
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="macro">mopafy</span><span class="macro">!</span>(<span class="ident">Trait</span>, <span class="ident">core</span> <span class="op">=</span> <span class="ident">core</span>, <span class="ident">alloc</span> <span class="op">=</span> <span class="ident">alloc</span>);</pre></div>
 <p>(This is akin to <code>mopafy!(Trait, core = std, alloc = std)</code> if you were using libstd; in
 fact, the first form is just sugar for this very thing.)</p>

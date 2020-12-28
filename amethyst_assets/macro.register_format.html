@@ -10,7 +10,7 @@
 </div><div class="docblock"><p>Register a dynamically deserializable format for given asset data type.
 Note that provided asset data type must also be registered using <code>register_format_type</code> macro.</p>
 
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="ident">amethyst_assets</span>::<span class="macro">register_format</span><span class="macro">!</span>(<span class="string">&quot;WAV&quot;</span>, <span class="ident">WavFormat</span> <span class="kw">as</span> <span class="ident">AudioData</span>);</pre></div>
 <p>The provided name literal (<code>&quot;WAV&quot;</code> in example) must be identical to the one returned from <code>fn name</code> implementation.
 This is required for right deserialization to be determined correctly. This parameter might be removed
@@ -18,6 +18,6 @@ in the future when some macro limitations will be worked around.</p>
 <p>The <code>amethyst_assets</code> crate must be in scope in order to use that macro.
 You can also specify name for the crate as additional first parameter.</p>
 
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="ident">amethyst_assets</span>::<span class="macro">register_format</span><span class="macro">!</span>(<span class="ident">renamed_assets_crate</span>; <span class="string">&quot;WAV&quot;</span>, <span class="ident">WavFormat</span> <span class="kw">as</span> <span class="ident">AudioData</span>);</pre></div>
 </div></section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../";window.currentCrate = "amethyst_assets";</script><script src="../main.js"></script><script defer src="../search-index.js"></script></body></html>
