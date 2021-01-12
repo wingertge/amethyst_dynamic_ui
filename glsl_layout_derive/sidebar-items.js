@@ -1,1 +1,1 @@
-initSidebarItems({"derive":[["AsStd140",""]]});
+initSidebarItems({"derive":[["Uniform",""]]});
