@@ -95,7 +95,7 @@ dependencies = [
  "dirs",
  "failure",
  "fern",
- "glsl-layout",
+ "glsl-layout 0.3.2",
  "lazy_static",
  "log",
  "palette",
@@ -237,7 +237,7 @@ dependencies = [
  "derive-new",
  "derive_deref",
  "fnv",
- "glsl-layout",
+ "glsl-layout 0.4.0",
  "glyph_brush",
  "itertools 0.10.0",
  "lazy_static",
@@ -326,7 +326,7 @@ dependencies = [
  "failure",
  "fnv",
  "genmesh",
- "glsl-layout",
+ "glsl-layout 0.3.2",
  "gltf",
  "lazy_static",
  "log",
@@ -357,7 +357,7 @@ dependencies = [
  "failure",
  "fnv",
  "font-kit",
- "glsl-layout",
+ "glsl-layout 0.3.2",
  "glyph_brush",
  "lazy_static",
  "log",
@@ -1446,7 +1446,16 @@ version = "0.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8a09fa28f366501404e78686df09026aa4a2a729e25707f230273d97ff9933bc"
 dependencies = [
- "glsl-layout-derive",
+ "glsl-layout-derive 0.3.2",
+]
+
+[[package]]
+name = "glsl-layout"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2228ade20ecb9150f8ab5cad6e152c2988b180ff04e9c1fb7c32830cb6f67627"
+dependencies = [
+ "glsl-layout-derive 0.4.0",
 ]
 
 [[package]]
@@ -1454,6 +1463,17 @@ name = "glsl-layout-derive"
 version = "0.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "def9469f08de9930cae4c4e7d88b059cce0765a0ffdf6108ecc96568e801516d"
+dependencies = [
+ "proc-macro2 1.0.21",
+ "quote 1.0.7",
+ "syn 1.0.41",
+]
+
+[[package]]
+name = "glsl-layout-derive"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b870f33b0cec52fd0347c09722c2f9a85e9a4e9aa5c0453e75dedc12bde7ddb8"
 dependencies = [
  "proc-macro2 1.0.21",
  "quote 1.0.7",
