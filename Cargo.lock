@@ -91,7 +91,7 @@ dependencies = [
  "amethyst_utils",
  "amethyst_window",
  "crossbeam-channel 0.4.4",
- "derivative 2.1.1",
+ "derivative 2.2.0",
  "dirs",
  "failure",
  "fern",
@@ -117,7 +117,7 @@ dependencies = [
  "amethyst_error",
  "amethyst_rendy",
  "amethyst_ui",
- "derivative 2.1.1",
+ "derivative 2.2.0",
  "fnv",
  "itertools 0.8.2",
  "log",
@@ -134,7 +134,7 @@ dependencies = [
  "amethyst_derive",
  "amethyst_error",
  "crossbeam-queue 0.1.2",
- "derivative 2.1.1",
+ "derivative 2.2.0",
  "derive-new",
  "erased-serde",
  "err-derive",
@@ -200,7 +200,7 @@ dependencies = [
  "alga_derive",
  "amethyst_error",
  "approx 0.3.2",
- "derivative 2.1.1",
+ "derivative 2.2.0",
  "derive-new",
  "fnv",
  "getset",
@@ -233,7 +233,7 @@ dependencies = [
  "amethyst",
  "amethyst_fmod",
  "cassowary",
- "derivative 2.1.1",
+ "derivative 2.2.0",
  "derive-new",
  "derive_deref",
  "fnv",
@@ -276,7 +276,7 @@ dependencies = [
  "amethyst_core",
  "amethyst_error",
  "amethyst_window",
- "derivative 2.1.1",
+ "derivative 2.2.0",
  "derive-new",
  "fnv",
  "serde",
@@ -321,7 +321,7 @@ dependencies = [
  "amethyst_error",
  "amethyst_window",
  "approx 0.3.2",
- "derivative 2.1.1",
+ "derivative 2.2.0",
  "derive-new",
  "failure",
  "fnv",
@@ -352,7 +352,7 @@ dependencies = [
  "amethyst_rendy",
  "amethyst_window",
  "clipboard",
- "derivative 2.1.1",
+ "derivative 2.2.0",
  "derive-new",
  "failure",
  "fnv",
@@ -1036,9 +1036,9 @@ dependencies = [
 
 [[package]]
 name = "derivative"
-version = "2.1.1"
+version = "2.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cb582b60359da160a9477ee80f15c8d784c477e69c217ef2cdd4169c24ea380f"
+checksum = "fcc3dd5e9e9c0b295d6e1e4d811fb6f157d5ffd784b8d202fc62eac8035a770b"
 dependencies = [
  "proc-macro2 1.0.21",
  "quote 1.0.7",
