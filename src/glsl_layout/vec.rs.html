@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/glsl-layout-0.4.0/src/vec.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>vec.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings"></script><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/glsl-layout-0.3.2/src/vec.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>vec.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings"></script><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 <link rel="alternate icon" type="image/png" href="../../favicon-16x16.png">
 <link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../glsl_layout/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
                 <a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
@@ -308,11 +308,26 @@
 <span id="305">305</span>
 <span id="306">306</span>
 <span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
+<span id="312">312</span>
+<span id="313">313</span>
+<span id="314">314</span>
+<span id="315">315</span>
+<span id="316">316</span>
+<span id="317">317</span>
+<span id="318">318</span>
+<span id="319">319</span>
+<span id="320">320</span>
+<span id="321">321</span>
+<span id="322">322</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">align</span>::{<span class="ident">Align16</span>, <span class="ident">Align32</span>, <span class="ident">Align8</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">array</span>::<span class="ident">MapArray</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">scalar</span>::{<span class="ident">boolean</span>, <span class="ident">double</span>, <span class="ident">float</span>, <span class="ident">int</span>, <span class="ident">uint</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">uniform</span>::{<span class="ident">Std140</span>, <span class="ident">Uniform</span>};
+<span class="kw">use</span> <span class="ident">align</span>::{<span class="ident">Align16</span>, <span class="ident">Align32</span>, <span class="ident">Align8</span>};
+<span class="kw">use</span> <span class="ident">array</span>::<span class="ident">MapArray</span>;
+<span class="kw">use</span> <span class="ident">scalar</span>::{<span class="ident">boolean</span>, <span class="ident">double</span>, <span class="ident">float</span>, <span class="ident">int</span>, <span class="ident">uint</span>};
+<span class="kw">use</span> <span class="ident">std140</span>::{<span class="ident">Std140</span>, <span class="ident">AsStd140</span>};
 
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">implement_vec</span> {
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">vec</span>:<span class="ident">ident</span> <span class="op">=</span><span class="op">&gt;</span> [<span class="macro-nonterminal">$</span><span class="kw">type</span>:<span class="macro-nonterminal">ty</span>; <span class="macro-nonterminal">$</span><span class="macro-nonterminal">size</span>:<span class="ident">tt</span>]: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">align</span>:<span class="ident">tt</span>) <span class="op">=</span><span class="op">&gt;</span> {
@@ -351,7 +366,7 @@
 
         <span class="kw">unsafe</span> <span class="kw">impl</span> <span class="macro-nonterminal">Std140</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">vec</span> {}
 
-        <span class="kw">impl</span> <span class="ident">Uniform</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">vec</span> {
+        <span class="kw">unsafe</span> <span class="kw">impl</span> <span class="ident">AsStd140</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">vec</span> {
             <span class="kw">type</span> <span class="ident">Align</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">align</span>;
             <span class="kw">type</span> <span class="ident">Std140</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">vec</span>;
 
@@ -375,6 +390,7 @@
 <span class="doccomment">/// # }</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">bvec2</span>([<span class="ident">boolean</span>; <span class="number">2</span>]);
 <span class="macro">implement_vec</span><span class="macro">!</span>(<span class="ident">bvec2</span> <span class="op">=</span><span class="op">&gt;</span> [<span class="ident">boolean</span>; <span class="number">2</span>] : <span class="ident">Align8</span>);
@@ -392,6 +408,7 @@
 <span class="doccomment">/// # }</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">bvec3</span>([<span class="ident">boolean</span>; <span class="number">3</span>]);
 <span class="macro">implement_vec</span><span class="macro">!</span>(<span class="ident">bvec3</span> <span class="op">=</span><span class="op">&gt;</span> [<span class="ident">boolean</span>; <span class="number">3</span>] : <span class="ident">Align16</span>);
@@ -409,6 +426,7 @@
 <span class="doccomment">/// # }</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">bvec4</span>([<span class="ident">boolean</span>; <span class="number">4</span>]);
 <span class="macro">implement_vec</span><span class="macro">!</span>(<span class="ident">bvec4</span> <span class="op">=</span><span class="op">&gt;</span> [<span class="ident">boolean</span>; <span class="number">4</span>] : <span class="ident">Align16</span>);
@@ -426,6 +444,7 @@
 <span class="doccomment">/// # }</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ivec2</span>([<span class="ident">int</span>; <span class="number">2</span>]);
 <span class="macro">implement_vec</span><span class="macro">!</span>(<span class="ident">ivec2</span> <span class="op">=</span><span class="op">&gt;</span> [<span class="ident">int</span>; <span class="number">2</span>] : <span class="ident">Align8</span>);
@@ -443,6 +462,7 @@
 <span class="doccomment">/// # }</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ivec3</span>([<span class="ident">int</span>; <span class="number">3</span>]);
 <span class="macro">implement_vec</span><span class="macro">!</span>(<span class="ident">ivec3</span> <span class="op">=</span><span class="op">&gt;</span> [<span class="ident">int</span>; <span class="number">3</span>] : <span class="ident">Align16</span>);
@@ -460,6 +480,7 @@
 <span class="doccomment">/// # }</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ivec4</span>([<span class="ident">int</span>; <span class="number">4</span>]);
 <span class="macro">implement_vec</span><span class="macro">!</span>(<span class="ident">ivec4</span> <span class="op">=</span><span class="op">&gt;</span> [<span class="ident">int</span>; <span class="number">4</span>] : <span class="ident">Align16</span>);
@@ -477,6 +498,7 @@
 <span class="doccomment">/// # }</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">uvec2</span>([<span class="ident">uint</span>; <span class="number">2</span>]);
 <span class="macro">implement_vec</span><span class="macro">!</span>(<span class="ident">uvec2</span> <span class="op">=</span><span class="op">&gt;</span> [<span class="ident">uint</span>; <span class="number">2</span>] : <span class="ident">Align8</span>);
@@ -494,6 +516,7 @@
 <span class="doccomment">/// # }</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">uvec3</span>([<span class="ident">uint</span>; <span class="number">3</span>]);
 <span class="macro">implement_vec</span><span class="macro">!</span>(<span class="ident">uvec3</span> <span class="op">=</span><span class="op">&gt;</span> [<span class="ident">uint</span>; <span class="number">3</span>] : <span class="ident">Align16</span>);
@@ -511,6 +534,7 @@
 <span class="doccomment">/// # }</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">uvec4</span>([<span class="ident">uint</span>; <span class="number">4</span>]);
 <span class="macro">implement_vec</span><span class="macro">!</span>(<span class="ident">uvec4</span> <span class="op">=</span><span class="op">&gt;</span> [<span class="ident">uint</span>; <span class="number">4</span>] : <span class="ident">Align16</span>);
@@ -528,6 +552,7 @@
 <span class="doccomment">/// # }</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">vec2</span>([<span class="ident">float</span>; <span class="number">2</span>]);
 <span class="macro">implement_vec</span><span class="macro">!</span>(<span class="ident">vec2</span> <span class="op">=</span><span class="op">&gt;</span> [<span class="ident">float</span>; <span class="number">2</span>] : <span class="ident">Align8</span>);
@@ -545,6 +570,7 @@
 <span class="doccomment">/// # }</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">vec3</span>([<span class="ident">float</span>; <span class="number">3</span>]);
 <span class="macro">implement_vec</span><span class="macro">!</span>(<span class="ident">vec3</span> <span class="op">=</span><span class="op">&gt;</span> [<span class="ident">float</span>; <span class="number">3</span>] : <span class="ident">Align16</span>);
@@ -562,6 +588,7 @@
 <span class="doccomment">/// # }</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">vec4</span>([<span class="ident">float</span>; <span class="number">4</span>]);
 <span class="macro">implement_vec</span><span class="macro">!</span>(<span class="ident">vec4</span> <span class="op">=</span><span class="op">&gt;</span> [<span class="ident">float</span>; <span class="number">4</span>] : <span class="ident">Align16</span>);
@@ -579,6 +606,7 @@
 <span class="doccomment">/// # }</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">dvec2</span>([<span class="ident">double</span>; <span class="number">2</span>]);
 <span class="macro">implement_vec</span><span class="macro">!</span>(<span class="ident">dvec2</span> <span class="op">=</span><span class="op">&gt;</span> [<span class="ident">double</span>; <span class="number">2</span>] : <span class="ident">Align16</span>);
@@ -596,6 +624,7 @@
 <span class="doccomment">/// # }</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">dvec3</span>([<span class="ident">double</span>; <span class="number">3</span>]);
 <span class="macro">implement_vec</span><span class="macro">!</span>(<span class="ident">dvec3</span> <span class="op">=</span><span class="op">&gt;</span> [<span class="ident">double</span>; <span class="number">3</span>] : <span class="ident">Align32</span>);
@@ -613,8 +642,10 @@
 <span class="doccomment">/// # }</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">PartialOrd</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">dvec4</span>([<span class="ident">double</span>; <span class="number">4</span>]);
 <span class="macro">implement_vec</span><span class="macro">!</span>(<span class="ident">dvec4</span> <span class="op">=</span><span class="op">&gt;</span> [<span class="ident">double</span>; <span class="number">4</span>] : <span class="ident">Align32</span>);
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "glsl_layout";</script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="glsl_layout"></div>
+    <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>

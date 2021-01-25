@@ -9,7 +9,6 @@ implementors["num_bigint"] = [{"text":"impl FromStr for BigInt","synthetic":fals
 implementors["num_complex"] = [{"text":"impl&lt;T&gt; FromStr for Complex&lt;T&gt; <span class=\"where fmt-newline\">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: FromStr + Num + Clone,&nbsp;</span>","synthetic":false,"types":[]}];
 implementors["num_rational"] = [{"text":"impl&lt;T:&nbsp;FromStr + Clone + Integer&gt; FromStr for Ratio&lt;T&gt;","synthetic":false,"types":[]}];
 implementors["ordered_float"] = [{"text":"impl&lt;T:&nbsp;Float + FromStr&gt; FromStr for OrderedFloat&lt;T&gt;","synthetic":false,"types":[]},{"text":"impl&lt;T:&nbsp;Float + FromStr&gt; FromStr for NotNan&lt;T&gt;","synthetic":false,"types":[]}];
-implementors["proc_macro2"] = [{"text":"impl FromStr for TokenStream","synthetic":false,"types":[]}];
 implementors["regex"] = [{"text":"impl FromStr for Regex","synthetic":false,"types":[]},{"text":"impl FromStr for Regex","synthetic":false,"types":[]}];
 implementors["ron"] = [{"text":"impl FromStr for Value","synthetic":false,"types":[]}];
 implementors["semver"] = [{"text":"impl FromStr for Version","synthetic":false,"types":[]},{"text":"impl FromStr for VersionReq","synthetic":false,"types":[]}];
