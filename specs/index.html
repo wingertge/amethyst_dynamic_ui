@@ -1,7 +1,7 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `specs` crate."><meta name="keywords" content="rust, rustlang, rust-lang, specs"><title>specs - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../ayu.css" disabled ><script id="default-settings"></script><script src="../storage.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="SPECS Parallel ECS"><meta name="keywords" content="rust, rustlang, rust-lang, specs"><title>specs - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../ayu.css" disabled ><script id="default-settings"></script><script src="../storage.js"></script><script src="../crates.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="alternate icon" type="image/png" href="../favicon-16x16.png">
-<link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../specs/index.html'><div class='logo-container rust-logo'><img src='../rust-logo.png' alt='logo'></div></a><p class="location">Crate specs</p><div class="block version"><p>Version 0.16.1</p></div><div class="sidebar-elems"><a id="all-types" href="all.html"><p>See all specs's items</p></a><div class="block items"><ul><li><a href="#reexports">Re-exports</a></li><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class="location"></p><div id="sidebar-vars" data-name="specs" data-ty="mod" data-relpath="../"></div></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
-                <a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/specs/lib.rs.html#1-231" title="goto source code">[src]</a></span><span class="in-band">Crate <a class="mod" href="">specs</a></span></h1><div class="docblock"><h1 id="specs-parallel-ecs" class="section-header"><a href="#specs-parallel-ecs">SPECS Parallel ECS</a></h1>
+<link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../specs/index.html'><div class='logo-container rust-logo'><img src='../rust-logo.png' alt='logo'></div></a><p class="location">Crate specs</p><div class="block version"><p>Version 0.16.1</p></div><div class="sidebar-elems"><a id="all-types" href="all.html"><p>See all specs's items</p></a><div class="block items"><ul><li><a href="#reexports">Re-exports</a></li><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class="location"></p><div id="sidebar-vars" data-name="specs" data-ty="mod" data-relpath="../"></div></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
+                <a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Crate <a class="mod" href="">specs</a></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/specs/lib.rs.html#1-231" title="goto source code">[src]</a></span></h1><div class="docblock"><h1 id="specs-parallel-ecs" class="section-header"><a href="#specs-parallel-ecs">SPECS Parallel ECS</a></h1>
 <p>This library provides an ECS variant designed for parallel execution
 and convenient usage. It is highly flexible when it comes to actual
 component data and the way it is stored and accessed.</p>
@@ -40,7 +40,7 @@ custom <code>#[derive]</code> macro:</p>
 <span class="kw">struct</span> <span class="ident">MyComp</span>;</pre></div>
 <p>You can choose different storages according to your needs.</p>
 <p>These storages can be <a href="trait.Join.html#method.join"><code>join</code></a>ed together, for example joining a <code>Velocity</code>
-and a <code>Position</code> storage means you'll only get entities which have both of
+and a <code>Position</code> storage means you’ll only get entities which have both of
 them. Thanks to rayon, this is even possible in parallel! See <a href="trait.ParJoin.html"><code>ParJoin</code></a>
 for more.</p>
 <h3 id="system-execution" class="section-header"><a href="#system-execution">System execution</a></h3>
@@ -49,7 +49,7 @@ are provided by a library called <code>shred</code>.</p>
 <p>The <code>Dispatcher</code> can be seen as an optional part here;
 it allows dispatching the systems in parallel, given a list
 of systems and their dependencies on other systems.</p>
-<p>If you don't like it, you can also execute the systems yourself
+<p>If you don’t like it, you can also execute the systems yourself
 by using <a href="trait.RunNow.html"><code>RunNow</code></a>.</p>
 <p><code>System</code>s are traits with a <code>run()</code> method and an associated
 <a href="trait.SystemData.html"><code>SystemData</code></a>, allowing type-safe aspects (knowledge about the
@@ -142,7 +142,7 @@ reads / writes of the systems).</p>
         <span class="kw">let</span> <span class="ident">enemy</span> <span class="op">=</span> <span class="ident">entities</span>.<span class="ident">create</span>();
     }
 }</pre></div>
-<p>See the repository's examples directory for more examples.</p>
+<p>See the repository’s examples directory for more examples.</p>
 </div><h2 id="reexports" class="section-header"><a href="#reexports">Re-exports</a></h2>
 <table><tr><td><code>pub extern crate <a class="mod" href="../hibitset/index.html" title="mod hibitset">hibitset</a>;</code></td></tr><tr><td><code>pub extern crate <a class="mod" href="../rayon/index.html" title="mod rayon">rayon</a>;</code></td></tr><tr><td><code>pub extern crate <a class="mod" href="../shred/index.html" title="mod shred">shred</a>;</code></td></tr><tr><td><code>pub extern crate <a class="mod" href="../shrev/index.html" title="mod shrev">shrev</a>;</code></td></tr><tr><td><code>pub use crate::changeset::<a class="struct" href="../specs/changeset/struct.ChangeSet.html" title="struct specs::changeset::ChangeSet">ChangeSet</a>;</code></td></tr><tr><td><code>pub use crate::join::<a class="trait" href="../specs/join/trait.Join.html" title="trait specs::join::Join">Join</a>;</code></td></tr><tr><td><code>pub use crate::storage::<a class="struct" href="../specs/storage/struct.Storage.html" title="struct specs::storage::Storage">Storage</a>;</code></td></tr><tr><td><code>pub use crate::world::<a class="trait" href="../specs/world/trait.Builder.html" title="trait specs::world::Builder">Builder</a>;</code></td></tr><tr><td><code>pub use crate::world::<a class="struct" href="../specs/world/struct.EntityBuilder.html" title="struct specs::world::EntityBuilder">EntityBuilder</a>;</code></td></tr></table><h2 id="modules" class="section-header"><a href="#modules">Modules</a></h2>
 <table><tr class="module-item"><td><a class="mod" href="changeset/index.html" title="specs::changeset mod">changeset</a></td><td class="docblock-short"><p>Provides a changeset that can be collected from an iterator.</p>
@@ -154,7 +154,7 @@ reads / writes of the systems).</p>
 </td></tr></table><h2 id="structs" class="section-header"><a href="#structs">Structs</a></h2>
 <table><tr class="module-item"><td><a class="struct" href="struct.AsyncDispatcher.html" title="specs::AsyncDispatcher struct">AsyncDispatcher</a></td><td class="docblock-short"><p>Like, <code>Dispatcher</code> but works asynchronously.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.BatchAccessor.html" title="specs::BatchAccessor struct">BatchAccessor</a></td><td class="docblock-short"><p>The <code>BatchAccessor</code> is used to notify the main dispatcher of the read and
-write resources of the <code>System</code>s contained in the batch (&quot;sub systems&quot;).</p>
+write resources of the <code>System</code>s contained in the batch (“sub systems”).</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.BatchUncheckedWorld.html" title="specs::BatchUncheckedWorld struct">BatchUncheckedWorld</a></td><td class="docblock-short"><p>The <code>BatchUncheckedWorld</code> wraps an instance of the world.
 You have to specify this as <code>SystemData</code> for a <code>System</code> implementing <code>BatchController</code>.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.BitSet.html" title="specs::BitSet struct">BitSet</a></td><td class="docblock-short"><p>A <code>BitSet</code> is a simple set designed to track which indices are placed
@@ -179,7 +179,7 @@ and as such should better be done at the end.
 They work lazily in the sense that they are
 dispatched when calling <code>world.maintain()</code>.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.NullStorage.html" title="specs::NullStorage struct">NullStorage</a></td><td class="docblock-short"><p>A null storage type, used for cases where the component
-doesn't contain any data and instead works as a simple flag.</p>
+doesn’t contain any data and instead works as a simple flag.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.Read.html" title="specs::Read struct">Read</a></td><td class="docblock-short"><p>Allows to fetch a resource in a system immutably.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.ReaderId.html" title="specs::ReaderId struct">ReaderId</a></td><td class="docblock-short"><p>A reader ID which represents a subscription to the events pushed to the
 <code>EventChannel</code>.</p>
@@ -193,12 +193,12 @@ the contained resources.</p>
 <table><tr class="module-item"><td><a class="enum" href="enum.AccessorCow.html" title="specs::AccessorCow enum">AccessorCow</a></td><td class="docblock-short"><p>Either an <code>Accessor</code> of the system <code>T</code> or a reference to it.</p>
 </td></tr><tr class="module-item"><td><a class="enum" href="enum.RunningTime.html" title="specs::RunningTime enum">RunningTime</a></td><td class="docblock-short"></td></tr></table><h2 id="traits" class="section-header"><a href="#traits">Traits</a></h2>
 <table><tr class="module-item"><td><a class="trait" href="trait.Accessor.html" title="specs::Accessor trait">Accessor</a></td><td class="docblock-short"><p>A trait for accessing read/write multiple resources from a system. This can
-be used to create dynamic systems that don't specify what they fetch at
+be used to create dynamic systems that don’t specify what they fetch at
 compile-time.</p>
 </td></tr><tr class="module-item"><td><a class="trait" href="trait.BatchController.html" title="specs::BatchController trait">BatchController</a></td><td class="docblock-short"><p>The <code>BatchController</code> is the additional trait that a normal System must
 implement in order to be used as a system controlling the execution of a batch.</p>
 </td></tr><tr class="module-item"><td><a class="trait" href="trait.Component.html" title="specs::Component trait">Component</a></td><td class="docblock-short"><p>Abstract component type.
-Doesn't have to be Copy or even Clone.</p>
+Doesn’t have to be Copy or even Clone.</p>
 </td></tr><tr class="module-item"><td><a class="trait" href="trait.ParJoin.html" title="specs::ParJoin trait">ParJoin</a></td><td class="docblock-short"><p>The purpose of the <code>ParJoin</code> trait is to provide a way
 to access multiple storages in parallel at the same time with
 the merged bit set.</p>
@@ -210,7 +210,7 @@ compile-time). Most system data is a <code>SystemData</code>, the <code>DynamicS
 type is only needed for very special setups.</p>
 </td></tr><tr class="module-item"><td><a class="trait" href="trait.Tracked.html" title="specs::Tracked trait">Tracked</a></td><td class="docblock-short"><p><code>UnprotectedStorage</code>s that track modifications, insertions, and
 removals of components.</p>
-</td></tr><tr class="module-item"><td><a class="trait" href="trait.WorldExt.html" title="specs::WorldExt trait">WorldExt</a></td><td class="docblock-short"><p>This trait provides some extension methods to make working with shred's
+</td></tr><tr class="module-item"><td><a class="trait" href="trait.WorldExt.html" title="specs::WorldExt trait">WorldExt</a></td><td class="docblock-short"><p>This trait provides some extension methods to make working with shred’s
 <a href="../specs/struct.World.html" title="World">World</a> easier.</p>
 </td></tr></table><h2 id="types" class="section-header"><a href="#types">Type Definitions</a></h2>
 <table><tr class="module-item"><td><a class="type" href="type.Entities.html" title="specs::Entities type">Entities</a></td><td class="docblock-short"><p>A wrapper for a read <code>Entities</code> resource.
@@ -228,5 +228,5 @@ Usage of <code>Write</code> or <code>Option&lt;Write&gt;</code> is therefore rec
 <table><tr class="module-item"><td><a class="derive" href="derive.Component.html" title="specs::Component derive">Component</a></td><td class="docblock-short"><p>Custom derive macro for the <code>Component</code> trait.</p>
 </td></tr><tr class="module-item"><td><a class="derive" href="derive.ConvertSaveload.html" title="specs::ConvertSaveload derive">ConvertSaveload</a></td><td class="docblock-short"><p>Custom derive macro for the <code>ConvertSaveload</code> trait.</p>
 </td></tr><tr class="module-item"><td><a class="derive" href="derive.SystemData.html" title="specs::SystemData derive">SystemData</a></td><td class="docblock-short"><p>Used to <code>#[derive]</code> the trait <code>SystemData</code>.</p>
-</td></tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../" data-current-crate="specs"></div>
-    <script src="../main.js"></script><script defer src="../search-index.js"></script></body></html>
+</td></tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../" data-current-crate="specs" data-search-js="../search-index.js"></div>
+    <script src="../main.js"></script></body></html>

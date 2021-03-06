@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["MeshPrefab","Internal mesh loading"]],"struct":[["ObjFormat","'Obj' mesh format `Format` implementation."]]});
+initSidebarItems({"enum":[["MeshPrefab","Internal mesh loading"]],"struct":[["ObjFormat","‘Obj’ mesh format `Format` implementation."]]});

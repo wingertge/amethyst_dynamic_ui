@@ -1,7 +1,7 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `amethyst_ui` crate."><meta name="keywords" content="rust, rustlang, rust-lang, amethyst_ui"><title>amethyst_ui - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../ayu.css" disabled ><script id="default-settings"></script><script src="../storage.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Provides components and systems to create an in game user interface."><meta name="keywords" content="rust, rustlang, rust-lang, amethyst_ui"><title>amethyst_ui - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../ayu.css" disabled ><script id="default-settings"></script><script src="../storage.js"></script><script src="../crates.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="alternate icon" type="image/png" href="../favicon-16x16.png">
-<link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../amethyst_ui/index.html'><div class='logo-container rust-logo'><img src='../rust-logo.png' alt='logo'></div></a><p class="location">Crate amethyst_ui</p><div class="block version"><p>Version 0.15.3</p></div><div class="sidebar-elems"><a id="all-types" href="all.html"><p>See all amethyst_ui's items</p></a><div class="block items"><ul><li><a href="#macros">Macros</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class="location"></p><div id="sidebar-vars" data-name="amethyst_ui" data-ty="mod" data-relpath="../"></div></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
-                <a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/amethyst_ui/lib.rs.html#1-86" title="goto source code">[src]</a></span><span class="in-band">Crate <a class="mod" href="">amethyst_ui</a></span></h1><div class="docblock"><p>Provides components and systems to create an in game user interface.</p>
+<link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../amethyst_ui/index.html'><div class='logo-container rust-logo'><img src='../rust-logo.png' alt='logo'></div></a><p class="location">Crate amethyst_ui</p><div class="block version"><p>Version 0.15.3</p></div><div class="sidebar-elems"><a id="all-types" href="all.html"><p>See all amethyst_ui's items</p></a><div class="block items"><ul><li><a href="#macros">Macros</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class="location"></p><div id="sidebar-vars" data-name="amethyst_ui" data-ty="mod" data-relpath="../"></div></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
+                <a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Crate <a class="mod" href="">amethyst_ui</a></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/amethyst_ui/lib.rs.html#1-86" title="goto source code">[src]</a></span></h1><div class="docblock"><p>Provides components and systems to create an in game user interface.</p>
 </div><h2 id="macros" class="section-header"><a href="#macros">Macros</a></h2>
 <table><tr class="module-item"><td><a class="macro" href="macro.define_widget.html" title="amethyst_ui::define_widget macro">define_widget</a></td><td class="docblock-short"><p>This macro allows you to define what components can be attached to a widget,
 and will automatically generate getters for all components you specify.
@@ -19,7 +19,7 @@ Requires UiTransform to work, and its expected way of usage is
 through UiTransformData prefab.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.DrawUi.html" title="amethyst_ui::DrawUi struct">DrawUi</a></td><td class="docblock-short"><p>A UI drawing pass that draws UI elements and text in screen-space</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.DrawUiDesc.html" title="amethyst_ui::DrawUiDesc struct">DrawUiDesc</a></td><td class="docblock-short"><p>A UI drawing pass that draws UI elements and text in screen-space</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.EventRetriggerSystem.html" title="amethyst_ui::EventRetriggerSystem struct">EventRetriggerSystem</a></td><td class="docblock-short"><p>Links up the given in- and output types' <code>EventChannel</code>s listening
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.EventRetriggerSystem.html" title="amethyst_ui::EventRetriggerSystem struct">EventRetriggerSystem</a></td><td class="docblock-short"><p>Links up the given in- and output types’ <code>EventChannel</code>s listening
 to incoming events and calling <code>apply</code> on the respective <code>Retrigger</code>
 components.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.EventRetriggerSystemDesc.html" title="amethyst_ui::EventRetriggerSystemDesc struct">EventRetriggerSystemDesc</a></td><td class="docblock-short"><p>Builds an <code>EventRetriggerSystem</code>.</p>
@@ -56,7 +56,7 @@ This component also controls how that editing works.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.UiButtonActionRetrigger.html" title="amethyst_ui::UiButtonActionRetrigger struct">UiButtonActionRetrigger</a></td><td class="docblock-short"><p>Attach this to an entity with a <code>UiButton</code> attached to it to
 trigger specific events when a user interaction happens.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.UiButtonBuilder.html" title="amethyst_ui::UiButtonBuilder struct">UiButtonBuilder</a></td><td class="docblock-short"><p>Convenience structure for building a button
-Note that since there can only be one &quot;ui_loader&quot; in use, and WidgetId of the UiBundle and
+Note that since there can only be one “ui_loader” in use, and WidgetId of the UiBundle and
 UiButtonBuilder should match, you can only use one type of WidgetId, e.g. you cant use both
 UiButtonBuilder&lt;(), u32&gt; and UiButtonBuilder&lt;(), String&gt;.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.UiButtonBuilderResources.html" title="amethyst_ui::UiButtonBuilderResources struct">UiButtonBuilderResources</a></td><td class="docblock-short"><p>Container for all the resources the builder needs to make a new UiButton.</p>
@@ -81,17 +81,17 @@ The generic types A and B represent the A and B generic parameter of the InputHa
 font size changes.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.UiPlaySoundAction.html" title="amethyst_ui::UiPlaySoundAction struct">UiPlaySoundAction</a></td><td class="docblock-short"><p>Action that will trigger a sound to play in <code>UiSoundSystem</code>.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.UiResize.html" title="amethyst_ui::UiResize struct">UiResize</a></td><td class="docblock-short"><p>Whenever the window is resized the function in this component will be called on this
-entity's UiTransform, along with the new width and height of the window.</p>
+entity’s UiTransform, along with the new width and height of the window.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.UiSoundRetrigger.html" title="amethyst_ui::UiSoundRetrigger struct">UiSoundRetrigger</a></td><td class="docblock-short"><p>Attach this to an entity to play the respective sound when a <code>UiEvent</code>
 targets the entity.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.UiSoundSystem.html" title="amethyst_ui::UiSoundSystem struct">UiSoundSystem</a></td><td class="docblock-short"><p>Handles any dispatches <code>UiPlaySoundAction</code>s and plays the received
 sounds through the set <code>Output</code>.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.UiSoundSystemDesc.html" title="amethyst_ui::UiSoundSystemDesc struct">UiSoundSystemDesc</a></td><td class="docblock-short"><p>Builds a <code>UiSoundSystem</code>.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.UiText.html" title="amethyst_ui::UiText struct">UiText</a></td><td class="docblock-short"><p>A component used to display text in this entity's UiTransform</p>
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.UiText.html" title="amethyst_ui::UiText struct">UiText</a></td><td class="docblock-short"><p>A component used to display text in this entity’s UiTransform</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.UiTextData.html" title="amethyst_ui::UiTextData struct">UiTextData</a></td><td class="docblock-short"><p>Loadable <code>UiText</code> data</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.UiTransform.html" title="amethyst_ui::UiTransform struct">UiTransform</a></td><td class="docblock-short"><p>The UiTransform represents the transformation of a ui element.
 Values are in pixel and the position is calculated from the bottom left of the screen
-to the center of the ui element's area.</p>
+to the center of the ui element’s area.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.UiTransformData.html" title="amethyst_ui::UiTransformData struct">UiTransformData</a></td><td class="docblock-short"><p>Loadable <code>UiTransform</code> data.
 By default z is equal to one.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.UiTransformSystem.html" title="amethyst_ui::UiTransformSystem struct">UiTransformSystem</a></td><td class="docblock-short"><p>Manages the <code>Parent</code> component on entities having <code>UiTransform</code>
@@ -99,7 +99,7 @@ It does almost the same as the <code>TransformSystem</code>, but with some diffe
 like <code>UiTransform</code> alignment and stretching.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.UiTransformSystemDesc.html" title="amethyst_ui::UiTransformSystemDesc struct">UiTransformSystemDesc</a></td><td class="docblock-short"><p>Builds a <code>UiTransformSystem</code>.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.Widgets.html" title="amethyst_ui::Widgets struct">Widgets</a></td><td class="docblock-short"><p>Widgets is an alias for a HashMap containing widgets mapped by their
-respective Id type. It's meant to be used as a resource for every widget type.</p>
+respective Id type. It’s meant to be used as a resource for every widget type.</p>
 </td></tr></table><h2 id="enums" class="section-header"><a href="#enums">Enums</a></h2>
 <table><tr class="module-item"><td><a class="enum" href="enum.Anchor.html" title="amethyst_ui::Anchor enum">Anchor</a></td><td class="docblock-short"><p>Indicated where the anchor is, relative to the parent (or to the screen, if there is no parent).
 Follow a normal english Y,X naming.</p>
@@ -125,19 +125,19 @@ entity.</p>
 </td></tr><tr class="module-item"><td><a class="trait" href="trait.ToNativeWidget.html" title="amethyst_ui::ToNativeWidget trait">ToNativeWidget</a></td><td class="docblock-short"><p>Create native <code>UiWidget</code> from custom UI</p>
 </td></tr><tr class="module-item"><td><a class="trait" href="trait.Widget.html" title="amethyst_ui::Widget trait">Widget</a></td><td class="docblock-short"><p>A widget is an object that keeps track of all components and entities
 that make up an element of the user interface. Using the widget_components!
-macro, it's possible to generate methods that let you easily retrieve
+macro, it’s possible to generate methods that let you easily retrieve
 all components for a widget, and basically annotate which components the
 widget will definitely or maybe contain.
 Widgets are stored in their respective <code>Widgets</code> resource and referred to
 by their associated Id type. A widget will generally only contain fields
 for the entity Ids it consist of.</p>
 </td></tr><tr class="module-item"><td><a class="trait" href="trait.WidgetId.html" title="amethyst_ui::WidgetId trait">WidgetId</a></td><td class="docblock-short"><p>A WidgetId is the type by which the different widgets of a type will be
-differentiated when you create and retrieve them. Generally you'll want something
+differentiated when you create and retrieve them. Generally you’ll want something
 here that can generate a random id with a low chance of collision, since
-auto generation will be used whenever you don't explicitly don't provide an
+auto generation will be used whenever you don’t explicitly don’t provide an
 id to widget builders.
-It's possible to use something like a bare enum as a WidgetId, but be aware
-that whenever you're not supplying a WidgetId, you'll probably overwrite an
+It’s possible to use something like a bare enum as a WidgetId, but be aware
+that whenever you’re not supplying a WidgetId, you’ll probably overwrite an
 existing widget that had the same default id.</p>
 </td></tr></table><h2 id="functions" class="section-header"><a href="#functions">Functions</a></h2>
 <table><tr class="module-item"><td><a class="fn" href="fn.default_system_font.html" title="amethyst_ui::default_system_font fn">default_system_font</a></td><td class="docblock-short"><p>Returns the default system font.</p>
@@ -146,9 +146,9 @@ existing widget that had the same default id.</p>
 If unable to, gets the local square.ttf font.</p>
 </td></tr><tr class="module-item"><td><a class="fn" href="fn.get_parent_pixel_size.html" title="amethyst_ui::get_parent_pixel_size fn">get_parent_pixel_size</a></td><td class="docblock-short"><p>Get the (width, height) in pixels of the parent of this <code>UiTransform</code>.</p>
 </td></tr><tr class="module-item"><td><a class="fn" href="fn.list_system_font_families.html" title="amethyst_ui::list_system_font_families fn">list_system_font_families</a></td><td class="docblock-short"><p>Lists all installed font families on the system.</p>
-</td></tr><tr class="module-item"><td><a class="fn" href="fn.targeted.html" title="amethyst_ui::targeted fn">targeted</a></td><td class="docblock-short"><p>Finds all interactable entities at the position <code>pos</code> which don't have any opaque entities on
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.targeted.html" title="amethyst_ui::targeted fn">targeted</a></td><td class="docblock-short"><p>Finds all interactable entities at the position <code>pos</code> which don’t have any opaque entities on
 top blocking them.</p>
-</td></tr><tr class="module-item"><td><a class="fn" href="fn.targeted_below.html" title="amethyst_ui::targeted_below fn">targeted_below</a></td><td class="docblock-short"><p>Checks if an interactable entity is at the position <code>pos</code>, doesn't have anything on top blocking
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.targeted_below.html" title="amethyst_ui::targeted_below fn">targeted_below</a></td><td class="docblock-short"><p>Checks if an interactable entity is at the position <code>pos</code>, doesn’t have anything on top blocking
 the check, and is below specified height.</p>
 </td></tr></table><h2 id="types" class="section-header"><a href="#types">Type Definitions</a></h2>
 <table><tr class="module-item"><td><a class="type" href="type.FontHandle.html" title="amethyst_ui::FontHandle type">FontHandle</a></td><td class="docblock-short"><p>A handle to font data stored with <code>amethyst_assets</code>.</p>
@@ -163,5 +163,5 @@ and trigger <code>UiButtonAction</code>s for <code>UiButton</code>s with an atta
 and trigger <code>UiPlaySoundAction</code>s for entities with attached
 <code>UiSoundRetrigger</code> components.</p>
 </td></tr><tr class="module-item"><td><a class="type" href="type.UiSoundRetriggerSystemDesc.html" title="amethyst_ui::UiSoundRetriggerSystemDesc type">UiSoundRetriggerSystemDesc</a></td><td class="docblock-short"><p>Builds a <code>UiSoundRetriggerSystem</code>.</p>
-</td></tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../" data-current-crate="amethyst_ui"></div>
-    <script src="../main.js"></script><script defer src="../search-index.js"></script></body></html>
+</td></tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../" data-current-crate="amethyst_ui" data-search-js="../search-index.js"></div>
+    <script src="../main.js"></script></body></html>

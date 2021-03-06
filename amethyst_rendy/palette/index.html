@@ -1,14 +1,14 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `palette` mod in crate `amethyst_rendy`."><meta name="keywords" content="rust, rustlang, rust-lang, palette"><title>amethyst_rendy::palette - Rust</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings"></script><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="A library that makes linear color calculations and conversion easy and accessible for anyone. It uses the type system to enforce correctness and to avoid mistakes, such as mixing incompatible color types."><meta name="keywords" content="rust, rustlang, rust-lang, palette"><title>amethyst_rendy::palette - Rust</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings"></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 <link rel="alternate icon" type="image/png" href="../../favicon-16x16.png">
-<link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../amethyst_rendy/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a><p class="location">Module palette</p><div class="sidebar-elems"><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class="location"><a href="../index.html">amethyst_rendy</a></p><div id="sidebar-vars" data-name="palette" data-ty="mod" data-relpath="../"></div><script defer src="../sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
-                <a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../../src/palette/lib.rs.html#1-924" title="goto source code">[src]</a></span><span class="in-band">Module <a href="../index.html">amethyst_rendy</a>::<wbr><a class="mod" href="">palette</a></span></h1><div class="docblock"><p>A library that makes linear color calculations and conversion easy and
+<link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../amethyst_rendy/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a><p class="location">Module palette</p><div class="sidebar-elems"><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class="location"><a href="../index.html">amethyst_rendy</a></p><div id="sidebar-vars" data-name="palette" data-ty="mod" data-relpath="../"></div><script defer src="../sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
+                <a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Module <a href="../index.html">amethyst_rendy</a>::<wbr><a class="mod" href="">palette</a></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../../src/palette/lib.rs.html#1-924" title="goto source code">[src]</a></span></h1><div class="docblock"><p>A library that makes linear color calculations and conversion easy and
 accessible for anyone. It uses the type system to enforce correctness and
 to avoid mistakes, such as mixing incompatible color types.</p>
-<h1 id="its-never-just-rgb" class="section-header"><a href="#its-never-just-rgb">It's Never &quot;Just RGB&quot;</a></h1>
-<p>Colors in, for example, images are often &quot;gamma corrected&quot; or stored in
+<h1 id="its-never-just-rgb" class="section-header"><a href="#its-never-just-rgb">It’s Never “Just RGB”</a></h1>
+<p>Colors in, for example, images are often “gamma corrected” or stored in
 sRGB format as a compression method and to prevent banding. This is also a
 bit of a legacy from the ages of the CRT monitors, where the output from
-the electron gun was nonlinear. The problem is that these formats doesn't
+the electron gun was nonlinear. The problem is that these formats doesn’t
 represent the actual intensities, and the compression has to be reverted to
 make sure that any operations on the colors are accurate. This library uses
 a completely linear work flow, and comes with the tools for transitioning
@@ -40,7 +40,7 @@ enough, this turns RGB into one of the most complex color spaces.</p>
     .<span class="ident">into_raw</span>();</pre></div>
 <h1 id="transparency" class="section-header"><a href="#transparency">Transparency</a></h1>
 <p>There are many cases where pixel transparency is important, but there are
-also many cases where it becomes a dead weight, if it's always stored
+also many cases where it becomes a dead weight, if it’s always stored
 together with the color, but not used. Palette has therefore adopted a
 structure where the transparency component (alpha) is attachable using the
 <a href="struct.Alpha.html"><code>Alpha</code></a> type, instead of having copies of each color
@@ -69,12 +69,12 @@ There may be a specification, such as when working with SVG or CSS.</p>
 <ul>
 <li>
 <p>If you are asking your user to enter an RGB value, you are in a gray zone
-where it depends on the context. It's usually safe to assume sRGB, but
-sometimes it's already linear.</p>
+where it depends on the context. It’s usually safe to assume sRGB, but
+sometimes it’s already linear.</p>
 </li>
 <li>
 <p>If you are decoding an image, there may be some meta data that gives you
-the necessary details. Otherwise it's most commonly sRGB. Usually you
+the necessary details. Otherwise it’s most commonly sRGB. Usually you
 will end up with a slice or vector with RGB bytes, which can easily be
 converted to Palette colors:</p>
 </li>
@@ -101,13 +101,13 @@ sRGB, such as Adobe or Apple RGB.</p>
 <li>
 <p>For any of the CIE color spaces, check for a specification of white point
 and light source. These are necessary for converting to RGB and other
-colors, that depend on perception and &quot;viewing devices&quot;. Common defaults
+colors, that depend on perception and “viewing devices”. Common defaults
 are the D65 light source and the sRGB white point. The Palette defaults
 should take you far.</p>
 </li>
 </ul>
 <h2 id="2-processing" class="section-header"><a href="#2-processing">2. Processing</a></h2>
-<p>When your color has been decoded into some Palette type, it's ready for
+<p>When your color has been decoded into some Palette type, it’s ready for
 processing. This includes things like blending, hue shifting, darkening and
 conversion to other formats. Just make sure that your non-linear RGB is
 made linear first (<code>my_srgb.into_linear()</code>), to make the operations
@@ -116,7 +116,7 @@ available.</p>
 have to experiment a bit (or look at the example programs) to find out what
 gives the desired result.</p>
 <h2 id="3-encoding" class="section-header"><a href="#3-encoding">3. Encoding</a></h2>
-<p>When the desired processing is done, it's time to encode the colors back
+<p>When the desired processing is done, it’s time to encode the colors back
 into some image format. The same rules applies as for the decoding, but the
 process reversed.</p>
 </div><h2 id="modules" class="section-header"><a href="#modules">Modules</a></h2>
@@ -187,5 +187,5 @@ implementation in <code>Alpha</code></a>.</p>
 </td></tr><tr class="module-item"><td><a class="type" href="type.Yxya.html" title="amethyst_rendy::palette::Yxya type">Yxya</a></td><td class="docblock-short"><p>CIE 1931 Yxy (xyY) with an alpha component. See the <a href="struct.Alpha.html#Yxya"><code>Yxya</code> implementation
 in <code>Alpha</code></a>.</p>
 </td></tr></table><h2 id="derives" class="section-header"><a href="#derives">Derive Macros</a></h2>
-<table><tr class="module-item"><td><a class="derive" href="derive.FromColor.html" title="amethyst_rendy::palette::FromColor derive">FromColor</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="derive" href="derive.IntoColor.html" title="amethyst_rendy::palette::IntoColor derive">IntoColor</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="derive" href="derive.Pixel.html" title="amethyst_rendy::palette::Pixel derive">Pixel</a></td><td class="docblock-short"></td></tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="amethyst_rendy"></div>
-    <script src="../../main.js"></script><script defer src="../../search-index.js"></script></body></html>
+<table><tr class="module-item"><td><a class="derive" href="derive.FromColor.html" title="amethyst_rendy::palette::FromColor derive">FromColor</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="derive" href="derive.IntoColor.html" title="amethyst_rendy::palette::IntoColor derive">IntoColor</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="derive" href="derive.Pixel.html" title="amethyst_rendy::palette::Pixel derive">Pixel</a></td><td class="docblock-short"></td></tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="amethyst_rendy" data-search-js="../../search-index.js"></div>
+    <script src="../../main.js"></script></body></html>

@@ -1,9 +1,9 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `fern` crate."><meta name="keywords" content="rust, rustlang, rust-lang, fern"><title>fern - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../ayu.css" disabled ><script id="default-settings"></script><script src="../storage.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Efficient, configurable logging in Rust."><meta name="keywords" content="rust, rustlang, rust-lang, fern"><title>fern - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../ayu.css" disabled ><script id="default-settings"></script><script src="../storage.js"></script><script src="../crates.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="alternate icon" type="image/png" href="../favicon-16x16.png">
-<link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../fern/index.html'><div class='logo-container rust-logo'><img src='../rust-logo.png' alt='logo'></div></a><p class="location">Crate fern</p><div class="block version"><p>Version 0.6.0</p></div><div class="sidebar-elems"><a id="all-types" href="all.html"><p>See all fern's items</p></a><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class="location"></p><div id="sidebar-vars" data-name="fern" data-ty="mod" data-relpath="../"></div></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
-                <a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/fern/lib.rs.html#1-306" title="goto source code">[src]</a></span><span class="in-band">Crate <a class="mod" href="">fern</a></span></h1><div class="docblock"><p>Efficient, configurable logging in Rust.</p>
+<link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../fern/index.html'><div class='logo-container rust-logo'><img src='../rust-logo.png' alt='logo'></div></a><p class="location">Crate fern</p><div class="block version"><p>Version 0.6.0</p></div><div class="sidebar-elems"><a id="all-types" href="all.html"><p>See all fern's items</p></a><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class="location"></p><div id="sidebar-vars" data-name="fern" data-ty="mod" data-relpath="../"></div></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
+                <a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Crate <a class="mod" href="">fern</a></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/fern/lib.rs.html#1-306" title="goto source code">[src]</a></span></h1><div class="docblock"><p>Efficient, configurable logging in Rust.</p>
 <h1 id="depending-on-fern" class="section-header"><a href="#depending-on-fern">Depending on fern</a></h1>
-<p>Ensure you require both fern and log in your project's <code>Cargo.toml</code>:</p>
+<p>Ensure you require both fern and log in your project’s <code>Cargo.toml</code>:</p>
 <pre><code class="language-toml">[dependencies]
 log = &quot;0.4&quot;
 fern = &quot;0.5&quot;
@@ -11,7 +11,7 @@ fern = &quot;0.5&quot;
 <h1 id="example-setup" class="section-header"><a href="#example-setup">Example setup</a></h1>
 <p>With fern, all logger configuration is done via builder-like methods on
 instances of the <a href="struct.Dispatch.html"><code>Dispatch</code></a> structure.</p>
-<p>Here's an example logger which formats messages, and sends everything Debug
+<p>Here’s an example logger which formats messages, and sends everything Debug
 and above to both stdout and an output.log file:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -34,7 +34,7 @@ and above to both stdout and an output.log file:</p>
         .<span class="ident">apply</span>()<span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(())
 }</pre></div>
-<p>Let's unwrap this:</p>
+<p>Let’s unwrap this:</p>
 <hr />
 <p><a href="struct.Dispatch.html#method.new"><code>fern::Dispatch::new()</code></a></p>
 <p>Create an empty configuration.</p>
@@ -47,7 +47,7 @@ and above to both stdout and an output.log file:</p>
 See the <a href="https://docs.rs/chrono/0.4/chrono/index.html#date-and-time">time-and-date docs</a>.</p>
 <hr />
 <p><a href="https://docs.rs/chrono/0.4/chrono/datetime/struct.DateTime.html#method.format"><code>.format(&quot;[%Y-%m-%d][%H:%M:%S]&quot;)</code></a></p>
-<p>Use chrono's lazy format specifier to turn the time into a readable string.</p>
+<p>Use chrono’s lazy format specifier to turn the time into a readable string.</p>
 <hr />
 <p><a href="struct.FormatCallback.html#method.finish"><code>out.finish(format_args!(...))</code></a></p>
 <p>Call the <code>fern::FormattingCallback</code> to submit the formatted message.</p>
@@ -66,7 +66,7 @@ to stdout.</p>
 <a href="struct.Dispatch.html"><code>Dispatch</code></a> instances.</p>
 <hr />
 <p><a href="struct.Dispatch.html#method.chain"><code>.chain(fern::log_file(...)?)</code></a></p>
-<p>Add a second child sending messages to the file &quot;output.log&quot;.</p>
+<p>Add a second child sending messages to the file “output.log”.</p>
 <p>See <a href="fn.log_file.html"><code>fern::log_file()</code></a> for more info on file output.</p>
 <hr />
 <p><a href="struct.Dispatch.html#method.apply"><code>.apply()</code></a></p>
@@ -75,7 +75,7 @@ logger.</p>
 <p>This will fail if and only if <code>.apply()</code> or equivalent form another crate
 has already been used this runtime.</p>
 <p>Since the binary crate is the only one ever setting up logging, the
-<a href="struct.Dispatch.html#method.apply"><code>apply</code></a> result can be reasonably unwrapped: it's a bug if any crate is
+<a href="struct.Dispatch.html#method.apply"><code>apply</code></a> result can be reasonably unwrapped: it’s a bug if any crate is
 calling this method more than once.</p>
 <hr />
 <p>The final output will look like:</p>
@@ -126,5 +126,5 @@ initializing logging.</p>
 <table><tr class="module-item"><td><a class="type" href="type.Filter.html" title="fern::Filter type">Filter</a></td><td class="docblock-short"><p>A type alias for a log filter. Returning true means the record should
 succeed - false means it should fail.</p>
 </td></tr><tr class="module-item"><td><a class="type" href="type.Formatter.html" title="fern::Formatter type">Formatter</a></td><td class="docblock-short"><p>A type alias for a log formatter.</p>
-</td></tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../" data-current-crate="fern"></div>
-    <script src="../main.js"></script><script defer src="../search-index.js"></script></body></html>
+</td></tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../" data-current-crate="fern" data-search-js="../search-index.js"></div>
+    <script src="../main.js"></script></body></html>

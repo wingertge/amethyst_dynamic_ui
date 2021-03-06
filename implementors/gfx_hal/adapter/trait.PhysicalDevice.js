@@ -1,3 +1,3 @@
 (function() {var implementors = {};
-implementors["gfx_backend_empty"] = [{"text":"impl PhysicalDevice&lt;Backend&gt; for PhysicalDevice","synthetic":false,"types":[]}];
+implementors["gfx_backend_empty"] = [{"text":"impl <a class=\"trait\" href=\"gfx_hal/adapter/trait.PhysicalDevice.html\" title=\"trait gfx_hal::adapter::PhysicalDevice\">PhysicalDevice</a>&lt;<a class=\"enum\" href=\"gfx_backend_empty/enum.Backend.html\" title=\"enum gfx_backend_empty::Backend\">Backend</a>&gt; for <a class=\"struct\" href=\"gfx_backend_empty/struct.PhysicalDevice.html\" title=\"struct gfx_backend_empty::PhysicalDevice\">PhysicalDevice</a>","synthetic":false,"types":["gfx_backend_empty::PhysicalDevice"]}];
 if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()
