@@ -6,7 +6,7 @@ applying the provided closure, the repeater, <code>F: FnMut() -&gt; A</code>.</p
 <p>The <code>repeat_with()</code> function calls the repeater over and over again.</p>
 <p>Infinite iterators like <code>repeat_with()</code> are often used with adapters like
 <a href="../../../../nom/lib/std/iter/trait.Iterator.html#method.take" title="Iterator::take()"><code>Iterator::take()</code></a>, in order to make them finite.</p>
-<p>If the element type of the iterator you need implements <a href="../../../../nom/lib/std/prelude/v1/v1/trait.Clone.html" title="Clone"><code>Clone</code></a>, and
+<p>If the element type of the iterator you need implements <a href="../../../../nom/lib/std/prelude/v1/rust_2021/trait.Clone.html" title="Clone"><code>Clone</code></a>, and
 it is OK to keep the source element in memory, you should instead use
 the <a href="../../../../nom/lib/std/iter/fn.repeat.html"><code>repeat()</code></a> function.</p>
 <p>An iterator produced by <code>repeat_with()</code> is not a <a href="../../../../nom/lib/std/iter/trait.DoubleEndedIterator.html"><code>DoubleEndedIterator</code></a>.

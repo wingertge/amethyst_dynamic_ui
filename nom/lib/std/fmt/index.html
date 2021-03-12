@@ -407,7 +407,7 @@ off, some example usage is:</p>
     <span class="macro">write</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">io</span>::<span class="ident">stdout</span>(), <span class="string">&quot;{}&quot;</span>, <span class="ident">args</span>);
 }
 <span class="ident">my_fmt_fn</span>(<span class="macro">format_args</span><span class="macro">!</span>(<span class="string">&quot;, or a {} too&quot;</span>, <span class="string">&quot;function&quot;</span>));</pre></div>
-<p>The result of the <a href="../../../../nom/lib/std/prelude/v1/v1/macro.format_args.html"><code>format_args!</code></a> macro is a value of type <a href="../../../../nom/lib/std/fmt/struct.Arguments.html"><code>fmt::Arguments</code></a>.
+<p>The result of the <a href="../../../../nom/lib/std/prelude/v1/rust_2021/macro.format_args.html"><code>format_args!</code></a> macro is a value of type <a href="../../../../nom/lib/std/fmt/struct.Arguments.html"><code>fmt::Arguments</code></a>.
 This structure can then be passed to the <a href="https://doc.rust-lang.org/nightly/core/macro.write.html"><code>write</code></a> and <a href="https://doc.rust-lang.org/nightly/alloc/macro.format.html"><code>format</code></a> functions
 inside this module in order to process the format string.
 The goal of this macro is to even further prevent intermediate allocations

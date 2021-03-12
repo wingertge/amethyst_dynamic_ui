@@ -33,7 +33,7 @@ Without <code>replace</code> you can run into issues like these:</p>
         <span class="ident">t</span>
     }
 }</pre></div>
-<p>Note that <code>T</code> does not necessarily implement <a href="../../../../nom/lib/std/prelude/v1/v1/trait.Clone.html" title="Clone"><code>Clone</code></a>, so we can’t even clone <code>self.buf[i]</code> to
+<p>Note that <code>T</code> does not necessarily implement <a href="../../../../nom/lib/std/prelude/v1/rust_2021/trait.Clone.html" title="Clone"><code>Clone</code></a>, so we can’t even clone <code>self.buf[i]</code> to
 avoid the move. But <code>replace</code> can be used to disassociate the original value at that index from
 <code>self</code>, allowing it to be returned:</p>
 

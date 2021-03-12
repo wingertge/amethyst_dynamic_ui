@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["INCR_CHUNK_SIZE",""]],"mod":[["error",""]],"struct":[["Atoms",""],["Clipboard","X11 Clipboard"],["Context",""]]});
+initSidebarItems({"constant":[["INCR_CHUNK_SIZE",""]],"externcrate":[["xcb",""]],"mod":[["error",""]],"struct":[["Atoms",""],["Clipboard","X11 Clipboard"],["Context",""]]});
